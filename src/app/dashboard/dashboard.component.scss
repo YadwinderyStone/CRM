@@ -1,0 +1,25 @@
+// table column width helper for mat-tables
+@for $index from 0 through 200 {
+    $size: $index * 2;
+
+    .table-column-#{$size} {
+        // flex: 0 1 #{$size}#{"px"};
+        min-width: #{$size}#{"px"};
+    }
+}
+
+
+.dashboard-table {
+    height: 300px;
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+.dashboard-table ::-webkit-scrollbar {
+    display: none !important;
+}
+
+.dashboard-table ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}

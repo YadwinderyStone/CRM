@@ -1,0 +1,925 @@
+<form [formGroup]="addInventoryForm">
+    <div class="example-action-buttons justify-content-between">
+        <div class="ml-2">
+            <!-- <button type="button" routerLink="/send-email" class="btn btn-success btn-md">
+                <i class="fas fa-envelope"></i>
+                Reply</button> -->
+            <button type="button" (click)="openSendEmailDialog()" class="btn btn-success btn-md">
+                <i class="fas fa-envelope"></i>
+                Reply</button>
+        </div>
+        <div class="">
+
+            <button type="button" (click)="onSubmit()" class="btn btn-success btn-md m-right-10"><i
+                    class="fas fa-save"></i>
+                {{"SAVE" | translate}}</button>
+            <button type="button" class="btn btn-danger btn-md" [routerLink]="['/interactions']"><i
+                    class="fas fa-times-circle"></i>
+                {{"CANCEL" | translate}}
+            </button>
+
+            <button mat-button (click)="accordion.openAll()">Expand All</button>
+            <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+        </div>
+
+    </div>
+    <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="panelTital content-header">
+                    Properites
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Interaction Number :</label>
+                        <input type="text" class="form-control" [readonly]="true"
+                            [value]="interactionData?.transactionNumber">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Created Date Time :</label>
+                        <input type="text" class="form-control" [readonly]="true"
+                            [value]="interactionData?.lastActivityDate | date:'dd-MM-yyyy : hh:mm:ss'">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Created By :</label>
+                        <input type="text" class="form-control" [readonly]="true"
+                            [value]="interactionData?.createdBy || ''">
+                    </div>
+                </div>
+            </div>
+            <div class="page-header-main">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-md-auto col-sm-auto col">
+                        <div class="content-header">
+                            <h1>General Information</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <span class="mx-2 interactionDetail">Interaction Number : {{interactionData?.transactionNumber || '122i4394983748'}}</span> -->
+                <div class="md-12 mb-3"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Ticket Type</mat-label>
+                        <mat-select
+                            [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                            (selectionChange)="onticketTypeChange($event)" [dir]="langDir" formControlName="ticketType"
+                            placeholder="Please select ticket type" class="form-control">
+                            <mat-option *ngFor="let cat of ticketTypeList" [value]="cat.id">
+                                {{cat.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('ticketType').touched && addInventoryForm.get('ticketType').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please select ticket type
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
+                        <mat-label> Interaction Status</mat-label>
+                        <mat-select
+                            [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                            (selectionChange)="setStatusName($event)" [dir]="langDir" formControlName="statusId"
+                            placeholder="select Interaction status" class="form-control">
+                            <mat-option *ngFor="let status of statusList" [value]="status.id">
+                                {{status.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('statusId').touched && addInventoryForm.get('statusId').errors?.required"
+                            class="text-danger">
+                            Please select Interaction status
+                        </mat-error>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Interaction Sub Status</mat-label>
+                        <mat-select
+                            [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                            [dir]="langDir" formControlName="subStatusId" placeholder="Select sub status"
+                            class="form-control">
+                            <mat-option *ngFor="let data of subStatusList" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('subStatusId').touched && addInventoryForm.get('subStatusId').errors?.required"
+                            class="text-danger">
+                            Please select sub status
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Priority</mat-label>
+                        <mat-select
+                            [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                            [dir]="langDir" formControlName="priority" placeholder="Select priority"
+                            class="form-control">
+                            <mat-option *ngFor="let data of priorityList" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('priority').touched && addInventoryForm.get('priority').errors?.required"
+                            class="text-danger">
+                            Please select priority
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Category</mat-label>
+                        <mat-select [attr.disabled]="contactSelectedType == 'FCR'"
+                            (selectionChange)="onCatChange($event)" [dir]="langDir" formControlName="categoryId"
+                            placeholder="Select Category" class="form-control">
+                            <mat-option *ngFor="let subCat of categoryList" [value]="subCat.id">
+                                {{subCat.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('categoryId').touched && addInventoryForm.get('categoryId').errors?.required"
+                            class="text-danger">
+                            Please select category
+                        </mat-error>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Sub Category</mat-label>
+                        <mat-select [attr.disabled]="contactSelectedType == 'FCR'" [dir]="langDir"
+                            formControlName="subcategoryId" placeholder="Select Sub Category" class="form-control">
+                            <mat-option *ngFor="let subCat of subCategoryList" [value]="subCat.id">
+                                {{subCat.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('subcategoryId').touched && addInventoryForm.get('subcategoryId').errors?.required"
+                            class="text-danger">
+                            Please select sub Category
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>GSTIN/ARN/TRN/UN</mat-label>
+                        <input type="text" maxlength="15" minlength="10" class="form-control"
+                            placeholder="Please enter GSTIN/ARN/TRN/UN" id="gstn" formcontrolName="gstn">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please enter GSTIN/ARN/TRN/UN
+                        </mat-error>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.minlength"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please enter valid GSTIN/ARN/TRN/UN
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'" -->
+                        <mat-label>Team</mat-label>
+                        <mat-select [dir]="langDir" formControlName="createdTeam" placeholder="Please select Team"
+                            class="form-control">
+                            <mat-option *ngFor="let team of teamList" [value]="team.id">
+                                {{team.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('createdTeam').touched && addInventoryForm.get('createdTeam').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please select created team
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'" -->
+                        <mat-label>Assign To</mat-label>
+                        <mat-select [attr.disabled]="true" [dir]="langDir" formControlName="createdTeam"
+                            placeholder="Please select Team" class="form-control">
+                            <mat-option *ngFor="let team of teamList" [value]="team.id">
+                                {{team.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('createdTeam').touched && addInventoryForm.get('createdTeam').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please select created team
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Docket Number:</mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter docket number"
+                            id="docketNumber" formcontrolName="docketNumber">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('docketNumber').touched && addInventoryForm.get('docketNumber').errors?.required"
+                            class="text-danger">
+                            Please enter docket number
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Contact Name</mat-label>
+                        <input type="text" [readonly]="true" class="form-control"
+                            id="gstn" formcontrolName="contactName">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-label>Subject</mat-label>
+                        <input type="text" maxlength="600" [readonly]="true" class="form-control"
+                            formControlName="subject">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('subject').touched && addInventoryForm.get('subject').errors?.required"
+                            class="text-danger">
+                            Please enter subject
+                        </mat-error>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-label>Problem Reported </mat-label>
+                        <textarea maxlength="2000" [readonly]="true" formControlName="problemReported1"
+                            class="form-control"></textarea>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('problemReported1').touched && addInventoryForm.get('problemReported1').errors?.required"
+                            class="text-danger">
+                            Please enter problem reported
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <mat-label>Current Status </mat-label>
+                        <input [readonly]="true" type="text" class="form-control"
+                            placeholder="Please enter docket number" id="docketNumber" formcontrolName="currentStatus">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('currentStatus').touched && addInventoryForm.get('currentStatus').errors?.required"
+                            class="text-danger">
+                            Please enter current status
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group text-center mt-3">
+                        <button (click)="addNote()" type="button" class="btn btn-success btn-md">
+                            <i class="fas fa-sticky-note-o"></i>
+                            <!-- <i class="fas fa-save"></i> -->
+                            Add Note</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-label>Resolution Comments </mat-label>
+                        <textarea maxlength="2000" placeholder="Please enter resolution comments"
+                            formControlName="resolutionComments" class="form-control"></textarea>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
+                            class="text-danger">
+                            Please enter resolution comments
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+
+
+
+        <mat-expansion-panel class="d-none">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="panelTital content-header">
+                    Object Links
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Order:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Uniquenumber:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Interaction state:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 1:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 2:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 3:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 4:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 5:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 6:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 7:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 8:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 9:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 10:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 11:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 12:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Action Taken 13:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Resolved by User(Bulk CLoser):</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Module:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
+                        <mat-label> IsInteractionopen:</mat-label>
+
+                        <mat-select [dir]="langDir" placeholder="{{'TICKET_CREATED' | translate}}" class="form-control">
+                            <mat-option value="">{{'NONE' | translate}}</mat-option>
+                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
+                    {{unit.name}}
+                </mat-option> -->
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
+                        <mat-label> Queue:</mat-label>
+
+                        <mat-select [dir]="langDir" placeholder="{{'TICKET_CREATED' | translate}}" class="form-control">
+                            <mat-option value="">{{'NONE' | translate}}</mat-option>
+                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
+                    {{unit.name}}
+                </mat-option> -->
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
+                        <mat-label> Reopenflag:</mat-label>
+
+                        <mat-select [dir]="langDir" placeholder="{{'TICKET_CREATED' | translate}}" class="form-control">
+                            <mat-option value="">{{'NONE' | translate}}</mat-option>
+                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
+                    {{unit.name}}
+                </mat-option> -->
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>followupflag:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Test:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Categorized by:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Followup message:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
+                        <mat-label> Resolvedinteractionstate:</mat-label>
+
+                        <mat-select [dir]="langDir" placeholder="{{'TICKET_CREATED' | translate}}" class="form-control">
+                            <mat-option value="">{{'NONE' | translate}}</mat-option>
+                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
+                    {{unit.name}}
+                </mat-option> -->
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>MobilenowhereSMSisnotreceived :</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>module-sms:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Timeofexecution :</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Assign to L2 teamNew:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>L1 Reopenflag:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>ReopenflagL2L3</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Assign to L2 :</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="panelTital content-header">
+                    L1 And L2
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Previous Docket No:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>CPIN:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Error Message:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Return Name:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Return Type:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Composition Start Date/End Date for Comp Dealers:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Return Period for which issue is reported:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Last successful return field:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Form Name:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Taxpayer Type :</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>ETA:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Pending With:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Registration Form for which issue is reported:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Return Form :</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Remarks:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Problem Type</mat-label>
+                        <input type="text" [readonly]="true" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Issue Type :</mat-label>
+                        <input type="text" [readonly]="true" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Incident/Problem number:</mat-label>
+                        <input type="text" [readonly]="true" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Problem id description:</mat-label>
+                        <input type="text" class="form-control" id="">
+                    </div>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="panelTital content-header">
+                    Other Information
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Unique Number</mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter unique number "
+                            id="uniqueNumber" formcontrolName="uniqueNumber">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('uniqueNumber').touched && addInventoryForm.get('uniqueNumber').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please enter unique number
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Integration age time</mat-label>
+                        <input type="text" [readonly]="true" class="form-control" id="uniqueNumber"
+                            formcontrolName="uniqueNumber">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('uniqueNumber').touched && addInventoryForm.get('uniqueNumber').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please enter Integration age time
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Error code</mat-label>
+                        <mat-select [dir]="langDir" formControlName="errorCode" placeholder="Please select error code"
+                            class="form-control">
+                            <mat-option *ngFor="let error of errorCodeList" [value]="error.id">
+                                {{error.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('errorCode').touched && addInventoryForm.get('errorCode').errors?.required"
+                            class="text-danger">
+                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                            Please select error code
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Created</mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter created" id="created"
+                            formcontrolName="created">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
+                            class="text-danger">
+                            Please enter created
+                        </mat-error>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Interaction Created Through Media</mat-label>
+                        <input type="text" class="form-control"
+                            placeholder="Please enter interaction Created Through Media" id="created"
+                            formcontrolName="interactionCreatedThroughMedia">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
+                            class="text-danger">
+                            Please enter last Updated
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Interaction thread last updated</mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter interaction thread"
+                            id="created" formcontrolName="interactionThread">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('interactionThread').touched && addInventoryForm.get('interactionThread').errors?.required"
+                            class="text-danger">
+                            Please enter interactionThread last updated
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Last resolved at </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter created" id="created"
+                            formcontrolName="created">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
+                            class="text-danger">
+                            Please enter last Updated
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Date last updated </mat-label>
+                        <input type="text" readonly (click)="lastDateUpdate.open();"
+                            [owlDateTimeTrigger]="lastDateUpdate" [owlDateTime]="lastDateUpdate" class="form-control"
+                            placeholder="Please enter last update date" formcontrolName="dateLastUpdate">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('dateLastUpdate').touched && addInventoryForm.get('dateLastUpdate').errors?.required"
+                            class="text-danger">
+                            Please enter date last update
+                        </mat-error>
+                        <owl-date-time [pickerType]="'calendar'" #lastDateUpdate></owl-date-time>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Reserved For </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter reserved for"
+                            id="interactionThread" formcontrolName="reservedFor">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('reservedFor').touched && addInventoryForm.get('reservedFor').errors?.required"
+                            class="text-danger">
+                            Please enter interaction thread
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>ARN : </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter ARN" id="interactionThread"
+                            formcontrolName="arn">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('arn').touched && addInventoryForm.get('arn').errors?.required"
+                            class="text-danger">
+                            Please enter ARN
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Time From Created To Update In Hrs: </mat-label>
+                        <input type="text" class="form-control"
+                            placeholder="Please enter Time From Created To Update In Hrs" id="interactionThread"
+                            formcontrolName="timeFromCreatedToUpdateInHrs">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('timeFromCreatedToUpdateInHrs').touched && addInventoryForm.get('timeFromCreatedToUpdateInHrs').errors?.required"
+                            class="text-danger">
+                            Please enter Time From Created To Update In Hrs
+                        </mat-error>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Time From last Update To Currrent In Hrs: </mat-label>
+                        <input type="text" class="form-control"
+                            placeholder="Please enter Time From last Update To Currrent In Hrs" id="interactionThread"
+                            formcontrolName="timeFromLastUpdateToCurrentInHrs">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('timeFromLastUpdateToCurrentInHrs').touched && addInventoryForm.get('timeFromLastUpdateToCurrentInHrs').errors?.required"
+                            class="text-danger">
+                            Please enter Time From last Update To Currrent In Hrs
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Time From Created To Current In Hrs: </mat-label>
+                        <input type="text" class="form-control"
+                            placeholder="Please enter Time From Created To Current In Hrs" id="interactionThread"
+                            formcontrolName="timeFromCreatedToCurrentInHrs">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('timeFromCreatedToCurrentInHrs').touched && addInventoryForm.get('timeFromCreatedToCurrentInHrs').errors?.required"
+                            class="text-danger">
+                            Please enter Time From Created To Current In Hrs
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Pan Card No. : </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter Pan Card No."
+                            id="interactionThread" formcontrolName="panCardNo">
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
+                            class="text-danger">
+                            Please enter Pan Card No.
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4 d-none">
+                    <div class="form-group">
+                        <mat-label>Test Tallsma : </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter Pan Card No."
+                            id="interactionThread">
+                        <!-- <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
+                            class="text-danger">
+                            Please enter Pan Card No.
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Clearification filed : </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter clearification"
+                            id="interactionThread">
+                        <!-- <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
+                            class="text-danger">
+                            Please enter Pan Card No.
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Problem ID </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter clearification"
+                            id="interactionThread">
+                        <!-- <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
+                            class="text-danger">
+                            Please enter Pan Card No.
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Feedback </mat-label>
+                        <input type="text" class="form-control" placeholder="Please enter Feedback"
+                            id="interactionThread">
+                        <!-- <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
+                            class="text-danger">
+                            Please enter Pan Card No.
+                        </mat-error> -->
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</form>

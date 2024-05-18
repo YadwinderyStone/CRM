@@ -1,0 +1,571 @@
+<div class="left-sidenav" id="accordionExample">
+  <div class="main-menu-inner">
+    <div class="menu-body sidebar-nav">
+      <ul class="nav" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item"
+          *hasClaim="['DB_STATISTICS','DB_BEST_SELLING_PROS','DB_REMINDERS','DB_LATEST_INQUIRIES','DB_RECENT_SO_SHIPMENT','DB_RECENT_PO_DELIVERY']">
+          <a [routerLink]="['/']" [ngClass]="{'active': currentUrl == 'dashboard'}" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              {{'DASHBOARD' | translate}}
+            </p>
+          </a>
+        </li>
+        
+        <li id="CustomerHeading" aria-expanded="true" aria-controls="collapseOne"
+          *hasClaim="['CNT_VIEW_CONTACT','CNT_ADD_CONTACT']" data-toggle="collapse" data-target="#Customer"
+          class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'customer'}">
+            <i class="nav-icon fas fa-users-cog"></i>
+            <span>{{'Contact' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Customer" [ngClass]="{'show': currentUrl == 'customer'}"
+          aria-labelledby="CustomerHeading" data-parent="#accordionExample">
+          <li *hasClaim="['CNT_VIEW_CONTACT','CNT_ADD_CONTACT']" class="nav-item">
+            <a [routerLink]="['/customer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'LIST' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'CNT_ADD_CONTACT'" class="nav-item">
+            <a [routerLink]="['/customer/addItem']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-plus-square nav-icon"></i>
+              <p>{{'ADD_NEW' | translate}}</p>
+            </a>
+          </li>
+        </ul>
+
+        <!-- [routerLink]="['/interactions']" -->
+        <li *hasClaim="['INT_ADD_INTERACTION','INT_VIEW_INTERACTION' , 'INT_DELETE_INTERACTION','INT_UPDATE_INTERACTION']" id="InteractionsHeading" aria-expanded="true" aria-controls="collapseOne"
+        data-toggle="collapse" data-target="#Interactions"
+        class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'interactions'}" >
+            <i class="far fa-list-alt nav-icon"></i>
+            <span>{{'Interactions' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Interactions" [ngClass]="{'show': currentUrl == 'interactions'}"
+        aria-labelledby="CustomerHeading" data-parent="#accordionExample">
+        <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
+          <a [routerLink]="['/interactions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="far fa-list-alt nav-icon"></i>
+            <p>{{'LIST' | translate}}</p>
+          </a>
+        </li>
+        <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
+          <a [routerLink]="['/interactions/add-interactions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="fas fa-plus-square nav-icon"></i>
+            <p>{{'ADD_NEW' | translate}}</p>
+          </a>
+        </li>
+        <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
+          <a [routerLink]="['/interactions/l0-email']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="fas fa-plus-square nav-icon"></i>
+            <p>L0 Email</p>
+          </a>
+        </li>
+        <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
+          <a [routerLink]="['/interactions/assign-interaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="fas fa-plus-square nav-icon"></i>
+            <p>Mannual Assignment</p>
+          </a>
+        </li> 
+      </ul>
+
+        <li id="UsersHeading" aria-expanded="true" aria-controls="collapseOne"
+          *hasClaim="['USR_VIEW_USERS','USR_ADD_USER','USR_ASSIGN_USR_ROLES','USR_ONLINE_USERS']" data-toggle="collapse"
+          data-target="#Users" class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'users'}">
+            <i class="nav-icon fa fa-users"></i>
+            <span>{{'USERS' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Users" aria-labelledby="UsersHeading"
+          [ngClass]="{'show': currentUrl == 'users'}" data-parent="#accordionExample">
+          <li *hasClaim="'USR_VIEW_USERS'" class="nav-item">
+            <a [routerLink]="['/users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'LIST' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'USR_ADD_USER'" class="nav-item">
+            <a [routerLink]="['/users/manage']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-plus-square nav-icon"></i>
+              <p>{{'ADD_NEW' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'USR_ASSIGN_USR_ROLES'" class="nav-item">
+            <a [routerLink]="['/roles/users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-user-shield nav-icon"></i>
+              <p>{{'USER_ROLES' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'USR_ONLINE_USERS'" class="nav-item">
+            <a [routerLink]="['/sessions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="nav-icon fa fa-chalkboard-teacher"></i>
+              <p>
+                {{'CURRENT_ONLINE_USERS' | translate}}
+              </p>
+            </a>
+          </li>
+        </ul>
+        <li id="TeamHeading" aria-expanded="true" aria-controls="collapseOne"
+        *hasClaim="['MST_ADD_QUE','MST_UPDATE_QUE','MST_DELETE_QUE','MST_QUE_MEMBER']" data-toggle="collapse" data-target="#Team"
+        class="collapsed">
+        <a class="nav-link" [ngClass]="{'active': currentUrl == 'team'}">
+          <i class="nav-icon fas fa-users-cog"></i>
+          <!-- <span>{{'Contact' | translate}}</span> -->
+          <span>Team</span>
+          <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+        </a>
+      </li>
+      <ul class="sub-menu collapse" id="Team" [ngClass]="{'show': currentUrl == 'team'}"
+        aria-labelledby="TeamHeading" data-parent="#accordionExample">
+        <li *hasClaim="['MST_VIEW_QUE','MST_ADD_QUE','MST_DELETE_QUE']" class="nav-item">
+          <a [routerLink]="['/team']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="far fa-list-alt nav-icon"></i>
+            <p>{{'LIST' | translate}}</p>
+          </a>
+        </li>
+        <li *hasClaim="'MST_ADD_QUE','MST_UPDATE_QUE'" class="nav-item">
+          <a [routerLink]="['/team/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="fas fa-plus-square nav-icon"></i>
+            <p>{{'ADD_NEW' | translate}}</p>
+          </a>
+        </li>
+      </ul>
+      <li id="RolesHeading" aria-expanded="true" aria-controls="collapseOne"
+      *hasClaim="['ROLES_VIEW_ROLES','ROLES_ADD_ROLE']" data-toggle="collapse" data-target="#Roles"
+      class="collapsed">
+      <a class="nav-link" [ngClass]="{'active': currentUrl == 'roles'}">
+        <i class="nav-icon fas fa-users-cog"></i>
+        <span>{{'ROLES' | translate}}</span>
+        <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+      </a>
+    </li>
+    <ul class="sub-menu collapse" id="Roles" aria-labelledby="RolesHeading"
+      [ngClass]="{'show': currentUrl == 'roles'}" data-parent="#accordionExample">
+      <li *hasClaim="'ROLES_VIEW_ROLES'" class="nav-item">
+        <a [routerLink]="['/roles']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+          class="nav-link">
+          <i class="far fa-list-alt nav-icon"></i>
+          <p>{{'LIST' | translate}}</p>
+        </a>
+      </li>
+      <li *hasClaim="'ROLES_ADD_ROLE'" class="nav-item">
+        <a [routerLink]="['/roles/manage']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+          class="nav-link">
+          <i class="fas fa-plus-square nav-icon"></i>
+          <p>{{'ADD_NEW' | translate}}</p>
+        </a>
+      </li>
+    </ul>
+        <li id="EmailHeading" aria-expanded="true" aria-controls="collapseOne"
+          *hasClaim="['EMAIL_MANAGE_EMAIL_SMTP_SETTINS','EMAIL_MANAGE_EMAIL_TEMPLATES','EMAIL_SEND_EMAIL']"
+          data-toggle="collapse" data-target="#Email" class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'email'}">
+            <i class="nav-icon fas fa-envelope-open-text"></i>
+            <span>{{'EMAIL' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Email" aria-labelledby="EmailHeading"
+          [ngClass]="{'show': currentUrl == 'email'}" data-parent="#accordionExample">
+          <li *hasClaim="'EMAIL_MANAGE_EMAIL_SMTP_SETTINS'" class="nav-item">
+            <a [routerLink]="['/inbox']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-inbox nav-icon"></i>
+              <p>Inbox</p>
+            </a>
+          </li>
+          <li *hasClaim="'EMAIL_MANAGE_EMAIL_SMTP_SETTINS'" class="nav-item">
+            <a [routerLink]="['/outbox']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-inbox nav-icon"></i>
+              <p>Outbox</p>
+            </a>
+          </li>
+          <li *hasClaim="'EMAIL_MANAGE_EMAIL_SMTP_SETTINS'" class="nav-item">
+            <a [routerLink]="['/email-smtp']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-cog nav-icon"></i>
+              <p>{{'SMTP_SETTINGS' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'EMAIL_MANAGE_EMAIL_TEMPLATES'" class="nav-item">
+            <a [routerLink]="['/emailtemplate']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-mail-bulk nav-icon"></i>
+              <p>{{'EMAIL_TEMPLATE' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'EMAIL_SEND_EMAIL'" class="nav-item">
+            <a [routerLink]="['/send-email']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-paper-plane nav-icon"></i>
+              <p>{{'SEND_EMAIL' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'EMAIL_SEND_EMAIL'" class="nav-item">
+            <a [routerLink]="['/message-template']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-mail-bulk nav-icon"></i>
+              <p>SMS Template</p>
+              <!-- <p>{{'SEND_EMAIL' | translate}}</p> -->
+            </a>
+          </li>
+          <li *hasClaim="'EMAIL_SEND_EMAIL'" class="nav-item">
+            <a [routerLink]="['/send-message']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-paper-plane nav-icon"></i>
+              <p>Send SMS</p>
+              <!-- <p>{{'SEND_EMAIL' | translate}}</p> -->
+            </a>
+          </li>
+        </ul>
+        <li id="ReportsHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
+          data-target="#Reports" class="collapsed" *hasClaim="['REP_PO_REP','REP_SO_REP','REP_PO_PAYMENT_REP','REP_EXPENSE_REP','REP_SO_PAYMENT_REP','REP_SALES_VS_PURCHASE_REP',
+          'REP_PRO_PP_REP','REP_PRO_SO_REPORT','REP_STOCK_REPORT','REP_SUP_PAYMENT_REP','REP_CUST_PAYMENT_REP','REP_VIEW_PRO_LOSS_REP']">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'report'}">
+            <i class="nav-icon fas fa-chart-bar"></i>
+            <span>{{'REPORTS' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse " id="Reports" aria-labelledby="ReportsHeading"
+          [ngClass]="{'show': currentUrl == 'report'}" data-parent="#accordionExample">
+          <li *hasClaim="'REP_PO_REP'" class="nav-item">
+            <a [routerLink]="['/interaction-report']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Interaction Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_PO_REP'" class="nav-item">
+            <a [routerLink]="['/interaction-report/dump-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Dump Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_PRO_PP_REP'" class="nav-item">
+            <a [routerLink]="['/product-purchase-report']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                {{'PRODUCT_PURCHASE_REPORT' | translate}}
+              </p>
+            </a>
+          </li>
+
+        </ul>
+        <li id="ProductHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
+          data-target="#ProductCategory" class="collapsed"
+          *hasClaim="['MST_VIEW_LOOKUP','PRO_MANAGE_BRAND','PRO_MANAGE_WAREHOUSE','PRO_MANAGE_BARCODE']">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'product'}">
+            <i class="nav-icon fas fa-cubes"></i>
+            <span>{{'Administrator' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'product'}" id="ProductCategory"
+          aria-labelledby="ProductHeading" data-parent="#accordionExample">
+          <!-- <li *hasClaim="['MST_VIEW_LOOKUP','']" class="nav-item">
+            <a [routerLink]="['/products']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'LIST' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'MST_VIEW_LOOKUP'" class="nav-item">
+            <a [routerLink]="['/products/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-plus-square nav-icon"></i>
+              <p>{{'ADD_NEW' | translate}}</p>
+            </a>
+          </li> -->
+          <!-- <li *hasClaim="'PRO_MANAGE_PRO_CAT'" class="nav-item">
+            <a [routerLink]="['/product-category']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'PRODUCT_CATEGORY' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'PRO_MANAGE_TAX'" class="nav-item">
+            <a [routerLink]="['/tax']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'TAX' | translate}}</p>
+            </a>
+          </li> -->
+                    <!-- yadwinder add links for routing and  comment old routes-->
+        <!-- <li class="nav-item" *hasClaim="'PRO_MANAGE_UNIT'">
+            <a [routerLink]="['/unitConversation']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'UNIT_CONVERSATION' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'PRO_MANAGE_BRAND'" class="nav-item">
+            <a [routerLink]="['/brand']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'BRAND' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'PRO_MANAGE_WAREHOUSE'" class="nav-item">
+            <a [routerLink]="['/warehouse']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'WAREHOUSE' | translate}}</p>
+            </a>
+          </li>  -->
+
+          <!-- Fixme just using old hasClaim please change it after get new one-->
+          <!-- <li class="nav-item" *hasClaim="'PRO_MANAGE_UNIT'">
+            <a [routerLink]="['/interaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+               <p>{{'UNIT_CONVERSATION' | translate}}</p> 
+              <p>Interaction Type</p>
+            </a>
+          </li> -->
+          <li class="nav-item" *hasClaim="['MST_VIEW_STATUS','MST_ADD_STATUS','MST_UPDATE_STATUS','MST_DELETE_STATUS']">
+            <a [routerLink]="['/interaction/interaction-status']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p> Interaction Status</p>
+            </a>
+          </li>
+          <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+            <a [routerLink]="['/interaction/interaction-category']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Interaction Category</p>
+            </a>
+          </li>
+          <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+            <a [routerLink]="['/problem']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Problem Master</p>
+            </a>
+          </li>
+          <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+            <a [routerLink]="['/calender']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Calender Master</p>
+            </a>
+          </li>
+          <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+            <a [routerLink]="['/escalation']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Escalation Matrix</p>
+            </a>
+          </li>
+          <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+            <a [routerLink]="['/interaction/interaction-bulk-closer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <!-- <i class="far fa-list-alt nav-icon"></i> -->
+              <i class="fa fa-upload nav-icon"></i>
+              <p>Interaction Bulk Closer</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+            <a [routerLink]="['/cti-users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>Cti Users Master</p>
+            </a>
+          </li> -->
+          <li class="nav-item" *hasClaim="['MST_ADD_LOOKUP','MST_UPDATE_LOOKUP']">
+            <a [routerLink]="['/lookup']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <!-- <i class="far fa-list-alt nav-icon"></i> -->
+              <i class="nav-icon fas fa-users-cog"></i>
+              <!-- <p>{{'UNIT_CONVERSATION' | translate}}</p> -->
+              <p>Look up</p>
+            </a>
+          </li>
+          
+          <!-- yadwinder add links for routing end -->
+          <!-- <li *hasClaim="'PRO_MANAGE_BARCODE'" class="nav-item">
+            <a [routerLink]="['/Barcode']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'GENRATE BAR CODE' | translate}}</p>
+            </a>
+          </li> -->
+
+        </ul>
+        <!-- <li id="LookupHeading" aria-expanded="true" aria-controls="collapseOne"
+        *hasClaim="['MST_VIEW_LOOKUP']" data-toggle="collapse" data-target="#Lookup"
+        class="collapsed">
+        <a class="nav-link" [ngClass]="{'active': currentUrl == 'lookup'}">
+          <i class="nav-icon fas fa-users-cog"></i>
+          <span>Lookup</span>
+          <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+        </a>
+      </li> -->
+      <!-- <ul class="sub-menu collapse" id="Lookup" [ngClass]="{'show': currentUrl == 'lookup'}"
+        aria-labelledby="LookupHeading" data-parent="#accordionExample">
+        <li *hasClaim="['MST_ADD_LOOKUP','MST_UPDATE_LOOKUP']" class="nav-item">
+          <a [routerLink]="['/lookup']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="far fa-list-alt nav-icon"></i>
+            <p>{{'LIST' | translate}}</p>
+          </a>
+        </li>
+        <li *hasClaim="['MST_ADD_LOOKUP','MST_UPDATE_LOOKUP']" class="nav-item">
+          <a [routerLink]="['/lookup/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="fas fa-plus-square nav-icon"></i>
+            <p>{{'ADD_NEW' | translate}}</p>
+          </a>
+        </li>
+      </ul> -->
+        <li id="ReminderHeading" aria-expanded="true" aria-controls="collapseOne"
+          *hasClaim="['REM_VIEW_REMINDERS','REM_ADD_REMINDER']" data-toggle="collapse" data-target="#Reminder"
+          class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'reminders'}">
+            <i class="far fa-bell nav-icon"></i>
+            <span>{{'REMINDER' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Reminder" aria-labelledby="ReminderHeading"
+          [ngClass]="{'show': currentUrl == 'reminders'}" data-parent="#accordionExample">
+          <li *hasClaim="'REM_VIEW_REMINDERS'" class="nav-item">
+            <a [routerLink]="['/reminders']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                {{'LIST' | translate}}
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REM_ADD_REMINDER'" class="nav-item">
+            <a [routerLink]="['/reminders/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-plus-square nav-icon"></i>
+              <p>
+                {{'ADD_NEW' | translate}}
+              </p>
+            </a>
+          </li>
+        </ul>
+        <li class="nav-item">
+          <a [routerLink]="['/notifications']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="fas fa-stopwatch nav-icon"></i>
+            <p>{{'NOTIFICATIONS' | translate}}</p>
+          </a>
+        </li>
+        <li id="SettingsHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
+          *hasClaim="['SETT_UPDATE_COM_PROFILE','SETT_MANAGE_COUNTRY','SETT_MANAGE_CITY']" data-target="#Settings"
+          class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'settings'}">
+            <i class="nav-icon fa fa-tools"></i>
+            <span>{{'SETTINGS' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Settings" aria-labelledby="SettingsHeading"
+          [ngClass]="{'show': currentUrl == 'settings'}" data-parent="#accordionExample">
+          
+          <!-- <li *hasClaim="'SETT_UPDATE_COM_PROFILE'" class="nav-item">
+            <a [routerLink]="['/Interaction tpye']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-building nav-icon"></i>
+              <p>{{'INTERACTION_TYPE' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'SETT_UPDATE_COM_PROFILE'" class="nav-item">
+            <a [routerLink]="['/Interaction status']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-building nav-icon"></i>
+              <p>{{'INTERACTION_STATUS' | translate}}</p>
+            </a>
+          </li> -->
+
+          <li *hasClaim="'SETT_UPDATE_COM_PROFILE'" class="nav-item">
+            <a [routerLink]="['/company-profile']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-building nav-icon"></i>
+              <p>{{'COMPANY_PROFILE' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'SETT_MANAGE_COUNTRY'" class="nav-item">
+            <a [routerLink]="['/country']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'COUNTRY' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'SETT_MANAGE_CITY'" class="nav-item">
+            <a [routerLink]="['/cities']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'CITY' | translate}}</p>
+            </a>
+          </li>
+        </ul>
+        <li id="LogsHeading" aria-expanded="true" aria-controls="collapseOne"
+          *hasClaim="['LOGS_VIEW_LOGIN_AUDITS','LOGS_VIEW_ERROR_LOGS']" data-toggle="collapse" data-target="#Logs"
+          class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'logs'}">
+            <i class="fas fa-exclamation-triangle nav-icon"></i>
+            <span>{{'LOGS' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="Logs" aria-labelledby="LogsHeading" [ngClass]="{'show': currentUrl == 'logs'}"
+          data-parent="#accordionExample">
+          <li *hasClaim="'LOGS_VIEW_LOGIN_AUDITS'" class="nav-item">
+            <a [routerLink]="['/login-audit']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'LOGIN_AUDIT' | translate}}</p>
+            </a>
+          </li>
+          <li *hasClaim="'LOGS_VIEW_ERROR_LOGS'" class="nav-item">
+            <a [routerLink]="['/logs']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>{{'ERROR_LOGS' | translate}}</p>
+            </a>
+          </li>
+        </ul>
+        
+
+    
+
+
+
+      </ul>
+    </div>
+  </div>
+</div>

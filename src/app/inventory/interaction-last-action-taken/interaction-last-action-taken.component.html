@@ -1,0 +1,23 @@
+<div class="">
+    <div class="page-header-main headerBackground">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto col-sm-auto">
+                <div class="content-header">
+                    <h1>Interaction Actions</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="" *ngIf="actionsList.length">
+            <div class="" *ngFor="let list of actionsList">
+                <p>{{list}}</p>
+            </div>
+
+        </div>
+        <div class="noNotes text-center" *ngIf="!actionsList.length && !isLoading">
+            <span>No Last Action Found</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,388 @@
+<mat-tab-group mat-align-tabs="start" [(selectedIndex)]="tabIndex">
+    <mat-tab label="Contact">
+        <div class="page-header-main headerBackground">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-auto col-sm-auto">
+                    <div class="content-header headerText">
+                        <h1>CTI Information</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                 <div class="form-group">
+                <label>CLI :</label>
+                <input type="text" class="form-control" [readonly]="true" [value]="">
+            </div></div>
+            <div class="col-md-3">
+                 <div class="form-group">
+                <label>Agent Id :</label>
+                <input type="text" class="form-control" [readonly]="true" [value]="">
+                <!-- [value]="interactionData?.lastActivityDate | date:'dd-MM-yyyy : hh:mm:ss'"> -->
+            </div>
+            </div>
+            <div class="col-md-3">
+                 <div class="form-group">
+                <label>Terminal:</label>
+                <input type="text" class="form-control" [readonly]="true" [value]="">
+            </div></div>
+            <div class="col-md-3">
+                 <div class="form-group">
+                <label>Call Id:</label>
+                <input type="text" class="form-control" [readonly]="true" [value]="">
+            </div></div>
+
+            <!-- <hr class="hline"> -->
+        </div>
+        <div class="page-header-main headerBackground">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-auto col-sm-auto">
+                    <div class="content-header">
+                        <!-- <h1>{{'MANAGE_CUSTOMER' | translate}}</h1> -->
+                        <h1>Contact Information</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form autocomplete="off" [formGroup]="customerForm" (ngSubmit)="onCustomerSubmit()">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Ticket Type</mat-label>
+                        <mat-select (selectionChange)="onTypeChange($event)" formControlName="ticketType"
+                            placeholder="Select ticket type" class="form-control">
+                            <mat-option *ngFor="let list of ticketTypeList" [value]="list.id">
+                                {{list.name}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="category" (selectionChange)="onCatChange($event)"
+                            placeholder="Select category" class="form-control">
+                            <mat-option *ngFor="let list of catList" [value]="list.id">
+                                {{list.name}}
+                            </mat-option>
+                        </mat-select>
+                        <div *ngIf="customerForm.get('category').touched && customerForm.get('category').errors">
+                            <div class="text-danger" *ngIf="customerForm.get('category').errors?.required">
+                                Please select category
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Sub Category</mat-label>
+                        <mat-select [disabled]="customerForm.get('category')?.value == ''" formControlName="subCategory"
+                            placeholder="Select Sub category" class="form-control">
+                            <mat-option *ngFor="let list of subCatList" [value]="list.id">
+                                {{list.name}}
+                            </mat-option>
+                        </mat-select>
+                        <div *ngIf="customerForm.get('subCategory').touched && customerForm.get('subCategory').errors">
+                            <div class="text-danger" *ngIf="customerForm.get('subCategory').errors?.required">
+                                Please select sub category
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <mat-label class="text-danger">First Name *</mat-label>
+                        <input formControlName="name" class="form-control" type="text">
+                        <div *ngIf="customerForm.get('name').touched && customerForm.get('name').errors">
+                            <div class="text-danger" *ngIf="customerForm.get('name').errors?.required">
+                                <!-- {{'CUSTOMER_NAME_IS_REQUIRED' | translate}} -->
+                                First name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <mat-label>Last Name</mat-label>
+                        <input formControlName="lastName" class="form-control" type="text">
+                        <div *ngIf="customerForm.get('lastName').touched && customerForm.get('lastName').errors">
+                            <div class="text-danger" *ngIf="customerForm.get('lastName').errors?.required">
+                                Contact lastName is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>{{'EMAIL' | translate}} *</mat-label>
+                        <input (change)="onEmailChange($event)" formControlName="emailId" class="form-control"
+                            type="text">
+
+                        <div *ngIf="customerForm.get('emailId').touched && customerForm.get('emailId').errors?.email"
+                            class="text-danger">
+                            {{'PLEASE_ENTER_VALID_EMAIL' | translate}}
+                        </div>
+                        <div *ngIf="
+                        customerForm.get('emailId').touched &&
+                        customerForm.get('emailId').errors?.required" class="text-danger">
+                            {{'EMAIL_IS_REQUIRED' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label class="text-danger">{{'MOBILE_NUMBER' | translate}} *</mat-label>
+                        <input formControlName="mobileNo" (change)="onMobileNoChange($event)" class="form-control"
+                            type="text" maxlength="10" minlength="10">
+                        <div *ngIf="
+                    customerForm.get('mobileNo').touched &&
+                    customerForm.get('mobileNo').errors?.required" class="text-danger">
+                            {{'MOBILE_IS_REQUIRED' | translate}}
+                        </div>
+                        <div *ngIf="
+                    customerForm.get('mobileNo').touched &&
+                    customerForm.get('mobileNo').errors?.pattern" class="text-danger">
+                            Please enter valid mobile no.
+                        </div>
+                        <div *ngIf="
+                    customerForm.get('mobileNo').touched &&
+                    customerForm.get('mobileNo').errors?.minlength" class="text-danger">
+                            Mobile no. should be 10 digits
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <mat-label>No. Of Interactions</mat-label>
+                        <input formControlName="noOfInteractions" class="form-control" [readOnly]="true" type="number">
+                    </div>
+                </div>
+                <!-- <div class="col-md-4"> -->
+                <div class="mt-4 col-md-4">
+                    <div *ngIf="!customer" class="button">
+                        <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" type="submit"
+                        class="py-2 btn btn-success btn-sm m-right-10">
+                        <i class="fas fa-save"></i>
+                        Save + Add Inteaction
+                    </button>
+                    <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
+                        <i class="fas fa-times-circle"></i>
+                        {{'CANCEL' | translate}}
+                    </button>
+                    </div>
+                    <div *ngIf="customer" class="button">
+                    <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" (click)="updateContact();"
+                        class="py-2 btn btn-success btn-sm m-right-10">
+                        <i class="fas fa-save"></i>
+                        Update
+                    </button>
+                    <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" type="button" (click)="addInteractions()"
+                        class="py-2 btn btn-success btn-sm m-right-10">
+                        <i class="fas fa-save"></i>
+                        Add Inteaction
+                    </button>
+                    <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
+                        <i class="fas fa-times-circle"></i>
+                        {{'CANCEL' | translate}}
+                    </button>
+                </div>
+                    <!-- </div> -->
+                </div>
+                <div class="col-md-3">
+                    <!-- <label>
+                        {{'UPLOAD_LOGO' | translate}}
+                    </label>
+                    <mat-card [dir]="langDir" class="cus-mat-card text-center">
+                        <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Image"
+                            fxFlex="30">
+                        <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
+                        <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/company-logo.jpg" />
+                        <mat-card-actions>
+                            <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm m-right-10"
+                                (click)="fileInput.click()">
+                                <i class="far fa-image"></i> {{'ADD_LOGO' | translate}}</button>
+                            <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10"
+                                (click)="fileInput.click()">
+                                <i class="far fa-image"></i> {{'CHANGE_LOGO' | translate}}</button>
+                            <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> {{'REMOVE_LOGO' | translate}}</button>
+                        </mat-card-actions>
+                    </mat-card> -->
+
+
+                </div>
+
+            </div>
+        </form>
+
+        <div class="page-header-main  headerBackground">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-auto col-sm-auto">
+                    <div class="content-header">
+                        <h1>Last 5 Interactions</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <div class="table table-bordered table-hover grid-height">
+                <table [dir]="langDir" mat-table [dataSource]="interactionsList" matSort multiTemplateDataRows
+                    matSortActive="productName">
+                    <ng-container matColumnDef="action">
+                        <th class="table-column-150" mat-header-cell *matHeaderCellDef> Action
+                        </th>
+                        <td class="table-column-150" mat-cell *matCellDef="let element">
+                            <button *hasClaim="['INT_ADD_INTERACTION','INT_UPDATE_INTERACTION']"
+                                class="btn btn-success btn-sm m-right-10" type="button">
+                                <i class="las la-pen"></i>
+                                {{'EDIT' | translate}}
+                            </button>
+                            <button *hasClaim="'INT_DELETE_INTERACTION'" class="btn btn-danger btn-sm" type="button">
+                                <i class="las la-trash"></i>
+                                {{'DELETE' | translate}}
+                            </button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="interactionid">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID
+                        </th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.transactionNumber}} </td>
+                        <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row }} </td> -->
+                    </ng-container>
+                    <ng-container matColumnDef="interactiontype">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type
+                        </th>
+                        <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.ticketType}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="assignto">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="contant">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.contactName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="createdteam">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Team
+                        </th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Interaction Status
+                        </th>
+                        <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.statusName}}</td> -->
+                        <td class="table-column-150" [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved')" mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td>
+                    </ng-container>
+                    <ng-container matColumnDef="substatus">
+                        <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Sub
+                            status</th>
+                        <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.subcategoryName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="category">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="subcatagory">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category
+                        </th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.subcategoryName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="problemreported1">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported
+                            1</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported1}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="problemreported2">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported
+                            2</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported2}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="docketno">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Docket no.</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.docketNumber}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="uniquenumber">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Unique Number
+                        </th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="gstn">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>GSTN</th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.gstn}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lastresolveat">
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved At
+                        </th>
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt |
+                            date:'dd-MM-yyyy'}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="footer">
+                        <td mat-footer-cell colspan="5" *matFooterCellDef>
+                            <!-- <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"  [dir]="langDir"
+                                [pageSizeOptions]="[10, 20, 30]">
+                            </mat-paginator> -->
+                        </td>
+                    </ng-container>
+                    <ng-container *ngIf="interactionsList.length === 0 && !isLoading" matColumnDef="no-records">
+                        <td mat-footer-cell colspan="5" *matFooterCellDef>
+                            <b> {{'NO_DATA_FOUND' | translate}}</b>
+                        </td>
+                    </ng-container>
+                    <!-- <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let inventoryObject" [attr.colspan]="displayedColumns.length">
+                            <ng-container *ngIf="inventoryObject == expandedElement">
+                                <div class="example-element-detail"
+                                    [@detailExpand]="inventoryObject == expandedElement ? 'expanded' : 'collapsed'">
+                                    <div class="inner-table mat-elevation-z8">
+                                        <app-inventory-history-list [inventory]="inventoryObject">
+                                        </app-inventory-history-list>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </td>
+                    </ng-container> -->
+                    <tr *matNoDataRow>
+                        <td colspan="9">
+                            <span class="p-4 mt-4">
+                                <b> {{'NO_DATA_FOUND' | translate}}</b>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <!-- <tr mat-header-row
+                        *matHeaderRowDef="['action-search','productName-search','stock-search','averagePurchasePrice-search','averageSalesPrice-search'];sticky: true"
+                        class="example-second-header-row"> </tr> -->
+                    <!-- <tr mat-footer-row *matFooterRowDef="columnsToDisplay;sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+                </table>
+            </div>
+        </div>
+
+
+
+    </mat-tab>
+    <mat-tab label="Interactions" *ngIf="this.customer?.id">
+        <app-customer-interactions *ngIf="tabIndex == 1" [customerDetail]="customer"></app-customer-interactions>
+    </mat-tab>
+    <!-- <mat-tab *ngIf="this.customer?.id" label="Attacthment">
+        <div *ngIf="tabIndex == 2">Attacthment</div>
+    </mat-tab>
+    <mat-tab *ngIf="this.customer?.id" label="History">
+        <div *ngIf="tabIndex == 3">History</div>
+    </mat-tab> -->
+</mat-tab-group>

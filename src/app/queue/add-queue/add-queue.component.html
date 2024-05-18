@@ -1,0 +1,65 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <!-- <h1>{{"MANAGE_PRODUCTS" | translate}}</h1> -->
+                <h1>Manage Team</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
+<form autocomplete="off" [formGroup]="queueForm">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="text-danger">{{"NAME" | translate}} *</label>
+                        <input formControlName="name" class="form-control" type="text">
+                        <div *ngIf="queueForm.get('name').touched && queueForm.get('name').errors">
+                            <div class="text-danger" *ngIf="queueForm.get('name').errors?.required">
+                                <!-- {{"PRODUCT_NAME_IS_REQUIRED" | translate}}. -->
+                                Name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="text-danger">Bucket Size *</label>
+                        <input formControlName="bucketSize" class="form-control" type="text">
+                        <div *ngIf="queueForm.get('bucketSize').touched && queueForm.get('bucketSize').errors">
+                            <div class="text-danger" *ngIf="queueForm.get('bucketSize').errors?.required">
+                                <!-- {{"PRODUCT_NAME_IS_REQUIRED" | translate}}. -->
+                                Bucket Size is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        Is Enabled
+                        <mat-checkbox color="primary" name="enabled" formControlName="isEnabled">
+                            <!-- {{'IS enabled' | translate}} -->
+                        </mat-checkbox>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 mt-2">
+            <button type="button" (click)="onSubmit()" class="btn btn-success btn-sm m-right-10"><i
+                    class="fas fa-save"></i> {{"SAVE" | translate}}</button>
+            <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/team']"><i
+                    class="fas fa-times-circle"></i>
+                {{"CANCEL" | translate}}
+            </button>
+        </div>
+    </div>
+</form>

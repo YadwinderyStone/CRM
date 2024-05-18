@@ -1,0 +1,45 @@
+// .content-header h1 {
+//     font-size: 30px !important;
+//     margin-bottom: 0;
+//     font-weight: 400;
+// }
+
+.fileUploadDiv {
+    margin-top: 15px;
+    min-height: 50px;
+}
+
+span.countUpload {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.noFile {
+    color: #e80700;
+}
+
+.fieldWidth {
+    width: 200px
+}
+
+.fileDiv {
+    width: fit-content;
+    border: 1px solid #808080;
+    background: #efefef;
+    padding: 2px 5px;
+}
+
+.tableDiv {
+    max-height: 300px;
+    overflow: auto;
+}
+.fileName{
+    word-break: keep-all;
+}
+
+.tdMaxHeight{
+    max-height:100px !important;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    overflow:auto;
+}

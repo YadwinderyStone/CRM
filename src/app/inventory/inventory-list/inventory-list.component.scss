@@ -1,0 +1,46 @@
+tr.example-detail-row {
+  height: 0 !important;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.inner-table {
+  margin: 1em;
+  padding: 1em;
+  width: 100% !important;
+}
+
+.button-margin {
+  margin-top: 20px;
+}
+
+.interButtonIcons{
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 8px;
+
+}
+
+.closed {
+  // background-color: rgb(2, 46, 2);
+  background-color: #228b22;
+}
+
+.pending {
+  background-color: red;
+}
+
+.open {
+  background-color: yellow;
+}
+.resolved {
+  background-color:rgb(17 159 17);
+}

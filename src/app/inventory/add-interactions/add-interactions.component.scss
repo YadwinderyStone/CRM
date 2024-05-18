@@ -1,0 +1,67 @@
+// span.mat-expansion-indicator.ng-tns-c328-3.ng-trigger.ng-trigger-indicatorRotate.ng-star-inserted {
+//     float: left;
+//     position: absolute;
+//     left: 7px;
+//     top: 23px;
+// }
+.divMargin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .example-action-buttons {
+    padding-bottom: 20px;
+    margin-top: 20px;
+    display: flex;
+    margin-right: 45px;
+    color: blue;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  
+  }
+  
+  .example-headers-align .mat-mdc-form-field+.mat-mdc-form-field {
+    margin-left: 8px;
+  }
+  
+  .mat-expansion-panel-header {
+    background: #ffc107 !important;
+  }
+  
+  .hline {
+    height: 1px;
+    background-color: #2196f3;
+    width: 100%;
+  }
+  .interactionDetail{
+    font-size: 16px;
+      font-weight: 600;
+  
+  }
+  
+  textarea::placeholder {
+    transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  }
+  textarea input::placeholder {
+    color: rgba(0, 0, 0, 0.42)!important;
+  }
+  
+  
+  textarea::placeholder,input::placeholder {
+    transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    color: rgba(0, 0, 0, 0.42)!important;
+  }
+  
+  
+  textarea::placeholder,input::-webkit-input-placeholder{
+    transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    color: rgba(0, 0, 0, 0.42)!important;
+  }
+.divHeader{
+  font-size: 18px;
+  font-weight: 500;
+}

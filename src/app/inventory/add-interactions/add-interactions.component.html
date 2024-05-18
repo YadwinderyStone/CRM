@@ -1,0 +1,251 @@
+<form [formGroup]="addInventoryForm">
+    <div class="divHeader headerBackground my-3 px-2">Properties</div>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <label>Interaction Number :</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="interactionData?.transactionNumber">
+        </div>
+        <div class="col-md-4">
+            <label>Created Date Time :</label>
+            <input type="text" class="form-control" [readonly]="true"
+                [value]="interactionData?.lastActivityDate | date:'dd-MM-yyyy : hh:mm:ss'">
+        </div>
+        <div class="col-md-4">
+            <label>Created By :</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="interactionData?.transactionNumber">
+        </div>
+
+        <!-- <hr class="hline"> -->
+        <div class="divHeader col-12 headerBackground py-2 my-3">Interaction Information</div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Ticket Type</mat-label>
+                <mat-select [disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                    (selectionChange)="onticketTypeChange($event)" [dir]="langDir" formControlName="ticketType"
+                    placeholder="Please select ticket type" class="form-control">
+                    <mat-option *ngFor="let cat of ticketTypeList" [value]="cat.id">
+                        {{cat.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('ticketType').touched && addInventoryForm.get('ticketType').errors?.required"
+                    class="text-danger">
+                    <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                    Please select ticket type
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
+                <mat-label> Interaction Status</mat-label>
+                <mat-select [disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                    (selectionChange)="setStatusName($event)" [dir]="langDir" formControlName="statusId"
+                    placeholder="select Interaction status" class="form-control">
+                    <mat-option *ngFor="let status of statusList" [value]="status.id">
+                        {{status.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('statusId').touched && addInventoryForm.get('statusId').errors?.required"
+                    class="text-danger">
+                    <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                    Please select Interaction status
+                </mat-error>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Interaction Sub Status</mat-label>
+                <mat-select [disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                    [dir]="langDir" formControlName="subStatusId" placeholder="Select sub status" class="form-control">
+                    <mat-option *ngFor="let data of subStatusList" [value]="data.id">
+                        {{data.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('subStatusId').touched && addInventoryForm.get('subStatusId').errors?.required"
+                    class="text-danger">
+                    Please select sub status
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Priority</mat-label>
+                <mat-select [disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                    [dir]="langDir" formControlName="priority" placeholder="Select priority" class="form-control">
+                    <mat-option *ngFor="let data of priorityList" [value]="data.id">
+                        {{data.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('priority').touched && addInventoryForm.get('priority').errors?.required"
+                    class="text-danger">
+                    Please select priority
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Category</mat-label>
+                <mat-select [disabled]="contactSelectedType == 'FCR'" (selectionChange)="onCatChange($event)"
+                    [dir]="langDir" formControlName="categoryId" placeholder="Select Category" class="form-control">
+                    <ng-container>
+                        <input type="text" class="form-control sticky-input"  formControlName="catInput"
+                            placeholder="Search Category" autocomplete="off" />
+                            <mat-option *ngFor="let subCat of categoryList | searchFilter : 'name':addInventoryForm.value.catInput" [value]="subCat.id">
+                                {{subCat.name}}
+                            </mat-option>
+                    </ng-container>
+                    
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('categoryId').touched && addInventoryForm.get('categoryId').errors?.required"
+                    class="text-danger">
+                    Please select category
+                </mat-error>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Sub Category</mat-label>
+                <mat-select [disabled]="contactSelectedType == 'FCR'" [dir]="langDir" formControlName="subcategoryId"
+                    placeholder="Select Sub Category" class="form-control">
+                    
+                    <ng-container>
+                        <input type="text" class="form-control sticky-input"  formControlName="subCatInput"
+                            placeholder="Search Category" autocomplete="off" />
+                            <mat-option *ngFor="let subCat of subCategoryList | searchFilter : 'name':addInventoryForm.value.subCatInput" [value]="subCat.id">
+                                {{subCat.name}}
+                            </mat-option>
+                    </ng-container>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('subcategoryId').touched && addInventoryForm.get('subcategoryId').errors?.required"
+                    class="text-danger">
+                    Please select sub Category
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>GSTIN/ARN/TRN/UN</mat-label>
+                <input type="text" maxlength="15" minlength="10" class="form-control"
+                    placeholder="Please enter GSTIN/ARN/TRN/UN" id="gstn" formControlName="gstn">
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.required"
+                    class="text-danger">
+                    <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                    Please enter GSTIN/ARN/TRN/UN
+                </mat-error>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.minlength"
+                    class="text-danger">
+                    <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                    Please enter valid GSTIN/ARN/TRN/UN
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Team</mat-label>
+                <mat-select
+                    [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'"
+                    [dir]="langDir" formControlName="teamId" placeholder="Please select Team" class="form-control">
+                    <mat-option *ngFor="let team of teamList" [value]="team.id">
+                        {{team.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('teamId').touched && addInventoryForm.get('teamId').errors?.required"
+                    class="text-danger">
+                    <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                    Please select created team
+                </mat-error>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Error Message </mat-label>
+                <!-- <input type="text" class="form-control" placeholder="Please enter error message" id="errorCode"
+                    formcontrolName="errorCode"> -->
+                <mat-select formControlName="errorCode" placeholder="Please select error code" class="form-control">
+                    <mat-option *ngFor="let error of errorCodeList" [value]="error.id">
+                        {{error.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('errorCode').touched && addInventoryForm.get('errorCode').errors?.required"
+                    class="text-danger">
+                    <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
+                    Please select error message
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Source</mat-label>
+                <mat-select [disabled]="true" formControlName="source" placeholder="Please select source"
+                    class="form-control">
+                    <mat-option *ngFor="let source of sourceList" [value]="source.id">
+                        {{source.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('source').touched && addInventoryForm.get('source').errors?.required"
+                    class="text-danger">
+                    Please select source
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="example-action-buttons">
+                <button type="button" (click)="onSubmit()" class="btn btn-success btn-md mx-3 px-3 py-2"><i
+                        class="fas fa-save"></i>
+                    {{"SAVE" | translate}}</button>
+                <button type="button" class="btn btn-danger btn-md mx-3 px-3 py-2" [routerLink]="['/interactions']"><i
+                        class="fas fa-times-circle"></i>
+                    {{"CANCEL" | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <mat-label>Subject</mat-label>
+               <input type="text" [readonly]="true" class="form-control" formControlName="subject" >
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <mat-label>Problem Reported </mat-label>
+                <textarea maxlength="2000" 
+                    formControlName="problemReported1" class="form-control"></textarea>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('problemReported1').touched && addInventoryForm.get('problemReported1').errors?.required"
+                    class="text-danger">
+                    Please enter problem reported
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <mat-label>Agent Remarks</mat-label>
+               <input type="text" maxlength="600"  class="form-control" placeholder="Please enter agent remarks" formControlName="agentRemarks" >
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"
+                    class="text-danger">
+                    Please enter agent remarks
+                </mat-error>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.minlength"
+                    class="text-danger">
+                    Please enter remarks more then 10 words
+                </mat-error>
+            </div>
+        </div>
+    </div>
+</form>

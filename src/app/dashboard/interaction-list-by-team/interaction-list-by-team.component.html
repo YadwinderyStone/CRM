@@ -1,0 +1,87 @@
+<ng-container>
+    <div class="page-header-main mt-2">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h1>{{'TEAM INTERACTIONS' | translate }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <div class="table-responsive">
+        <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover">
+          <ng-container matColumnDef="interactionid">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction ID</th>
+            <td class="table-column-200" mat-cell *matCellDef="let row"><a  routerLink="/interactions/edit-interactions/{{row?.id}}">{{row.transactionNumber}}</a> </td>
+            <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row }} </td> -->
+        </ng-container>
+        <ng-container matColumnDef="interactiontype">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction Type</th>
+          <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.ticketType}} </td>
+      </ng-container>
+      <ng-container matColumnDef="assignto">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assign To</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="contant">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Contact Name</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.contactName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdteam">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created	Team
+          </th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>
+              Interaction Status
+          </th>
+          <td class="table-column-200" [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved') "   mat-cell *matCellDef="let row"><span class="text-uppercase"> {{row?.statusName}}</span></td>
+      </ng-container>
+      <ng-container matColumnDef="substatus">
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef>Interaction Sub status</th>
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.subcategoryName}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef>Category</th>
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="subcatagory">
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef> Sub Category</th>
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.subcategoryName}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="problemreported1">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef> Problem Reported</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported1}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="docketno">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef> Docket no.</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.docketNumber}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="uniquenumber">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef> Unique Number</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="gstn">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>GSTN</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.gstn}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="createdat">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Last Resolved At</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt | date:'dd-MM-yyyy'}}
+          </td>
+      </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </ng-container>

@@ -1,0 +1,131 @@
+<form [formGroup]="surveyForm">
+    <div class="my-3">
+        <h5>Survey Questions</h5>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q1:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter Q1" formcontrolName="q1">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q1').touched && surveyForm.get('q1').errors?.required"
+                    class="text-danger">
+                    Please enter Question 1
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q2:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter Q2" formcontrolName="q2">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q2').touched && surveyForm.get('q2').errors?.required"
+                    class="text-danger">
+                    Please enter Question 2
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q3:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter Q3" formcontrolName="q3">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q3').touched && surveyForm.get('q3').errors?.required"
+                    class="text-danger">
+                    Please enter Question 3
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q4:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter Q4" formcontrolName="q4">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q4').touched && surveyForm.get('q4').errors?.required"
+                    class="text-danger">
+                    Please enter Question 4
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q5:</mat-label>
+                <input type="text"[disabled]="true" class="form-control" placeholder="Please enter Q5" formcontrolName="q5">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q5').touched && surveyForm.get('q5').errors?.required"
+                    class="text-danger">
+                    Please enter Question 5
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q6:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter Q6" formcontrolName="q6">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q6').touched && surveyForm.get('q6').errors?.required"
+                    class="text-danger">
+                    Please enter Question 6
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Q7:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter Q7" formcontrolName="q7">
+                <mat-error [dir]="langDir" *ngIf="surveyForm.get('q7').touched && surveyForm.get('q7').errors?.required"
+                    class="text-danger">
+                    Please enter Question 7
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>Total Survey Value:</mat-label>
+                <input type="text" [disabled]="true" class="form-control" placeholder="Please enter total survey value"
+                    formcontrolName="totalSurveyValue">
+                <mat-error [dir]="langDir"
+                    *ngIf="surveyForm.get('totalSurveyValue').touched && surveyForm.get('totalSurveyValue').errors?.required"
+                    class="text-danger">
+                    Please enter total survey value
+                </mat-error>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <mat-label>CSAT Category:</mat-label>
+                <input type="text" [disabled]="data=='fcr'" class="form-control" placeholder="Please enter csat category"
+                    formcontrolName="csatCategory">
+                <mat-error [dir]="langDir"
+                    *ngIf="surveyForm.get('csatCategory').touched && surveyForm.get('csatCategory').errors?.required"
+                    class="text-danger">
+                    Please enter csat category
+                </mat-error>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
+    <div class="form-group">
+        <mat-label>Sub Category</mat-label>
+        <mat-select [dir]="langDir" formControlName="subcategoryId" placeholder="Select Sub Category"
+            class="form-control">
+            <mat-option *ngFor="let subCat of subCategoryList" [value]="subCat.id">
+                {{subCat.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error [dir]="langDir"
+            *ngIf="addInventoryForm.get('subcategoryId').touched && addInventoryForm.get('subcategoryId').errors?.required"
+            class="text-danger">
+            Please select sub Category
+        </mat-error>
+    </div>
+</div> -->
+        <div class="col-md-12 my-3">
+            <div class="form-row w-100">
+                <div class="col-md-auto col-auto">
+                    <button *hasClaim="'INT_ADD_INTERACTION'" class="btn btn-success btn-sm m-right-10" (click)="save()"
+                        cdkFocusInitial><i class="fas fa-save"></i>
+                        {{"SAVE" | translate}}
+                    </button>
+                    <!-- <button class="btn btn-danger btn-sm" (click)="onCancel()">
+                <i class="fas fa-times-circle"></i>
+                {{"CANCEL" | translate}}
+            </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

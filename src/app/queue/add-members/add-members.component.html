@@ -1,0 +1,59 @@
+<div class="modal-content1">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-10 col">
+                <h4 class="modal-title">
+                    <!-- {{"MANAGE_INTERACTION_CATEGORY" | translate}} -->
+                    Manage Team Member
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" (click)="onCancel()" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="membersForm">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="Name">{{'NAME' | translate}}</label>
+                        <mat-select formControlName="userId"
+                            placeholder="Please Select User" class="form-control">
+                            <mat-option *ngFor="let user of userList" [value]="user.id">
+                                {{user.firstName +' '+ user.lastName}}
+                            </mat-option>
+                        </mat-select>
+                        <div *ngIf="membersForm.get('userId').invalid && (membersForm.get('userId').dirty || membersForm.get('userId').touched)">
+                            <div class="text-danger" *ngIf="membersForm.get('userId').errors?.required">
+                                <!-- {{'CATEGORY_NAME_IS_REQUIRED' | translate}}</div> -->
+                                Please Select User
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    Is Enabled
+                    <mat-checkbox (change)="checkEnable($event)" [checked]="data.isEnabled" [dir]="langDir"
+                        color="primary" formControlName="isEnabled">
+                        <!-- {{'IS enabled' | translate}} -->
+                    </mat-checkbox>
+                </div>
+            </div>
+        </div>
+</div>
+<div class="modal-footer">
+    <button *hasClaim="'MST_QUE_MEMBER'" (click)="saveMember();" type="button" class="btn btn-success btn-sm m-right-10" cdkFocusInitial><i
+            class="las la-save"></i> {{'SAVE' |
+        translate}}</button>
+    <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()"> <i class="las la-times-circle"></i>
+        {{'CANCEL' | translate}}</button>
+</div>
+</form>
+</div>

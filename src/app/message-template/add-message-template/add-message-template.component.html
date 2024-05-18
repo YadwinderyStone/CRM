@@ -1,0 +1,73 @@
+
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+        <div class="content-header">
+          <h1 *ngIf="!messageTemplate">
+            Add SMS Template
+          </h1>
+          <h1 *ngIf="messageTemplate">
+            Edit SMS Template
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="messageTemplateForm">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group ">
+          <label class="text-danger"> {{'NAME' | translate }} *</label>
+          <input formControlName="name" class="form-control" type="text">
+          <div *ngIf="messageTemplateForm.get('name').dirty && messageTemplateForm.get('name').errors">
+            <div class="text-danger" *ngIf="messageTemplateForm.get('name').errors?.required">
+              {{'EMAIL_TEMPLATE_NAME_IS_REQUIRED' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group ">
+          <label class="text-danger">{{'SUBJECT' | translate }} *</label>
+          <input formControlName="subject" class="form-control" type="text">
+          <div *ngIf="messageTemplateForm.get('subject').dirty && messageTemplateForm.get('subject').errors">
+            <div class="text-danger" *ngIf="messageTemplateForm.get('subject').errors?.required">
+              {{'SUBJECT_IS_REQUIRED' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group ">
+          <label class="text-danger">
+            {{'BODY' | translate }} *
+            <span class="text-danger">
+              {{'WORD_MUST_BE_START_AND_END_WITH' | translate }}
+            </span>
+          </label>
+          <angular-editor formControlName="body" [config]="editorConfig"></angular-editor>
+          <div *ngIf="messageTemplateForm.get('body').dirty && messageTemplateForm.get('body').errors">
+            <div class="text-danger" *ngIf="messageTemplateForm.get('body').errors?.required">
+              {{'BODY_IS_REQUIRED' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mt-2 col-md-12">
+        <button *hasClaim="'EMAIL_MANAGE_EMAIL_TEMPLATES'" class="btn btn-success btn-sm m-right-10"
+          (click)="addUpdateEmailTemplate()" cdkFocusInitial><i class="las la-save"></i>
+          {{'SAVE' | translate }}
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/message-template']">
+          <i class="las la-times-circle"></i>
+          {{'CANCEL' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>

@@ -1,0 +1,9 @@
+<p>{{data | json}}</p>
+<mat-dialog-actions align="center">
+    <div class="col-md-12 mt-1" *hasClaim="'EMAIL_SEND_EMAIL'">
+      <button (click)="dialogRef.close(true)" type="button" class="btn btn-success">
+        <!-- <i class="fas fa-paper-plane"></i> -->
+        Done
+      </button>
+    </div>
+  </mat-dialog-actions>

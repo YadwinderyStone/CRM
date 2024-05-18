@@ -1,0 +1,59 @@
+<div class="page-header-main headerBackground">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>Notes </h1>
+            </div>
+        </div>
+        <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">
+            <button class="btn blue-btn btn-sm m-right-10" (click)="addNote()">
+                <i class="fas fa-plus"></i> Add Note
+            </button>
+        </div>
+    </div>
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+<form [formGroup]="notesForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="font-weight-bold">
+                    Note
+                </label>
+                <angular-editor formControlName="body" minLength="10" maxLength="12"
+                    [config]="editorConfig"></angular-editor>
+                <div *ngIf="notesForm.get('body').touched && notesForm.get('body').errors">
+                    <div class="text-danger" *ngIf="notesForm.get('body').errors?.required">
+                        Note is required
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="page-header-main headerBackground">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>Recent Notes </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="NotesDiv">
+        <div class="" *ngIf="notesList.length">
+            <div class="" *ngFor="let list of notesList">
+                <p><span>On{{list?.date | date:'full'}}</span>by{{list?.by}}</p>
+                <span>{{list?.note}}</span>
+            </div>
+
+        </div>
+        <div class="noNotes" *ngIf="!notesList.length && !isLoading">
+            <span>No note found</span>
+        </div>
+    </div>
+</div>

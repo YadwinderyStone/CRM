@@ -1,0 +1,48 @@
+<div class="main">
+    <!-- <div class="cancel d-flex justify-content-end m-2">
+        <mat-icon (click)="dialogRef.close(false)">close</mat-icon>
+    </div> -->
+    <div class="page-header-main headerBackground mt-2">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto col-sm-auto">
+                <div class="content-header">
+                    <h1>Notes </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading-shade" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <form [formGroup]="notesForm">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="font-weight-bold">
+                        Note
+                    </label>
+                    <angular-editor formControlName="body" minLength="100" maxLength="1200"
+                        [config]="editorConfig"></angular-editor>
+                    <div *ngIf="notesForm.get('body').touched && notesForm.get('body').errors">
+                        <div class="text-danger" *ngIf="notesForm.get('body').errors?.required">
+                            Note is required
+                        </div>
+                        <div class="text-danger" *ngIf="notesForm.get('body').errors?.minlength">
+                            Please enter note more then 10 words
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">
+        <button class="btn btn-success btn-sm m-right-10" (click)="addNote()">
+            <i class="fas fa-plus"></i> Add Note
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="dialogRef.close(false)"><i
+            class="fas fa-times-circle"></i>
+        {{"CANCEL" | translate}}
+    </button>
+    </div>
+</div>

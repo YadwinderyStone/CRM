@@ -1,0 +1,69 @@
+<div class="modal-content1">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-10 col">
+                <h4 class="modal-title">
+                    <!-- {{"MANAGE_INTERACTION_CATEGORY" | translate}} -->
+                    Manage Interaction Type
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" (click)="onCancel()" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <form name="form" (ngSubmit)="categoryForm.form.valid && saveCategory()" #categoryForm="ngForm" novalidate>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="categoryName">{{'NAME' | translate}}</label>
+                        <input required [(ngModel)]="data.name" type="text" name="name" #name="ngModel"
+                            class="form-control" id="categoryName">
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                            <div class="text-danger" *ngIf="name.errors?.required">
+                            Type name is Required
+                                <!-- {{'CATEGORY_NAME_IS_REQUIRED' | translate}} -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                            Is Enabled
+                            <mat-checkbox [checked]="data.enabled" [(ngModel)]="data.enabled"  [dir]="langDir" color="primary" name="enabled" #enabled="ngModel" >
+                              <!-- {{'IS enabled' | translate}} -->
+                            </mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="categoryName">Type for</label>
+                        <input required [(ngModel)]="data.typeFor" type="text" name="typeFor" #typeFor="ngModel"
+                            class="form-control" id="categoryName">
+                        <div *ngIf="typeFor.invalid && (typeFor.dirty || typeFor.touched)">
+                            <div class="text-danger" *ngIf="typeFor.errors?.required">
+                            Type For is Required
+                                <!-- {{'CATEGORY_NAME_IS_REQUIRED' | translate}} -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button *hasClaim="'PRO_MANAGE_PRO_CAT'" type="submit" class="btn btn-success btn-sm m-right-10"
+                cdkFocusInitial><i class="las la-save"></i> {{'SAVE' |
+                translate}}</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()"> <i
+                    class="las la-times-circle"></i>
+                {{'CANCEL' | translate}}</button>
+        </div>
+    </form>
+</div>
