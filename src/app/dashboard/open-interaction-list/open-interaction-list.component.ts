@@ -9,7 +9,7 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./open-interaction-list.component.scss']
 })
 export class OpenInteractionListComponent extends BaseComponent implements OnInit {
-   displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','contant','createdteam','createdat','assignto', 'gstn','problemreported1']
+   displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','assignto','createdat',]
     // displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','contant','createdteam','createdat','assignto', 'gstn','problemreported1','docketno']
     dataSource: any[] = [];
     loading: boolean = false;
@@ -37,7 +37,7 @@ export class OpenInteractionListComponent extends BaseComponent implements OnIni
       this.dashboardService.getInteractionsListByStatus(data)
         .subscribe((c:any) => {
           this.loading = false;
-          this.dataSource = c?.body || c;
+          this.dataSource = c?.body.data || [];
         }, (err) => this.loading = false);
     }
   

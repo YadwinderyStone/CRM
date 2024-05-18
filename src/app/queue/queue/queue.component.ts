@@ -54,10 +54,29 @@ export class QueueComponent extends BaseComponent  implements OnInit {
       getQueueList(): void {
       // FIXME change the product api service with interaction category
       this.QueueService.getQueueList().subscribe(res=>{
-        this.queueList = res
-      })
+        this.queueList = res;
+      });
     }
   
+    downloadExcel(): void {
+      debugger
+      this.QueueService.generateExcel(this.queueList).subscribe((response: any) => {
+        debugger
+        const blob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+  
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = 'contacts.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      });
+    }
   
     toggleRow(element: Queue) {
       this.teamMembers = [];

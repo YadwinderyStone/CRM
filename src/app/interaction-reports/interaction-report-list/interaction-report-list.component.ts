@@ -222,17 +222,8 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     this.dataSource.loadData(this.inventoryResource);
   }
   searchList() {
-    if( this.search ||
-    this.selectedTeam ||
-    this.selectedType ||
-    this.selectedCategory ||
-    this.selectedSubCategory ||
-    this.selectedStatus ||
-    this.selectedSubStatus){
-
-      this.setParams();
-      this.dataSource.loadData(this.inventoryResource);
-    }
+    this.setParams();
+    this.dataSource.loadData(this.inventoryResource);
   }
 
   setParams() {

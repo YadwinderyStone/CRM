@@ -13,16 +13,15 @@
         <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover">
           <ng-container matColumnDef="interactionid">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction ID</th>
-            <td class="table-column-200" mat-cell *matCellDef="let row"><a  routerLink="/interactions/edit-interactions/{{row?.id}}">{{row.transactionNumber}}</a> </td>
-            <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row }} </td> -->
+            <td class="table-column-200" mat-cell *matCellDef="let row"><a  routerLink="/interactions/edit-interactions/{{row?.id}}">{{row.interactionId}}</a> </td>
         </ng-container>
         <ng-container matColumnDef="interactiontype">
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction Type</th>
-          <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.ticketType}} </td>
+          <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.interactionType}} </td>
       </ng-container>
       <ng-container matColumnDef="assignto">
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assign To</th>
-          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.teamName}} </td>
       </ng-container>
       <ng-container matColumnDef="contant">
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>Contact Name</th>
@@ -37,21 +36,21 @@
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>
               Interaction Status
           </th>
-          <td class="table-column-200" [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved') "   mat-cell *matCellDef="let row"><span class="text-uppercase"> {{row?.statusName}}</span></td>
+          <td class="table-column-200" [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.interactionStatus=='OPEN'||row?.interactionStatus=='Open'?'open':row?.interactionStatus=='PENDING'?'pending':'resolved') "   mat-cell *matCellDef="let row"><span class="text-uppercase"> {{row?.interactionStatus}}</span></td>
       </ng-container>
       <ng-container matColumnDef="substatus">
           <th class="table-column-300" mat-header-cell *matHeaderCellDef>Interaction Sub status</th>
-          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.subcategoryName}}
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.interactionSubStatus}}
           </td>
       </ng-container>
       <ng-container matColumnDef="category">
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>Category</th>
-          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.category}}
           </td>
       </ng-container>
       <ng-container matColumnDef="subcatagory">
           <th class="table-column-300" mat-header-cell *matHeaderCellDef> Sub Category</th>
-          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.subcategoryName}}
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.subCategory}}
           </td>
       </ng-container>
       <ng-container matColumnDef="problemreported1">
@@ -75,8 +74,8 @@
           </td>
       </ng-container>
       <ng-container matColumnDef="createdat">
-          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Last Resolved At</th>
-          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt | date:'dd-MM-yyyy'}}
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created At</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createdAt}}
           </td>
       </ng-container>
       <tr *matNoDataRow>

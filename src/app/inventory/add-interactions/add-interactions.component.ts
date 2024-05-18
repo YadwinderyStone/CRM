@@ -56,10 +56,12 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("User Data", this.userData);
     this.getCategoryList(JSON.parse(this.userData?.ticketType));
     this.getSubCategoryList(JSON.parse(this.userData?.catId));
   }
   ngOnInit(): void {
+    console.log("User Data", this.userData);
     if (this.userData) {
       this.bindValue(this.userData);
     }
@@ -95,20 +97,14 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
   }
 
   setStatusName(e: any) {
-
     let statusData = this.statusList.filter(data => e.value == data.id)
     this.addInventoryForm.get('statusName').setValue(statusData[0].name);
-
     this.getSubStatusList(e.value);
-
   }
   setCatName(e: any) {
-
     let catData = this.categoryList.filter(data => e.value == data.id)
     this.addInventoryForm.get('categoryName').setValue(catData[0].name);
     this.addInventoryForm.get('subcategoryId').setValue('');
-
-
   }
 
   getTeamList() {
@@ -222,9 +218,9 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
     this.setValuesForFormData();
     let data = this.addInventoryForm.getRawValue();
     data.contactId = JSON.parse(this.userData?.custId);
-    data.emailId = this.userData?.email || ''
+    data.emailId = this.userData?.email || '';
     let formData = {
-      "ticketType": data?.ticketType,
+      "ticketType": data?.ticketType || '',
       "statusId": data?.statusId,
       "statusName": data?.statusName,
       "subStatusId": data?.subStatusId,
@@ -242,12 +238,12 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
       "contactName": this.userData?.custName || '',
       "teamId": data?.teamId,
       "teamName": data?.teamName,
-      "source": data?.source,
+      "source": data?.source || '',
       "agentRemarks": data?.agentRemarks,
     }
     this.inventoryService.addInteraction(formData).subscribe(res => {
       if (res) {
-        this.toastrService.success('Interaction added successfully');
+        this.toastrService.success('Interaction added successfully.');
         this.openDialog(res);
       }
     }, error => {
@@ -258,8 +254,9 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
   openDialog(value) {
     this.dialog.open(InteractionDetailViewDialogComponent, {
       disableClose: true,
-      width: '650px',
+      width: '500px',
       height: 'auto',
+      minHeight: '150px',
       data: value
     }).afterClosed().subscribe(res => {
       if (res) {
@@ -269,8 +266,6 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
 
     })
   }
-
-
 
   async bindValue(userData) {
     await this.getStatusList();
@@ -298,6 +293,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
   }
 
   setValuesForFormData() {
+    debugger
     let ticketType = this.ticketTypeList.filter(e => e.id == this.addInventoryForm.value.ticketType);
     let statusName = this.statusList.filter(e => e.id == this.addInventoryForm.value.statusId);
     let subStatusName = this.subStatusList.filter(e => e.id == this.addInventoryForm.value.subStatusId);

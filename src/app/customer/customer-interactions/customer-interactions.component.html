@@ -42,7 +42,7 @@
             </ng-container>
             <ng-container matColumnDef="interactiontype">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type</th>
-                <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.ticketType}} </td>
+                <td class="table-column-200" [ngClass]="row?.interactionTicketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.interactionTicketType}} </td>
             </ng-container>
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
@@ -53,7 +53,7 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.contactName}} </td>
             </ng-container>
             <ng-container matColumnDef="createdteam">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created	Team
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Team
                 </th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName}} </td>
             </ng-container>
@@ -65,17 +65,17 @@
             </ng-container>
             <ng-container matColumnDef="substatus">
                 <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Sub status</th>
-                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.subcategoryName}}
+                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.subStatusName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="category">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+                <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.categoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subcatagory">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.subcategoryName}}
+                <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category</th>
+                <td class="table-column-400" mat-cell *matCellDef="let row"> {{row.subCategoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemreported1">
@@ -89,7 +89,7 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Docket no.</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Docket Number</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.docketNumber}}
                 </td>
             </ng-container>
@@ -133,7 +133,7 @@
                     </mat-paginator>
                 </td>
             </ng-container>
-            <ng-container *ngIf="customerInteractions.length === 0 && !isLoading" matColumnDef="no-records">
+            <ng-container *ngIf="customerInteractions?.length === 0 && !isLoading" matColumnDef="no-records">
                 <td mat-footer-cell colspan="5" *matFooterCellDef>
                     <b> {{'NO_DATA_FOUND' | translate}}</b>
                 </td>

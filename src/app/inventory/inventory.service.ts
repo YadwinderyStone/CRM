@@ -101,19 +101,18 @@ export class InventoryService {
     return this.http.get<Inventory[]>(url, {
       observe: 'response',
     });
-  }
+  } 
   getInteractionsListForContact(params) {
-    const url = `GetInteractionsDataByContactId?contactId=${params.contactID}`;
-    const customParams = new HttpParams()
-      .set('IsAdmin', false)
-      .set('PageSize', params.pageSize.toString())
-      .set('Skip', params.skip.toString())
+    const url = `Interaction/GetAllInteractionsRecordsByContactId?contactId=${params.contactId}&skip=${params.skip}&pageSize=${params.pageSize}`;
+    //const customParams = new HttpParams()
+      //.set('IsAdmin', false)
+      //.set('PageSize', params.pageSize.toString())
+      //.set('Skip', params.skip.toString())
     return this.http.get<Inventory[]>(url, {
       // params: customParams,
       // observe: 'response',
     });
   }
-
   deleteCustomerInteraction(id) {
     const url = `Interaction/${id}`;
     return this.http.delete<any[]>(url);

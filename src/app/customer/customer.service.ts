@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpResponse, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpResponse, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Guid } from 'guid-typescript';
 import { CustomerResourceParameter } from '@core/domain-classes/customer-resource-parameter';
 import { Customer } from '@core/domain-classes/customer';
@@ -34,6 +34,37 @@ export class CustomerService {
     return this.http.get<Customer[]>(url, {
       params: customParams,
       observe: 'response',
+    });
+  }
+
+  // getCustomersExcelDownload(
+  //   resourceParams: CustomerResourceParameter
+  // ): Observable<HttpResponse<Customer[]>> {
+  //   debugger
+  //   const url = 'Contact/GetContacts1';
+  //   const customParams = new HttpParams()
+  //     .set('pageSize', resourceParams.pageSize.toString())
+  //     .set('skip', resourceParams.skip.toString())
+  //     .set('searchQuery', resourceParams?.search)
+  //   return this.http.get<Customer[]>(url, {
+  //     params: customParams,
+  //     observe: 'response',
+  //   });
+  // }
+
+  // generateExcel(data: any[]): Observable<any> {
+  //   const url = 'Contact/GetContacts1';
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json'
+  //   });
+  //   return this.http.post(url, data, { headers: headers });
+  // }
+
+  generateExcel(request: any): Observable<any> {
+    debugger
+    const url = 'Contact/GenerateExcelFileData';
+    return this.http.post(url, request, {
+      responseType: 'arraybuffer'
     });
   }
 
@@ -125,13 +156,13 @@ export class CustomerService {
     });
   }
   getTopFiveInteractionsForContact(data): Observable<HttpResponse<any[]>> {
-    const url = `GetInteractionsDataByContactId?contactId=${data}`;
-    const customParams = new HttpParams()
-      .set('IsAdmin', false)
-      .set('PageSize', 5)
-      .set('Skip',0)
+    const url = `Interaction/GetInteractionsDataByContactId?contactId=${data}`;
+    //const customParams = new HttpParams()
+      //.set('IsAdmin', false)
+      //.set('PageSize', 5)
+      //.set('Skip',0)
     return this.http.get<any[]>(url, {
-      params: customParams,
+      //params: customParams,
       observe: 'response',
     });
   }

@@ -259,7 +259,6 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     .deleteConformationDialog(`Are you sure you want to logout?`)
     .subscribe(isTrue => {
       if (isTrue) {
-            debugger
             this.signalrService.logout(this.appUserAuth.id);
             this.securityService.logout();
             this.router.navigate(['/login']);

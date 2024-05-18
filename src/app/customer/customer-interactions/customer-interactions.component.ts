@@ -28,11 +28,7 @@ export class CustomerInteractionsComponent implements OnInit {
     private commonDialogService: CommonDialogService,
     public toasterService: ToastrService,
     public translationService: TranslationService,
-
-  ) {
-
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getInteractions();
@@ -43,23 +39,21 @@ export class CustomerInteractionsComponent implements OnInit {
     let params = {
       isAdmin: false,
       name: this.customerDetail?.name,
-      contactID:this.customerDetail?.id,
+      contactId:this.customerDetail?.id,
       pageSize: this.pageSize,
       skip: this.skip
     }
     this.inventoryService.getInteractionsListForContact(params).subscribe((res: any) => {
       if (res) {
-        this.isLoading = false;
-        this.customerInteractions = res?.body || res;
-        this.totalCount = res?.body?.count || 0
-
+          this.isLoading = false;
+        this.customerInteractions = res?.data;
+        this.totalCount = res?.data?.length;       
       }
     }, error => {
       this.toasterService.error(error);
       this.isLoading = false;
     })
   }
-
 
   deleteInteraction(data): void {
     this.commonDialogService
@@ -78,12 +72,15 @@ export class CustomerInteractionsComponent implements OnInit {
   }
 
   deleteInteractionById(id) {
-
+    this.isLoading = true;
     this.inventoryService.deleteCustomerInteraction(id).subscribe(res => {
       if (res) {
+        this.isLoading = false;
+        this.toasterService.success('Interaction deleted successfully.')
         this.getInteractions();
       }
     }, error => {
+      this.isLoading = false;
       this.toasterService.error(error)
     })
   }

@@ -356,7 +356,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   getTopFiveInteractions() {
     this.isLoading = true;
     this.customerService.getTopFiveInteractionsForContact(this.customer.id).subscribe((res: any) => {
-      this.interactionsList = res?.body
+      debugger
+      this.interactionsList = res?.body.data;
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

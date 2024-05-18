@@ -70,7 +70,7 @@
                         </mat-select>
                         <div *ngIf="customerForm.get('category').touched && customerForm.get('category').errors">
                             <div class="text-danger" *ngIf="customerForm.get('category').errors?.required">
-                                Please select category
+                                Please select category.
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         </mat-select>
                         <div *ngIf="customerForm.get('subCategory').touched && customerForm.get('subCategory').errors">
                             <div class="text-danger" *ngIf="customerForm.get('subCategory').errors?.required">
-                                Please select sub category
+                                Please select sub category.
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                         <div *ngIf="customerForm.get('name').touched && customerForm.get('name').errors">
                             <div class="text-danger" *ngIf="customerForm.get('name').errors?.required">
                                 <!-- {{'CUSTOMER_NAME_IS_REQUIRED' | translate}} -->
-                                First name is required
+                                First name is required.
                             </div>
                         </div>
                     </div>
@@ -109,12 +109,11 @@
                         <input formControlName="lastName" class="form-control" type="text">
                         <div *ngIf="customerForm.get('lastName').touched && customerForm.get('lastName').errors">
                             <div class="text-danger" *ngIf="customerForm.get('lastName').errors?.required">
-                                Contact lastName is required
+                                Contact lastName is required.
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>{{'EMAIL' | translate}} *</mat-label>
@@ -150,7 +149,7 @@
                         <div *ngIf="
                     customerForm.get('mobileNo').touched &&
                     customerForm.get('mobileNo').errors?.minlength" class="text-danger">
-                            Mobile no. should be 10 digits
+                            Mobile no. should be 10 digits.
                         </div>
                     </div>
                 </div>
@@ -167,7 +166,7 @@
                         <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" type="submit"
                         class="py-2 btn btn-success btn-sm m-right-10">
                         <i class="fas fa-save"></i>
-                        Save + Add Inteaction
+                        Save + Add Interaction
                     </button>
                     <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
                         <i class="fas fa-times-circle"></i>
@@ -228,6 +227,7 @@
                 </div>
             </div>
         </div>
+
         <div class="table-responsive">
             <div class="table table-bordered table-hover grid-height">
                 <table [dir]="langDir" mat-table [dataSource]="interactionsList" matSort multiTemplateDataRows
@@ -256,7 +256,7 @@
                     <ng-container matColumnDef="interactiontype">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type
                         </th>
-                        <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.ticketType}} </td>
+                        <td class="table-column-200" [ngClass]="row?.interactionTicketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.interactionTicketType}} </td>
                     </ng-container>
                     <ng-container matColumnDef="assignto">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
@@ -281,18 +281,18 @@
                     <ng-container matColumnDef="substatus">
                         <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Sub
                             status</th>
-                        <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.subcategoryName}}
+                        <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.subStatusName}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="category">
-                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+                        <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                        <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.categoryName}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="subcatagory">
-                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category
+                        <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category
                         </th>
-                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.subcategoryName}}
+                        <td class="table-column-400" mat-cell *matCellDef="let row"> {{row.subCategoryName}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="problemreported1">
@@ -372,8 +372,6 @@
                 </table>
             </div>
         </div>
-
-
 
     </mat-tab>
     <mat-tab label="Interactions" *ngIf="this.customer?.id">

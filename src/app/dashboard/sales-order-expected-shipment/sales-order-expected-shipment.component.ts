@@ -37,7 +37,7 @@ export class SalesOrderExpectedShipmentComponent extends BaseComponent implement
     this.dashboardService.getInteractionsList(data)
       .subscribe((c:any) => {
         this.loading = false;
-        this.dataSource = c?.body || c;
+        this.dataSource = c?.body.data || [];
       }, (err) => this.loading = false);
   }
 

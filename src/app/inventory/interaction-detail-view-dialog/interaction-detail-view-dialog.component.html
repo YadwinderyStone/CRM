@@ -1,4 +1,4 @@
-<p>{{data | json}}</p>
+<div class="dialogdiv p-5 text-center">Interaction number is :{{data?.transactionNumber}}</div>
 <mat-dialog-actions align="center">
     <div class="col-md-12 mt-1" *hasClaim="'EMAIL_SEND_EMAIL'">
       <button (click)="dialogRef.close(true)" type="button" class="btn btn-success">

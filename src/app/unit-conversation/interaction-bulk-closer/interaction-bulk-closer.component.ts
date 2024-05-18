@@ -88,7 +88,7 @@ export class InteractionBulkCloserComponent implements OnInit {
           this.toastrService.error(error);
         })
       } else {
-        this.toastrService.error('Please enter valid data in file')
+        this.toastrService.error('please enter valid data in file')
       }
     } else {
       this.toastrService.error('Please select file to upload')

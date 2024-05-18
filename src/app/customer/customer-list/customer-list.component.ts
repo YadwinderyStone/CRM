@@ -150,7 +150,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
 
   deleteCustomer(customer: Customer) {
     this.sub$.sink = this.commonDialogService
-      .deleteConformationDialog(`${this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')} ${customer.name}`)
+      .deleteConformationDialog(`${this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')} ${customer.name??customer.name}`)
       .subscribe((isTrue: boolean) => {
         if (isTrue) {
           this.sub$.sink = this.customerService.deleteCustomer(customer.id)
@@ -173,6 +173,48 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
           this.customerResource.totalCount = c.totalCount;
         }
       });
+  }
+
+  // downloadExcel(){
+  //   debugger
+  //   // this.isLoadingResults = true;
+  //   // this.customerService.getCustomersExcelDownload(this.customerResource).subscribe((res: any) => {
+  //   //   debugger
+  //   //   this.isLoadingResults = false;
+  //   // }, error => {
+  //   //   this.isLoadingResults = false;
+  //   // })
+  //   // this.customerService.generateExcel().subscribe(response => {
+  //   //   debugger
+  //   //   // handle response
+  //   // });
+  // }
+
+  downloadExcel(): void {
+    debugger
+    this.dataSource = new CustomerDataSource(this.customerService);
+    this.dataSource.loadData(this.customerResource);
+    debugger
+    const request = {
+      // Set the request data here
+    };
+
+    this.customerService.generateExcel(this.customerResource).subscribe((response: any) => {
+      debugger
+      const blob = new Blob([response], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display: none');
+      a.href = url;
+      a.download = 'contacts.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    });
   }
 
   editCustomer(customerId: string) {

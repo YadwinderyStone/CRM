@@ -24,8 +24,7 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit  {
     ) {
       super(translationService);
   
-      this.data
-      debugger
+      this.data;
       this.getLangDir();
     
     }

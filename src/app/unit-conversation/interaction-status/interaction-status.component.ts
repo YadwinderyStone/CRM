@@ -101,7 +101,10 @@ export class InteractionStatusComponent extends BaseComponent implements OnInit 
         if (result) {
           if (result.parentId == '0') {
             this.getInteractionStatus();
-          } else {
+          } else if(result.isEnabled == true){
+            this.getInteractionStatus();
+          }
+            else {
             this.getToggleData(category);
           }
 

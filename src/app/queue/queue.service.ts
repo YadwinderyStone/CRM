@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Queue, QueueMember } from '@core/domain-classes/queue.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,26 @@ getUsersList(){
     return this.httpClient.get<any[]>(url); 
 }
 
+// generateExcel(request: any): Observable<any> {
+//   debugger
+//   const jsonString = JSON.stringify(request); // convert JavaScript object to JSON string
+// const parsedObject = JSON.parse(jsonString); // parse JSON string
+//   const url = 'Contact/GenerateExcelFileData';
+//   return this.httpClient.post(url, parsedObject, {
+//     responseType: 'arraybuffer'
+//   });
+// }
 
+generateExcel(request: any[]): Observable<any> {
+  debugger
+  const jsonObject = { Data: request }; // wrap array in a JSON object
+  const jsonString = JSON.stringify(jsonObject); // convert JavaScript object to JSON string
+  const url = 'Contact/GenerateExcelFileData';
+  return this.httpClient.post(url, jsonString, {
+    headers: { 'Content-Type': 'application/json' },
+    responseType: 'arraybuffer'
+  });
+}
 
 updateQueue(data:Queue){
     // const url = `Status?Id=data.id`;

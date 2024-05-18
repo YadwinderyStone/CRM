@@ -36,8 +36,15 @@ export class InteractionListByTeamComponent extends BaseComponent implements OnI
     this.loading = true;
     this.dashboardService.getInteractionsListByTeamId(data)
       .subscribe((c: any) => {
-        this.loading = false;
-        this.dataSource = c?.body || c;
+        if(c?.body.data !== null)
+        {
+          this.loading = false;
+        this.dataSource = c?.body.data;
+        } else {
+          this.loading = false;
+        this.dataSource = c?.body.data ||[];
+        }
+        
       }, (err) => this.loading = false);
   }
 
