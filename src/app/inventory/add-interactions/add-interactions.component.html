@@ -77,7 +77,7 @@
                 <mat-select [disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
                     [dir]="langDir" formControlName="priority" placeholder="Select priority" class="form-control">
                     <mat-option *ngFor="let data of priorityList" [value]="data.id">
-                        {{data.name}}
+                        {{data.value}}
                     </mat-option>
                 </mat-select>
                 <mat-error [dir]="langDir"

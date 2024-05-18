@@ -251,7 +251,6 @@
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID
                         </th>
                         <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.transactionNumber}} </td>
-                        <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row }} </td> -->
                     </ng-container>
                     <ng-container matColumnDef="interactiontype">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type
@@ -267,7 +266,7 @@
                         <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.contactName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="createdteam">
-                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Team
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Team
                         </th>
                         <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName}} </td>
                     </ng-container>
@@ -275,7 +274,6 @@
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>
                             Interaction Status
                         </th>
-                        <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.statusName}}</td> -->
                         <td class="table-column-150" [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved')" mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td>
                     </ng-container>
                     <ng-container matColumnDef="substatus">
@@ -297,7 +295,7 @@
                     </ng-container>
                     <ng-container matColumnDef="problemreported1">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported
-                            1</th>
+                            </th>
                         <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported1}}
                         </td>
                     </ng-container>
@@ -312,22 +310,15 @@
                         <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.docketNumber}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="uniquenumber">
-                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Unique Number
-                        </th>
-                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
-                        </td>
-                    </ng-container>
                     <ng-container matColumnDef="gstn">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>GSTN</th>
                         <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.gstn}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="lastresolveat">
-                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved At
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At
                         </th>
-                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt |
-                            date:'dd-MM-yyyy'}}
+                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createdAt }}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="footer">

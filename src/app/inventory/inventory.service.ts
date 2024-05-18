@@ -87,10 +87,11 @@ export class InventoryService {
   getInteractionsList(params) {
     let param:any = `Skip=${params?.skip.toString()}`
     param+=`&PageSize=${params?.pageSize.toString()}`
-    param+=`&IsAdmin=${params?.IsAdmin}`
+   if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.type) param+=`&TicketType=${params?.type}`
     if(params?.team) param+=`&TeamId=${params?.team}`
+    if(params?.teamId) param+=`&TeamName=${params?.teamId}`
     if(params?.priority) param+=`&PriorityName=${params?.priority}`
     if(params?.status) param+=`&statusId=${params?.status}`
     if(params?.subStatus) param+=`&subStatusId=${params?.subStatus}`

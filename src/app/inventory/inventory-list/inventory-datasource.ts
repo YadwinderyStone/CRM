@@ -43,7 +43,7 @@ export class InventoryDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
+        if (resp && resp.headers?.get('X-Pagination')) {
           paginationParam = JSON.parse(
             resp.headers.get('X-Pagination')
           ) as ResponseHeader;

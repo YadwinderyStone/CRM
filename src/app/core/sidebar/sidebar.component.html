@@ -251,7 +251,7 @@
         </li>
         <ul class="sub-menu collapse " id="Reports" aria-labelledby="ReportsHeading"
           [ngClass]="{'show': currentUrl == 'report'}" data-parent="#accordionExample">
-          <li *hasClaim="'REP_PO_REP'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
@@ -260,7 +260,7 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_PO_REP'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_DUMP_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/dump-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
@@ -269,7 +269,7 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_PRO_PP_REP'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_187_REPORT'" class="nav-item">
             <a [routerLink]="['/product-purchase-report']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
@@ -278,7 +278,6 @@
               </p>
             </a>
           </li>
-
         </ul>
         <li id="ProductHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
           data-target="#ProductCategory" class="collapsed"

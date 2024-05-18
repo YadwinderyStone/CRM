@@ -17,7 +17,7 @@ export class CustomerInteractionsComponent implements OnInit {
   pageIndex;
   totalCount = 0;
   skip: number = 0;
-  displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'createdteam', 'assignto', 'contant', 'status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'problemreported2', 'docketno', 'uniquenumber', 'lastresolveat',];
+  displayedColumns: string[] = ['interactionid','contant', 'interactiontype','createdteam', 'assignto','status','substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat'];
   columnsToDisplay: string[] = ["footer"];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

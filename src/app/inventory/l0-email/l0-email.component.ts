@@ -85,6 +85,7 @@ export class L0EmailComponent extends BaseComponent implements OnInit  {
       this.inventoryResource.pageSize = 10;
       this.inventoryResource.orderBy = 'productName asc'
       this.inventoryResource.IsAdmin = true
+      this.inventoryResource.teamId = 'L0'
     }
   
     ngOnInit(): void {

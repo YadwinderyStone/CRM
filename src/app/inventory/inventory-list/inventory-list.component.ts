@@ -11,7 +11,6 @@ import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../inventory.service';
-import { ManageInventoryComponent } from '../manage-inventory/manage-inventory.component';
 import { InventoryDataSource } from './inventory-datasource';
 import { ToastrService } from 'ngx-toastr';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';

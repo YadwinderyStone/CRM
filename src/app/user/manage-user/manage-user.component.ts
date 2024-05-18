@@ -67,7 +67,7 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
       confirmPassword: [''],
       address: [''],
       isActive: [true],
-      ctiUserId:['',[Validators.required]]
+      ctiUserId:['',[]]
     }, {
       validator: this.checkPasswords
     });
@@ -134,6 +134,7 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
       userName: this.userForm.get('email').value,
       isActive: this.userForm.get('isActive').value,
       address: this.userForm.get('address').value,
+      userId: this.userForm.get('userId').value,
       userRoles: this.getSelectedRoles(),
       isImageUpdate: this.isImageUpdate,
       imgSrc: this.imgSrc as string

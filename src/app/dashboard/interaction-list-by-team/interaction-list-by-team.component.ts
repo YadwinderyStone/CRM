@@ -25,25 +25,26 @@ export class InteractionListByTeamComponent extends BaseComponent implements OnI
   ngOnInit(): void {
     this.getInteractions();
   }
-
+// FIXME: change team name to dynamic
   getInteractions() {
     let data = {
       pageSize: 5,
-      TeamId: 5,
+      TeamId: 'L0',
       isAdmin: this.userDetail?.roleId || true,
       skip: 0
     }
     this.loading = true;
     this.dashboardService.getInteractionsListByTeamId(data)
       .subscribe((c: any) => {
-        if(c?.body.data !== null)
-        {
-          this.loading = false;
-        this.dataSource = c?.body.data;
-        } else {
-          this.loading = false;
-        this.dataSource = c?.body.data ||[];
-        }
+        this.dataSource = c?.body;
+        // if(c?.body.data !== null)
+        // {
+        //   this.loading = false;
+        // this.dataSource = c?.body.data;
+        // } else {
+        //   this.loading = false;
+        // this.dataSource = c?.body.data ||[];
+        // }
         
       }, (err) => this.loading = false);
   }

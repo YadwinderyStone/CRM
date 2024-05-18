@@ -33,7 +33,7 @@ export class AlreadyExistValidator {
   styleUrls: ['./customer-detail.component.scss'],
 })
 export class CustomerDetailComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['interactionid', 'interactiontype','createdteam','status','substatus', 'assignto', 'contant','category', 'subcatagory', 'gstn', 'problemreported1', 'problemreported2', 'docketno', 'uniquenumber', 'lastresolveat',];
+  displayedColumns: string[] = ['interactionid','contant', 'interactiontype','createdteam', 'assignto','status','substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat',];
   customerForm: UntypedFormGroup;
   imgSrc: any = null;
   isImageUpload: boolean = false;

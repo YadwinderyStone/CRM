@@ -109,7 +109,7 @@ export class DashboardService {
     const url = 'Interaction';
     const customParams = new HttpParams()
       .set('IsAdmin', params.isAdmin)
-      .set('TeamId', params?.TeamId)
+      .set('TeamName', params?.TeamId)
       .set('PageSize', params.pageSize.toString())
       .set('Skip', params.skip.toString())
     return this.httpClient.get<Inventory[]>(url, {
