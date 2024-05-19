@@ -48,6 +48,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   catInput: string = '';
   subCatInput: string = ''
   toDate:any = new Date();
+  currentDate:any = new Date();
   fromDate: any = new Date();
 
 

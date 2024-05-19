@@ -10,13 +10,29 @@
 <div class="loading-shade" *ngIf="dataSource.loading$ | async">
     <mat-spinner></mat-spinner>
 </div>
-<div class="hr-bottom mb-5">
+<div class="mb-3">
     <div class="row">
         <div class="col-12">
             <div class="content-header headerBackground px-2">
                 <h1>Searching Filter</h1>
             </div>
         </div>
+        <div class="col-md-2">
+            <div class="form-group">
+              <mat-label for="fromDate">{{'FROM_DATE' | translate}} </mat-label>
+              <input class="form-control" [max]="currentDate" [(ngModel)]="fromDate"
+                [owlDateTimeTrigger]="fromDate1" [owlDateTime]="fromDate1" placeholder="{{'FROM_DATE' | translate}}">
+              <owl-date-time [pickerType]="'calendar'" #fromDate1></owl-date-time>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <mat-label for="toDate">{{'TO_DATE' | translate}} </mat-label>
+              <input class="form-control" id="toDate1" [max]="currentDate" [(ngModel)]="toDate"
+                [owlDateTimeTrigger]="toDate1" [owlDateTime]="toDate1" placeholder="{{'TO_DATE' | translate}}">
+              <owl-date-time [pickerType]="'calendar'" #toDate1></owl-date-time>
+            </div>
+          </div>
         <div class="col-md-3">
             <div class="form-group">
                 <mat-label for="search">Interaction ID</mat-label>
@@ -33,7 +49,7 @@
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <mat-label> Status </mat-label>
                 <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange($event)"
@@ -42,7 +58,7 @@
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <mat-label> Sub Status </mat-label>
                 <mat-select [disabled]="!selectedStatus" [(ngModel)]="selectedSubStatus" placeholder="Select status"
@@ -51,7 +67,7 @@
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <mat-label> Category </mat-label>
                 <mat-select [disabled]="!selectedType" [(ngModel)]="selectedCategory"
@@ -69,7 +85,7 @@
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <mat-label> Sub Category </mat-label>
                 <mat-select (selectionChange)="subCatInput=''" [disabled]="!selectedCategory"
@@ -93,7 +109,7 @@
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-2">
             <button type="button" (click)="searchList()" class="btn btn-success btn-md mx-2 button-margin">
                 <i class="fas fa-search"></i>
                 {{'SEARCH' | translate}}
@@ -126,7 +142,7 @@
             <ng-container matColumnDef="interactionid">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"><a
-                        routerLink="/interactions/edit-interactions/{{row?.id}}">{{row.transactionNumber}}</a> </td>
+                        routerLink="/interactions/edit-interactions/{{row?.id}}">{{row?.interactionId || row.transactionNumber}}</a> </td>
             </ng-container>
             <ng-container matColumnDef="interactiontype">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type</th>
@@ -135,44 +151,47 @@
             </ng-container>
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedto}} </td>
             </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.contactName}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.contactName}} </td>
             </ng-container>
             <ng-container matColumnDef="createdteam">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Team
                 </th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.team || row?.teamName}} </td>
             </ng-container>
             <ng-container matColumnDef="status">
                 <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
                 </th>
-                <td class="table-column-150"
+                <!-- <td class="table-column-150"
                     [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved')"
-                    mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td>
+                    mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td> -->
+                <td class="table-column-150"
+                    [ngClass]="row?.interactionState=='CLOSED'?'closed':(row?.interactionState=='OPEN'||row?.interactionState=='Open'?'open':row?.interactionState=='PENDING'?'pending':'resolved')"
+                    mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.interactionState}}</span></td>
             </ng-container>
             <ng-container matColumnDef="substatus">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Sub Status
                 </th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.subStatusName}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionSubState || row?.subStatusName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="category">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+                <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.disposition || row?.categoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subcatagory">
                 <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category</th>
-                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row.subcategoryName}}
+                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subDisposition||row.subcategoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemreported1">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported1}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported || row.problemReported1}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">
@@ -192,7 +211,7 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt | date:'dd-MM-yyyy'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdAt|| row.createdAt}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">

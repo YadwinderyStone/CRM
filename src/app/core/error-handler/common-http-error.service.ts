@@ -13,7 +13,7 @@ export class CommonHttpErrorService {
     const customError: CommonError = {
       statusText: httpErrorResponse.statusText,
       code: httpErrorResponse.status,
-      messages: httpErrorResponse.error.messages,
+      messages: httpErrorResponse?.error?.messages,
       friendlyMessage: 'Error from service',
       error: httpErrorResponse.error
     };
