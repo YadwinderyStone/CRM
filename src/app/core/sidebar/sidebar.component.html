@@ -241,8 +241,7 @@
           </li>
         </ul>
         <li id="ReportsHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
-          data-target="#Reports" class="collapsed" *hasClaim="['REP_PO_REP','REP_SO_REP','REP_PO_PAYMENT_REP','REP_EXPENSE_REP','REP_SO_PAYMENT_REP','REP_SALES_VS_PURCHASE_REP',
-          'REP_PRO_PP_REP','REP_PRO_SO_REPORT','REP_STOCK_REPORT','REP_SUP_PAYMENT_REP','REP_CUST_PAYMENT_REP','REP_VIEW_PRO_LOSS_REP']">
+          data-target="#Reports" class="collapsed" *hasClaim="['REP_INTERCATION_REPPORT','REP_INTERCATION_DUMP_REPORT','REP_INTERCATION_187_REPORT']">
           <a class="nav-link" [ngClass]="{'active': currentUrl == 'report'}">
             <i class="nav-icon fas fa-chart-bar"></i>
             <span>{{'REPORTS' | translate}}</span>
@@ -269,12 +268,12 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_187_REPORT'" class="nav-item">
-            <a [routerLink]="['/product-purchase-report']" routerLinkActive="active"
+          <li *hasClaim="'REP_INTERCATION_DUMP_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/187-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>
-                {{'PRODUCT_PURCHASE_REPORT' | translate}}
+                187 Reports
               </p>
             </a>
           </li>
@@ -364,7 +363,7 @@
               <p>Interaction Category</p>
             </a>
           </li>
-          <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">
+          <li class="nav-item" *hasClaim="['MST_DELETE_PROBLEM','MST_VIEW_PROBLEM','MST_EDIT_PROBLEM','MST_ADD_PROBLEM']">
             <a [routerLink]="['/problem']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>

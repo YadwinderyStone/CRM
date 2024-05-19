@@ -87,7 +87,6 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    this.inventoryResource.orderBy = 'productName asc'
     this.inventoryResource.IsAdmin = true
   }
 

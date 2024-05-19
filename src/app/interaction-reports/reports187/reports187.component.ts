@@ -1,6 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { DatePipe } from '@angular/common'
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Inventory } from '@core/domain-classes/inventory';
@@ -13,14 +12,14 @@ import { BaseComponent } from 'src/app/base.component';
 import { InteractionReportsService } from '../interaction-reports.service';
 import { InteractionDataSource } from '../interaction-report-list/interaction-reports-datasource';
 import { ToastrService } from 'ngx-toastr';
-import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dump-repoert',
-  templateUrl: './dump-repoert.component.html',
-  styleUrls: ['./dump-repoert.component.scss']
+  selector: 'app-reports187',
+  templateUrl: './reports187.component.html',
+  styleUrls: ['./reports187.component.scss']
 })
-export class DumpRepoertComponent extends BaseComponent implements OnInit {
+export class Reports187Component extends BaseComponent implements OnInit {
+
   toDate: any
   fromDate: any
   currentDate = new Date();
@@ -57,13 +56,12 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    this.inventoryResource.orderBy = 'productName asc'
     this.inventoryResource.IsAdmin = true
   }
 
   ngOnInit(): void {
     this.dataSource = new InteractionDataSource(this.interactionReportsService);
-    this.dataSource.loadDumpData(this.inventoryResource);
+    this.dataSource.load187Data(this.inventoryResource);
     this.getResourceParameter();
     this.sub$.sink = this.filterObservable$
       .pipe(
@@ -71,14 +69,13 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
         distinctUntilChanged())
       .subscribe((c) => {
         this.inventoryResource.skip = 0;
-        this.inventoryResource.IsAdmin = true;
         this.paginator.pageIndex = 0;
 
         const strArray: Array<string> = c.split('##');
         if (strArray[0] === 'productName') {
           this.inventoryResource.productName = escape(strArray[1]);
         }
-        this.dataSource.loadDumpData(this.inventoryResource);
+        this.dataSource.load187Data(this.inventoryResource);
       });
   }
 
@@ -90,7 +87,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
           this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
           this.inventoryResource.pageSize = this.paginator.pageSize;
           this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
-          this.dataSource.loadDumpData(this.inventoryResource);
+          this.dataSource.load187Data(this.inventoryResource);
         })
       )
       .subscribe();
@@ -121,18 +118,19 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
     this.setParams();
     this.fromDate = ''
     this.toDate = ''
-    this.dataSource.loadDumpData(this.inventoryResource);
+    this.dataSource.load187Data(this.inventoryResource);
   }
   searchList() {
     this.setParams();
-    this.dataSource.loadDumpData(this.inventoryResource);
+    this.dataSource.load187Data(this.inventoryResource);
   }
 
   setParams() {
-    this.paginator.pageIndex = 0;
-    this.inventoryResource.skip = 0
+
     let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.paginator.pageIndex = 0;
+    this.inventoryResource.skip = 0
     this.inventoryResource.toDate = toDate
     this.inventoryResource.fromDate = fromDate
   }

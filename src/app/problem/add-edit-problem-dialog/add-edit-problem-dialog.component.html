@@ -4,7 +4,7 @@
             <div class="col-md-10 col">
                 <h4 class="modal-title">
                     <!-- {{"MANAGE_INTERACTION_CATEGORY" | translate}} -->
-                    Manage Interaction Status
+                    Manage Problem
                 </h4>
             </div>
             <div class="col-sm-auto col-auto ml-auto">
@@ -28,6 +28,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="categoryName">Problem Id</label>
+                        <input required [(ngModel)]="data.problemId" type="text" name="problemId" #problemId="ngModel"
+                            class="form-control" id="categoryName">
+                        <div *ngIf="name.invalid && (problemId.dirty || problemId.touched)">
+                            <div class="text-danger" *ngIf="problemId.errors?.required">
+                                Problem Id is required</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -40,7 +51,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button *hasClaim="['MST_ADD_CATEGORY','MST_UPDATE_CATEGORY']" type="submit" class="btn btn-success btn-sm m-right-10"
+            <button *hasClaim="['MST_EDIT_PROBLEM','MST_ADD_PROBLEM']" type="submit" class="btn btn-success btn-sm m-right-10"
                 cdkFocusInitial><i class="las la-save"></i> {{'SAVE' |
                 translate}}</button>
             <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()"> <i

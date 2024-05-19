@@ -37,7 +37,29 @@ export class InteractionDataSource implements DataSource<Inventory> {
 
   loadData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    this.sub$ = this.inventoryService.getInteractionsList(inventoryResource)
+    this.sub$ = this.inventoryService.getInteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        console.log(value);
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadDumpData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getInteractionsDumpReports(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
@@ -59,5 +81,26 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
 
 
-// this.dataSource.subscribe()
+  load187Data(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.get187InteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        console.log(value);
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
 }

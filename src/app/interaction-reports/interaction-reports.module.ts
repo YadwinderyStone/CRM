@@ -23,12 +23,14 @@ import { SharedModule } from '@shared/shared.module';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime-ex';
 import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 import { DumpRepoertComponent } from './dump-repoert/dump-repoert.component';
+import { Reports187Component } from './reports187/reports187.component';
 
 
 @NgModule({
   declarations: [
     InteractionReportListComponent,
-    DumpRepoertComponent
+    DumpRepoertComponent,
+    Reports187Component
   ],
   imports: [
     CommonModule,

@@ -39,7 +39,7 @@ export class InteractionHistoryComponent implements OnInit {
   
     interactionHistory(id){
       this.isLoading = true
-      this.inventoryService.getInteractionHistoryDetail(id).subscribe((res:any)=>{
+      this.inventoryService.getInteractionHistory(id).subscribe((res:any)=>{
         // this.interactionData = res;
         this.dataSource = res
         // this.dataSource = [this.interactionData]

@@ -1,8 +1,6 @@
 
 import { Component, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InteractionCategory } from '@core/domain-classes/interactionCatetgory';
-import { InteractionCategoryService } from '@core/services/interactionCategory.service';
 import { TranslationService } from '@core/services/translation.service';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from 'src/app/base.component';
@@ -38,7 +36,7 @@ export class AddEditProblemDialogComponent extends BaseComponent implements OnCh
     }
   
     addProblem(): void {
-      
+     
       if (this.data.id) {
         this.problemService.updateProblem (this.data).subscribe(c => {
           this.toastrService.success('Problem updated Successfully.');

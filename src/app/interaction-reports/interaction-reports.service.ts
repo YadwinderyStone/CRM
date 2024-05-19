@@ -57,5 +57,53 @@ export class InteractionReportsService {
     return this.http.get<InteractionCategory[]>(url);
   }
 
+  getInteractionsDumpReports(params){
+    let param:any = `Skip=${params?.skip.toString()}`
+    param+=`&PageSize=${params?.pageSize.toString()}`
+    // param+=`&IsAdmin=${params?.IsAdmin}`
+    if(params?.toDate) param+=`&toDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&fromDate=${params?.fromDate}`
+    const url = `Report/GetInteractionMonthRowReportList?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getInteractionsReportsList(params){
+    let param:any = `Skip=${params?.skip.toString()}`
+    param+=`&PageSize=${params?.pageSize.toString()}`
+    // param+=`&IsAdmin=${params?.IsAdmin}`
+    if(params?.toDate) param+=`&toDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&fromDate=${params?.fromDate}`
+    if(params?.search) param+=`&TransactionNumber=${params?.search}`
+    if(params?.type) param+=`&TicketType=${params?.type}`
+    if(params?.team) param+=`&TeamId=${params?.team}`
+    if(params?.status) param+=`&StatusName=${params?.status}`
+    const url = `Report/GetInteractionReportList?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  
+  get187InteractionsReportsList(params){
+    let param:any = `Skip=${params?.skip.toString()}`
+    param+=`&PageSize=${params?.pageSize.toString()}`
+    // param+=`&IsAdmin=${params?.IsAdmin}`
+    if(params?.toDate) param+=`&toDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&fromDate=${params?.fromDate}`
+    const url = `Report/GetInteraction187ReportList?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  
+
+  dowanloadReports(data){
+    const url = ``
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+
+
 
 }

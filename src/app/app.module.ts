@@ -15,7 +15,7 @@ import { createTranslateLoader } from './translater-loader';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime-ex';
 import { TranslationService } from '@core/services/translation.service';
 import { delayBootstrapping } from './boostrap-loader';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -50,7 +50,7 @@ import { DOCUMENT } from '@angular/common';
       useFactory: delayBootstrapping,
       deps:[TranslationService,DOCUMENT,TranslateService],
       multi:true
-    }
+    },DatePipe
   ],
   bootstrap: [AppComponent]
 })

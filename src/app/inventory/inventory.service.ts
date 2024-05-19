@@ -183,7 +183,7 @@ export class InventoryService {
   }
   getInteractionHistory(id){
     // FIXME:need to change api end point for history
-    const url = `Interaction/${id}`;
+    const url = `Interaction/GetInteractionHistory?interactionId=${id}`;
     return this.http.get<any[]>(url);
   }
   getInteractionHistoryDetail(id){

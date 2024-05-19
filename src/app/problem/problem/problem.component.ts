@@ -39,7 +39,7 @@ export class ProblemComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProblemList();
-    this.problemList = []
+    // this.problemList = []
   }
 
   getProblemList(): void {

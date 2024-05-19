@@ -11,20 +11,20 @@ const routes: Routes = [
     path: '',
     component: ProblemComponent,
     canActivate: [AuthGuard],
-   data: { claimType: 'MST_VIEW_QUE' },
+   data: { claimType: ['MST_DELETE_PROBLEM','MST_VIEW_PROBLEM','MST_EDIT_PROBLEM','MST_ADD_PROBLEM'] },
   },
-  {
-    path: 'add',
-    component: AddRoleProblemComponent,
-    canActivate: [AuthGuard],
-   data: { claimType: 'MST_ADD_QUE' },
-  },
-  {
-    path: 'edit/:id',
-    component: AddRoleProblemComponent,
-    canActivate: [AuthGuard],
-   data: { claimType: 'MST_UPDATE_QUE' },
-  }
+  // {
+  //   path: 'add',
+  //   component: AddRoleProblemComponent,
+  //   canActivate: [AuthGuard],
+  //  data: { claimType: 'MST_ADD_QUE' },
+  // },
+  // {
+  //   path: 'edit/:id',
+  //   component: AddRoleProblemComponent,
+  //   canActivate: [AuthGuard],
+  //  data: { claimType: 'MST_UPDATE_QUE' },
+  // }
 ];
 
 @NgModule({

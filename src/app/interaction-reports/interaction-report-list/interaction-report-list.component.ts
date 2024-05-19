@@ -83,7 +83,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
     this.inventoryResource.orderBy = 'productName asc'
-    this.inventoryResource.IsAdmin = true
+    // this.inventoryResource.IsAdmin = true
   }
 
   ngOnInit(): void {
@@ -137,13 +137,6 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
         }
       });
   }
-
-  toggleRow(element: Inventory) {
-    this.expandedElement = this.expandedElement === element ? null : element;
-    this.cd.detectChanges();
-  }
-
-
 
   getTypeList() {
     this.interactionReportsService.getCategoryList().subscribe(res => {
@@ -238,10 +231,12 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       this.inventoryResource.subStatus = this.selectedSubStatus
   }
 
-
-
   onDownloadReport() {
+    this.interactionReportsService.dowanloadReports(this.dataSource).subscribe(res=>{
 
+    })
   }
+
+
 
 }
