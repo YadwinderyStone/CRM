@@ -20,8 +20,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Reports187Component extends BaseComponent implements OnInit {
 
-  toDate: any
-  fromDate: any
+  toDate: any = new Date();
+  fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
@@ -56,7 +56,12 @@ export class Reports187Component extends BaseComponent implements OnInit {
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    this.inventoryResource.IsAdmin = true
+    // this.inventoryResource.IsAdmin = true
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.fromDate = toDate
+    this.inventoryResource.toDate = fromDate
+
   }
 
   ngOnInit(): void {
@@ -116,8 +121,12 @@ export class Reports187Component extends BaseComponent implements OnInit {
 
   onClear() {
     this.setParams();
-    this.fromDate = ''
-    this.toDate = ''
+    this.fromDate = new Date();
+    this.toDate = new Date();
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.fromDate = toDate
+    this.inventoryResource.toDate = fromDate
     this.dataSource.load187Data(this.inventoryResource);
   }
   searchList() {

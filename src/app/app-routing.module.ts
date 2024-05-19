@@ -388,8 +388,8 @@ const routes: Routes = [
         {
           path: 'calendar',
           loadChildren: () =>
-            import('./calender/calendar.module').then(
-              m => m.CalenderModule
+            import('./calendar/calendar.module').then(
+              m => m.CalendarModule
             )
         }, 
         {

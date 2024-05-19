@@ -15,6 +15,7 @@ import { InteractionDataSource } from './interaction-reports-datasource';
 import { ToastrService } from 'ngx-toastr';
 import { InteractionCategory, InteractionStatus, InteractionType } from '@core/domain-classes/interactionCatetgory';
 import { Queue } from '@core/domain-classes/queue.model';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-interaction-report-list',
   templateUrl: './interaction-report-list.component.html',
@@ -46,8 +47,8 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   selectedSubStatus: string = ''
   catInput: string = '';
   subCatInput: string = ''
-  toDate: string
-  fromDate: string
+  toDate:any = new Date();
+  fromDate: any = new Date();
 
 
   dataSource: InteractionDataSource;
@@ -77,13 +78,16 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     private cd: ChangeDetectorRef,
     public translationService: TranslationService,
     public toasterService: ToastrService,
+    public datepipe: DatePipe
   ) {
     super(translationService);
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    this.inventoryResource.orderBy = 'productName asc'
-    // this.inventoryResource.IsAdmin = true
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy/MM/dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy/MM/dd');
+    this.inventoryResource.fromDate = toDate
+    this.inventoryResource.toDate = fromDate
   }
 
   ngOnInit(): void {
@@ -208,9 +212,15 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       this.selectedType = '',
       this.selectedCategory = '',
       this.selectedSubCategory = '',
-      this.selectedStatus = '',
-      this.selectedSubStatus = '',
-      // this.selectedPriority = ''
+      this.selectedStatus = '';
+      this.selectedSubStatus = '';
+      // this.selectedPriority = '';
+      this.fromDate = new Date();
+      this.toDate = new Date();
+      let toDate = this.datepipe.transform(this.toDate, 'yyyy/MM/dd');
+      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy/MM/dd');
+      this.inventoryResource.fromDate = toDate
+      this.inventoryResource.toDate = fromDate
       this.setParams();
     this.dataSource.loadData(this.inventoryResource);
   }
@@ -228,7 +238,11 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
-      this.inventoryResource.subStatus = this.selectedSubStatus
+      this.inventoryResource.subStatus = this.selectedSubStatus;
+      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.toDate = toDate
+    this.inventoryResource.fromDate = fromDate
   }
 
   onDownloadReport() {
