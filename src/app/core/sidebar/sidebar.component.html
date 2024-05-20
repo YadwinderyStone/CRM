@@ -188,7 +188,7 @@
         </li>
         <ul class="sub-menu collapse" id="Email" aria-labelledby="EmailHeading"
           [ngClass]="{'show': currentUrl == 'email'}" data-parent="#accordionExample">
-          <li *hasClaim="'EMAIL_MANAGE_EMAIL_SMTP_SETTINS'" class="nav-item">
+          <li *hasClaim="'EMAIL_DETAIL_EMAIL'" class="nav-item">
             <a [routerLink]="['/inbox']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
               <i class="fas fa-inbox nav-icon"></i>

@@ -37,6 +37,23 @@
         </div>
     </div>
     <div class="col-md-6">
+        <div class="chartDiv1 text-center">
+            <p> Status </p>
+            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+                [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
+                chartType="pie">
+            </canvas>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chartDiv1">
+            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+                [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
+                chartType="pie">
+            </canvas>
+        </div>
+    </div>
+    <div class="col-md-6">
         <div class="chartDiv1">
             <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
                 [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"

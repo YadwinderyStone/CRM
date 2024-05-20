@@ -58,7 +58,7 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
     this.userForm = this.fb.group({
       id: [''],
       firstName: ['', [Validators.required]],
-      userId: ['', [Validators.required,Validators.minLength(5)]],
+      userId: ['', ],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required]],

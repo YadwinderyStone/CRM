@@ -41,7 +41,7 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label class="text-danger">User Id*</label>
+            <label>User ID*</label>
             <input [readonly]="isEditMode" maxlength="15" formControlName="userId" class="form-control" type="text">
             <div *ngIf="userForm.get('userId').touched && userForm.get('userId').errors">
               <div class="text-danger" *ngIf="userForm.get('userId').errors?.required">

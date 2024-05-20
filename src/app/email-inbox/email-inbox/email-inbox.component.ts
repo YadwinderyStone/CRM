@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmailInboxService } from '../email-inbox.service';
 
 @Component({
   selector: 'app-email-inbox',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./email-inbox.component.scss']
 })
 export class EmailInboxComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+    private emailInboxService:EmailInboxService
+  ) { }
 
   ngOnInit(): void {
+    this.getEmailList();
+  }
+  getEmailList(){
+    let data ={
+      pageSize:10,
+      skip:0
+    }
+    this.emailInboxService.getInboxEmailList(data).subscribe(res=>{
+
+    })
   }
 
 }

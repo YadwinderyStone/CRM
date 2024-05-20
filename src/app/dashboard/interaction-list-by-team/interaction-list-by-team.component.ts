@@ -10,7 +10,7 @@ import { DashboardService } from '../dashboard.service';
 })
 export class InteractionListByTeamComponent extends BaseComponent implements OnInit {
 
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1']
+  displayedColumns: string[] = ['interactionid','createdat', 'createdteam','assignto','contant','interactiontype', 'status', 'category']
   // displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','contant','createdteam','createdat','assignto', 'gstn','problemreported1','docketno']
   dataSource: any[] = [];
   loading: boolean = false;

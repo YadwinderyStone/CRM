@@ -16,5 +16,5 @@ export class InventoryResourceParameter extends ResourceParameter {
     priority?:string
     toDate?:string
     fromDate?:string
-    teamId?:string
+    teamId?:string | number
 }

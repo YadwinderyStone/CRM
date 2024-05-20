@@ -1,6 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Inventory } from '@core/domain-classes/inventory';
@@ -11,11 +9,8 @@ import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../inventory.service';
-import { ManageInventoryComponent } from '../manage-inventory/manage-inventory.component';
-import { InventoryDataSource } from '../inventory-list/inventory-datasource';
+import { L0EMailDataSource } from './l0Email-datasource';
 import { ToastrService } from 'ngx-toastr';
-import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
-import { InteractionCategory, InteractionStatus, InteractionType } from '@core/domain-classes/interactionCatetgory';
 import { Queue } from '@core/domain-classes/queue.model';
 
 @Component({
@@ -24,34 +19,28 @@ import { Queue } from '@core/domain-classes/queue.model';
   styleUrls: ['./l0-email.component.scss']
 })
 export class L0EmailComponent extends BaseComponent implements OnInit  {  
-    typeList: InteractionType[] = [];
-    teamList: Queue[] = [];
-    statusList: InteractionStatus[] = [];
-    subStatusList: InteractionStatus[] = [];
-    categoryList: InteractionCategory[] = [];
-    subCategoryList: InteractionCategory[] = [];
+    // typeList: InteractionType[] = [];
+    // teamList: Queue[] = [];
+    // statusList: InteractionStatus[] = [];
+    // subStatusList: InteractionStatus[] = [];
+    // categoryList: InteractionCategory[] = [];
+    // subCategoryList: InteractionCategory[] = [];
   
   
-    search: string = '';
-    selectedTeam: string = ''
-    selectedType: string = ''
-    selectedCategory: string = ''
-    selectedSubCategory: string = ''
-    selectedStatus: string = ''
-    selectedSubStatus: string = ''
-    catInput:string = '';
-    subCatInput:string = ''
+    // search: string = '';
+    // selectedTeam: string = ''
+    // selectedType: string = ''
+    // selectedCategory: string = ''
+    // selectedSubCategory: string = ''
+    // selectedStatus: string = ''
+    // selectedSubStatus: string = ''
+    // catInput:string = '';
+    // subCatInput:string = ''
   
-  
-  
-  
-  
-  
-  
-  
+
     interactionIds = [];
     selectedTeamsIds = [];
-    dataSource: InventoryDataSource;
+    dataSource: L0EMailDataSource;
     displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
     columnsToDisplay: string[] = ["footer"];
     inventoryResource: InventoryResourceParameter;
@@ -84,12 +73,12 @@ export class L0EmailComponent extends BaseComponent implements OnInit  {
       this.inventoryResource = new InventoryResourceParameter();
       this.inventoryResource.pageSize = 10;
       this.inventoryResource.orderBy = 'productName asc'
-      this.inventoryResource.IsAdmin = true
-      this.inventoryResource.teamId = 'L0'
+      this.inventoryResource.team ='L0 Email'
+      this.inventoryResource.teamId = 25
     }
   
     ngOnInit(): void {
-      this.dataSource = new InventoryDataSource(this.inventoryService);
+      this.dataSource = new L0EMailDataSource(this.inventoryService);
       this.dataSource.loadData(this.inventoryResource);
       this.getResourceParameter();
       this.sub$.sink = this.filterObservable$
@@ -107,9 +96,9 @@ export class L0EmailComponent extends BaseComponent implements OnInit  {
           }
           this.dataSource.loadData(this.inventoryResource);
         });
-        this.getTypeList();
-        this.getStatusList();
-        this.getTeamList();
+        // this.getTypeList();
+        // this.getStatusList();
+        // this.getTeamList();
     }
   
     ngAfterViewInit() {
@@ -157,96 +146,96 @@ export class L0EmailComponent extends BaseComponent implements OnInit  {
     }
   }
   
-  getTypeList() {
-    this.inventoryService.getCategoryList().subscribe(res => {
-      this.typeList = res;
-    }, error => {
-      this.toasterService.error(error);
-    })
-  }
-  getTeamList() {
-    this.inventoryService.getTeamsList().subscribe(res => {
-      this.teamList = res;
-    }, error => {
-      this.toasterService.error(error);
-    })
-  }
+  // getTypeList() {
+  //   this.inventoryService.getCategoryList().subscribe(res => {
+  //     this.typeList = res;
+  //   }, error => {
+  //     this.toasterService.error(error);
+  //   })
+  // }
+  // getTeamList() {
+  //   this.inventoryService.getTeamsList().subscribe(res => {
+  //     this.teamList = res;
+  //   }, error => {
+  //     this.toasterService.error(error);
+  //   })
+  // }
   
   
-  getCatList(id) {
-    this.inventoryService.getSubCategoryList(id).subscribe(res => {
-      this.categoryList = res;
-    }, error => {
-      this.toasterService.error(error);
-    })
-  }
-  getSubCatList(id) {
-    this.inventoryService.getSubCategoryList(id).subscribe(res => {
-      this.subCategoryList = res;
+  // getCatList(id) {
+  //   this.inventoryService.getSubCategoryList(id).subscribe(res => {
+  //     this.categoryList = res;
+  //   }, error => {
+  //     this.toasterService.error(error);
+  //   })
+  // }
+  // getSubCatList(id) {
+  //   this.inventoryService.getSubCategoryList(id).subscribe(res => {
+  //     this.subCategoryList = res;
   
-    }, error => {
-      this.toasterService.error(error);
-    })
+  //   }, error => {
+  //     this.toasterService.error(error);
+  //   })
   
-  }
-  getStatusList() {
-    this.inventoryService.getstatusList().subscribe(res => {
-      this.statusList = res;
-    }, error => {
-      this.toasterService.error(error);
-    })
-  }
-  getSubStatusList(id) {
-    this.inventoryService.getsubStatusList(id).subscribe(res => {
-      this.subStatusList = res;
-    }, error => {
-      this.toasterService.error(error);
-    })
-  }
+  // }
+  // getStatusList() {
+  //   this.inventoryService.getstatusList().subscribe(res => {
+  //     this.statusList = res;
+  //   }, error => {
+  //     this.toasterService.error(error);
+  //   })
+  // }
+  // getSubStatusList(id) {
+  //   this.inventoryService.getsubStatusList(id).subscribe(res => {
+  //     this.subStatusList = res;
+  //   }, error => {
+  //     this.toasterService.error(error);
+  //   })
+  // }
   
-  onStatusChange(event) {
-    this.selectedSubStatus = ''
-    this.getSubStatusList(event?.value);
-  }
+  // onStatusChange(event) {
+  //   this.selectedSubStatus = ''
+  //   this.getSubStatusList(event?.value);
+  // }
   
   
-  onTypeChange(event) {
-    this.selectedCategory = ''
-    this.getCatList(event?.value);
-  }
+  // onTypeChange(event) {
+  //   this.selectedCategory = ''
+  //   this.getCatList(event?.value);
+  // }
   
-  onCatChange(event) {
-    this.selectedSubCategory = ''
-    this.getSubCatList(event?.value)
-  }
+  // onCatChange(event) {
+  //   this.selectedSubCategory = ''
+  //   this.getSubCatList(event?.value)
+  // }
   
-  onClear() {
-    this.search = '',
-      this.selectedTeam = '',
-      this.selectedType = '',
-      this.selectedCategory = '',
-      this.selectedSubCategory = '',
-      this.selectedStatus = '',
-      this.selectedSubStatus = '',
-      this.setParams();
-      this.dataSource.loadData(this.inventoryResource);
-    }
-    searchList(){
-     this.setParams();
-    this.dataSource.loadData(this.inventoryResource);
-  }
+  // onClear() {
+  //   this.search = '',
+  //     this.selectedTeam = '',
+  //     this.selectedType = '',
+  //     this.selectedCategory = '',
+  //     this.selectedSubCategory = '',
+  //     this.selectedStatus = '',
+  //     this.selectedSubStatus = '',
+  //     this.setParams();
+  //     this.dataSource.loadData(this.inventoryResource);
+  //   }
+  //   searchList(){
+  //    this.setParams();
+  //   this.dataSource.loadData(this.inventoryResource);
+  // }
   
-  setParams(){
-    this.paginator.pageIndex = 0; 
-    this.inventoryResource.skip = 0
-    this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search,
-    this.inventoryResource.team = this.selectedTeam,
-    this.inventoryResource.category = this.selectedCategory,
-    this.inventoryResource.subCategory = this.selectedSubCategory,
-    this.inventoryResource.status = this.selectedStatus,
-    this.inventoryResource.subStatus = this.selectedSubStatus
-  }
+  // setParams(){
+  //   this.paginator.pageIndex = 0; 
+  //   this.inventoryResource.skip = 0
+  //   this.inventoryResource.type = this.selectedType
+  //   this.inventoryResource.search = this.search,
+  //   this.inventoryResource.team = this.selectedTeam,
+  //   this.inventoryResource.category = this.selectedCategory,
+  //   this.inventoryResource.subCategory = this.selectedSubCategory,
+  //   this.inventoryResource.status = this.selectedStatus,
+  //   this.inventoryResource.subStatus = this.selectedSubStatus
+  // }
   
   }
   

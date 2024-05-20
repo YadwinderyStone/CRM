@@ -9,7 +9,7 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./open-interaction-list.component.scss']
 })
 export class OpenInteractionListComponent extends BaseComponent implements OnInit {
-   displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','assignto','createdat',]
+   displayedColumns: string[] =  ['interactionid','createdat','category','subcatagory']
     // displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','contant','createdteam','createdat','assignto', 'gstn','problemreported1','docketno']
     dataSource: any[] = [];
     loading: boolean = false;

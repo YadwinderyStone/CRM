@@ -45,36 +45,22 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     public dialog: MatDialog
   ) {
     super();
+    this.createForm();
     this.getLangDir();
     this.getTeamList();
     this.getStatusList();
     this.getTicketTypeList();
     this.getPriorityList();
     this.currentDate = new Date();
-    this.createForm();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.id) {
       this.getInteractionDetailById(this.id)
     }
-    // if(this.userData){
-    //   this.getCategoryList(JSON.parse(this.userData?.ticketType));
-    //   this.getSubCategoryList(JSON.parse(this.userData?.catId));
-    // }
   }
   ngOnInit(): void {
-    // if (this.interactionData) {
-    //   this.bindValue(this.userData || this.interactionData);
-    // }
-
   }
-  // ngAfterViewInit() {
-  // if(this.id){
-  //   this.updateForm();
-  // }
-  // }
-  // ngOnChanges(changes: SimpleChanges): void {
 
   createForm() {
     this.addInventoryForm = this.fb.group({
@@ -86,15 +72,15 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       categoryId: [0],
       subcategoryId: [this.interactionData?.subCategoryId],
       subject: [''],
-      problemReported1: ['', Validators.required],
+      problemReported: ['', Validators.required],
       resolutionComments: [''],
-      createdTeam: [''],
-      gstn: ['',],
+      teamId: [],
+      assignToTeamId: [],
+      gstn: [''],
       assignedToInteractionStatus: ['',],
       statusName: [''],
       interactionThread: ['',],
       categoryName: ['',],
-      problemReported2: ['',],
       lastUpdated: ['',],
       docketNumber: ['',],
       interactionCreatedThroughMedia: ['',],
@@ -106,6 +92,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       errorCode: [''],
       reopenflag: [''],
       created: [''],
+      agentRemarks:[''],
       dateLastUpdate: [''],
       reservedFor: [''],
       arn: [''],
@@ -137,11 +124,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   getTeamList() {
     this.inventoryService.getTeamsList().subscribe(res => {
       this.teamList = res;
-      if (this.userData && this.userData.ticketTypeName == 'Ticket Created') {
-        this.addInventoryForm.get('createdTeam').setValue(6);
-      } else {
-        this.addInventoryForm.get('createdTeam').setValue(5);
-      }
+      // if (this.userData && this.userData.ticketTypeName == 'Ticket Created') {
+      // } else {
+      //   this.addInventoryForm.get('createdTeam').setValue(5);
+      // }
     }, error => {
       this.toastrService.error(error);
     })
@@ -272,31 +258,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.toastrService.error(error);
     })
   }
-
-  // async bindValue(userData) {
-  //   await this.getStatusList();
-  //   this.contactSelectedType = this.userData.ticketTypeName;
-
-  //   if (this.contactSelectedType == 'FCR') {
-  //     let status = await this.statusList.filter((e: any) => e.id == 1 && e.name == 'OPEN')
-
-  //     await this.getSubStatusList(status[0]?.id || 4);
-
-  //     this.addInventoryForm.get('statusId').setValue(4);
-  //     this.addInventoryForm.get('subStatusId').setValue(11);
-  //   }
-
-  //   if (this.contactSelectedType == 'Ticket Created') {
-
-  //     let status = await this.statusList.filter((e: any) => e.id == 1 && e.name == 'OPEN')
-
-  //     await this.getSubStatusList(status[0]?.id || 1);
-
-  //     this.addInventoryForm.get('statusId').setValue(1);
-  //     this.addInventoryForm.get('subStatusId').setValue(12);
-  //   }
-  // }
-
 
   updateForm() {
     this.addInventoryForm.patchValue(this.interactionData);

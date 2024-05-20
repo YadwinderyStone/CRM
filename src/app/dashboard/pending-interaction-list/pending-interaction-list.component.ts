@@ -10,7 +10,7 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./pending-interaction-list.component.scss']
 })
 export class PendingInteractionListComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'createdteam', 'createdat']
+  displayedColumns: string[] = ['interactionid','createdat','category','subcatagory']
   // displayedColumns: string[] = ['interactionid','interactiontype','status','substatus','category','subcatagory','contant','createdteam','createdat','assignto', 'gstn','problemreported1','docketno']
   dataSource: any[] = [];
   loading: boolean = false;

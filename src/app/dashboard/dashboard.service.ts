@@ -78,7 +78,7 @@ export class DashboardService {
   getInteractionsList(params) {
     const url = 'Interaction';
     const customParams = new HttpParams()
-      // .set('IsAdmin', params.isAdmin)
+      .set('IsAdmin', params.isAdmin)
       .set('PageSize', params.pageSize.toString())
       .set('Skip', params.skip.toString())
     return this.httpClient.get<Inventory[]>(url, {
@@ -89,12 +89,12 @@ export class DashboardService {
   getInteractionsListByStatus(params) {
     const url = 'Dashboard/GetInteractionOpenStatus';
     const customParams = new HttpParams()
-      .set('IsAdmin', params.isAdmin)
-      .set('StatusName', params?.statusName)
+      // .set('IsAdmin', params.isAdmin)
+      // .set('StatusName', params?.statusName)
       .set('PageSize', params.pageSize.toString())
       .set('Skip', params.skip.toString())
     return this.httpClient.get<Inventory[]>(url, {
-      //params: customParams,
+      params: customParams,
       observe: 'response',
     });
   }

@@ -103,6 +103,26 @@ export class InventoryService {
       observe: 'response',
     });
   } 
+  getInteractionsListForL0Email(params) {
+    let param:any = `Skip=${params?.skip.toString()}`
+    if(params?.team) param+=`&TeamId=${params?.team}`
+    param+=`&PageSize=${params?.pageSize.toString()}`
+   if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
+    if(params?.search) param+=`&TransactionNumber=${params?.search}`
+    if(params?.type) param+=`&TicketType=${params?.type}`
+    // if(params?.teamId) param+=`&TeamName=${params?.teamId}`
+    if(params?.priority) param+=`&PriorityName=${params?.priority}`
+    if(params?.status) param+=`&statusId=${params?.status}`
+    if(params?.subStatus) param+=`&subStatusId=${params?.subStatus}`
+    if(params?.category) param+=`&categoryId=${params?.category}`
+    if(params?.category) param+=`&categoryId=${params?.category}`
+    if(params?.subCategory) param+=`&subCategoryId=${params?.subCategory}`
+    // const url = `Interaction?${param}`;
+    const url = `Interaction?TeamId=25&Skip=${params?.skip.toString()}&PageSize=${params?.pageSize.toString()}`;
+    return this.http.get<Inventory[]>(url, {
+      observe: 'response',
+    });
+  } 
   getInteractionsListForContact(params) {
     const url = `Interaction/GetAllInteractionsRecordsByContactId?contactId=${params.contactId}&skip=${params.skip}&pageSize=${params.pageSize}`;
     //const customParams = new HttpParams()

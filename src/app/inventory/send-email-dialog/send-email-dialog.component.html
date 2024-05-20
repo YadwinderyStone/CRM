@@ -32,6 +32,17 @@
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text text-danger" id="toAddress">
+              {{'From' | translate }}*
+            </span>
+          </div>
+          <input [readonly]="true" formControlName="from" type="text" class="form-control fromInput"
+            aria-label="To" aria-describedby="toAddress">
+        </div>
+      </div>
+      <div class="col-md-12 pb-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text text-danger" id="toAddress">
               {{'TO' | translate }}*
             </span>
           </div>
@@ -44,6 +55,7 @@
           </div>
         </div>
       </div>
+      
       <div class="col-md-12 pb-1">
         <div class="input-group">
           <div class="input-group-prepend">

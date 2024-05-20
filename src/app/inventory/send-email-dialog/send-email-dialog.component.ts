@@ -74,6 +74,7 @@ export class SendEmailDialogComponent  extends BaseComponent implements OnInit  
       this.emailForm = this.fb.group({
         id: [''],
         toAddress: [this.data?.emailId, [Validators.required]],
+        from: ['donotreply@gst.gov.in', [Validators.required]],
         cCAddress: [''],
         subject: [this.subject, [Validators.required]],
         body: ['', [Validators.required]],

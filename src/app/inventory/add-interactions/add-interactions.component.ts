@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { TranslationService } from '@core/services/translation.service';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../inventory.service';
@@ -19,7 +19,7 @@ import { InteractionDetailViewDialogComponent } from '../interaction-detail-view
   templateUrl: './add-interactions.component.html',
   styleUrls: ['./add-interactions.component.scss']
 })
-export class AddInteractionsComponent extends BaseComponent implements OnInit {
+export class AddInteractionsComponent extends BaseComponent implements OnInit,AfterViewInit {
 
   @Input() userData: any
   addInventoryForm: UntypedFormGroup;
@@ -52,7 +52,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
     this.currentDate = new Date();
     this.createForm();
     this.getSourceList();
-    this.getErrorCodeList();
+    // this.getErrorCodeList();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -66,6 +66,11 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
       this.bindValue(this.userData);
     }
 
+  }
+  ngAfterViewInit(){
+    let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
+    let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
+    this.addInventoryForm.get('subject')?.setValue(`${this.userData?.transNo}-${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
   }
 
   createForm() {
@@ -82,7 +87,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
       categoryName: [''],
       subcategoryId: [0],
       subcategoryName: [''],
-      problemReported1: ['', Validators.required],
+      problemReported: ['', Validators.required],
       gstn: ['', Validators.required],
       contactId: [this.userData?.custId],
       teamId: [''],
@@ -119,13 +124,13 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
       this.toastrService.error(error);
     })
   }
-  getErrorCodeList() {
-    this.inventoryService.getErrorCodeList().subscribe(res => {
-      this.errorCodeList = res;
-    }, error => {
-      this.toastrService.error(error);
-    })
-  }
+  // getErrorCodeList() {
+  //   this.inventoryService.getErrorCodeList().subscribe(res => {
+  //     this.errorCodeList = res;
+  //   }, error => {
+  //     this.toastrService.error(error);
+  //   })
+  // }
   getSourceList() {
     this.inventoryService.getSourceList().subscribe(res => {
       this.sourceList = res;
@@ -176,6 +181,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
         this.addInventoryForm.get('categoryId')?.setValue(JSON.parse(this.userData?.catId));
         let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
         let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
+        debugger
         this.addInventoryForm.get('subject')?.setValue(`${this.userData?.transNo}-${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
       }
 
@@ -231,7 +237,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
       "categoryName": data?.categoryName,
       "subcategoryId": data?.subcategoryId,
       "subcategoryName": data?.subcategoryName,
-      "problemReported1": data?.problemReported1,
+      "problemReported": data?.problemReported,
       "gstn": data?.gstn,
       "emailId": data?.emailId || '',
       "contactId": data?.contactId,
@@ -240,6 +246,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
       "teamName": data?.teamName,
       "source": data?.source || '',
       "agentRemarks": data?.agentRemarks,
+      "subject": data?.subject,
     }
     this.inventoryService.addInteraction(formData).subscribe(res => {
       if (res) {
@@ -293,7 +300,6 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit {
   }
 
   setValuesForFormData() {
-    debugger
     let ticketType = this.ticketTypeList.filter(e => e.id == this.addInventoryForm.value.ticketType);
     let statusName = this.statusList.filter(e => e.id == this.addInventoryForm.value.statusId);
     let subStatusName = this.subStatusList.filter(e => e.id == this.addInventoryForm.value.subStatusId);

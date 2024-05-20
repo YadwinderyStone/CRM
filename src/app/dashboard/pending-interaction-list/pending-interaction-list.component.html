@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="mat-elevation-z8">
-      <div class="table-responsive">
+      <div class="table-responsive mainHeight">
         <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover">
           <ng-container matColumnDef="interactionid">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction ID</th>
@@ -44,8 +44,8 @@
           </td>
       </ng-container>
       <ng-container matColumnDef="category">
-          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Category</th>
-          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.category}}
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef>Category</th>
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.category}}
           </td>
       </ng-container>
       <ng-container matColumnDef="subcatagory">
@@ -74,8 +74,8 @@
           </td>
       </ng-container>
       <ng-container matColumnDef="createdat">
-          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created At</th>
-          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createdAt}}
+          <th class="table-column-150" mat-header-cell *matHeaderCellDef>Created At</th>
+          <td class="table-column-150" mat-cell *matCellDef="let row"> {{row.createdAt}}
           </td>
       </ng-container>
       <tr *matNoDataRow>

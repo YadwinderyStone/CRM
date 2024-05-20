@@ -21,11 +21,26 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./dump-repoert.component.scss']
 })
 export class DumpRepoertComponent extends BaseComponent implements OnInit {
-  toDate: any= new Date()
+  toDate: any = new Date()
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+  // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno','agentRemarks'];
+  displayedColumns: string[] = ['interactionId','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
+   'interactionSubState','disposition','subDisposition','gstn','subject','problemReported','agentRemarks',
+     'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+      'interactionThreadLastUpdated', 'lastResolvedAt','currentStatus',
+    'noOfMessages', 'priorityName',  'reopenFlag', 'ticketAssignedTime',
+     'uniqueNumber']
+
+
+
+
+
+
+
+
+
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;

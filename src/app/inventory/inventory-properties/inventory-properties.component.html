@@ -7,6 +7,9 @@
             <button type="button" (click)="openSendEmailDialog()" class="btn btn-success btn-md">
                 <i class="fas fa-envelope"></i>
                 Reply</button>
+            <button type="button" class="btn btn-warning btn-md mx-3">
+                <i class="fas fa-paper-plane"></i>
+                Transfer</button>
         </div>
         <div class="">
 
@@ -43,14 +46,14 @@
                     <div class="form-group">
                         <label>Created Date Time :</label>
                         <input type="text" class="form-control" [readonly]="true"
-                            [value]="interactionData?.lastActivityDate | date:'dd-MM-yyyy : hh:mm:ss'">
+                            [value]="interactionData?.createdDate | date:'dd-MM-yyyy hh:mm:ss aa'">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Created By :</label>
                         <input type="text" class="form-control" [readonly]="true"
-                            [value]="interactionData?.createdBy || ''">
+                            [value]="interactionData?.createdByName || ''">
                     </div>
                 </div>
             </div>
@@ -179,7 +182,7 @@
                     <div class="form-group">
                         <mat-label>GSTIN/ARN/TRN/UN</mat-label>
                         <input type="text" maxlength="15" minlength="10" class="form-control"
-                            placeholder="Please enter GSTIN/ARN/TRN/UN" id="gstn" formcontrolName="gstn">
+                            placeholder="Please enter GSTIN/ARN/TRN/UN" id="gstn" formControlName="gstn">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.required"
                             class="text-danger">
@@ -198,14 +201,14 @@
                     <div class="form-group">
                         <!-- [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'" -->
                         <mat-label>Team</mat-label>
-                        <mat-select [dir]="langDir" formControlName="createdTeam" placeholder="Please select Team"
+                        <mat-select [dir]="langDir" formControlName="teamId" placeholder="Please select Team"
                             class="form-control">
                             <mat-option *ngFor="let team of teamList" [value]="team.id">
                                 {{team.name}}
                             </mat-option>
                         </mat-select>
                         <mat-error [dir]="langDir"
-                            *ngIf="addInventoryForm.get('createdTeam').touched && addInventoryForm.get('createdTeam').errors?.required"
+                            *ngIf="addInventoryForm.get('teamId').touched && addInventoryForm.get('teamId').errors?.required"
                             class="text-danger">
                             <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
                             Please select created team
@@ -216,25 +219,33 @@
                     <div class="form-group">
                         <!-- [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'" -->
                         <mat-label>Assign To</mat-label>
-                        <mat-select [attr.disabled]="true" [dir]="langDir" formControlName="createdTeam"
-                            placeholder="Please select Team" class="form-control">
+                        <mat-select [disabled]="true" [dir]="langDir" formControlName="assignToTeamId"
+                             class="form-control">
                             <mat-option *ngFor="let team of teamList" [value]="team.id">
                                 {{team.name}}
                             </mat-option>
                         </mat-select>
                         <mat-error [dir]="langDir"
-                            *ngIf="addInventoryForm.get('createdTeam').touched && addInventoryForm.get('createdTeam').errors?.required"
+                            *ngIf="addInventoryForm.get('assignToTeamId').touched && addInventoryForm.get('assignToTeamId').errors?.required"
                             class="text-danger">
                             <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
-                            Please select created team
+                            Please select Assign to
                         </mat-error>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Contact Name</mat-label>
+                        <input type="text" [readonly]="true" class="form-control"
+                            id="gstn" formControlName="contactName">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Docket Number:</mat-label>
                         <input type="text" class="form-control" placeholder="Please enter docket number"
-                            id="docketNumber" formcontrolName="docketNumber">
+                            id="docketNumber" formControlName="docketNumber">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('docketNumber').touched && addInventoryForm.get('docketNumber').errors?.required"
                             class="text-danger">
@@ -242,13 +253,7 @@
                         </mat-error>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Contact Name</mat-label>
-                        <input type="text" [readonly]="true" class="form-control"
-                            id="gstn" formcontrolName="contactName">
-                    </div>
-                </div>
+                
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Subject</mat-label>
@@ -261,16 +266,44 @@
                         </mat-error>
                     </div>
                 </div>
+                <div class="col-md-6 d-none">
+                    <div class="form-group">
+                        <mat-label>Agent Remarks</mat-label>
+                        <textarea type="text" maxlength="2000"  formControlName="agentRemarks"
+                        class="form-control"></textarea>
+                        <!-- <input type="text" maxlength="600" class="form-control"
+                            formControlName="agentRemarks"> -->
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"
+                            class="text-danger">
+                            Please enter agent remarks
+                        </mat-error>
+                    </div>
+                </div>
                 
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Problem Reported </mat-label>
-                        <textarea maxlength="2000" [readonly]="true" formControlName="problemReported1"
+                        <textarea maxlength="2000" [readonly]="true" formControlName="problemReported"
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
-                            *ngIf="addInventoryForm.get('problemReported1').touched && addInventoryForm.get('problemReported1').errors?.required"
+                            *ngIf="addInventoryForm.get('problemReported').touched && addInventoryForm.get('problemReported').errors?.required"
                             class="text-danger">
                             Please enter problem reported
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-label>Agent Remarks</mat-label>
+                        <!-- <input type="text" maxlength="600" class="form-control"
+                            formControlName="agentRemarks"> -->
+                            <textarea type="text" maxlength="2000"  formControlName="agentRemarks"
+                        class="form-control"></textarea>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"
+                            class="text-danger">
+                            Please enter agent remarks
                         </mat-error>
                     </div>
                 </div>
@@ -278,7 +311,7 @@
                     <div class="form-group">
                         <mat-label>Current Status </mat-label>
                         <input [readonly]="true" type="text" class="form-control"
-                            placeholder="Please enter docket number" id="docketNumber" formcontrolName="currentStatus">
+                             id="docketNumber" formControlName="currentStatus">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('currentStatus').touched && addInventoryForm.get('currentStatus').errors?.required"
                             class="text-danger">
@@ -689,7 +722,7 @@
                     <div class="form-group">
                         <mat-label>Unique Number</mat-label>
                         <input type="text" class="form-control" placeholder="Please enter unique number "
-                            id="uniqueNumber" formcontrolName="uniqueNumber">
+                            id="uniqueNumber" formControlName="uniqueNumber">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('uniqueNumber').touched && addInventoryForm.get('uniqueNumber').errors?.required"
                             class="text-danger">
@@ -702,7 +735,7 @@
                     <div class="form-group">
                         <mat-label>Integration age time</mat-label>
                         <input type="text" [readonly]="true" class="form-control" id="uniqueNumber"
-                            formcontrolName="uniqueNumber">
+                            formControlName="uniqueNumber">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('uniqueNumber').touched && addInventoryForm.get('uniqueNumber').errors?.required"
                             class="text-danger">
@@ -732,7 +765,7 @@
                     <div class="form-group">
                         <mat-label>Created</mat-label>
                         <input type="text" class="form-control" placeholder="Please enter created" id="created"
-                            formcontrolName="created">
+                            formControlName="created">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
                             class="text-danger">
@@ -748,7 +781,7 @@
                         <mat-label>Interaction Created Through Media</mat-label>
                         <input type="text" class="form-control"
                             placeholder="Please enter interaction Created Through Media" id="created"
-                            formcontrolName="interactionCreatedThroughMedia">
+                            formControlName="interactionCreatedThroughMedia">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
                             class="text-danger">
@@ -760,7 +793,7 @@
                     <div class="form-group">
                         <mat-label>Interaction thread last updated</mat-label>
                         <input type="text" class="form-control" placeholder="Please enter interaction thread"
-                            id="created" formcontrolName="interactionThread">
+                            id="created" formControlName="interactionThread">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('interactionThread').touched && addInventoryForm.get('interactionThread').errors?.required"
                             class="text-danger">
@@ -772,7 +805,7 @@
                     <div class="form-group">
                         <mat-label>Last resolved at </mat-label>
                         <input type="text" class="form-control" placeholder="Please enter created" id="created"
-                            formcontrolName="created">
+                            formControlName="created">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
                             class="text-danger">
@@ -785,7 +818,7 @@
                         <mat-label>Date last updated </mat-label>
                         <input type="text" readonly (click)="lastDateUpdate.open();"
                             [owlDateTimeTrigger]="lastDateUpdate" [owlDateTime]="lastDateUpdate" class="form-control"
-                            placeholder="Please enter last update date" formcontrolName="dateLastUpdate">
+                            placeholder="Please enter last update date" formControlName="dateLastUpdate">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('dateLastUpdate').touched && addInventoryForm.get('dateLastUpdate').errors?.required"
                             class="text-danger">
@@ -798,7 +831,7 @@
                     <div class="form-group">
                         <mat-label>Reserved For </mat-label>
                         <input type="text" class="form-control" placeholder="Please enter reserved for"
-                            id="interactionThread" formcontrolName="reservedFor">
+                            id="interactionThread" formControlName="reservedFor">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('reservedFor').touched && addInventoryForm.get('reservedFor').errors?.required"
                             class="text-danger">
@@ -810,7 +843,7 @@
                     <div class="form-group">
                         <mat-label>ARN : </mat-label>
                         <input type="text" class="form-control" placeholder="Please enter ARN" id="interactionThread"
-                            formcontrolName="arn">
+                            formControlName="arn">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('arn').touched && addInventoryForm.get('arn').errors?.required"
                             class="text-danger">
@@ -823,7 +856,7 @@
                         <mat-label>Time From Created To Update In Hrs: </mat-label>
                         <input type="text" class="form-control"
                             placeholder="Please enter Time From Created To Update In Hrs" id="interactionThread"
-                            formcontrolName="timeFromCreatedToUpdateInHrs">
+                            formControlName="timeFromCreatedToUpdateInHrs">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('timeFromCreatedToUpdateInHrs').touched && addInventoryForm.get('timeFromCreatedToUpdateInHrs').errors?.required"
                             class="text-danger">
@@ -837,7 +870,7 @@
                         <mat-label>Time From last Update To Currrent In Hrs: </mat-label>
                         <input type="text" class="form-control"
                             placeholder="Please enter Time From last Update To Currrent In Hrs" id="interactionThread"
-                            formcontrolName="timeFromLastUpdateToCurrentInHrs">
+                            formControlName="timeFromLastUpdateToCurrentInHrs">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('timeFromLastUpdateToCurrentInHrs').touched && addInventoryForm.get('timeFromLastUpdateToCurrentInHrs').errors?.required"
                             class="text-danger">
@@ -850,7 +883,7 @@
                         <mat-label>Time From Created To Current In Hrs: </mat-label>
                         <input type="text" class="form-control"
                             placeholder="Please enter Time From Created To Current In Hrs" id="interactionThread"
-                            formcontrolName="timeFromCreatedToCurrentInHrs">
+                            formControlName="timeFromCreatedToCurrentInHrs">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('timeFromCreatedToCurrentInHrs').touched && addInventoryForm.get('timeFromCreatedToCurrentInHrs').errors?.required"
                             class="text-danger">
@@ -862,7 +895,7 @@
                     <div class="form-group">
                         <mat-label>Pan Card No. : </mat-label>
                         <input type="text" class="form-control" placeholder="Please enter Pan Card No."
-                            id="interactionThread" formcontrolName="panCardNo">
+                            id="interactionThread" formControlName="panCardNo">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
                             class="text-danger">
