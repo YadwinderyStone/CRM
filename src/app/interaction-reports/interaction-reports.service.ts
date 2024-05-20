@@ -60,6 +60,7 @@ export class InteractionReportsService {
   getInteractionsDumpReports(params){
     let param:any = `FromDate=${params?.fromDate}`
     // param = `Skip=${params?.skip.toString()}`
+    // param = `Skip=${params?.skip.toString()}`
     // param+=`&PageSize=${params?.pageSize.toString()}`
     // param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
@@ -72,7 +73,7 @@ export class InteractionReportsService {
   }
   getInteractionsReportsList(params){
     let param:any = `FromDate=${params?.fromDate}`
-    // param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageSize=${params?.pageSize.toString()}`
     // param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     // if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`

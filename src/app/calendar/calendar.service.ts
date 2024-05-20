@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { CalendarList } from './calendar.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +11,25 @@ export class CalendarService {
       private httpClient: HttpClient,
     ) { }
   
-    getCalendarList(){
-      const url = `Calendar`;
-      return this.httpClient.get<any[]>(url); 
+    getCalendarList(data){
+      const url = `Report/getCalenderMasterDataByYear?year=${data}`;
+      return this.httpClient.get<CalendarList[]>(url); 
   }
     getCalendarDetailById(id){
       const url = `Calendar/${id}`;
-      return this.httpClient.get<any[]>(url); 
+      return this.httpClient.get<CalendarList[]>(url); 
   }
     addCalendarEvent(data){
       const url = `Calendar`;
-      return this.httpClient.post<any[]>(url,data); 
+      return this.httpClient.post<CalendarList>(url,data); 
   }
-    editCalendarEvent(data,id){
-      const url = `Calendar/${id}`;
-      return this.httpClient.put<any[]>(url,data); 
+    editCalendarEvent(data){
+      const url = `Report/UpdateCalenderMasterReport`;
+      return this.httpClient.put<CalendarList>(url,data); 
   }
     deleteCalendarEvent(id){
       const url = `Calendar/${id}`;
-      return this.httpClient.delete<any[]>(url); 
+      return this.httpClient.delete<CalendarList>(url); 
   }
   
   }

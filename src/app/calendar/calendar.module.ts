@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SharedModule } from '@shared/shared.module';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime-ex';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { SharedModule } from '@shared/shared.module';
     MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDialogModule,
   ]
 })
 export class CalendarModule { }

@@ -19,20 +19,20 @@
         </div>
         <div class="col-md-2">
             <div class="form-group">
-              <label for="fromDate">{{'FROM_DATE' | translate}} </label>
-              <input class="form-control" [max]="currentDate" [(ngModel)]="fromDate"
-                [owlDateTimeTrigger]="fromDate1" [owlDateTime]="fromDate1" placeholder="{{'FROM_DATE' | translate}}">
-              <owl-date-time [pickerType]="'calendar'" #fromDate1></owl-date-time>
+                <label for="fromDate">{{'FROM_DATE' | translate}} </label>
+                <input class="form-control" [max]="currentDate" [(ngModel)]="fromDate" [owlDateTimeTrigger]="fromDate1"
+                    [owlDateTime]="fromDate1" placeholder="{{'FROM_DATE' | translate}}">
+                <owl-date-time [pickerType]="'calendar'" #fromDate1></owl-date-time>
             </div>
-          </div>
-          <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
             <div class="form-group">
-              <label for="toDate">{{'TO_DATE' | translate}} </label>
-              <input class="form-control" id="toDate1" [max]="currentDate" [(ngModel)]="toDate"
-                [owlDateTimeTrigger]="toDate1" [owlDateTime]="toDate1" placeholder="{{'TO_DATE' | translate}}">
-              <owl-date-time [pickerType]="'calendar'" #toDate1></owl-date-time>
+                <label for="toDate">{{'TO_DATE' | translate}} </label>
+                <input class="form-control" id="toDate1" [max]="currentDate" [(ngModel)]="toDate"
+                    [owlDateTimeTrigger]="toDate1" [owlDateTime]="toDate1" placeholder="{{'TO_DATE' | translate}}">
+                <owl-date-time [pickerType]="'calendar'" #toDate1></owl-date-time>
             </div>
-          </div>
+        </div>
         <div class="col-md-4">
             <button type="button" (click)="searchList()" class="btn btn-success btn-md mx-2 button-margin">
                 <i class="fas fa-search"></i>
@@ -43,7 +43,7 @@
                 {{'CLEAR' | translate}}
             </button>
             <button type="button" (click)="onDownloadReport()" class="btn btn-warning btn-md button-margin ml-2"><i
-                class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
+                    class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
             </button>
         </div>
     </div>
@@ -65,7 +65,8 @@
             <ng-container matColumnDef="interactionid">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"><a
-                        routerLink="/interactions/edit-interactions/{{row?.id}}">{{row?.interactionId || row.transactionNumber}}</a> </td>
+                        routerLink="/interactions/edit-interactions/{{row?.id}}">{{row?.interactionId ||
+                        row.transactionNumber}}</a> </td>
             </ng-container>
             <ng-container matColumnDef="interactiontype">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type</th>
@@ -74,11 +75,13 @@
             </ng-container>
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedto}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedto}}
+                </td>
             </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.contactName}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.contactName}}
+                </td>
             </ng-container>
             <ng-container matColumnDef="createdteam">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Team
@@ -99,7 +102,8 @@
             <ng-container matColumnDef="substatus">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Sub Status
                 </th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionSubState || row?.subStatusName}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionSubState ||
+                    row?.subStatusName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="category">
@@ -109,12 +113,13 @@
             </ng-container>
             <ng-container matColumnDef="subcatagory">
                 <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category</th>
-                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subDisposition||row.subcategoryName}}
+                <td class="table-column-350" mat-cell *matCellDef="let row">
+                    {{row?.subDisposition||row.subcategoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemreported1">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported || row.problemReported1}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">

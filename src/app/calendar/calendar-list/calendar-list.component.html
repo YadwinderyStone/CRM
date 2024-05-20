@@ -13,6 +13,15 @@
         </div>
     </div>
 </div>
+<div class="col-md-2 w-100">
+    <div class="form-group">
+        <mat-label> Year </mat-label>
+        <mat-select [(ngModel)]="selectedYear" (selectionChange)="getCalenderList();"
+            placeholder="Select status" class="form-control">
+            <mat-option [value]="year" *ngFor="let year of yearsDropdown">{{year}}</mat-option>
+        </mat-select>
+    </div>
+</div>
 <div class="page-header-main">
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
@@ -28,17 +37,21 @@
         <ng-container matColumnDef="action">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>{{'ACTION' | translate}} </th>
             <td class="table-column-200" mat-cell *matCellDef="let element">
-                <mat-icon class="interButtonIcons" *hasClaim="'MST_UPDATE_CALENDER'"
-                    routerLink="edit/{{currentYear}}">edit</mat-icon>
+                <mat-icon class="interButtonIcons" *hasClaim="'MST_EDIT_CALENDER'"
+                   (click)="updateCalendar(element)" >edit</mat-icon>
             </td>
         </ng-container>
+        <ng-container matColumnDef="calenderId">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef> Calendar Id </th>
+            <td class="table-column-100" mat-cell *matCellDef="let element"> {{element.calenderId}} </td>
+        </ng-container>
         <ng-container matColumnDef="srNo">
-            <th class="table-column-100" mat-header-cell *matHeaderCellDef> Sr No. </th>
-            <td class="table-column-100" mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef> Calendar Type </th>
+            <td class="table-column-100" mat-cell *matCellDef="let element"> {{element.calenderDateType}} </td>
         </ng-container>
         <ng-container matColumnDef="date">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef> Date </th>
-            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.date | date:'dd/mm/yyyy'}} </td>
+            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.calenderDate | date:'yyyy-MM-dd'}} </td>
         </ng-container>
         <ng-container matColumnDef="day">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef> Day </th>
@@ -46,7 +59,7 @@
         </ng-container>
         <ng-container matColumnDef="occasion">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef> Occasion </th>
-            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.occasion}} </td>
+            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.calenderDateRemarks}} </td>
         </ng-container>
         <tr *matNoDataRow>
             <td [attr.colspan]="columnsToDisplay.length">
