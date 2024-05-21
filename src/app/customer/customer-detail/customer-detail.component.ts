@@ -42,7 +42,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   selectedTicketType: string = '';
   selectedCategory: string = '';
   selectedSubCategory: string = '';
-  ticketTypeList: [] = [];
+  ticketTypeList: any[] = [];
   catList: [] = [];
   subCatList: [] = [];
   countries: Country[] = [];
@@ -293,6 +293,10 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
       return
     }
   }
+
+
+
+  
   updateContact(){
 
 
@@ -387,6 +391,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   getTicketTypeList() {
     this.customerService.getTicketlist().subscribe((res: any) => {
       this.ticketTypeList = res
+      // this.ticketTypeList = this.ticketTypeList.filter((e:any)=>e.name ="FCR" || e?.name== "Ticket Created")
       this.setFirstValue(this.ticketTypeList)
     })
   }
@@ -397,13 +402,13 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   }
 
   getCatList(id) {
-    this.customerService.getCatlist(id).subscribe((res: any) => {
+    this.customerService.getCatDroplist(id).subscribe((res: any) => {
       this.catList = res
     })
 
   }
   getSubCatList(id) {
-    this.customerService.getCatlist(id).subscribe((res: any) => {
+    this.customerService.getCatDroplist(id).subscribe((res: any) => {
       this.subCatList = res
     })
   }

@@ -176,6 +176,10 @@ export class CustomerService {
         const url = `Categories?ParentId=${id}`;
         return this.http.get<any[]>(url);
   }
+  getCatDroplist(id:any):Observable<any>{
+        const url = `Categories/list/${id}`;
+        return this.http.get<any[]>(url);
+  }
 
   
 }

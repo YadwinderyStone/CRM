@@ -52,16 +52,13 @@ export class QueueComponent extends BaseComponent  implements OnInit {
       }
   
       getQueueList(): void {
-      // FIXME change the product api service with interaction category
       this.QueueService.getQueueList().subscribe(res=>{
         this.queueList = res;
       });
     }
   
     downloadExcel(): void {
-      debugger
       this.QueueService.generateExcel(this.queueList).subscribe((response: any) => {
-        debugger
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });

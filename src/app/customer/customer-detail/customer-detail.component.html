@@ -53,9 +53,11 @@
                         <mat-label>Ticket Type</mat-label>
                         <mat-select (selectionChange)="onTypeChange($event)" formControlName="ticketType"
                             placeholder="Select ticket type" class="form-control">
-                            <mat-option *ngFor="let list of ticketTypeList" [value]="list.id">
-                                {{list.name}}
-                            </mat-option>
+                            <ng-container *ngFor="let list of ticketTypeList">
+                            <mat-option *ngIf="list.name !='Email' " [value]="list.id">
+                                    {{list.name}}
+                                </mat-option>
+                            </ng-container>
                         </mat-select>
                     </div>
                 </div>
