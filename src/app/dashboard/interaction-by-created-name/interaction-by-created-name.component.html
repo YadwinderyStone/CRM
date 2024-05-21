@@ -1,0 +1,46 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header">
+                <h1>Interaction list By Created Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <table [dir]="langDir" mat-table [dataSource]="createdByNameInteractionsList" multiTemplateDataRows
+        class="table table-bordered table-hover grid-height w-100">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Created By</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Total </th>
+            <td mat-cell *matCellDef="let element">{{element?.total}} </td>
+        </ng-container>
+        <ng-container matColumnDef="open">
+            <th mat-header-cell *matHeaderCellDef>Open </th>
+            <td mat-cell *matCellDef="let element">{{element?.open}} </td>
+        </ng-container>
+        <ng-container matColumnDef="pending">
+            <th mat-header-cell *matHeaderCellDef>Pending </th>
+            <td mat-cell *matCellDef="let element">{{element?.pending}} </td>
+        </ng-container>
+        <ng-container matColumnDef="resolved">
+            <th mat-header-cell *matHeaderCellDef>Resolved </th>
+            <td mat-cell *matCellDef="let element">{{element?.resolved}} </td>
+        </ng-container>
+        <ng-container matColumnDef="closed">
+            <th mat-header-cell *matHeaderCellDef>Closed </th>
+            <td mat-cell *matCellDef="let element">{{element?.closed}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+</div>
+
+
+

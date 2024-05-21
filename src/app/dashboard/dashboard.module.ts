@@ -28,6 +28,8 @@ import { DashboardCategoryGridComponent } from './dashboard-category-grid/dashbo
 import { InteractionListByTeamComponent } from './interaction-list-by-team/interaction-list-by-team.component';
 import { PendingInteractionListComponent } from './pending-interaction-list/pending-interaction-list.component';
 import { OpenInteractionListComponent } from './open-interaction-list/open-interaction-list.component';
+import { InteractionListBySourceComponent } from './interaction-list-by-source/interaction-list-by-source.component';
+import { InteractionByCreatedNameComponent } from './interaction-by-created-name/interaction-by-created-name.component';
 
 @NgModule({
   declarations: [DashboardComponent,
@@ -43,6 +45,8 @@ import { OpenInteractionListComponent } from './open-interaction-list/open-inter
     InteractionListByTeamComponent,
     PendingInteractionListComponent,
     OpenInteractionListComponent,
+    InteractionListBySourceComponent,
+    InteractionByCreatedNameComponent,
   ],
   imports: [
     CommonModule,

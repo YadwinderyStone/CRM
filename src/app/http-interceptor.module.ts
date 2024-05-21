@@ -43,9 +43,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
               if (err.status === 401) {
                 this.router.navigate(['login']);
               } else if (err.error) {
-                this.toastrService.error(err.error?.join(" </br> "), "", {
-                  enableHtml: true
-                });
+                this.toastrService.error(err?.error);
               } else {
                 this.toastrService.error(err.message, "", {
                   enableHtml: true

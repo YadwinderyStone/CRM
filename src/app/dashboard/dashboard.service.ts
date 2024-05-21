@@ -10,6 +10,7 @@ import { BestSellingProudct } from '@core/domain-classes/bast-selling-product';
 import { PurchaseOrderRecentDeliverySchedule } from '@core/domain-classes/purchase-order-recent-delivery-schedule';
 import { SalesOrderRecentShipmentDate } from '@core/domain-classes/sales-order-recent-shipment-date';
 import { Inventory } from '@core/domain-classes/inventory';
+import { InteractionsByTeam } from './dashboard-teams-grid/teamsList.model';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
@@ -118,4 +119,67 @@ export class DashboardService {
     });
   }
   
+
+  // dashboard grid apis new start 
+
+
+getInteractionListByteam(params?){
+  const url = 'Interaction';
+  const customParams = new HttpParams()
+    .set('IsAdmin', params.isAdmin)
+    .set('PageSize', params.pageSize.toString())
+    .set('Skip', params.skip.toString())
+  return this.httpClient.get<InteractionsByTeam[]>(url, {
+    params: customParams,
+    observe: 'response',
+  });
+}
+getInteractionListByCategory(params?){
+  const url = 'Interaction';
+  const customParams = new HttpParams()
+    .set('IsAdmin', params.isAdmin)
+    .set('PageSize', params.pageSize.toString())
+    .set('Skip', params.skip.toString())
+  return this.httpClient.get<InteractionsByTeam[]>(url, {
+    params: customParams,
+    observe: 'response',
+  });
+}
+
+getInteractionsListBySource(params?){
+  const url = 'Interaction';
+  const customParams = new HttpParams()
+    .set('IsAdmin', params.isAdmin)
+    .set('PageSize', params.pageSize.toString())
+    .set('Skip', params.skip.toString())
+  return this.httpClient.get<InteractionsByTeam[]>(url, {
+    params: customParams,
+    observe: 'response',
+  });
+}
+
+
+getInteractionListByCreatedName(params?){
+  const url = 'Interaction';
+  const customParams = new HttpParams()
+    .set('IsAdmin', params.isAdmin)
+    .set('PageSize', params.pageSize.toString())
+    .set('Skip', params.skip.toString())
+  return this.httpClient.get<InteractionsByTeam[]>(url, {
+    params: customParams,
+    observe: 'response',
+  });
+}
+
+
+
+
+
+
+  
+
+
+
+  // dashboard grid apis new start 
+
 }

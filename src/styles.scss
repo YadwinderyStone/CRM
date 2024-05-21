@@ -41,6 +41,10 @@ body {
 .hr-bottom{
     border-bottom: 1px solid #2095F3;
 }
+.mainHeight {
+    max-height: 300px;
+    overflow: scroll;
+}
 .m-left-0 {
     margin-left: 0px !important;
 }

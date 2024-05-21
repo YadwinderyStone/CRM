@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmailInboxService } from '../email-inbox.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-email-inbox',
@@ -7,20 +8,24 @@ import { EmailInboxService } from '../email-inbox.service';
   styleUrls: ['./email-inbox.component.scss']
 })
 export class EmailInboxComponent implements OnInit {
+  inboxList: any[] = []
   constructor(
-    private emailInboxService:EmailInboxService
+    private emailInboxService: EmailInboxService,
+    public toasterService: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.getEmailList();
   }
-  getEmailList(){
-    let data ={
-      pageSize:10,
-      skip:0
+  getEmailList() {
+    let data = {
+      pageSize: 10,
+      skip: 0
     }
-    this.emailInboxService.getInboxEmailList(data).subscribe(res=>{
-
+    this.emailInboxService.getInboxEmailList(data).subscribe((res: any) => {
+      this.inboxList = res;
+    },error=>{
+      this.toasterService.error(error);
     })
   }
 

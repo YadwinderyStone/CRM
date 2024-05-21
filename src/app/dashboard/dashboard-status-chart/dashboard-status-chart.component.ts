@@ -60,7 +60,7 @@ export class DashboardStatusChartComponent implements OnInit {
     for (let index = 1995; index < 2050; index++) {
       this.years.push(index);
     }
-    this.getChartsData();
+    // this.getChartsData();
     
   }
 

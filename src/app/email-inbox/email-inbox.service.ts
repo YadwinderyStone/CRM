@@ -26,9 +26,9 @@ return this.http.get<any[]>(url, {
 
 
 getEmailDetailById(id):Observable<HttpResponse<any[]>>{
-  const url = 'Interaction';
+  const url = 'Email/GetEmailRecordsById';
   const customParams = new HttpParams()
-  .set('Id', id)
+  .set('id', id)
   return this.http.get<any[]>(url, {
     params: customParams,
     observe: 'response',

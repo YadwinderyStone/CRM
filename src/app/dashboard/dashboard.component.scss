@@ -10,7 +10,7 @@
 
 
 .dashboard-table {
-    height: 300px;
+   max-height:300px;
     overflow: auto;
     scrollbar-width: none;
 }
