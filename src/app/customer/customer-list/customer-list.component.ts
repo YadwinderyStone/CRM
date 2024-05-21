@@ -191,10 +191,8 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
   // }
 
   downloadExcel(): void {
-    debugger
     this.dataSource = new CustomerDataSource(this.customerService);
     this.dataSource.loadData(this.customerResource);
-    debugger
     const request = {
       // Set the request data here
     };

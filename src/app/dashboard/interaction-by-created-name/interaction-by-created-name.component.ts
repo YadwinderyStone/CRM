@@ -14,7 +14,7 @@ export class InteractionByCreatedNameComponent extends BaseComponent implements 
 
   
     createdByNameInteractionsList: CreatedByName[] = [];
-    columnsToDisplay: string[] = ['name','total', 'open', 'pending','resolved','closed'];
+    columnsToDisplay: string[] = ['name', 'open', 'pending','resolved','closed'];
     constructor(
       private toastrService: ToastrService,
       private dashboardService:DashboardService,
@@ -26,19 +26,12 @@ export class InteractionByCreatedNameComponent extends BaseComponent implements 
   
   
     ngOnInit(): void {
-      // this.getInteractionsListByCreatedName()
-  
-      this.createdByNameInteractionsList = [
-        {name:'Ashish Tomer',total:77,open:12,pending:15,resolved:25,closed:25},
-        {name:'Surbhi Madan',total:68,open:8,pending:10,resolved:20,closed:25},
-        {name:'Yadwinder singh',total:182,open:62,pending:30,resolved:40,closed:50},
-        {name:'jay Parkash',total:160,open:50,pending:30,resolved:35,closed:45},
-      ]
+      this.getInteractionsListByCreatedName()
     }
   
     getInteractionsListByCreatedName(): void {
       this.dashboardService.getInteractionListByCreatedName().subscribe((res :any)=> {
-        this.createdByNameInteractionsList = res
+        this.createdByNameInteractionsList = res?.body
       },error=>{
         this.toastrService.error(error)
       })

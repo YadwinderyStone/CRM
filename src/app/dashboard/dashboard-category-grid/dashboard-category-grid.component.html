@@ -2,7 +2,7 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header">
-                <h1>Interaction list By Category</h1>
+                <h1>Interaction Category-Wise</h1>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
         class="table table-bordered table-hover grid-height w-100">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Category Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element?.categoryName || element.CategoryName}} </td>
         </ng-container>
         <ng-container matColumnDef="total">
             <th mat-header-cell *matHeaderCellDef>Total </th>

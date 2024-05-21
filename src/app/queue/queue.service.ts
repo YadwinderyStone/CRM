@@ -23,7 +23,6 @@ getUsersList(){
 }
 
 // generateExcel(request: any): Observable<any> {
-//   debugger
 //   const jsonString = JSON.stringify(request); // convert JavaScript object to JSON string
 // const parsedObject = JSON.parse(jsonString); // parse JSON string
 //   const url = 'Contact/GenerateExcelFileData';
@@ -33,7 +32,6 @@ getUsersList(){
 // }
 
 generateExcel(request: any[]): Observable<any> {
-  debugger
   const jsonObject = { Data: request }; // wrap array in a JSON object
   const jsonString = JSON.stringify(jsonObject); // convert JavaScript object to JSON string
   const url = 'Contact/GenerateExcelFileData';

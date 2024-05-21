@@ -27,19 +27,19 @@ export class DashboardTeamsGridComponent extends BaseComponent implements OnInit
 
 
   ngOnInit(): void {
-    // this.getInteractionsListByTeam()
+    this.getInteractionsListByTeam()
 
-    this.teamInteractionsList = [
-      {teamName:'L0',total:77,open:12,pending:15,resolved:25,closed:25},
-      {teamName:'L1',total:68,open:8,pending:10,resolved:20,closed:25},
-      {teamName:'L2',total:182,open:62,pending:30,resolved:40,closed:50},
-      {teamName:'L3',total:160,open:50,pending:30,resolved:35,closed:45},
-    ]
+    // this.teamInteractionsList = [
+    //   {teamName:'L0',total:77,open:12,pending:15,resolved:25,closed:25},
+    //   {teamName:'L1',total:68,open:8,pending:10,resolved:20,closed:25},
+    //   {teamName:'L2',total:182,open:62,pending:30,resolved:40,closed:50},
+    //   {teamName:'L3',total:160,open:50,pending:30,resolved:35,closed:45},
+    // ]
   }
 
   getInteractionsListByTeam(): void {
     this.dashboardService.getInteractionListByteam().subscribe((res :any)=> {
-      this.teamInteractionsList = res
+      this.teamInteractionsList = res?.body
     },error=>{
       this.toastrService.error(error)
     })

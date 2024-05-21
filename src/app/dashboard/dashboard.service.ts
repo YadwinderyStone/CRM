@@ -124,54 +124,72 @@ export class DashboardService {
 
 
 getInteractionListByteam(params?){
-  const url = 'Interaction';
+  const url = 'Dashboard/GetInteractionTeamWiseList';
   const customParams = new HttpParams()
-    .set('IsAdmin', params.isAdmin)
-    .set('PageSize', params.pageSize.toString())
-    .set('Skip', params.skip.toString())
+    .set('IsAdmin', params?.isAdmin)
+    .set('PageSize', params?.pageSize.toString())
+    .set('Skip', params?.skip.toString())
   return this.httpClient.get<InteractionsByTeam[]>(url, {
-    params: customParams,
+    // params: customParams,
     observe: 'response',
   });
 }
 getInteractionListByCategory(params?){
-  const url = 'Interaction';
+  const url = 'Dashboard/GetInteractionCategoryWiseList';
   const customParams = new HttpParams()
-    .set('IsAdmin', params.isAdmin)
-    .set('PageSize', params.pageSize.toString())
-    .set('Skip', params.skip.toString())
+    .set('IsAdmin', params?.isAdmin)
+    .set('PageSize', params?.pageSize.toString())
+    .set('Skip', params?.skip.toString())
   return this.httpClient.get<InteractionsByTeam[]>(url, {
-    params: customParams,
+    // params: customParams,
     observe: 'response',
   });
 }
 
 getInteractionsListBySource(params?){
-  const url = 'Interaction';
+  const url = 'Dashboard/GetInteractionSourceWiseList';
   const customParams = new HttpParams()
-    .set('IsAdmin', params.isAdmin)
-    .set('PageSize', params.pageSize.toString())
-    .set('Skip', params.skip.toString())
+    .set('IsAdmin', params?.isAdmin)
+    .set('PageSize', params?.pageSize.toString())
+    .set('Skip', params?.skip.toString())
   return this.httpClient.get<InteractionsByTeam[]>(url, {
-    params: customParams,
+    // params: customParams,
     observe: 'response',
   });
 }
 
 
 getInteractionListByCreatedName(params?){
-  const url = 'Interaction';
+  const url = 'Dashboard/GetInteractionCreatedWiseList';
   const customParams = new HttpParams()
-    .set('IsAdmin', params.isAdmin)
-    .set('PageSize', params.pageSize.toString())
-    .set('Skip', params.skip.toString())
+    .set('IsAdmin', params?.isAdmin)
+    .set('PageSize', params?.pageSize.toString())
+    .set('Skip', params?.skip.toString())
   return this.httpClient.get<InteractionsByTeam[]>(url, {
-    params: customParams,
+    // params: customParams,
     observe: 'response',
   });
 }
 
 
+getSourceChartData(){
+  const url = `Dashboard/GetInteractionSourceWiseCount`
+  return this.httpClient.get<any>(url, {
+    observe: 'response',
+  });
+}
+getTeamChartData(){
+  const url = `Dashboard/GetInteractionTeamWiseCount?teamName=L0'`
+  return this.httpClient.get<any>(url, {
+    observe: 'response',
+  });
+}
+getStatusChartData(){
+  const url = `Dashboard/GetInteractionStatusWiseCountData`
+  return this.httpClient.get<any>(url, {
+    observe: 'response',
+  });
+}
 
 
 

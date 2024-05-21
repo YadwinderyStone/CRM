@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col-md-auto col-sm-auto">
-            <div class="form-inline mr-5">
+            <div class="form-inline mr-5 d-none">
                 <div class="form-group">
                     <label class="mr-2 font-weight-bold"> {{'MONTH' | translate}}:</label>
                     <select (change)="getChartsData()" [(ngModel)]="selectedMonth" class="form-control mr-3">
@@ -29,41 +29,52 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <div class="chartDiv1">
-            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+        <div class="chartDiv1 statusCount text-center">
+            <p> Status Wise Count </p>
+            <canvas *ngIf="!isLoading && statusPieChartData" baseChart [data]="statusChartData" [labels]="statusChartLabels"
                 [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
                 chartType="pie">
             </canvas>
+            <div *ngIf="!isLoading && !statusPieChartData.length">
+                No data found 
+            </div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="chartDiv1 text-center">
-            <p> Status </p>
-            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+        <div class="chartDiv1 sorceCount text-center">
+            <p> Source Wise Count </p>
+            <canvas *ngIf="!isLoading && sourcePieChartData.length" baseChart [data]="sourceChartData" [labels]="sourceChartLabels"
                 [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
                 chartType="pie">
             </canvas>
+            <div *ngIf="!isLoading && !sourcePieChartData.length">
+                No data found 
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="chartDiv1">
-            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+    <!-- <div class="col-md-6 d-none ">
+        <div class="chartDiv1 teamCount text-center">
+            <p> Team Wise Count </p>
+            <canvas *ngIf="!isLoading && teamPieChartData.length" baseChart [data]="teamChartData" [labels]="teamChartLabels"
                 [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
                 chartType="pie">
             </canvas>
+            <div *ngIf="!isLoading && !teamPieChartData.length">
+                No data found 
+            </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="chartDiv1">
-            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
-                [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
-                chartType="pie">
-            </canvas>
-        </div>
-    </div>
+    </div> -->
     <!-- <div class="col-md-6">
         <div class="chartDiv1">
-            <canvas *ngIf="!isLoading" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+            <canvas *ngIf="!isLoading" baseChart [data]="sourceChartLabels" [labels]="sourceChartLabels"
+                [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
+                chartType="pie">
+            </canvas>
+        </div>
+    </div> -->
+    <!-- <div class="col-md-6">
+        <div class="chartDiv1">
+            <canvas *ngIf="!isLoading" baseChart [data]="statusPieChartData" [labels]="statusPieChartLabels"
                 [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
                 chartType="pie">
             </canvas>

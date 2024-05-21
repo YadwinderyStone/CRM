@@ -25,18 +25,18 @@ export class InteractionListBySourceComponent extends BaseComponent implements O
 
 
   ngOnInit(): void {
-    // this.getInteractionsListBySource()
+    this.getInteractionsListBySource()
 
-    this.sourceInteractionsList = [
-      { source: 'Email', total: 77, open: 12, pending: 15, resolved: 25, closed: 25 },
-      { source: 'GRP', total: 68, open: 8, pending: 10, resolved: 20, closed: 25 },
-      { source: 'Voice', total: 182, open: 62, pending: 30, resolved: 40, closed: 50 },
-    ]
+    // this.sourceInteractionsList = [
+    //   { source: 'Email', total: 77, open: 12, pending: 15, resolved: 25, closed: 25 },
+    //   { source: 'GRP', total: 68, open: 8, pending: 10, resolved: 20, closed: 25 },
+    //   { source: 'Voice', total: 182, open: 62, pending: 30, resolved: 40, closed: 50 },
+    // ]
   }
 
   getInteractionsListBySource(): void {
     this.dashboardService.getInteractionsListBySource().subscribe((res: any) => {
-      this.sourceInteractionsList = res
+      this.sourceInteractionsList = res?.body
     }, error => {
       this.toastrService.error(error)
     })

@@ -181,7 +181,6 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
         this.addInventoryForm.get('categoryId')?.setValue(JSON.parse(this.userData?.catId));
         let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
         let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
-        debugger
         this.addInventoryForm.get('subject')?.setValue(`${this.userData?.transNo}-${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
       }
 

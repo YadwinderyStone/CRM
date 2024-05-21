@@ -5,6 +5,7 @@ import { TranslationService } from '@core/services/translation.service';
 import { ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { DashboardService } from '../dashboard.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard-status-chart',
@@ -19,7 +20,9 @@ export class DashboardStatusChartComponent implements OnInit {
   barChartData: ChartDataSets[] = [];
   selectedMonth = new Date().getMonth() + 1;
   selectedYear = new Date().getFullYear();
-
+  statusPieChartData:any = [];
+  sourcePieChartData:any = [];
+  teamPieChartData:any = [];
   barChartOptions: ChartOptions = {
     responsive: true,
     elements: {
@@ -48,12 +51,18 @@ export class DashboardStatusChartComponent implements OnInit {
     // hoverBorderColor: ['#dc3545', '#009688 ', '#ffc107'],
  }];
 
-  pieChartLabels: string[] = ['Status', 'Category', 'Team'];
-  pieChartData: number[] = [150, 200, 100 ];
+  statusChartLabels: string[] = [];
+  statusChartData: number[] = [ ];
+  sourceChartLabels: string[] = [];
+  sourceChartData: number[] = [];
+  teamChartLabels: string[] = [];
+  teamChartData: number[] = [];
 
 
   constructor(private dashboardService: DashboardService,
-    public translationService: TranslationService) { }
+    public translationService: TranslationService,
+    public toasterService: ToastrService 
+  ) { }
 
   ngOnInit() {
     // this.isLoading = true;
@@ -61,17 +70,67 @@ export class DashboardStatusChartComponent implements OnInit {
       this.years.push(index);
     }
     // this.getChartsData();
-    
+    this.getStatusChartData();
+    this.getSourceChartData();
+    // this.getTeamChartData();
   }
 
   getChartsData() {
-    this.dashboardService.getBestSellingProducts(this.selectedMonth, this.selectedYear).subscribe((data: BestSellingProudct[]) => {
-      const salesCount = data.map(c => c.count);
-      this.barChartData = [
-        { data: salesCount, label: this.translationService.getValue('SALES') }
-      ];
-      this.barChartLabels = data.map(c => c.name);
-    });
+    // this.dashboardService.getBestSellingProducts(this.selectedMonth, this.selectedYear).subscribe((data: BestSellingProudct[]) => {
+    //   const salesCount = data.map(c => c.count);
+    //   this.barChartData = [
+    //     { data: salesCount, label: this.translationService.getValue('SALES') }
+    //   ];
+    //   this.barChartLabels = data.map(c => c.name);
+    // });
   }
+
+
+getStatusChartData(){
+  this.isLoading = true
+  this.dashboardService.getStatusChartData().subscribe(res=>{
+    this.statusPieChartData = res?.body;
+    this.statusPieChartData.forEach((e:any) => {
+      this.statusChartLabels.push(e.statusName)
+      this.statusChartData.push(e.total)
+    })
+    this.isLoading = false
+  },error=>{
+      this.isLoading = false
+      this.toasterService.error(error);
+    });
+}
+getSourceChartData(){
+  this.isLoading = true
+  this.dashboardService.getSourceChartData().subscribe(res=>{
+    this.sourcePieChartData = res?.body;
+    this.sourcePieChartData.forEach(e => {
+      this.sourceChartLabels.push(e.source)
+      this.sourceChartData.push(e.total)
+    })
+    this.isLoading = false
+  },error=>{
+      this.isLoading = false
+      this.toasterService.error(error);
+    });
+}
+getTeamChartData(){
+  this.isLoading = true
+  this.dashboardService.getTeamChartData().subscribe(res=>{
+    this.teamPieChartData = res?.body;
+    this.teamPieChartData.forEach(e => {
+      this.teamChartLabels.push(e.source)
+      this.teamChartData.push(e.total)
+    })
+    this.isLoading = false
+  },error=>{
+      this.isLoading = false
+      this.toasterService.error(error);
+    });
+}
+
+
+
+
 }
 

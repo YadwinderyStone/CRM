@@ -237,5 +237,15 @@ export class InventoryService {
   }
 
 
+  // need api change to dropdown
+
+  getDisPositionList() {
+    const url = `Categories/list/0`;
+    return this.http.get<any[]>(url);
+  }
+  callDispose(data) { 
+    const url = `Categories/list/0`;
+    return this.http.post<any[]>(url,data);
+  }
 
 }

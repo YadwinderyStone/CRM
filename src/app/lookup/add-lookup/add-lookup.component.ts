@@ -4,7 +4,6 @@ import { LookupService } from '../lookup.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Lookup } from '@core/domain-classes/lookup.model'
-import { error } from 'console';
 
 @Component({
   selector: 'app-add-lookup',
