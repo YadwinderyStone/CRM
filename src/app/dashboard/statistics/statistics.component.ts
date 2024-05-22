@@ -8,7 +8,7 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  dashboardStaticatics: DashboardStaticatics;
+  dashboardStaticatics: any;
 
   constructor(private dashboardService: DashboardService) {
     this.dashboardStaticatics = {

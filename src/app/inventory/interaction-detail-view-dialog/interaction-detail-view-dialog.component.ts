@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./interaction-detail-view-dialog.component.scss']
 })
 export class InteractionDetailViewDialogComponent implements OnInit {
-  statusList = [{ name: 'Not Connected', value: 1 }, { name: 'Connected', value: 2 }];
+  statusList = [];
   selectedValue = '';
   constructor(
     public dialogRef: MatDialogRef<InteractionDetailViewDialogComponent>,
@@ -22,7 +22,7 @@ export class InteractionDetailViewDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getDisPositionList();
+    this.getDisPositionList();
   }
 
   getDisPositionList() {
@@ -34,16 +34,20 @@ export class InteractionDetailViewDialogComponent implements OnInit {
   }
 
   submit() {
-    this.dialogRef.close(true);
     if (this.selectedValue) {
-      let data
-      this.inventoryService.callDispose(data).subscribe(res => {
-        if (res) {
-          this.toasterService.success('successfully')
-        }
-      }, error => {
-        this.toasterService.error(error)
-      })
+      this.dialogRef.close(true);
+    // let UserId = localStorage.getItem('authObj')
+    //   let data={
+
+    //   }
+    //   this.inventoryService.callDispose(data).subscribe(res => {
+    //     if (res) {
+    //       this.toasterService.success('successfully')
+    //       this.dialogRef.close(true);
+    //     }
+    //   }, error => {
+    //     this.toasterService.error(error)
+    //   })
     } else {
       this.toasterService.error('please Select value')
     }

@@ -31,7 +31,7 @@ export class QueueComponent extends BaseComponent  implements OnInit {
     queueList: Queue[] =[];
     userList: any =[];
       columnsToDisplay: string[] = ['substatus','name','status','bucketSize','action', ];
-      subCategoryColumnToDisplay: string[] = ['name','status','action',];
+      subCategoryColumnToDisplay: string[] = ['name','action',];
       teamMembers: Queue[] = [];
       expandedElement: Queue | null;
       constructor( private dialog: MatDialog,
@@ -77,7 +77,6 @@ export class QueueComponent extends BaseComponent  implements OnInit {
   
     toggleRow(element: Queue) {
       this.teamMembers = [];
-      // FIXME add api for get sub category
       this.QueueService.getQueueMembers(element.id).subscribe((res:any) => {
         this.teamMembers = res
         this.expandedElement = this.expandedElement === element ? null : element;
@@ -157,9 +156,8 @@ deleteMemberById(id){
 
 
 getMembersName(id){
-  this.userList.filter(e=>e.id==id);
-  let userName = this.userList[0].firstName +' '+ this.userList[0].lastName;
-  
+  let user =  this.userList.filter(e=>e.id==id);
+  let userName = user[0].firstName +' '+ user[0].lastName;
   return userName
 }
 

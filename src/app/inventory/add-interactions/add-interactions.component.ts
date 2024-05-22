@@ -70,7 +70,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
   ngAfterViewInit(){
     let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
-    this.addInventoryForm.get('subject')?.setValue(`${this.userData?.transNo}-${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
+    this.addInventoryForm.get('subject')?.setValue(`${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
   }
 
   createForm() {
@@ -181,7 +181,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
         this.addInventoryForm.get('categoryId')?.setValue(JSON.parse(this.userData?.catId));
         let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
         let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
-        this.addInventoryForm.get('subject')?.setValue(`${this.userData?.transNo}-${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
+        this.addInventoryForm.get('subject')?.setValue(`${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
       }
 
     }, error => {
@@ -216,6 +216,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 
 
   onSubmit() {
+    // this.openDialog(123);
     if (this.addInventoryForm.invalid) {
       this.addInventoryForm.markAllAsTouched();
       return
@@ -283,7 +284,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       await this.getSubStatusList(status[0]?.id || 4);
 
       this.addInventoryForm.get('statusId').setValue(4);
-      this.addInventoryForm.get('subStatusId').setValue(32);
+      this.addInventoryForm.get('subStatusId').setValue(11);
     }
 
     if (this.contactSelectedType == 'Ticket Created') {

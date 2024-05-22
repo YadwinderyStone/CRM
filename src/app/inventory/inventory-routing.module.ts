@@ -5,12 +5,28 @@ import { InventoryListComponent } from './inventory-list/inventory-list.componen
 import { AddInventoryComponent } from './add-inventory/add-inventory.component';
 import { InteractionAssignmentComponent } from './interaction-assignment/interaction-assignment.component';
 import { L0EmailComponent } from './l0-email/l0-email.component';
+import { MyInteractionsListComponent } from './my-interactions-list/my-interactions-list.component';
+import { TeamInteractionsListComponent } from './team-interactions-list/team-interactions-list.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: InventoryListComponent,
+    data: { claimType: 'INT_VIEW_INTERACTION' },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'My-interaction',
+    component: MyInteractionsListComponent,
+    // Fixme : need to change interaction claim
+    data: { claimType: 'INT_VIEW_INTERACTION' },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'Team-interaction',
+    component: TeamInteractionsListComponent,
+    // Fixme : need to change interaction claim
     data: { claimType: 'INT_VIEW_INTERACTION' },
     canActivate: [AuthGuard]
   },
@@ -35,7 +51,7 @@ const routes: Routes = [
   {
     path: 'l0-email',
     component: L0EmailComponent,
-    data: { claimType: ['INT_ADD_INTERACTION', 'INT_UPDATE_INTERACTION'] },
+    data: { claimType: ['INT_VIEW_EMAILL0'] },
     canActivate: [AuthGuard]
   },
 ];

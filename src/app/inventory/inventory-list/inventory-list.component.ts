@@ -51,11 +51,10 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   subCatInput:string = ''
   // selectedPriority: string = ''
 
-
-
-
+  
   dataSource: InventoryDataSource;
-  displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+  displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'contant', 'createdteam',  'assignto','createdat','status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno'];
+  // displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;

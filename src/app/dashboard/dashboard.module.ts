@@ -30,6 +30,8 @@ import { PendingInteractionListComponent } from './pending-interaction-list/pend
 import { OpenInteractionListComponent } from './open-interaction-list/open-interaction-list.component';
 import { InteractionListBySourceComponent } from './interaction-list-by-source/interaction-list-by-source.component';
 import { InteractionByCreatedNameComponent } from './interaction-by-created-name/interaction-by-created-name.component';
+import { ResolvedInteractionListComponent } from './resolved-interaction-list/resolved-interaction-list.component';
+import { ClosedInteractionListComponent } from './closed-interaction-list/closed-interaction-list.component';
 
 @NgModule({
   declarations: [DashboardComponent,
@@ -47,6 +49,8 @@ import { InteractionByCreatedNameComponent } from './interaction-by-created-name
     OpenInteractionListComponent,
     InteractionListBySourceComponent,
     InteractionByCreatedNameComponent,
+    ResolvedInteractionListComponent,
+    ClosedInteractionListComponent,
   ],
   imports: [
     CommonModule,

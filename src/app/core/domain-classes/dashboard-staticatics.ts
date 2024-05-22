@@ -10,4 +10,7 @@ export interface DashboardStaticatics{
   totalInventotyReturn: number,
   totalProductReturn: number,
 
+
+
+  
 }

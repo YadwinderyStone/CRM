@@ -24,7 +24,7 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="name">
-            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Activity By Name  </th>
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Activity By</th>
             <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.activityByName}}</td>
         </ng-container>
         <ng-container matColumnDef="description">
@@ -36,8 +36,10 @@
             <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.activityActionName}}</td>
         </ng-container>
         <ng-container matColumnDef="time">
-            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Time  </th>
-            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.activityTime | date:'dd-MM-yyyy HH:MM'}}</td>
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Time </th>
+            <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{getDateTime(row.activityTime) | date:'dd-MM-yyyy hh:mm a'}}</td> -->
+            <!-- <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.activityTime | date:'dd-MM-yyyy hh:mm a'}}</td> -->
+            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.activityTime | date:'dd-MM-yyyy hh:mm a':'UTC'}}</td>
         </ng-container>
        
         <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>

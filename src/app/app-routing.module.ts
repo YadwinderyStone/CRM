@@ -393,6 +393,20 @@ const routes: Routes = [
             )
         }, 
         {
+          path: 'lookup12',
+          loadChildren: () =>
+            import('./disposition/disposition.module').then(
+              m => m.DispositionModule
+            )
+        }, 
+        {
+          path: 'disposition',
+          loadChildren: () =>
+            import('./disposition/disposition.module').then(
+              m => m.DispositionModule
+            )
+        }, 
+        {
           path: 'escalation',
           loadChildren: () =>
             import('./escalation/escalation.module').then(

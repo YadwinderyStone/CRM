@@ -26,7 +26,7 @@ export class EmailOutboxComponent extends BaseComponent implements OnInit {
       skip: 0
     }
     this.emailOutBoxService.getOutboxEmailList(data).subscribe((res: any) => {
-      this.outboxList = res
+      this.outboxList = res?.body || res
     },error=>{
       this.toasterService.error(error);
     })

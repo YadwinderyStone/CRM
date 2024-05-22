@@ -1,7 +1,3 @@
-<div class="main">
-    <!-- <div class="cancel d-flex justify-content-end m-2">
-        <mat-icon (click)="dialogRef.close(false)">close</mat-icon>
-    </div> -->
     <div class="page-header-main headerBackground mt-2">
         <div class="row align-items-center justify-content-between">
             <div class="col-md-auto col-sm-auto">
@@ -14,6 +10,7 @@
     <div class="loading-shade" *ngIf="isLoading">
         <mat-spinner></mat-spinner>
     </div>
+    <mat-dialog-content>
     <form [formGroup]="notesForm">
         <div class="row">
             <div class="col-md-12">
@@ -33,11 +30,25 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-danger">Next Status Time *</label>
+                    <input class="form-control" (click)="nextStatusTime.open()" [readonly]="true" [min]="currentDate" id="nextStatusTime" formControlName="nextStatusTime"
+                        [owlDateTimeTrigger]="nextStatusTime" [owlDateTime]="nextStatusTime" placeholder="{{'DATE' | translate}}">
+                    <div *ngIf="notesForm.get('nextStatusTime').touched && notesForm.get('nextStatusTime').errors">
+                        <div class="text-danger" *ngIf="notesForm.get('nextStatusTime').errors?.required">
+                            Next Status Time is required
+                        </div>
+                    </div>
+                    <owl-date-time #nextStatusTime></owl-date-time>
+                </div>
+            </div>
         </div>
     </form>
-
+</mat-dialog-content>
+<mat-dialog-actions>
     <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">
-        <button class="btn btn-success btn-sm m-right-10" (click)="addNote()">
+        <button [disabled]="isLoading" class="btn btn-success btn-sm m-right-10" (click)="addNote()">
             <i class="fas fa-plus"></i> Add Note
         </button>
         <button type="button" class="btn btn-danger btn-sm" (click)="dialogRef.close(false)"><i
@@ -45,4 +56,4 @@
         {{"CANCEL" | translate}}
     </button>
     </div>
-</div>
+</mat-dialog-actions>

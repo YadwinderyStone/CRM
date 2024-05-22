@@ -33,7 +33,10 @@ export class AddQueueComponent implements OnInit {
       if (this.id) {
         this.getQueueDetailById(this.id);
       }
+
+
     }
+  
   
   
     createForm() {

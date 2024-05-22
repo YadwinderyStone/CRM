@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { SendEmailDialogComponent } from '../send-email-dialog/send-email-dialog.component';
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
+import { TransferTeamComponent } from './transfer-team/transfer-team.component';
 @Component({
   selector: 'app-inventory-properties',
   templateUrl: './inventory-properties.component.html',
@@ -269,7 +270,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
         disableClose: false,
         width: '800px',
         maxHeight: '800px',
-        height: '70vh',
+        height: '80vh',
         data: this.interactionData
       }).afterClosed().subscribe(res=>{
     
@@ -287,12 +288,26 @@ openSendEmailDialog(){
 
   })
 
-
-
-
 }
 
+openTransfer(){
+  if(this.interactionData?.statusName=='Open' || 
+  this.interactionData?.statusName=='Pending'){
 
+    this.dialog.open(TransferTeamComponent, {
+      disableClose: true,
+      width: '650px',
+      height: 'auto',
+      data: this.interactionData
+    }).afterClosed().subscribe(res=>{
+      if(res){
+        this.getInteractionDetailById(this.id)
+      }
+    })
+  }else{
+    this.toastrService.warning('Interaction already Closed Or resolved we cant transfer it')
+  }
+}
 
 
 }

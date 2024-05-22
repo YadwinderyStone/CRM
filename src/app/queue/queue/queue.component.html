@@ -5,16 +5,15 @@
                 <h1>Team</h1>
             </div>
         </div>
-        <div *hasClaim="'MST_ADD_QUE'" class="col-md-auto col-sm-auto col-auto">
-            <button class="btn blue-btn btn-sm m-right-10" [routerLink]="['/team/add']">
+        <div  class="col-md-auto col-sm-auto col-auto">
+            <button *hasClaim="'MST_ADD_QUE'" class="btn blue-btn btn-sm m-right-10" [routerLink]="['/team/add']">
                 <i class="fas fa-plus"></i>
-                <!-- {{"ADD_PRODUCT_CATEGORY" | translate}} -->
                 Add Team
             </button>
+            <button type="button" (click)="downloadExcel()" class="btn btn-warning btn-md button-margin ml-2"><i
+                class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
+            </button>
         </div>
-        <button type="button" (click)="downloadExcel()" class="btn btn-warning btn-md button-margin ml-2"><i
-            class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
-        </button>
     </div>
 </div>
 

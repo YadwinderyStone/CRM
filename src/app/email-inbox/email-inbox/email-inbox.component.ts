@@ -23,10 +23,20 @@ export class EmailInboxComponent implements OnInit {
       skip: 0
     }
     this.emailInboxService.getInboxEmailList(data).subscribe((res: any) => {
-      this.inboxList = res;
+      this.inboxList = res?.body;
     },error=>{
       this.toasterService.error(error);
     })
   }
+
+  deleteMail(data){
+
+  }
+
+  checkEnable(event){
+
+
+  }
+
 
 }

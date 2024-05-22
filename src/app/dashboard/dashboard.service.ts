@@ -18,7 +18,7 @@ export class DashboardService {
     private commonHttpErrorService: CommonHttpErrorService) { }
 
   getDashboardStaticatics(): Observable<DashboardStaticatics | CommonError> {
-    const url = `dashboard/statistics`;
+    const url = `Dashboard/GetInteractionStatusDashboardCountData`;
     return this.httpClient.get<DashboardStaticatics>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
@@ -102,6 +102,20 @@ export class DashboardService {
   getInteractionsListForPending() {
     const url = 'Dashboard/GetInteractionPendingStatus';
     
+    return this.httpClient.get<Inventory[]>(url, {
+      observe: 'response',
+    });
+  }
+  getInteractionsListForClosed() {
+    // FIXME: change api to closed 
+    const url = 'Dashboard/GetInteractionPendingStatus';
+    return this.httpClient.get<Inventory[]>(url, {
+      observe: 'response',
+    });
+  }
+  getInteractionsListForResolved() {
+    // FIXME: change api to resolved 
+    const url = 'Dashboard/GetInteractionPendingStatus';
     return this.httpClient.get<Inventory[]>(url, {
       observe: 'response',
     });

@@ -56,17 +56,31 @@
           <a [routerLink]="['/interactions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
             class="nav-link">
             <i class="far fa-list-alt nav-icon"></i>
-            <p>{{'LIST' | translate}}</p>
+            <p>All List</p>
           </a>
         </li>
-        <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
+        <li *hasClaim="['INT_ADD_INTERACTION','INT_VIEW_MY_INTERACTION']" class="nav-item">
+          <a [routerLink]="['/interactions/My-interaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="far fa-list-alt nav-icon"></i>
+            <p>My list </p>
+          </a>
+        </li>
+        <li *hasClaim="['INT_ADD_INTERACTION','INT_VIEW_TEAM_INTERACTION']" class="nav-item">
+          <a [routerLink]="['/interactions/Team-interaction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <i class="far fa-list-alt nav-icon"></i>
+            <p>Team list</p>
+          </a>
+        </li>
+        <!-- <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
           <a [routerLink]="['/interactions/add-interactions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
             class="nav-link">
             <i class="fas fa-plus-square nav-icon"></i>
             <p>{{'ADD_NEW' | translate}}</p>
           </a>
-        </li>
-        <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
+        </li> -->
+        <li *hasClaim="'INT_VIEW_EMAILL0'" class="nav-item">
           <a [routerLink]="['/interactions/l0-email']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
             class="nav-link">
             <i class="fas fa-plus-square nav-icon"></i>
@@ -368,6 +382,13 @@
               class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>Problem Master</p>
+            </a>
+          </li>
+          <li class="nav-item" *hasClaim="['MST_CTI_ADD_DISPOSTION']">
+            <a [routerLink]="['/lookup12']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Disposition Master</p>
             </a>
           </li>
           <li class="nav-item" *hasClaim="'MST_VIEW_CATEGORY'">

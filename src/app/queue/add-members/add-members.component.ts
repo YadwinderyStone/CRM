@@ -19,6 +19,7 @@ export class AddMembersComponent extends BaseComponent implements OnChanges {
   isEdit: boolean = false;
   userList: any = false;
   membersForm: UntypedFormGroup;
+  teamMembers:any = []
   constructor(
     public dialogRef: MatDialogRef<AddMembersComponent>,
     @Inject(MAT_DIALOG_DATA) public data: QueueMember,
@@ -29,6 +30,7 @@ export class AddMembersComponent extends BaseComponent implements OnChanges {
     super(translationService);
     this.createForm();
     this.getUserList();
+    this.getQueueMembers(this.data?.parentId);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -42,6 +44,20 @@ export class AddMembersComponent extends BaseComponent implements OnChanges {
     this.dialogRef.close();
   }
 
+  getQueueMembers(id){
+    this.QueueService.getQueueMembers(id).subscribe((res:any) => {
+     if(res){
+       this.teamMembers = res.map(e=>e.userId);
+      }      
+    },error=>{
+      this.toastrService.error(error);
+    });
+  }
+
+
+
+
+
   saveMember(): void {
     if (this.membersForm.invalid) {
       this.membersForm.markAllAsTouched();
@@ -54,12 +70,12 @@ export class AddMembersComponent extends BaseComponent implements OnChanges {
     if (this.data.id) {
       value.id = this.data.id
       this.QueueService.updateQueueMember(value).subscribe(c => {
-        this.toastrService.success('Queue member updated Successfully.');
+        this.toastrService.success('Team member updated Successfully.');
         this.dialogRef.close(value);
       });
     } else {
       this.QueueService.AddQueueMember(value).subscribe(c => {
-        this.toastrService.success('Queue member Saved Successfully.');
+        this.toastrService.success('Team member Saved Successfully.');
         this.dialogRef.close(this.data);
       });
     }

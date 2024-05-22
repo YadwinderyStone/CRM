@@ -22,9 +22,9 @@
                         <label for="Name">{{'NAME' | translate}}</label>
                         <mat-select formControlName="userId"
                             placeholder="Please Select User" class="form-control">
-                            <mat-option *ngFor="let user of userList" [value]="user.id">
-                                {{user.firstName +' '+ user.lastName}}
-                            </mat-option>
+                               <mat-option [disabled]="this.teamMembers.includes(user?.id)" *ngFor="let user of userList" [value]="user.id">
+                                   {{user.firstName +' '+ user.lastName}}
+                                </mat-option>
                         </mat-select>
                         <div *ngIf="membersForm.get('userId').invalid && (membersForm.get('userId').dirty || membersForm.get('userId').touched)">
                             <div class="text-danger" *ngIf="membersForm.get('userId').errors?.required">

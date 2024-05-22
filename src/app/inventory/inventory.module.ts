@@ -39,6 +39,9 @@ import { L0EmailComponent } from './l0-email/l0-email.component';
 import { SendEmailDialogComponent } from './send-email-dialog/send-email-dialog.component';
 import { AddNoteDialogComponent } from './add-note-dialog/add-note-dialog.component';
 import { InteractionDetailViewDialogComponent } from './interaction-detail-view-dialog/interaction-detail-view-dialog.component';
+import { TransferTeamComponent } from './inventory-properties/transfer-team/transfer-team.component';
+import { MyInteractionsListComponent } from './my-interactions-list/my-interactions-list.component';
+import { TeamInteractionsListComponent } from './team-interactions-list/team-interactions-list.component';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -57,7 +60,10 @@ import { InteractionDetailViewDialogComponent } from './interaction-detail-view-
     L0EmailComponent,
     SendEmailDialogComponent,
     AddNoteDialogComponent,
-    InteractionDetailViewDialogComponent
+    InteractionDetailViewDialogComponent,
+    TransferTeamComponent,
+    MyInteractionsListComponent,
+    TeamInteractionsListComponent
   ],
   imports: [
     CommonModule,

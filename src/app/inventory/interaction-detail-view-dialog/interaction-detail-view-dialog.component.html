@@ -8,9 +8,11 @@
         <mat-label> Disposition</mat-label>
         <mat-select [(ngModel)]="selectedValue"
             placeholder="Select Disposition" class="form-control">
-            <mat-option *ngFor="let status of statusList" [value]="status.id">
-                {{status.name}}
-            </mat-option>
+            <ng-container *ngFor="let status of statusList" > 
+              <mat-option *ngIf="status?.isEnabled"  [value]="status.dispoCode">
+                {{status.dispoDesc}}
+              </mat-option>
+            </ng-container>
         </mat-select>
     </div>
 </div>

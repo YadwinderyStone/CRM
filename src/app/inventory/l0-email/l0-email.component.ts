@@ -41,7 +41,7 @@ export class L0EmailComponent extends BaseComponent implements OnInit  {
     interactionIds = [];
     selectedTeamsIds = [];
     dataSource: L0EMailDataSource;
-    displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+    displayedColumns: string[] = ['interactionid','contant','createdat', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory',  'createdteam',  'problemreported'];
     columnsToDisplay: string[] = ["footer"];
     inventoryResource: InventoryResourceParameter;
     loading$: Observable<boolean>;

@@ -4,7 +4,7 @@
             <div class="inner">
                 <!-- <h3>{{dashboardStaticatics?.totalPurchase | number}}</h3>
                 <p>{{'TOTAL' | translate }}</p> -->
-                <h3>500</h3>
+                <h3>{{dashboardStaticatics?.total}}</h3>
                 <p>Total Interactions</p>
             </div>
             <div class="icon">
@@ -17,7 +17,7 @@
             <div class="inner">
                 <!-- <h3>{{dashboardStaticatics?.totalSales | number}}</h3>
                 <p> {{'OPEN' | translate }}</p> -->
-                <h3>100</h3>
+                <h3>{{dashboardStaticatics?.open}}</h3>
                 <p> OPEN</p>
             </div>
             <div class="icon">
@@ -28,8 +28,8 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-yellow"  routerLink="/interactions">
             <div class="inner">
-                <h3>200</h3>
-                <p>IN-PROGRESS</p>
+                <h3>{{dashboardStaticatics?.pending}}</h3>
+                <p>PENDING</p>
             </div>
             <div class="icon">
                 <i class="fas fa-undo"></i>
@@ -39,7 +39,7 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-danger"  routerLink="/interactions">
             <div class="inner">
-                <h3>100</h3>
+                <h3>{{dashboardStaticatics?.closed}}</h3>
                 <p>CLOSED</p>
             </div>
             <div class="icon">
@@ -50,7 +50,7 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-danger"  routerLink="/interactions">
             <div class="inner">
-                <h3>100</h3>
+                <h3>{{dashboardStaticatics?.resolved}}</h3>
                 <p>RESOLVED</p>
             </div>
             <div class="icon">
@@ -62,7 +62,7 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-teal"  routerLink="/customer">
             <div class="inner">
-                <h3>100</h3>
+                <h3>50</h3>
                 <p>CONTACT</p>
             </div>
             <div class="icon">
@@ -74,7 +74,7 @@
     <div class="col-lg-3 col-xs-6" routerLink="/users">
         <div class="small-box bg-pink">
             <div class="inner">
-                <h3>600</h3>
+                <h3>20</h3>
                 <p>USER</p>
             </div>
             <div class="icon">
@@ -85,7 +85,7 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-yellow"  routerLink="/team">
             <div class="inner">
-                <h3>150</h3>
+                <h3>17</h3>
                 <p>TEAMS</p>
             </div>
             <div class="icon">

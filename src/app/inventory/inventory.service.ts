@@ -118,7 +118,9 @@ export class InventoryService {
     if(params?.category) param+=`&categoryId=${params?.category}`
     if(params?.subCategory) param+=`&subCategoryId=${params?.subCategory}`
     // const url = `Interaction?${param}`;
-    const url = `Interaction?TeamId=25&Skip=${params?.skip.toString()}&PageSize=${params?.pageSize.toString()}`;
+    let name = 'Email L0'
+    // const url = `Interaction?TeamName=${name}`;
+    const url = `Interaction/GetInteractionsRecord?TeamId=25&Skip=${params?.skip.toString()}&PageSize=${params?.pageSize.toString()}`;
     return this.http.get<Inventory[]>(url, {
       observe: 'response',
     });
@@ -217,7 +219,7 @@ export class InventoryService {
   }
   getInteractionNotes(id){
     // FIXME:need to change api end point for history
-    const url = `Interaction/${id}`;
+    const url = `CrmNotes/GetCrmNotesDataById/${id}`;
     return this.http.get<any[]>(url);
   }
   getInteractionLogs(id){
@@ -240,12 +242,89 @@ export class InventoryService {
   // need api change to dropdown
 
   getDisPositionList() {
-    const url = `Categories/list/0`;
+    const url = `CtiDispostionMasters/GetCTIDispostionMastersList`;
     return this.http.get<any[]>(url);
   }
   callDispose(data) { 
     const url = `Categories/list/0`;
     return this.http.post<any[]>(url,data);
   }
+
+
+  getTeamListForTransfer(id){
+    const url = `Queues`;
+    // const url = `Queues/${id}`;
+    return this.http.get<any>(url);
+  }
+
+  transferToTeam(data) { 
+    // const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
+    const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
+    return this.http.post<any[]>(url,data);
+  }
+
+  
+// Api list for sidebar interactions 
+
+
+getMyInteractionsList(params) {
+  let param:any = `Skip=${params?.skip.toString()}`
+  param+=`&PageSize=${params?.pageSize.toString()}`
+ if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
+  if(params?.search) param+=`&TransactionNumber=${params?.search}`
+  if(params?.type) param+=`&TicketType=${params?.type}`
+  if(params?.team) param+=`&TeamId=${params?.team}`
+  if(params?.teamId) param+=`&TeamName=${params?.teamId}`
+  if(params?.priority) param+=`&PriorityName=${params?.priority}`
+  if(params?.status) param+=`&statusId=${params?.status}`
+  if(params?.subStatus) param+=`&subStatusId=${params?.subStatus}`
+  if(params?.category) param+=`&categoryId=${params?.category}`
+  if(params?.category) param+=`&categoryId=${params?.category}`
+  if(params?.subCategory) param+=`&subCategoryId=${params?.subCategory}`
+  const url = `Interaction?${param}`;
+  return this.http.get<Inventory[]>(url, {
+    observe: 'response',
+  });
+} 
+
+getTeamWiseInteractionsList(params) {
+  let param:any = `Skip=${params?.skip.toString()}`
+  param+=`&PageSize=${params?.pageSize.toString()}`
+ if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
+  if(params?.search) param+=`&TransactionNumber=${params?.search}`
+  if(params?.type) param+=`&TicketType=${params?.type}`
+  if(params?.team) param+=`&TeamName=${params?.team}`
+  if(params?.teamId) param+=`&TeamId=${params?.teamId}`
+  if(params?.priority) param+=`&PriorityName=${params?.priority}`
+  if(params?.status) param+=`&statusId=${params?.status}`
+  if(params?.subStatus) param+=`&subStatusId=${params?.subStatus}`
+  if(params?.category) param+=`&categoryId=${params?.category}`
+  if(params?.category) param+=`&categoryId=${params?.category}`
+  if(params?.subCategory) param+=`&subCategoryId=${params?.subCategory}`
+  const url = `Interaction?${param}`;
+  return this.http.get<Inventory[]>(url, {
+    observe: 'response',
+  });
+} 
+
+
+// notes api starts
+
+addCrmNote(data){
+  const url = `CrmNotes/AddCrmNotes`;
+  return this.http.post<any[]>(url,data);
+  
+
+}
+
+
+
+
+
+
+// notes api end 
+
+
+
 
 }

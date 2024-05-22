@@ -218,7 +218,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <mat-label>Agent Remarks</mat-label>
-               <input type="text" maxlength="600"  class="form-control" placeholder="Please enter agent remarks" formControlName="agentRemarks" >
+                <textarea maxlength="2000"  type="text" maxlength="600"  class="form-control" placeholder="Please enter agent remarks" formControlName="agentRemarks" ></textarea>
                 <mat-error [dir]="langDir"
                     *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"
                     class="text-danger">

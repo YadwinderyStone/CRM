@@ -1,0 +1,55 @@
+.emaildiv {
+    background-color: #ffffff;
+    box-shadow: 0px 1px 1px 0px #80808078;
+    padding: 10px 2px;
+    margin-bottom: 2px;
+}
+
+.deleteIconDiv {
+    color: gray
+}
+
+.mailNameSection {
+    width: 10%;
+    padding:0px 5px;
+    margin-top: 3px;
+    // display: flex;
+    // align-items: center;
+    cursor: pointer;
+}
+
+.checkBox-section {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mailMessageSection {
+    width: 75%;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-top: 3px;
+    // display: flex;
+    // align-items: center;
+    cursor: pointer;
+}
+
+.deleteIconDiv {
+    color: gray;
+    width: auto;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.overflowEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+mat-checkbox{
+    margin-top: 5px !important;
+}

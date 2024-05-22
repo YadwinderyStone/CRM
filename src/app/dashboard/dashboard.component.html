@@ -9,7 +9,7 @@
 </div>
 
 <app-statistics *hasClaim="'DB_STATISTICS'"></app-statistics>
-<app-dashboard-status-chart *hasClaim="['DB_TEAMWISEGRAPH','DB_STATUSWISEGRAPH']"></app-dashboard-status-chart>
+<app-dashboard-status-chart *hasClaim="['DB_TEAMWISEGRAPH','DB_STATUSWISEGRAPH','DB_SOURCEWISECOUNT']"></app-dashboard-status-chart>
 <!-- <app-best-selling-product *hasClaim="'DB_BEST_SELLING_PROS'"></app-best-selling-product> -->
 <!-- <app-calender-view *hasClaim="'DB_REMINDERS'"></app-calender-view> -->
 <!-- <app-latest-inquiry *hasClaim="'DB_LATEST_INQUIRIES'"></app-latest-inquiry> -->
@@ -21,28 +21,35 @@
   <div class="col-md-6">
     <app-pending-interaction-list *hasClaim="'DB_PENDINGSTATUS'"></app-pending-interaction-list>
   </div>
+  <div class="col-md-6">
+    <app-closed-interaction-list *hasClaim="'DB_CLOSEDSTATUS'"></app-closed-interaction-list>
+  </div>
+  
+  <div class="col-md-6">
+    <app-resolved-interaction-list *hasClaim="'DB_RESOLVESTATUS'"></app-resolved-interaction-list>
+  </div>
   
   <div class="col-md-12">
     <!-- <app-sales-order-expected-shipment ></app-sales-order-expected-shipment> -->
   </div>
   
-  <div class="col-md-6 mt-2">
+  <div class="col-md-6 mt-2" *hasClaim="'DB_TEAMWISELIST'">
     <div class="dashboard-table">
       <app-dashboard-teams-grid></app-dashboard-teams-grid>
     </div>
   </div>
 
-  <div class="col-md-6 mt-2">
+  <div class="col-md-6 mt-2" *hasClaim="'DB_CATEGORYWISELIST'"  >
     <div class="dashboard-table">
       <app-dashboard-category-grid></app-dashboard-category-grid>
     </div>
   </div>
-<div class="col-md-6 mt-2">
+<div class="col-md-6 mt-2" *hasClaim="'DB_SOURCEWISELIST'">
     <div class="dashboard-table">
       <app-interaction-list-by-source></app-interaction-list-by-source>
     </div>
   </div>
-<div class="col-md-6 mt-2">
+<div class="col-md-6 mt-2" *hasClaim="'DB_USERWISELIST'">
     <div class="dashboard-table">
       <app-interaction-by-created-name></app-interaction-by-created-name>
     </div>
