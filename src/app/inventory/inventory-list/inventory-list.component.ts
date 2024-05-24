@@ -40,6 +40,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   subCategoryList: InteractionCategory[] = [];
 
 
+  prefix: string = 'G-';
   search: string = '';
   selectedTeam: string = ''
   selectedType: string = ''

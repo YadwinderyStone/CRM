@@ -18,6 +18,7 @@ export class AddInventoryComponent implements OnInit {
   addInventoryForm: UntypedFormGroup;
   interationId:string= '';
   contactId:any;
+  InteractionDetail:any;
   isEdit:boolean = false
   userData:any
   tabIndex = 0
@@ -60,6 +61,10 @@ export class AddInventoryComponent implements OnInit {
 getUserId(id){
   this.contactId = id
 }
+getInteractionDetail(event){
+  this.InteractionDetail = event
+}
+
 
 
 }

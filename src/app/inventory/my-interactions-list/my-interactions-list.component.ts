@@ -30,7 +30,7 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
   categoryList: InteractionCategory[] = [];
   subCategoryList: InteractionCategory[] = [];
 
-
+  prefix: string = 'G-';
   search: string = '';
   selectedTeam: string = ''
   selectedType: string = ''
@@ -242,7 +242,7 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search,
+    this.inventoryResource.search = this.search? this.prefix+this.search:'',
       this.inventoryResource.team = this.selectedTeam,
       this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,

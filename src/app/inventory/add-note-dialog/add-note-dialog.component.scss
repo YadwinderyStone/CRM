@@ -4,3 +4,8 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+:host ::ng-deep .angular-editor-textarea {
+    min-height: 100px !important;
+    background-color: #fff !important;
+}

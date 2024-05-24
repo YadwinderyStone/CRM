@@ -1,0 +1,112 @@
+<div class="page-header-main mt-3">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header">
+                <h1>User Bulk Upload</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-3">
+        <div class="fileUploadDiv">
+            Select File : (<span class="text-danger">.xls OR .Xlss File Format Only</span> )
+        </div>
+
+    </div>
+    <div class="col-md-2">
+        <div class="fileUploadDiv">
+            <input (change)="onFileSelect($event)" #fileInput name="xlxx file" type="file">
+        </div>
+    </div>
+    <div class="col-md-7 text-center">
+        <div class="fileUploadDiv">
+            <button (click)="previewUploadedFile()" class="btn blue-btn btn-sm m-right-10"> Preview</button>
+            <button class="btn blue-btn btn-sm m-right-10"> Download Template</button>
+           
+        </div>
+    </div>
+    <div class="col-md-4 my-3">
+        <div class="mb-3 text-right">
+            <button type="button" (click)="uploadFile()" class="btn blue-btn btn-sm m-right-10">Click For
+                Updload Records
+               </button>
+            <button type="button" (click)="resetFiles()" class="btn blue-btn btn-sm m-right-10 mx-3">Reset</button>
+        </div>
+    </div>
+<!-- *ngIf="previewFile" -->
+    <div class="w-100">
+        <div class="page-header-main headerBackground">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-auto col-sm-auto col">
+                    <div class="content-header">
+                        <h1>Bulk User List</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="table-responsive">
+                <div class="table table-bordered table-hover tableDiv">
+                    <table mat-table [dataSource]="uploadedList" multiTemplateDataRows>
+                        <ng-container matColumnDef="interactionid">
+                            <th class="table-column-200" mat-header-cell *matHeaderCellDef >
+                                Interaction ID</th>
+                            <td class="table-column-200" mat-cell *matCellDef="let row">{{row.InteractionID}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="comments">
+                            <th class="table-column-400" mat-header-cell *matHeaderCellDef >
+                                ResolutionComments</th>
+                            <td class="table-column-400" mat-cell *matCellDef="let row">
+                                <div class="tdMaxHeight">{{row.ResolutionComments}}</div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Disposition">
+                            <th class="table-column-200" mat-header-cell *matHeaderCellDef >
+                                Disposition</th>
+                            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.Disposition}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="SubDisposition">
+                            <th class="table-column-200" mat-header-cell *matHeaderCellDef >Sub
+                                Disposition</th>
+                            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.SubDisposition}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ProblemID">
+                            <th class="table-column-200" mat-header-cell *matHeaderCellDef >
+                                Problem
+                                ID
+                            </th>
+                            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.ProblemID}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ResolveByUser">
+                            <th class="table-column-150" mat-header-cell *matHeaderCellDef >
+                                Resolve By User
+                            </th>
+                            <td class="table-column-150" mat-cell *matCellDef="let row"> <span
+                                    class="text-uppercase">{{row?.ResolveByUser}}</span></td>
+                        </ng-container>
+                        <ng-container matColumnDef="Team">
+                            <th class="table-column-200" mat-header-cell *matHeaderCellDef >Team
+                            </th>
+                            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.Team}}
+                            </td>
+                        </ng-container>
+                        <tr *matNoDataRow>
+                            <td [attr.colspan]="displayedColumns.length">
+                                <span class="p-4 mt-4">
+                                    <b> {{'NO_DATA_FOUND' | translate}}</b>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

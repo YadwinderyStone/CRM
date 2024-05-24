@@ -96,4 +96,11 @@ export class UserService {
     return this.httpClient.post<User>(url, form)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
+
+
+
+  bulkUpload(formData){
+    const url = `Interaction/bulkCloser`;
+    return this.httpClient.post<any[]>(url,formData);
+  }
 }

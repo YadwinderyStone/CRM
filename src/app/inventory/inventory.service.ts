@@ -203,6 +203,18 @@ export class InventoryService {
     const url = `Contact/${id}`;
     return this.http.get<any[]>(url);
   }
+  getDocumentDetail(id){
+    const url = `Document/GetDocumentDetailByInteractionId?interactionId=${id}`;
+    return this.http.get<any[]>(url);
+  }
+  downloadDocument(id): Observable<Blob> {
+      const url = `Document/GetViewDocumentDataById?id=${id}`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+  // downloadDocument(id){
+  //   const url = `Document/GetViewDocumentDataById?id=${id}`;
+  //   return this.http.get<any>(url);
+  // }
   getInteractionHistory(id){
     // FIXME:need to change api end point for history
     const url = `Interaction/GetInteractionHistory?interactionId=${id}`;

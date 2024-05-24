@@ -26,9 +26,10 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService
   ) {
     super(translationService);
-
     this.data;
     this.getLangDir();
+    this.editorConfig.height = '100px';
+    this.editorConfig.minHeight = '100px';
   }
 
   ngOnInit(): void {
@@ -36,8 +37,8 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
   }
   createForm() {
     this.notesForm = this.fb.group({
-      body: ['', [Validators.required, Validators.minLength(10)]],
-      nextStatusTime: ['', [Validators.required, Validators.minLength(10)]],
+      body: ['', [Validators.required]],
+      nextStatusTime: ['', [Validators.required]],
     });
   }
 

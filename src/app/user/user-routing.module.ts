@@ -5,6 +5,7 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { UserDetailResolverService } from './user-detail-resolver';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserPermissionComponent } from './user-permission/user-permission.component';
+import { BulkUserUploadComponent } from './bulk-user-upload/bulk-user-upload.component';
 
 const routes: Routes = [
   {
@@ -18,12 +19,21 @@ const routes: Routes = [
     resolve: { user: UserDetailResolverService },
     data: { claimType: 'USR_UPDATE_USER' },
     canActivate: [AuthGuard]
-  }, {
+  }, 
+  {
     path: 'manage',
     component: ManageUserComponent,
     data: { claimType: 'USR_ADD_USER' },
     canActivate: [AuthGuard]
-  }, {
+  }, 
+  {
+    path: 'users-bulk-upload',
+    component: BulkUserUploadComponent,
+    data: { claimType:'USR_ADD_USER'},
+    canActivate: [AuthGuard]
+  }, 
+  
+  {
     path: 'permission/:id',
     component: UserPermissionComponent,
     resolve: { user: UserDetailResolverService },

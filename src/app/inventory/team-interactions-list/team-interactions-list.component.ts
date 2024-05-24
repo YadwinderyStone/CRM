@@ -29,7 +29,7 @@ export class TeamInteractionsListComponent extends BaseComponent implements OnIn
     categoryList: InteractionCategory[] = [];
     subCategoryList: InteractionCategory[] = [];
   
-  
+    prefix: string = 'G-';
     search: string = '';
     selectedTeam: string = ''
     selectedType: string = ''
@@ -246,12 +246,12 @@ export class TeamInteractionsListComponent extends BaseComponent implements OnIn
       this.paginator.pageIndex = 0;
       this.inventoryResource.skip = 0
       this.inventoryResource.type = this.selectedType
-      this.inventoryResource.search = this.search,
-        this.inventoryResource.team = this.selectedTeam,
-        this.inventoryResource.category = this.selectedCategory,
-        this.inventoryResource.subCategory = this.selectedSubCategory,
-        this.inventoryResource.status = this.selectedStatus,
-        this.inventoryResource.subStatus = this.selectedSubStatus
+      this.inventoryResource.search = this.search? this.prefix+this.search:'',
+      this.inventoryResource.team = this.selectedTeam,
+      this.inventoryResource.category = this.selectedCategory,
+      this.inventoryResource.subCategory = this.selectedSubCategory,
+      this.inventoryResource.status = this.selectedStatus,
+      this.inventoryResource.subStatus = this.selectedSubStatus
       // this.inventoryResource.priority = this.selectedPriority
     }
   }

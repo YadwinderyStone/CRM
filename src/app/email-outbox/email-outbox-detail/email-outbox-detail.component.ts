@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from 'src/app/base.component';
 import { EmailOutboxService } from '../email-outbox.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-email-outbox-detail',
@@ -18,6 +19,7 @@ export class EmailOutboxDetailComponent extends BaseComponent implements OnInit 
       public toasterService: ToastrService,
       public toasterServices: ToastrService,
       private activatedRoute:ActivatedRoute,
+      private sanitizer: DomSanitizer,
       private router:Router,
     ) { 
       super();
@@ -33,9 +35,14 @@ export class EmailOutboxDetailComponent extends BaseComponent implements OnInit 
   
     getEmailDetail(id){
      this.emailOutBoxService.getEmailDetailById(id).subscribe((res:any)=>{
-      this.emailDetail = res
+      this.emailDetail = res?.body || res
      })
     }
   
+    senitizeContent(data){
+      let sanitizedContent:SafeHtml = this.sanitizer.bypassSecurityTrustHtml(data);
+     return  sanitizedContent
+    }
+
   }
   

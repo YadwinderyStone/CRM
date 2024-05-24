@@ -1,1 +1,33 @@
-<p>email-outbox-detail works!</p>
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header">
+                <h1>Email-Outbox</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="w-100" *ngFor="let data of emailDetail" >
+
+        <div class="col-md-12 my-2">
+            <h3>Subject :  {{data?.mailSubject}}</h3>
+        </div>
+        <div class="col-md-12 my-2">
+            <span>From :</span> <span>{{data?.mailFromName}}<{{data?.mailFromEmailId}}></span>
+            <p class="">To : {{data?.mailTo}}</p>
+        </div>
+        <div class="col-md-12 my-2">
+            <span>CC: {{data?.mailCC}}</span>
+        </div>
+        <div class="col-md-12">
+            <span>BCC: {{data?.mailBCC}}</span>
+        </div>
+        <div class="col-md-12">
+            <div class="MailMessage">    
+                <p [innerHTML]="senitizeContent(data?.mailMessage)"></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,13 @@
 <mat-tab-group  mat-align-tabs="start" [(selectedIndex)]="tabIndex">
     <mat-tab label="General">
-        <app-inventory-properties *ngIf="isEdit" (userId)="getUserId($event)" [userData]="userData" [id]="interationId" ></app-inventory-properties>
+        <app-inventory-properties *ngIf="isEdit && tabIndex==0 " (interactionDetail)="getInteractionDetail($event)" (userId)="getUserId($event)" [userData]="userData" [id]="interationId" ></app-inventory-properties>
         <app-add-interactions *ngIf="!isEdit" [userData]="userData"></app-add-interactions></mat-tab>
-        <mat-tab *ngIf="isEdit" label="Email">
-<!-- <app-interaction-history *ngIf="tabIndex==1"  [id]="interationId"></app-interaction-history> -->
-email
-        </mat-tab>
-        <mat-tab *ngIf="isEdit" label="Notes"><app-interaction-notes *ngIf="tabIndex==2" [id]="interationId" ></app-interaction-notes> </mat-tab>
-        <mat-tab *ngIf="isEdit" label="Interaction History"><app-interaction-history *ngIf="tabIndex==3"  [id]="interationId"></app-interaction-history></mat-tab>
-        <mat-tab *ngIf="isEdit" label="Survey Questions"><app-survey-questions *ngIf="tabIndex==4" [id]="interationId"  ></app-survey-questions></mat-tab>
-        <mat-tab *ngIf="isEdit" label="Contacts"><app-customer-info *ngIf="tabIndex==5" [userData]="userData" [id]="contactId" ></app-customer-info></mat-tab>
+        <mat-tab *ngIf="isEdit" label="Email">email</mat-tab>
+        <mat-tab *ngIf="isEdit" label="Attachments"><app-interaction-attachments-list *ngIf="tabIndex==2" [id]="interationId"></app-interaction-attachments-list></mat-tab>
+        <mat-tab *ngIf="isEdit" label="Comments"><app-interaction-notes *ngIf="tabIndex==3" [id]="interationId" [InteractionDetail]="InteractionDetail"    ></app-interaction-notes> </mat-tab>
+        <mat-tab *ngIf="isEdit" label="Interaction History"><app-interaction-history *ngIf="tabIndex==4"  [id]="interationId"></app-interaction-history></mat-tab>
+        <mat-tab *ngIf="isEdit" label="Survey Questions"><app-survey-questions *ngIf="tabIndex==5" [id]="interationId"  ></app-survey-questions></mat-tab>
+        <mat-tab *ngIf="isEdit" label="Contacts"><app-customer-info *ngIf="tabIndex==6" [userData]="userData" [id]="contactId" ></app-customer-info></mat-tab>
 </mat-tab-group>
 
 

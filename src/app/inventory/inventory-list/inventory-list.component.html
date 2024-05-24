@@ -5,11 +5,11 @@
                 <h1>{{'INTERACTIONS' | translate}}</h1>
             </div>
         </div>
-        <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">
+        <!-- <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">
             <button class="btn blue-btn btn-sm m-right-10" routerLink="add-interactions">
                 <i class="fas fa-plus"></i> Add Interactions
             </button>
-        </div>
+        </div> -->
     </div>
 </div>
 <div class="loading-shade" *ngIf="dataSource.loading$ | async">
@@ -25,7 +25,10 @@
         <div class="col-md-3">
             <div class="form-group">
                 <mat-label for="search">Interaction ID</mat-label>
-                <input type="text" [(ngModel)]="search" placeholder="search by interaction id" class="form-control" id="search">
+                <div class="input-container">
+                    <span class="input-prefix">{{prefix}}</span>
+                    <input type="text" [(ngModel)]="search" class="form-control searchPrefix" id="search">
+                </div>
             </div>
         </div>
         <div class="col-md-2">
@@ -33,7 +36,9 @@
                 <mat-label>Type </mat-label>
                 <mat-select [(ngModel)]="selectedType" (selectionChange)="onTypeChange($event)"
                     placeholder="Select type" class="form-control">
-                    <mat-option [value]="type?.id" *ngFor="let type of typeList">{{type?.name}}</mat-option>
+                    <ng-container *ngFor="let type of typeList">
+                        <mat-option *ngIf="type.name !='Email' " [value]="type?.id" >{{type?.name}}</mat-option>
+                    </ng-container>
                 </mat-select>
             </div>
         </div>

@@ -33,7 +33,7 @@ export class AlreadyExistValidator {
   styleUrls: ['./customer-detail.component.scss'],
 })
 export class CustomerDetailComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['interactionid','contant', 'interactiontype','createdteam', 'assignto','status','substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat',];
+  displayedColumns: string[] = ['interactionid', 'contant', 'interactiontype', 'createdteam', 'assignto', 'status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat',];
   customerForm: UntypedFormGroup;
   imgSrc: any = null;
   isImageUpload: boolean = false;
@@ -269,7 +269,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
           .updateCustomer(this.customer.id, custData)
           .subscribe((c: any) => {
             this.toastrService.success('Contact update successfully');
-             this.router.navigate(['/customer']) 
+            this.router.navigate(['/customer'])
             // this.router.navigate(['/interactions/add-interactions'], { queryParams: 
             //   { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), 
             //     transNo: c?.transactionNumber, catId: formValues?.category, 
@@ -278,12 +278,15 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
             this.toastrService.error(error);
           });
       } else {
+        let catname: any = this.catList.filter((e: any) => e.id == formValues?.category)
+        let subCatName: any = this.subCatList.filter((e: any) => e.id == formValues?.subCategory)
+        let subject = `${catname[0]?.name}-${subCatName[0]?.name}`;
         this.sub$.sink = this.customerService
           .saveCustomer(formValues)
           .subscribe(c => {
-            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber,email:formValues?.emailId, custId: c?.id,custName:c?.name, catId: formValues?.category, subCatId: formValues?.subCategory} });
+            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName, catId: formValues?.category, subCatId: formValues?.subCategory,subject: subject } });
             this.toastrService.success('Contact save successfully');
-            
+
           }, error => {
             this.toastrService.error(error);
           });
@@ -296,8 +299,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
 
 
 
-  
-  updateContact(){
+
+  updateContact() {
 
 
 
@@ -340,19 +343,32 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     return customerObj;
   }
   addInteractions() {
+    if(this.customerForm.get('ticketType')?.value==2){
+      if(this.customerForm.invalid){
+        this.customerForm.markAllAsTouched();
+        return
+      }
+    }
+    if (this.customerForm.get('category')?.value && this.customerForm.get('subCategory')?.value) {
+      let formValues = this.customerForm.value
+      let catname: any = this.catList.filter((e: any) => e.id == formValues?.category)
+      let subCatName: any = this.subCatList.filter((e: any) => e.id == formValues?.subCategory)
+      let subject = `${catname[0]?.name}-${subCatName[0]?.name}`;
 
-  if(this.customerForm.get('category')?.value && this.customerForm.get('subCategory')?.value){
-    let formValues = this.customerForm.value
-    this.router.navigate(['/interactions/add-interactions'], 
-    { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
-       transNo: this.customer?.transactionNumber,email:formValues?.emailId, 
-       custId:this.customer?.id,custName: this.customer?.name, catId: formValues?.category, 
-       subCatId: formValues?.subCategory} });
-  }else{
-    this.customerForm.get('category')?.markAsTouched();
-    this.customerForm.get('subCategory')?.markAsTouched();
-  }
 
+      this.router.navigate(['/interactions/add-interactions'],
+        {
+          queryParams: {
+            ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
+            transNo: this.customer?.transactionNumber, email: formValues?.emailId,
+            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, catId: formValues?.category,
+            subCatId: formValues?.subCategory, subject: subject
+          }
+        });
+    } else {
+      this.customerForm.get('category')?.markAsTouched();
+      this.customerForm.get('subCategory')?.markAsTouched();
+    }
   }
 
 
@@ -360,12 +376,11 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   getTopFiveInteractions() {
     this.isLoading = true;
     this.customerService.getTopFiveInteractionsForContact(this.customer.id).subscribe((res: any) => {
-      debugger
-      this.interactionsList = res?.body.data;
+      this.interactionsList = res?.body.data || res?.body
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
-      // this.toastrService(error)
+      this.toastrService.error(error)
     })
   }
 
@@ -374,15 +389,15 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     this.customerForm.get('category')?.setValue('')
     this.customerForm.get('subCategory')?.setValue('')
     this.getCatList(event.value);
-    if(event?.value==1){
+    if (event?.value == 1) {
       this.customerForm.get('emailId')?.setValidators([]);
       this.customerForm.get('emailId')?.updateValueAndValidity();
     }
-    if(event?.value==2){
-      this.customerForm.get('emailId')?.setValidators([Validators.required,Validators.email]);
+    if (event?.value == 2) {
+      this.customerForm.get('emailId')?.setValidators([Validators.required, Validators.email]);
       this.customerForm.get('emailId')?.updateValueAndValidity();
     }
-    
+
   }
   onCatChange(event) {
     this.selectedSubCategory = '';

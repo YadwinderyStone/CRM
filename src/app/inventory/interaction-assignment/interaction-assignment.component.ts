@@ -34,6 +34,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
   AssignToTeamList: any = [];
 
   selectedAssignTeam: string = ''
+  prefix = 'G-'
   search: string = '';
   selectedTeam: string = ''
   selectedType: string = ''
@@ -254,7 +255,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search,
+    this.inventoryResource.search = this.search? this.prefix+this.search:'',
       this.inventoryResource.team = this.selectedTeam,
       this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,

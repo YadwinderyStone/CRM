@@ -1,9 +1,6 @@
 <form [formGroup]="addInventoryForm">
     <div class="example-action-buttons justify-content-between">
-        <div class="ml-2">
-            <!-- <button type="button" routerLink="/send-email" class="btn btn-success btn-md">
-                <i class="fas fa-envelope"></i>
-                Reply</button> -->
+        <div class="ml-2" *ngIf="resValue?.ticketType =='Ticket Created'">
             <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()" class="btn btn-success btn-md">
                 <i class="fas fa-envelope"></i>
                 Reply</button>
@@ -11,7 +8,7 @@
                 <i class="fas fa-paper-plane"></i>
                 Transfer</button>
         </div>
-        <div class="">
+        <div class="" *ngIf="resValue?.ticketType =='Ticket Created'" >
 
             <button type="button" (click)="onSubmit()" class="btn btn-success btn-md m-right-10"><i
                     class="fas fa-save"></i>
@@ -76,9 +73,14 @@
                             [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
                             (selectionChange)="onticketTypeChange($event)" [dir]="langDir" formControlName="ticketType"
                            class="form-control">
-                            <mat-option *ngFor="let cat of ticketTypeList" [value]="cat.id">
+                            <!-- <mat-option *ngFor="let cat of ticketTypeList" [value]="cat.id">
                                 {{cat.name}}
-                            </mat-option>
+                            </mat-option> -->
+                            <ng-container *ngFor="let cat of ticketTypeList">
+                                <mat-option *ngIf="cat.name !='Email' " [value]="cat.id">
+                                    {{cat.name}}
+                                </mat-option>
+                            </ng-container>
                         </mat-select>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('ticketType').touched && addInventoryForm.get('ticketType').errors?.required"
@@ -318,17 +320,17 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group text-center mt-3">
-                        <button (click)="addNote()" type="button" class="btn btn-success btn-md">
+                    <div class="form-group text-center mt-3" *ngIf="interactionData?.ticketType == '2'|| interactionData?.ticketType == 'Ticket Created'">
+                        <button (click)="addNote()" *hasClaim="'INT_ADD_NOTE_INTERACTION'" type="button" class="btn btn-success btn-md">
                             <i class="fas fa-sticky-note-o"></i>
                             <!-- <i class="fas fa-save"></i> -->
-                            Add Note</button>
+                            Add Comments</button>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <mat-label>Resolution Comments </mat-label>
-                        <textarea maxlength="2000" 
+                        <mat-label>Resolution Comments </mat-label>{{addInventoryForm.get('ticketType')?.value}}
+                        <textarea maxlength="2000" [readonly]="addInventoryForm.get('ticketType')?.value == '1'"
                             formControlName="resolutionComments" class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
@@ -343,244 +345,7 @@
 
 
 
-        <mat-expansion-panel class="d-none">
-            <mat-expansion-panel-header>
-                <mat-panel-title class="panelTital content-header">
-                    Object Links
-                </mat-panel-title>
-            </mat-expansion-panel-header>
 
-
-            <div class="row mt-3">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Order:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Uniquenumber:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Interaction state:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 1:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 2:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 3:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 4:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 5:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 6:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 7:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 8:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 9:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 10:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 11:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 12:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Action Taken 13:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Resolved by User(Bulk CLoser):</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Module:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
-                        <mat-label> IsInteractionopen:</mat-label>
-
-                        <mat-select [dir]="langDir" class="form-control">
-                            <mat-option value="">{{'NONE' | translate}}</mat-option>
-                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
-                    {{unit.name}}
-                </mat-option> -->
-                        </mat-select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
-                        <mat-label> Queue:</mat-label>
-
-                        <mat-select [dir]="langDir" class="form-control">
-                            <mat-option value="">{{'NONE' | translate}}</mat-option>
-                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
-                    {{unit.name}}
-                </mat-option> -->
-                        </mat-select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
-                        <mat-label> Reopenflag:</mat-label>
-
-                        <mat-select [dir]="langDir"  class="form-control">
-                            <mat-option value="">{{'NONE' | translate}}</mat-option>
-                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
-                    {{unit.name}}
-                </mat-option> -->
-                        </mat-select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>followupflag:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Test:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Categorized by:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Followup message:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
-                        <mat-label> Resolvedinteractionstate:</mat-label>
-
-                        <mat-select [dir]="langDir"  class="form-control">
-                            <mat-option value="">{{'NONE' | translate}}</mat-option>
-                            <!-- <mat-option *ngFor="let unit of unitConversationForproduct" [value]="unit.id">
-                    {{unit.name}}
-                </mat-option> -->
-                        </mat-select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>MobilenowhereSMSisnotreceived :</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>module-sms:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Timeofexecution :</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Assign to L2 teamNew:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>L1 Reopenflag:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>ReopenflagL2L3</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Assign to L2 :</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-            </div>
-
-        </mat-expansion-panel>
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>

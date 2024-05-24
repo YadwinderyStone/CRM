@@ -128,6 +128,13 @@
               <p>{{'USER_ROLES' | translate}}</p>
             </a>
           </li>
+          <li *hasClaim="'USR_ADD_BULK_USER'" class="nav-item">
+            <a [routerLink]="['users/users-bulk-upload']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-user-shield nav-icon"></i>
+              <p>User Bulk Upload</p>
+            </a>
+          </li>
           <li *hasClaim="'USR_ONLINE_USERS'" class="nav-item">
             <a [routerLink]="['/sessions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">

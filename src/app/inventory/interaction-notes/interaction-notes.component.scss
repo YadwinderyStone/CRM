@@ -7,4 +7,18 @@
 
 .noNotes {
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.Desc{
+    max-height: 70px;
+    overflow: auto;
+}
+
+:host ::ng-deep .angular-editor-textarea {
+    min-height: 100px !important;
+    background-color: #fff !important;
 }

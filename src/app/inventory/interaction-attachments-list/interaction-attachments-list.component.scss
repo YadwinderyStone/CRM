@@ -1,0 +1,18 @@
+.noData {
+    min-height: 40Vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.downloadFile {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.table{
+    display: table;
+    height: auto;
+}

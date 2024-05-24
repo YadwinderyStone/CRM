@@ -35,6 +35,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
   currentDate: any
   sourceList: any[] = [];
   interactionData: any;
+  interactionSubject:any;
   constructor(
     public translationService: TranslationService,
     private inventoryService: InventoryService,
@@ -59,6 +60,9 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     console.log("User Data", this.userData);
     this.getCategoryList(JSON.parse(this.userData?.ticketType));
     this.getSubCategoryList(JSON.parse(this.userData?.catId));
+
+    this.interactionSubject = this.userData?.subject;
+    debugger
   }
   ngOnInit(): void {
     console.log("User Data", this.userData);
@@ -71,11 +75,13 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
     this.addInventoryForm.get('subject')?.setValue(`${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
+    // this.interactionSubject = `${categoryName[0]?.name}-${subcategoryName[0]?.name}`;
   }
 
   createForm() {
     this.addInventoryForm = this.fb.group({
       ticketType: ['', Validators.required],
+      ticketTypeId: [''],
       statusId: ['',],
       statusName: ['',],
       subStatusId: ['',],
@@ -94,7 +100,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       teamName: [''],
       source: [''],
       errorCode: [''],
-      agentRemarks: ['', [Validators.required, Validators.minLength(10)]],
+      agentRemarks: ['', [Validators.required]],
       subject: [''],
       catInput: [''],
       subCatInput: [''],
@@ -191,6 +197,9 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
   getSubCategoryList(id: string) {
     this.inventoryService.getSubCategoryList(id).subscribe(res => {
       this.subCategoryList = res;
+      let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
+    let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
+    // this.interactionSubject = `${categoryName[0]?.name}-${subcategoryName[0]?.name}`;
       if (this.userData) {
         this.addInventoryForm.get('subcategoryId')?.setValue(JSON.parse(this.userData?.subCatId));
       }
@@ -216,7 +225,6 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 
 
   onSubmit() {
-    // this.openDialog(123);
     if (this.addInventoryForm.invalid) {
       this.addInventoryForm.markAllAsTouched();
       return
@@ -227,6 +235,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     data.emailId = this.userData?.email || '';
     let formData = {
       "ticketType": data?.ticketType || '',
+      "intercationTypeID": data?.ticketTypeId || '',
       "statusId": data?.statusId,
       "statusName": data?.statusName,
       "subStatusId": data?.subStatusId,
@@ -280,6 +289,8 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 
     if (this.contactSelectedType == 'FCR') {
       let status = await this.statusList.filter((e: any) => e.id == 1 && e.name == 'OPEN')
+      this.addInventoryForm.get('gstn').setValidators([]);
+      this.addInventoryForm.get('gstn').updateValueAndValidity();
 
       await this.getSubStatusList(status[0]?.id || 4);
 
@@ -295,6 +306,9 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 
       this.addInventoryForm.get('statusId').setValue(1);
       this.addInventoryForm.get('subStatusId').setValue(12);
+
+      this.addInventoryForm.get('gstn').setValidators([Validators.required]);
+      this.addInventoryForm.get('gstn').updateValueAndValidity();
     }
 
   }
@@ -308,6 +322,8 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
     let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
     let source = this.sourceList.filter(e => e.id == this.addInventoryForm.value.source);
+    
+    this.addInventoryForm.get('ticketTypeId')?.setValue(ticketType[0]?.id);
     this.addInventoryForm.get('ticketType')?.setValue(ticketType[0]?.name);
     this.addInventoryForm.get('statusName')?.setValue(statusName[0]?.name);
     this.addInventoryForm.get('subStatusName')?.setValue(subStatusName[0]?.name);

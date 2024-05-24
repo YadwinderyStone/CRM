@@ -42,6 +42,7 @@ import { InteractionDetailViewDialogComponent } from './interaction-detail-view-
 import { TransferTeamComponent } from './inventory-properties/transfer-team/transfer-team.component';
 import { MyInteractionsListComponent } from './my-interactions-list/my-interactions-list.component';
 import { TeamInteractionsListComponent } from './team-interactions-list/team-interactions-list.component';
+import { InteractionAttachmentsListComponent } from './interaction-attachments-list/interaction-attachments-list.component';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -63,7 +64,8 @@ import { TeamInteractionsListComponent } from './team-interactions-list/team-int
     InteractionDetailViewDialogComponent,
     TransferTeamComponent,
     MyInteractionsListComponent,
-    TeamInteractionsListComponent
+    TeamInteractionsListComponent,
+    InteractionAttachmentsListComponent
   ],
   imports: [
     CommonModule,

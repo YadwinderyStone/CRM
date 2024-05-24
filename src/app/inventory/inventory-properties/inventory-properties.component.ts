@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Direction } from '@angular/cdk/bidi';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { TranslationService } from '@core/services/translation.service';
 import { BaseComponent } from 'src/app/base.component';
@@ -24,6 +23,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   @Input() userData: any
   @Input() id: boolean
   @Output() userId = new EventEmitter<string>();
+  @Output() interactionDetail = new EventEmitter<string>();
 
   addInventoryForm: UntypedFormGroup;
   teamList: any = [];
@@ -38,6 +38,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   currentDate: any
   @ViewChild(MatAccordion) accordion: MatAccordion;
   interactionData: any;
+  resValue:any
   constructor(
     public translationService: TranslationService,
     private inventoryService: InventoryService,
@@ -47,10 +48,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   ) {
     super();
     this.createForm();
+    this.getTicketTypeList();
     this.getLangDir();
     this.getTeamList();
     this.getStatusList();
-    this.getTicketTypeList();
     this.getPriorityList();
     this.currentDate = new Date();
   }
@@ -125,10 +126,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   getTeamList() {
     this.inventoryService.getTeamsList().subscribe(res => {
       this.teamList = res;
-      // if (this.userData && this.userData.ticketTypeName == 'Ticket Created') {
-      // } else {
-      //   this.addInventoryForm.get('createdTeam').setValue(5);
-      // }
     }, error => {
       this.toastrService.error(error);
     })
@@ -216,10 +213,12 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
     data.contactId = this.interactionData?.contactId
     data.contactName = this.interactionData?.contactName
+    // data.transactionNumber = this.resValue?.transactionNumber
     if (this.id) {
+      debugger
       this.inventoryService.updateInteraction(this.id, data).subscribe(res => {
         if (res) {
-          this.toastrService.success('Interact')
+          this.toastrService.success('Interaction update succcessfully')
         }
       }, error => {
         this.toastrService.error(error);
@@ -242,7 +241,12 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   getInteractionDetailById(id) {
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
-      this.userId.emit(this.interactionData?.contactId);
+      this.resValue = {...res};
+      debugger
+      // this.userId.emit(this.interactionData?.contactId);
+      // this.interactionDetail.emit(this.interactionData);
+      this.userId.emit(res?.contactId);
+      this.interactionDetail.emit(res);
       if(typeof this.interactionData?.ticketType == 'string'){
         let value = this.ticketTypeList.filter(e => e.name == this.interactionData?.ticketType)
         this.addInventoryForm.get('ticketType').setValue(value[0]?.id);
@@ -254,14 +258,17 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       }
       this.getSubCategoryList(this.interactionData?.categoryId);
       this.getSubStatusList(this.interactionData?.statusId);
-      this.updateForm();
+      this.updateForm(res);
     }, error => {
       this.toastrService.error(error);
     })
   }
 
-  updateForm() {
-    this.addInventoryForm.patchValue(this.interactionData);
+  updateForm(res) {
+    this.addInventoryForm.patchValue(res);
+    // debugger
+    // let value = this.ticketTypeList.filter(e => e.name == res?.ticketType)
+    //     this.addInventoryForm.get('ticketType').setValue(value[0]?.id);
   }
 
   addNote(){
@@ -270,7 +277,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
         disableClose: false,
         width: '800px',
         maxHeight: '800px',
-        height: '80vh',
+        height: 'auto',
         data: this.interactionData
       }).afterClosed().subscribe(res=>{
     

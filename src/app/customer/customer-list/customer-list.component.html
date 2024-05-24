@@ -84,7 +84,7 @@
         </ng-container>
         <ng-container matColumnDef="customerName">
             <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header> {{'NAME' | translate}} </th>
-            <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.name}} </td>
+            <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.name}} {{row?.lastName}} </td>
         </ng-container>
         <ng-container matColumnDef="noofinteractions">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> No. of Interactions

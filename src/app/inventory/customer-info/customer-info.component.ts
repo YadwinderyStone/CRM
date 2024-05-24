@@ -11,7 +11,7 @@ export class CustomerInfoComponent implements OnChanges {
 @Input() userData:any
 @Input() id:any;
 isLoading = false
-displayedColumns: string[] = ['contactid','customerName','email','mobileNo','noofinteractions','panno'];
+displayedColumns: string[] = ['contactid','customerName','email','mobileNo','noofinteractions'];
 dataSource;
 userInfo:any;
   constructor(

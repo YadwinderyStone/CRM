@@ -4,6 +4,7 @@ export interface Customer {
   id: string;
   customerName: string;
   name?: string;
+  lastName?: string;
   contactPerson: string;
   email?: string;
   emailId?: string;

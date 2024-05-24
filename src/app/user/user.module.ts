@@ -26,6 +26,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BulkUserUploadComponent } from './bulk-user-upload/bulk-user-upload.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     UserPermissionPresentationComponent,
     ResetPasswordComponent,
     MyProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    BulkUserUploadComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +60,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatIconModule,
     MatExpansionModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatFormFieldModule,
+  
   ],
   providers: [
     UserDetailResolverService
