@@ -65,5 +65,18 @@ export class InteractionAttachmentsListComponent implements OnChanges {
       
     }
   
+    downloadEmailFile(data){
+      const url = window.URL.createObjectURL(data?.attchmntFileData);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = data?.attchmntFileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      this.isLoading = false
+    }
+
+
   }
   
