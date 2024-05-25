@@ -239,6 +239,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     // let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
     // let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
     let value = {
+      id:this.id,
       agentRemarks: data?.agentRemarks,
       categoryId: data?.categoryId,
       categoryName: data?.categoryName,
@@ -260,6 +261,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       registrationForm: data?.registrationForm,
       returnForm: data?.returnForm,
       returnType: data?.returnType,
+      subject: data?.subject
     }
 
 

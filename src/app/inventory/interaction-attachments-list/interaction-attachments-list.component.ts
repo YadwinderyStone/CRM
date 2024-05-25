@@ -11,8 +11,10 @@ export class InteractionAttachmentsListComponent implements OnChanges {
 
   @Input() id:any;
   documentList:any=[];
+  emailDocumentList:any=[];
   isLoading = false
   columnsToDisplay: string[] = ['transactionNo','fileName','fileType','createdByName','date' ];
+  columnsToDisplay2: string[] = ['transactionNo','fileName','fileType','createdByName' ];
     constructor(
       private inventoryService: InventoryService,
       private toastrService: ToastrService,
@@ -20,12 +22,23 @@ export class InteractionAttachmentsListComponent implements OnChanges {
   
     ngOnChanges(): void {
   if(this.id)this.getDocumentDetail(this.id);
+  if(this.id)this.getEmailDocumentDetail(this.id);
     }
   
     getDocumentDetail(id){
       this.isLoading = true
       this.inventoryService.getDocumentDetail(id).subscribe((res:any)=>{
         this.documentList = res?.body || res
+        this.isLoading = false
+      },error=>{
+        this.isLoading = false
+        this.toastrService.error(error);
+      })
+    }
+    getEmailDocumentDetail(id){
+      this.isLoading = true
+      this.inventoryService.getEmailDocumentDetail(id).subscribe((res:any)=>{
+        this.emailDocumentList = res?.body || res
         this.isLoading = false
       },error=>{
         this.isLoading = false
