@@ -36,8 +36,12 @@
         <div class="col-md-3">
             <div class="form-group">
                 <mat-label for="search">Interaction ID</mat-label>
-                <input type="text" [(ngModel)]="search" placeholder="search by interaction id" class="form-control"
-                    id="search">
+                <div class="input-container">
+                    <span class="input-prefix">{{prefix}}</span>
+                    <input type="text" [(ngModel)]="search" maxlength="15" class="form-control searchPrefix" id="search">
+                </div>
+                <!-- <input type="text" [(ngModel)]="search" placeholder="search by interaction id" class="form-control" -->
+                    <!-- id="search"> -->
             </div>
         </div>
         <div class="col-md-2">
