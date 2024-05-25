@@ -40,7 +40,6 @@ export class CustomerService {
   // getCustomersExcelDownload(
   //   resourceParams: CustomerResourceParameter
   // ): Observable<HttpResponse<Customer[]>> {
-  //   debugger
   //   const url = 'Contact/GetContacts1';
   //   const customParams = new HttpParams()
   //     .set('pageSize', resourceParams.pageSize.toString())
@@ -61,7 +60,6 @@ export class CustomerService {
   // }
 
   generateExcel(request: any): Observable<any> {
-    debugger
     const url = 'Contact/GenerateExcelFileData';
     return this.http.post(url, request, {
       responseType: 'arraybuffer'

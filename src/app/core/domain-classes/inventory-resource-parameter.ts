@@ -17,4 +17,5 @@ export class InventoryResourceParameter extends ResourceParameter {
     toDate?:string
     fromDate?:string
     teamId?:string | number
+    userID?:string
 }

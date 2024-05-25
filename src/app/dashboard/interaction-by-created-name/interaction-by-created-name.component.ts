@@ -30,6 +30,7 @@ export class InteractionByCreatedNameComponent extends BaseComponent implements 
     }
   
     getInteractionsListByCreatedName(): void {
+      debugger
       this.dashboardService.getInteractionListByCreatedName().subscribe((res :any)=> {
         this.createdByNameInteractionsList = res?.body
       },error=>{

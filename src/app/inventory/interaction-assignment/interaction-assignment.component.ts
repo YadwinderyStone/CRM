@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { InteractionCategory, InteractionStatus, InteractionType } from '@core/domain-classes/interactionCatetgory';
 import { Queue } from '@core/domain-classes/queue.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-interaction-assignment',
@@ -46,7 +47,9 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
   subCatInput: string = ''
 
 
-
+  toDate: any = new Date();
+  fromDate: any = new Date();
+  currentDate = new Date();
   interactionIds = [];
   selectedTeamsIds = [];
   dataSource: InventoryDataSource;
@@ -74,6 +77,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
   constructor(
     private inventoryService: InventoryService,
     private cd: ChangeDetectorRef,
+    public datepipe: DatePipe,
     public translationService: TranslationService,
     public toasterService: ToastrService,
   ) {
@@ -83,6 +87,10 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
     this.inventoryResource.pageSize = 10;
     this.inventoryResource.orderBy = 'productName asc'
     this.inventoryResource.IsAdmin = true
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.fromDate = toDate
+    this.inventoryResource.toDate = fromDate
   }
 
   ngOnInit(): void {
@@ -234,6 +242,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
     this.selectedSubCategory = ''
     this.getSubCatList(event?.value)
   }
+  
 
   onClear() {
     this.search = '',
@@ -244,6 +253,12 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
       this.selectedStatus = '',
       this.selectedSubStatus = '',
       this.setParams();
+      this.fromDate = new Date();
+      this.toDate = new Date();
+      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+      this.inventoryResource.fromDate = toDate
+      this.inventoryResource.toDate = fromDate
     this.dataSource.loadData(this.inventoryResource);
   }
   searchList() {
@@ -261,9 +276,15 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
       this.inventoryResource.subStatus = this.selectedSubStatus
+      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+      this.inventoryResource.toDate = toDate
+      this.inventoryResource.fromDate = fromDate
   }
 
-
+  onSelectAll(event){
+// FIXME : NEED to add select all functionality
+  }
 
 
 }

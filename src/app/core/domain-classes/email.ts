@@ -3,4 +3,7 @@ export class Email {
     name?: string;
     subject?: string;
     body?: string;
+    interactionId?:string
+    interactionNumber?:string
+    attechments?:any
 }

@@ -15,7 +15,8 @@ import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { InteractionCategory, InteractionStatus, InteractionType } from '@core/domain-classes/interactionCatetgory';
 import { Queue } from '@core/domain-classes/queue.model';
 import { MyInteractionsDataSource } from './my-interactions-datasource';
-
+import * as XLSX from 'xlsx';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-my-interactions-list',
   templateUrl: './my-interactions-list.component.html',
@@ -55,7 +56,7 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
   @ViewChild(MatSort) sort: MatSort;
   _productNameFilter: string;
   expandedElement: Inventory = null;
-
+  userDetail:any = ''
   public filterObservable$: Subject<string> = new Subject<string>();
 
   public get ProductNameFilter(): string {
@@ -73,13 +74,16 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
     private cd: ChangeDetectorRef,
     public translationService: TranslationService,
     public toasterService: ToastrService,
+    private datePipe: DatePipe,
     private commonDialogService: CommonDialogService,
     private dialog: MatDialog) {
     super(translationService);
     this.getLangDir();
+    this.userDetail = JSON.parse(localStorage.getItem('authObj'));
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    this.inventoryResource.IsAdmin = true
+    this.inventoryResource.IsAdmin = false;
+    this.inventoryResource.userID = this.userDetail?.id
   }
 
   ngOnInit(): void {
@@ -94,6 +98,7 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
         this.inventoryResource.skip = 0;
         this.inventoryResource.IsAdmin = true;
         this.paginator.pageIndex = 0;
+        this.inventoryResource.userID = this.userDetail?.id
 
         const strArray: Array<string> = c.split('##');
         if (strArray[0] === 'productName') {
@@ -242,13 +247,74 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search? this.prefix+this.search:'',
+    this.inventoryResource.search = this.search? this.prefix+this.search.trim():'',
       this.inventoryResource.team = this.selectedTeam,
       this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
       this.inventoryResource.subStatus = this.selectedSubStatus
-    // this.inventoryResource.priority = this.selectedPriority
+    this.inventoryResource.userID = this.userDetail?.id
   }
+
+
+  dowanloadList(){
+    this.setParams();
+    this.inventoryService.getMyInteractionsList(this.inventoryResource).subscribe((res:any)=>{
+      let InteractionRecods:any = res?.body;
+      let heading = [[
+        this.translationService.getValue('Interaction Id'),
+        this.translationService.getValue('Interaction Type'),
+        this.translationService.getValue('Status'),
+        this.translationService.getValue('Sub Status'),
+        this.translationService.getValue('Category'),
+        this.translationService.getValue('Sub Category'),
+        this.translationService.getValue('Subject'),
+        this.translationService.getValue('Contact Name'),
+        this.translationService.getValue('Email'),
+        this.translationService.getValue('Team'),
+        this.translationService.getValue('GSTN'),
+        this.translationService.getValue('Problem Reported'),
+        this.translationService.getValue('Docket no'),
+        this.translationService.getValue('Assign To'),
+        this.translationService.getValue('Created At'),
+        this.translationService.getValue('Agent Remarks'),
+      ]];
+  
+      let interactionsReport = [];
+      InteractionRecods.forEach(data => {
+        interactionsReport.push({
+          'Interaction Id':data?.transactionNumber,
+          'Interaction Type':data?.ticketType,
+          'Status':data?.statusName,
+          'Sub Status':data?.subStatusName,
+          'Category':data?.categoryName,
+          'Sub Category':data?.subcategoryName,
+          'Subject':data?.subject,
+          'Contact Name':data?.contactName,
+          'Email ':data?.emailId,
+          'Team':data?.teamName,
+          'GSTN':data?.gstn,
+          'Problem Reported':data?.problemReported,
+          'Docket no':data?.docketNumber,
+          'Assign To':data?.assignToName,
+          'Created At': this.datePipe.transform(data?.createDateTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Agent Remarks':data?.agentRemarks,
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'My Interaction Report');
+      XLSX.writeFile(workBook, 'My Interaction Report' + ".xlsx");  
+    })
+
+  }
+
+
+
+
+
+
+
 }
 

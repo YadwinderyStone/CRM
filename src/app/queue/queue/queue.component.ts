@@ -8,7 +8,7 @@ import { BaseComponent } from 'src/app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { Queue, QueueMember } from '@core/domain-classes/queue.model';
 import { AddMembersComponent } from '../add-members/add-members.component';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-queue',
   templateUrl: './queue.component.html',
@@ -75,6 +75,38 @@ export class QueueComponent extends BaseComponent  implements OnInit {
       });
     }
   
+    dowanloadList(){    
+      this.QueueService.getQueueList().subscribe((res:any)=>{
+        let teamRecods:any = res;
+        let heading = [[
+          this.translationService.getValue('Team Name'),
+          // this.translationService.getValue('Last Name'),
+          // this.translationService.getValue('Email'),
+          // this.translationService.getValue('Mobile'),
+          this.translationService.getValue('IsActive'),
+        ]];
+    
+        let teamsReport = [];
+        teamRecods.forEach(data => {
+          teamsReport.push({
+            'Team Name':data?.name,
+            // 'LastName':data?.lastName,
+            // 'Email':data?.email,
+            // 'Mobile':data?.phoneNumber,
+            'IsActive':data?.isEnabled,
+          })
+        });
+        let workBook = XLSX.utils.book_new();
+        XLSX.utils.sheet_add_aoa(workBook, heading);
+        let workSheet = XLSX.utils.sheet_add_json(workBook, teamsReport, { origin: "A2", skipHeader: true });
+        XLSX.utils.book_append_sheet(workBook, workSheet, 'Teams Report');
+        XLSX.writeFile(workBook, 'Teams Report' + ".xlsx");  
+      })
+  
+    }
+  
+
+
     toggleRow(element: Queue) {
       this.teamMembers = [];
       this.QueueService.getQueueMembers(element.id).subscribe((res:any) => {
@@ -162,7 +194,6 @@ getMembersName(id){
 }
 
 getUserList() {
-
   this.QueueService.getUsersList().subscribe(res => {
     this.userList = res;
   }, error => {

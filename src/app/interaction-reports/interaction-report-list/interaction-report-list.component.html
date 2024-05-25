@@ -118,7 +118,7 @@
                 <i class="fas fa-eraser"></i>
                 {{'CLEAR' | translate}}
             </button>
-            <button type="button" (click)="onDownloadReport()" class="btn btn-warning btn-md button-margin ml-2"><i
+            <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
                 class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
             </button>
         </div>
@@ -211,7 +211,7 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdAt|| row.createdAt}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate | date :'yyyy-MM-dd hh:mm a':'UTC'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">

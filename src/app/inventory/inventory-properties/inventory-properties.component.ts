@@ -14,6 +14,8 @@ import {
 import { SendEmailDialogComponent } from '../send-email-dialog/send-email-dialog.component';
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
 import { TransferTeamComponent } from './transfer-team/transfer-team.component';
+import { Router } from '@angular/router';
+import { DisabledTransportError } from '@microsoft/signalr/dist/esm/Errors';
 @Component({
   selector: 'app-inventory-properties',
   templateUrl: './inventory-properties.component.html',
@@ -27,28 +29,31 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
   addInventoryForm: UntypedFormGroup;
   teamList: any = [];
+  teamMemberList: any = [];
   contactSelectedType: string = ''
   statusList: any = [];
   subStatusList: any = [];
   priorityList: any = [];
-  ticketTypeList: any = [];
+  ticketTypeList: any = [{ id: 1, name: "FCR" },
+  { id: 2, name: "Ticket Created" }];
   categoryList: any = [];
   errorCodeList: any = [];
   subCategoryList: any = [];
   currentDate: any
   @ViewChild(MatAccordion) accordion: MatAccordion;
   interactionData: any;
-  resValue:any
+  resValue: any
   constructor(
     public translationService: TranslationService,
     private inventoryService: InventoryService,
     private toastrService: ToastrService,
     private fb: UntypedFormBuilder,
+    private router: Router,
     public dialog: MatDialog
   ) {
     super();
-    this.createForm();
     this.getTicketTypeList();
+    this.createForm();
     this.getLangDir();
     this.getTeamList();
     this.getStatusList();
@@ -77,7 +82,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       problemReported: ['', Validators.required],
       resolutionComments: [''],
       teamId: [],
-      assignToTeamId: [],
+      assignToId: [],
       gstn: [''],
       assignedToInteractionStatus: ['',],
       statusName: [''],
@@ -91,10 +96,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       lastResolvedAt: [this.currentDate,],
       uniqueNumber: ['',],
       IntegrationAgeTime: [''],
-      errorCode: [''],
+      errorCode: [{ value: '', disabled: true }],
       reopenflag: [''],
       created: [''],
-      agentRemarks:[''],
+      agentRemarks: [''],
       dateLastUpdate: [''],
       reservedFor: [''],
       arn: [''],
@@ -103,6 +108,15 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       timeFromCreatedToCurrentInHrs: [0],
       panCardNo: [''],
       currentStatus: [''],
+      cpin:[''],
+      errorMessage:[''],
+      formName:[''],
+      refundPeriod:[''],
+      lastSuccessfulReturn:[''],
+      registrationType:[''],
+      registrationForm:[''],
+      returnForm:[''],
+      returnType:[''],
     });
   }
 
@@ -126,6 +140,13 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   getTeamList() {
     this.inventoryService.getTeamsList().subscribe(res => {
       this.teamList = res;
+    }, error => {
+      this.toastrService.error(error);
+    })
+  }
+  getTeamMemberList(id) {
+    this.inventoryService.getTeamMembers(id).subscribe(res => {
+      this.teamMemberList = res;
     }, error => {
       this.toastrService.error(error);
     })
@@ -163,7 +184,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     })
   }
   getTicketTypeList() {
-    this.inventoryService.getCategoryList().subscribe(res => {  
+    this.inventoryService.getCategoryList().subscribe(res => {
       this.ticketTypeList = res;
     }, error => {
       this.toastrService.error(error);
@@ -210,15 +231,47 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     }
 
     let data = this.addInventoryForm.getRawValue();
+    // let ticketType = this.ticketTypeList.filter(e => e.id == this.addInventoryForm.value.ticketType);
+    // let statusName = this.statusList.filter(e => e.id == this.addInventoryForm.value.statusId);
+    // let subStatusName = this.subStatusList.filter(e => e.id == this.addInventoryForm.value.subStatusId);
+    // let priorityName = this.priorityList.filter(e => e.id == this.addInventoryForm.value.priority);
+    // let categoryName = this.categoryList.filter(e => e.id == this.addInventoryForm.value.categoryId);
+    // let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
+    // let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
+    let value = {
+      agentRemarks: data?.agentRemarks,
+      categoryId: data?.categoryId,
+      categoryName: data?.categoryName,
+      docketNumber: data?.docketNumber,
+      errorCode: data?.errorCode,
+      panCardNo: data?.panCardNo,
+      resolutionComments: data?.resolutionComments,
+      statusId: data?.statusId,
+      statusName: data?.statusName,
+      subStatusId: data?.statusId,
+      subcategoryId: data?.subcategoryId,
+      uniqueNumber: data?.uniqueNumber,
+      cpin: data?.cpin,
+      errorMessage: data?.errorMessage,
+      formName: data?.formName,
+      refundPeriod: data?.refundPeriod,
+      lastSuccessfulReturn: data?.lastSuccessfulReturn,
+      registrationType: data?.registrationType,
+      registrationForm: data?.registrationForm,
+      returnForm: data?.returnForm,
+      returnType: data?.returnType,
+    }
 
-    data.contactId = this.interactionData?.contactId
-    data.contactName = this.interactionData?.contactName
+
+    // data.contactId = this.interactionData?.contactId
+    // data.contactName = this.interactionData?.contactName
     // data.transactionNumber = this.resValue?.transactionNumber
     if (this.id) {
-      debugger
-      this.inventoryService.updateInteraction(this.id, data).subscribe(res => {
+      this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
         if (res) {
-          this.toastrService.success('Interaction update succcessfully')
+          this.toastrService.success('Interaction update succcessfully');
+          this.router.navigate(['/interactions'])
+
         }
       }, error => {
         this.toastrService.error(error);
@@ -241,20 +294,25 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   getInteractionDetailById(id) {
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
-      this.resValue = {...res};
-      debugger
+      this.resValue = { ...res };
+      this.getTeamMemberList(res?.teamId);
       // this.userId.emit(this.interactionData?.contactId);
       // this.interactionDetail.emit(this.interactionData);
       this.userId.emit(res?.contactId);
       this.interactionDetail.emit(res);
-      if(typeof this.interactionData?.ticketType == 'string'){
+      if (typeof this.interactionData?.ticketType == 'string' && this.interactionData?.ticketType.length > 2) {
         let value = this.ticketTypeList.filter(e => e.name == this.interactionData?.ticketType)
         this.addInventoryForm.get('ticketType').setValue(value[0]?.id);
         this.getCategoryList(value[0]?.id);
         this.interactionData.ticketType = value[0]?.id
-      }else{
-        this.addInventoryForm.get('ticketType').setValue(this.interactionData?.ticketType);
-        this.getCategoryList(this.interactionData?.ticketType);
+      } else {
+        if (typeof this.interactionData?.ticketType == 'string' && this.interactionData?.ticketType.length == 1) {
+          this.addInventoryForm.get('ticketType').setValue(JSON.parse(this.interactionData?.ticketType));
+          this.getCategoryList(JSON.parse(this.interactionData?.ticketType));
+        } else {
+          this.addInventoryForm.get('ticketType').setValue(this.interactionData?.ticketType);
+          this.getCategoryList(this.interactionData?.ticketType);
+        }
       }
       this.getSubCategoryList(this.interactionData?.categoryId);
       this.getSubStatusList(this.interactionData?.statusId);
@@ -265,56 +323,58 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   }
 
   updateForm(res) {
+    res.ticketType = JSON.parse(res.ticketType);
     this.addInventoryForm.patchValue(res);
-    // debugger
-    // let value = this.ticketTypeList.filter(e => e.name == res?.ticketType)
-    //     this.addInventoryForm.get('ticketType').setValue(value[0]?.id);
+    let subject = `${res?.transactionNumber}-${res?.categoryName}-${res?.subcategoryName}`
+    this.addInventoryForm.get('subject').setValue(subject);
   }
 
-  addNote(){
+  addNote() {
 
-   this.dialog.open(AddNoteDialogComponent, {
-        disableClose: false,
-        width: '800px',
-        maxHeight: '800px',
-        height: 'auto',
-        data: this.interactionData
-      }).afterClosed().subscribe(res=>{
-    
-      })
-
-  }
-
-openSendEmailDialog(){
-  this.dialog.open(SendEmailDialogComponent, {
-    disableClose: true,
-    width: '650px',
-    height: 'auto',
-    data: this.interactionData
-  }).afterClosed().subscribe(res=>{
-
-  })
-
-}
-
-openTransfer(){
-  if(this.interactionData?.statusName=='Open' || 
-  this.interactionData?.statusName=='Pending'){
-
-    this.dialog.open(TransferTeamComponent, {
-      disableClose: true,
-      width: '650px',
+    this.dialog.open(AddNoteDialogComponent, {
+      disableClose: false,
+      width: '800px',
+      maxHeight: '800px',
       height: 'auto',
       data: this.interactionData
-    }).afterClosed().subscribe(res=>{
-      if(res){
+    }).afterClosed().subscribe(res => {
+      if (res) {
         this.getInteractionDetailById(this.id)
       }
     })
-  }else{
-    this.toastrService.warning('Interaction already Closed Or resolved we cant transfer it')
+
   }
-}
+
+  openSendEmailDialog() {
+    this.dialog.open(SendEmailDialogComponent, {
+      disableClose: true,
+      width: '800px',
+      height: 'auto',
+      data: this.interactionData
+    }).afterClosed().subscribe(res => {
+
+    })
+
+  }
+
+  openTransfer() {
+    if (this.interactionData?.statusName == 'Open' ||
+      this.interactionData?.statusName == 'Pending') {
+
+      this.dialog.open(TransferTeamComponent, {
+        disableClose: true,
+        width: '650px',
+        height: 'auto',
+        data: this.interactionData
+      }).afterClosed().subscribe(res => {
+        if (res) {
+          this.getInteractionDetailById(this.id)
+        }
+      })
+    } else {
+      this.toastrService.warning('Interaction already Closed Or resolved we cant transfer it')
+    }
+  }
 
 
 }

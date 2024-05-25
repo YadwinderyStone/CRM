@@ -191,18 +191,18 @@
                 </mat-error>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="form-group">
                 <mat-label>Subject</mat-label>
-                <input type="text" [readonly]="true" class="form-control"[value]="interactionSubject">
+                <input type="text" [readonly]="true" class="form-control">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="example-action-buttons">
                 <button type="button" (click)="onSubmit()" class="btn btn-success btn-md mx-3 px-3 py-2"><i
                         class="fas fa-save"></i>
                     {{"SAVE" | translate}}</button>
-                <button type="button" class="btn btn-danger btn-md mx-3 px-3 py-2" [routerLink]="['/interactions']"><i
+                <button type="button" class="btn btn-danger btn-md px-3 py-2" [routerLink]="['/interactions']"><i
                         class="fas fa-times-circle"></i>
                     {{"CANCEL" | translate}}
                 </button>

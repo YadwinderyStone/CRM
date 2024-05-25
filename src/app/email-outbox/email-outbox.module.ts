@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '@shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -22,6 +24,9 @@ import { SharedModule } from '@shared/shared.module';
     MatCheckboxModule,
     MatIconModule,
     MatCardModule,
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class EmailOutboxModule { }

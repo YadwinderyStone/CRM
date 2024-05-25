@@ -17,7 +17,8 @@ export class BulkUserUploadComponent extends BaseComponent implements OnInit {
     tabIndex = 0;
     previewFile: boolean = false;
    
-    displayedColumns: string[] = ['interactionid', 'comments', 'Disposition', 'SubDisposition', 'ProblemID', 'ResolveByUser', 'Team'];
+    displayedColumns: string[] = ['firstName', 'lastName','userId','email', 'phoneNumber','role'];
+  footerToDisplayed = ['footer'];
     constructor(
       private userService: UserService,
       private toastrService: ToastrService,

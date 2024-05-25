@@ -27,7 +27,7 @@
                 <mat-label for="search">Interaction ID</mat-label>
                 <div class="input-container">
                     <span class="input-prefix">{{prefix}}</span>
-                    <input type="text" [(ngModel)]="search" class="form-control searchPrefix" id="search">
+                    <input type="text" [(ngModel)]="search" maxlength="15" class="form-control searchPrefix" id="search">
                 </div>
             </div>
         </div>
@@ -115,9 +115,12 @@
             <button type="button" (click)="onClear();" class="btn btn-danger btn-md button-margin"><i
                     class="fas fa-times-circle"></i>
                 Clear </button>
-                <button type="button" class="btn btn-warning btn-md button-margin ml-2"><i
+                <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
                     class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
                 </button>
+                <!-- <button type="button" class="btn btn-warning btn-md button-margin ml-2"><i
+                    class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
+                </button> -->
         </div>
     </div>
 </div>
@@ -213,7 +216,7 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'dd-MM-yyyy'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'yyyy-MM-dd hh:mm a':'UTC'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">

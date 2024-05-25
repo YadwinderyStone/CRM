@@ -88,8 +88,9 @@ export class InventoryService {
     let param:any = `Skip=${params?.skip.toString()}`
     param+=`&PageSize=${params?.pageSize.toString()}`
    if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
-    if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.type) param+=`&TicketType=${params?.type}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     if(params?.team) param+=`&TeamId=${params?.team}`
     if(params?.teamId) param+=`&TeamName=${params?.teamId}`
     if(params?.priority) param+=`&PriorityName=${params?.priority}`
@@ -154,6 +155,11 @@ export class InventoryService {
   getTeamsList() { //team list for dropdown
     const url = 'Queues';
     return this.http.get<Queue[]>(url);
+  }
+
+  getTeamMembers(id){
+    const url = `QueueMembers?queueId=${id}`;
+      return this.http.get<any[]>(url);
   }
   getPriorityList() { //proirty list for dropdown
     const url = `Lookup/list/priority`
@@ -283,6 +289,7 @@ getMyInteractionsList(params) {
   let param:any = `Skip=${params?.skip.toString()}`
   param+=`&PageSize=${params?.pageSize.toString()}`
  if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
+ if(params?.userID)param+=`&assignToId=${params?.userID}`
   if(params?.search) param+=`&TransactionNumber=${params?.search}`
   if(params?.type) param+=`&TicketType=${params?.type}`
   if(params?.team) param+=`&TeamId=${params?.team}`

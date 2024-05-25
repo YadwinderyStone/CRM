@@ -43,8 +43,6 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        let value = resp;
-        console.log(value);
         let paginationParam = new ResponseHeader();
         if (resp && resp.headers.get('X-Pagination')) {
           paginationParam = JSON.parse(
@@ -64,9 +62,6 @@ export class InteractionDataSource implements DataSource<Inventory> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
-        console.log(value);
         let paginationParam = new ResponseHeader();
         if (resp && resp.headers.get('X-Pagination')) {
           paginationParam = JSON.parse(
@@ -90,7 +85,6 @@ export class InteractionDataSource implements DataSource<Inventory> {
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
         let value = resp;
-        console.log(value);
         let paginationParam = new ResponseHeader();
         if (resp && resp.headers.get('X-Pagination')) {
           paginationParam = JSON.parse(

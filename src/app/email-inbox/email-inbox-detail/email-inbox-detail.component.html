@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row d-none" >
     <div class="w-100" *ngFor="let data of emailDetail" >
 
         <div class="col-md-12 my-2">
@@ -31,3 +31,89 @@
         </div>
     </div>
 </div>
+
+
+
+  <div class="loading-shade" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="row">
+  </div>
+  <form [formGroup]="emailForm">
+    <div class="row">
+      <div class="col-md-12 pb-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text text-danger" id="toAddress">
+              {{'From' | translate }}*
+            </span>
+          </div>
+          <input [readonly]="true" formControlName="from" type="text" class="form-control fromInput"
+            aria-label="To" aria-describedby="toAddress">
+        </div>
+      </div>
+      <div class="col-md-12 pb-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text text-danger" id="toAddress">
+              {{'TO' | translate }}*
+            </span>
+          </div>
+          <input [readonly]="true" formControlName="toAddress" type="text" class="form-control"
+            placeholder="{{'COMMA_SEPARATED_EMAILS' | translate}}" aria-label="To" aria-describedby="toAddress">
+        </div>
+        <div *ngIf="emailForm.get('toAddress').touched && emailForm.get('toAddress').errors">
+          <div class="text-danger" *ngIf="emailForm.get('toAddress').errors?.required">
+            {{'TO_ADDRESS_IS_REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-12 pb-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text text-danger" id="toAddress">
+              {{'CC' | translate }}*
+            </span>
+          </div>
+          <input [readonly]="true"  formControlName="cCAddress" type="text" class="form-control"
+             aria-label="To" aria-describedby="toAddress">
+        </div>
+        <div *ngIf="emailForm.get('cCAddress').touched && emailForm.get('cCAddress').errors">
+          <div class="text-danger" *ngIf="emailForm.get('cCAddress').errors?.required">
+            {{'CC_ADDRESS_IS_REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 pb-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text text-danger" id="subject">
+              {{'SUBJECT' | translate }} *
+            </span>
+          </div>
+          <input [readonly]="true" formControlName="subject" type="text" class="form-control" placeholder="{{'SUBJECT' | translate }}"
+            aria-label="To" aria-describedby="subject">
+        </div>
+        <div *ngIf="emailForm.get('subject').touched && emailForm.get('subject').errors">
+          <div class="text-danger" *ngIf="emailForm.get('subject').errors?.required">
+            {{'SUBJECT_IS_REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="font-weight-bold text-danger">
+            {{'BODY' | translate }} *
+          </label>
+          <angular-editor formControlName="body" [config]="editorConfig"></angular-editor>
+          <div *ngIf="emailForm.get('body').touched && emailForm.get('body').errors">
+            <div class="text-danger" *ngIf="emailForm.get('body').errors?.required">
+              {{'BODY_IS_REQUIRED' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

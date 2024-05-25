@@ -15,7 +15,7 @@ import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { TranslationService } from '@core/services/translation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
@@ -35,6 +35,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
   displayedColumns: string[] = ['action', 'contactid', 'customerName', 'email', 'mobileNo', 'noofinteractions'];
   columnsToDisplay: string[] = ["footer"];
   isLoadingResults = true;
+  isLoading = false;
   customerResource: CustomerResourceParameter;
   loading$: Observable<boolean>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -176,16 +177,13 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
   }
 
   // downloadExcel(){
-  //   debugger
   //   // this.isLoadingResults = true;
   //   // this.customerService.getCustomersExcelDownload(this.customerResource).subscribe((res: any) => {
-  //   //   debugger
   //   //   this.isLoadingResults = false;
   //   // }, error => {
   //   //   this.isLoadingResults = false;
   //   // })
   //   // this.customerService.generateExcel().subscribe(response => {
-  //   //   debugger
   //   //   // handle response
   //   // });
   // }
@@ -198,7 +196,6 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
     };
 
     this.customerService.generateExcel(this.customerResource).subscribe((response: any) => {
-      debugger
       const blob = new Blob([response], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       });
@@ -214,6 +211,42 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
       a.remove();
     });
   }
+
+dowanloadList(){
+  this.isLoading = true
+
+  this.customerService.getCustomers(this.customerResource).subscribe(res=>{
+    let customerRecods:any = res?.body;
+    let heading = [[
+      this.translationService.getValue('Contact Id'),
+      this.translationService.getValue('Name'),
+      this.translationService.getValue('Last Name'),
+      this.translationService.getValue('Email Id'),
+      this.translationService.getValue('Mobile'),
+    ]];
+
+    let customerReport = [];
+    customerRecods.forEach(data => {
+      customerReport.push({
+        'Contact Id':data?.transactionNumber,
+        'Name':data?.name,
+        'LastName':data?.lastName,
+        'Email':data?.emailId,
+        'Mobile':data?.mobileNo,
+      })
+    });
+    let workBook = XLSX.utils.book_new();
+    XLSX.utils.sheet_add_aoa(workBook, heading);
+    let workSheet = XLSX.utils.sheet_add_json(workBook, customerReport, { origin: "A2", skipHeader: true });
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'Contact Report');
+    XLSX.writeFile(workBook, 'Contact Report' + ".xlsx");
+
+  })
+
+}
+
+
+
 
   editCustomer(customerId: string) {
     this.router.navigate(['/customer', customerId])

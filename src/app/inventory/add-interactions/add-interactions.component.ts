@@ -62,7 +62,6 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.getSubCategoryList(JSON.parse(this.userData?.catId));
 
     this.interactionSubject = this.userData?.subject;
-    debugger
   }
   ngOnInit(): void {
     console.log("User Data", this.userData);
@@ -255,7 +254,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       "teamName": data?.teamName,
       "source": data?.source || '',
       "agentRemarks": data?.agentRemarks,
-      "subject": data?.subject,
+      // "subject": data?.subject,
     }
     this.inventoryService.addInteraction(formData).subscribe(res => {
       if (res) {

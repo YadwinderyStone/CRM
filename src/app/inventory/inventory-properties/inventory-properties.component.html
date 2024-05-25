@@ -1,6 +1,6 @@
 <form [formGroup]="addInventoryForm">
     <div class="example-action-buttons justify-content-between">
-        <div class="ml-2" *ngIf="resValue?.ticketType =='Ticket Created'">
+        <div class="ml-2" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2 ">
             <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()" class="btn btn-success btn-md">
                 <i class="fas fa-envelope"></i>
                 Reply</button>
@@ -8,7 +8,7 @@
                 <i class="fas fa-paper-plane"></i>
                 Transfer</button>
         </div>
-        <div class="" *ngIf="resValue?.ticketType =='Ticket Created'" >
+        <div class="" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2" >
 
             <button type="button" (click)="onSubmit()" class="btn btn-success btn-md m-right-10"><i
                     class="fas fa-save"></i>
@@ -69,16 +69,15 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Ticket Type</mat-label>
-                        <mat-select
-                            [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
+                        <mat-select [disabled]="true"
                             (selectionChange)="onticketTypeChange($event)" [dir]="langDir" formControlName="ticketType"
                            class="form-control">
                             <!-- <mat-option *ngFor="let cat of ticketTypeList" [value]="cat.id">
                                 {{cat.name}}
                             </mat-option> -->
-                            <ng-container *ngFor="let cat of ticketTypeList">
-                                <mat-option *ngIf="cat.name !='Email' " [value]="cat.id">
-                                    {{cat.name}}
+                            <ng-container *ngFor="let list of ticketTypeList">
+                                <mat-option *ngIf="list.name !='Email' " [value]="list.id">
+                                    {{list.name}}
                                 </mat-option>
                             </ng-container>
                         </mat-select>
@@ -132,7 +131,6 @@
                     <div class="form-group">
                         <mat-label>Priority</mat-label>
                         <mat-select
-                            [attr.disabled]="contactSelectedType == 'FCR' || contactSelectedType == 'Ticket Created'"
                             [dir]="langDir" formControlName="priority"
                             class="form-control">
                             <mat-option *ngFor="let data of priorityList" [value]="data.id">
@@ -149,7 +147,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Category</mat-label>
-                        <mat-select [attr.disabled]="contactSelectedType == 'FCR'"
+                        <mat-select
                             (selectionChange)="onCatChange($event)" [dir]="langDir" formControlName="categoryId"
                             class="form-control">
                             <mat-option *ngFor="let subCat of categoryList" [value]="subCat.id">
@@ -167,7 +165,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Sub Category</mat-label>
-                        <mat-select [attr.disabled]="contactSelectedType == 'FCR'" [dir]="langDir"
+                        <mat-select
                             formControlName="subcategoryId" class="form-control">
                             <mat-option *ngFor="let subCat of subCategoryList" [value]="subCat.id">
                                 {{subCat.name}}
@@ -201,7 +199,7 @@
                     <div class="form-group">
                         <!-- [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'" -->
                         <mat-label>Team</mat-label>
-                        <mat-select [dir]="langDir" formControlName="teamId"
+                        <mat-select [disabled]="true" [dir]="langDir" formControlName="teamId"
                             class="form-control">
                             <mat-option *ngFor="let team of teamList" [value]="team.id">
                                 {{team.name}}
@@ -217,20 +215,20 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <!-- [disabled]="contactSelectedType == 'Ticket Created'|| contactSelectedType !== 'Ticket Created'" -->
                         <mat-label>Assign To</mat-label>
-                        <mat-select [disabled]="true" [dir]="langDir" formControlName="assignToTeamId"
+                        <input type="text" [readonly]="true" class="form-control"
+                            id="gstn" [value]="resValue?.assignToName">
+                        <!-- <mat-select [disabled]="true" [dir]="langDir" formControlName="assignToId"
                              class="form-control">
-                            <mat-option *ngFor="let team of teamList" [value]="team.id">
-                                {{team.name}}
+                            <mat-option *ngFor="let member of teamMemberList" [value]="member.userId">
+                                {{member.userId}}
                             </mat-option>
                         </mat-select>
                         <mat-error [dir]="langDir"
-                            *ngIf="addInventoryForm.get('assignToTeamId').touched && addInventoryForm.get('assignToTeamId').errors?.required"
+                            *ngIf="addInventoryForm.get('assignToId').touched && addInventoryForm.get('assignToId').errors?.required"
                             class="text-danger">
-                            <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
                             Please select Assign to
-                        </mat-error>
+                        </mat-error> -->
                     </div>
                 </div>
                 
@@ -309,7 +307,7 @@
                 </div>
                 <div class="col-md-10">
                     <div class="form-group">
-                        <mat-label>Current Status </mat-label>
+                        <mat-label>Comments </mat-label>
                         <textarea [readonly]="true" type="text"  maxlength="2000" class="form-control"
                              id="docketNumber" formControlName="currentStatus"></textarea>
                         <mat-error [dir]="langDir"
@@ -321,15 +319,14 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group text-center mt-3" *ngIf="interactionData?.ticketType == '2'|| interactionData?.ticketType == 'Ticket Created'">
-                        <button (click)="addNote()" *hasClaim="'INT_ADD_NOTE_INTERACTION'" type="button" class="btn btn-success btn-md">
-                            <i class="fas fa-sticky-note-o"></i>
-                            <!-- <i class="fas fa-save"></i> -->
+                        <button (click)="addNote()" *hasClaim="'INT_ADD_NOTE_INTERACTION'" type="button" class="btn mt-3 btn-success btn-md">
+                            <i class="fas fa-plus"></i>
                             Add Comments</button>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <mat-label>Resolution Comments </mat-label>{{addInventoryForm.get('ticketType')?.value}}
+                        <mat-label>Resolution Comments </mat-label>
                         <textarea maxlength="2000" [readonly]="addInventoryForm.get('ticketType')?.value == '1'"
                             formControlName="resolutionComments" class="form-control"></textarea>
                         <mat-error [dir]="langDir"
@@ -365,13 +362,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>CPIN:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" formControlName="cpin" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Error Message:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" formControlName="errorMessage" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -383,31 +380,37 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Return Type:</mat-label>
+                        <input type="text" FormControlName="returnType" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Composition Start Date/End Date :</mat-label>
                         <input type="text" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <mat-label>Composition Start Date/End Date for Comp Dealers:</mat-label>
+                        <mat-label>Return Period:</mat-label>
                         <input type="text" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <mat-label>Return Period for which issue is reported:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>Last successful return field:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <mat-label>Last successful return :</mat-label>
+                        <input type="text" formControlName="lastSuccessfulReturn" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Form Name:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" formControlName="formName" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Registration Type :</mat-label>
+                        <input type="text" formControlName="registrationType" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -430,14 +433,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <mat-label>Registration Form for which issue is reported:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <mat-label>Registration Form :</mat-label>
+                        <input type="text" formControlName="registrationForm" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Return Form :</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" formControlName="returnForm" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -485,7 +488,7 @@
                     <div class="form-group">
                         <mat-label>Unique Number</mat-label>
                         <input type="text" class="form-control"
-                            id="uniqueNumber" formControlName="uniqueNumber">
+                            id="uniqueNumber" [readonly]="true" formControlName="uniqueNumber">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('uniqueNumber').touched && addInventoryForm.get('uniqueNumber').errors?.required"
                             class="text-danger">
@@ -510,7 +513,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Error code</mat-label>
-                        <mat-select [dir]="langDir" formControlName="errorCode" 
+                        <mat-select [disabled]="true" [dir]="langDir" formControlName="errorCode" 
                             class="form-control">
                             <mat-option *ngFor="let error of errorCodeList" [value]="error.id">
                                 {{error.name}}
@@ -527,7 +530,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Created</mat-label>
-                        <input type="text" class="form-control"  id="created"
+                        <input [readonly]="true" type="text" class="form-control"  id="created"
                             formControlName="created">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
@@ -542,7 +545,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Interaction Created Through Media</mat-label>
-                        <input type="text" class="form-control"
+                        <input [readonly]="true" type="text" class="form-control"
                              id="created"
                             formControlName="interactionCreatedThroughMedia">
                         <mat-error [dir]="langDir"
@@ -555,7 +558,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Interaction thread last updated</mat-label>
-                        <input type="text" class="form-control" 
+                        <input [readonly]="true" type="text" class="form-control" 
                             id="created" formControlName="interactionThread">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('interactionThread').touched && addInventoryForm.get('interactionThread').errors?.required"
@@ -567,7 +570,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Last resolved at </mat-label>
-                        <input type="text" class="form-control" id="created"
+                        <input [readonly]="true" type="text" class="form-control" id="created"
                             formControlName="created">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('created').touched && addInventoryForm.get('created').errors?.required"
@@ -579,7 +582,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Date last updated </mat-label>
-                        <input type="text" readonly (click)="lastDateUpdate.open();"
+                        <input [readonly]="true" type="text" readonly (click)="lastDateUpdate.open();"
                             [owlDateTimeTrigger]="lastDateUpdate" [owlDateTime]="lastDateUpdate" class="form-control"
                              formControlName="dateLastUpdate">
                         <mat-error [dir]="langDir"
@@ -593,7 +596,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Reserved For </mat-label>
-                        <input type="text" class="form-control"
+                        <input [readonly]="true" type="text" class="form-control"
                             id="interactionThread" formControlName="reservedFor">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('reservedFor').touched && addInventoryForm.get('reservedFor').errors?.required"
@@ -605,7 +608,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>ARN : </mat-label>
-                        <input type="text" class="form-control" id="interactionThread"
+                        <input [readonly]="true" type="text" class="form-control" id="interactionThread"
                             formControlName="arn">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('arn').touched && addInventoryForm.get('arn').errors?.required"
@@ -617,7 +620,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Time From Created To Update In Hrs: </mat-label>
-                        <input type="text" class="form-control"
+                        <input [readonly]="true" type="text" class="form-control"
                              id="interactionThread"
                             formControlName="timeFromCreatedToUpdateInHrs">
                         <mat-error [dir]="langDir"
@@ -631,7 +634,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Time From last Update To Currrent In Hrs: </mat-label>
-                        <input type="text" class="form-control"
+                        <input [readonly]="true" type="text" class="form-control"
                              id="interactionThread"
                             formControlName="timeFromLastUpdateToCurrentInHrs">
                         <mat-error [dir]="langDir"
@@ -644,7 +647,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Time From Created To Current In Hrs: </mat-label>
-                        <input type="text" class="form-control"
+                        <input [readonly]="true" type="text" class="form-control"
                              id="interactionThread"
                             formControlName="timeFromCreatedToCurrentInHrs">
                         <mat-error [dir]="langDir"
@@ -657,7 +660,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Pan Card No. : </mat-label>
-                        <input type="text" class="form-control" 
+                        <input [readonly]="true" type="text" class="form-control" 
                             id="interactionThread" formControlName="panCardNo">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
@@ -669,7 +672,7 @@
                 <div class="col-md-4 d-none">
                     <div class="form-group">
                         <mat-label>Test Tallsma : </mat-label>
-                        <input type="text" class="form-control" 
+                        <input [readonly]="true" type="text" class="form-control" 
                             id="interactionThread">
                         <!-- <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
@@ -681,7 +684,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Clearification filed : </mat-label>
-                        <input type="text" class="form-control"
+                        <input [readonly]="true" type="text" class="form-control"
                             id="interactionThread">
                         <!-- <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
@@ -693,7 +696,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Problem ID </mat-label>
-                        <input type="text" class="form-control" 
+                        <input [readonly]="true" type="text" class="form-control" 
                             id="interactionThread">
                         <!-- <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
@@ -705,7 +708,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Feedback </mat-label>
-                        <input type="text" class="form-control" 
+                        <input [readonly]="true" type="text" class="form-control" 
                             id="interactionThread">
                         <!-- <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"

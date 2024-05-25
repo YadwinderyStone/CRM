@@ -9,13 +9,29 @@
                 <h1>Searching Filter</h1>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="fromDate">{{'FROM_DATE' | translate}} </label>
+                <input class="form-control" [max]="currentDate" [(ngModel)]="fromDate" [owlDateTimeTrigger]="fromDate1"
+                    [owlDateTime]="fromDate1" placeholder="{{'FROM_DATE' | translate}}">
+                <owl-date-time [pickerType]="'calendar'" #fromDate1></owl-date-time>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="toDate">{{'TO_DATE' | translate}} </label>
+                <input class="form-control" id="toDate1" [max]="currentDate" [(ngModel)]="toDate"
+                    [owlDateTimeTrigger]="toDate1" [owlDateTime]="toDate1" placeholder="{{'TO_DATE' | translate}}">
+                <owl-date-time [pickerType]="'calendar'" #toDate1></owl-date-time>
+            </div>
+        </div>
+        <!-- <div class="col-md-3">
             <div class="form-group">
                 <mat-label for="search">Interaction ID</mat-label>
                 <input type="text" [(ngModel)]="search" placeholder="search by interaction id" class="form-control"
                     id="search">
             </div>
-        </div>
+        </div> -->
         <div class="col-md-3">
             <div class="form-group">
                 <mat-label> Status </mat-label>
@@ -34,7 +50,6 @@
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-3"></div>
         <div class="col-md-3">
             <div class="form-group">
                 <mat-label> Category </mat-label>
@@ -69,14 +84,14 @@
             </div>
         </div>
 
-        <div class="col-md-3 d-none">
+        <!-- <div class="col-md-3 d-none">
             <div class="form-group">
                 <mat-label> Team </mat-label>
                 <mat-select [(ngModel)]="selectedTeam" placeholder="Select team" class="form-control">
                     <mat-option [value]="team?.id" *ngFor="let team of teamList">{{team?.name}}</mat-option>
                 </mat-select>
             </div>
-        </div>
+        </div> -->
         <div class="col-md-3">
             <button type="button" (click)="searchList()" class="btn btn-success btn-md mx-2 button-margin"><i
                     class="fas fa-save"></i>
@@ -137,7 +152,9 @@
         <table [dir]="langDir" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows
             matSortActive="productName">
             <ng-container matColumnDef="action">
-                <th class="table-column-100" mat-header-cell *matHeaderCellDef> Action
+                <th class="table-column-100" mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox color="primary" name="enabled" (change)="onSelectAll($event)">Selcet All</mat-checkbox>
+                 
                 </th>
                 <td class="table-column-100 text-center pad-12" mat-cell *matCellDef="let element">
                     <mat-checkbox color="primary" name="enabled" (change)="onChange(element?.id)"></mat-checkbox>
@@ -213,7 +230,7 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt | date:'dd-MM-yyyy'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'yyyy-MM-dd hh:mm a':'UTC'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">

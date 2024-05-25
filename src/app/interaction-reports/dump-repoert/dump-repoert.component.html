@@ -109,8 +109,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemReported">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported}}
+                <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
+                <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.problemReported}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketNumber">
@@ -154,8 +154,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="currentStatus">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Current Status</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.currentStatus}}
+                <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Current Status</th>
+                <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.currentStatus}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="noOfMessages">
@@ -179,22 +179,22 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="subject">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.subject}}
+                <th class="table-column-450" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
+                <td class="table-column-450" mat-cell *matCellDef="let row"> {{row.subject}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="createdDate">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate| date:'yyyy-MM-dd'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate| date:'yyyy-MM-dd hh:mm a':'UTC'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="agentRemarks">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Agent Remarks</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.agentRemarks}}
+                <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header>Agent Remarks</th>
+                <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.agentRemarks}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">
-                <td mat-footer-cell colspan="5" *matFooterCellDef>
+                <td mat-footer-cell colspan="12" *matFooterCellDef>
                     <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"
                         [dir]="langDir" [pageSizeOptions]="[10, 20, 30]">
                     </mat-paginator>

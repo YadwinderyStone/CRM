@@ -15,7 +15,7 @@ import { BaseComponent } from 'src/app/base.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { UserService } from '../user.service';
 import { UserDataSource } from './user-datasource';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -23,6 +23,7 @@ import { UserDataSource } from './user-datasource';
 })
 export class UserListComponent extends BaseComponent implements OnInit, AfterViewInit {
   dataSource: UserDataSource;
+  isLoading:boolean = false
   users: User[] = [];
   displayedColumns: string[] = ['action','firstName', 'lastName','userId','email', 'phoneNumber','bucketSize','role', 'isActive'];
   footerToDisplayed = ['footer'];
@@ -122,4 +123,37 @@ export class UserListComponent extends BaseComponent implements OnInit, AfterVie
   userPermission(userId: string) {
     this.router.navigate(['/users/permission', userId])
   }
+
+  dowanloadList(){
+    this.isLoading = true
+  
+    this.userService.getUsers(this.userResource).subscribe((res:any)=>{
+      let usersRecods:any = res?.body;
+      let heading = [[
+        this.translationService.getValue('First Name'),
+        this.translationService.getValue('Last Name'),
+        this.translationService.getValue('Email'),
+        this.translationService.getValue('Mobile'),
+        this.translationService.getValue('IsActive'),
+      ]];
+  
+      let usersReport = [];
+      usersRecods.forEach(data => {
+        usersReport.push({
+          'First Name':data?.firstName,
+          'LastName':data?.lastName,
+          'Email':data?.email,
+          'Mobile':data?.phoneNumber,
+          'IsActive':data?.isActive,
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, usersReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Users Report');
+      XLSX.writeFile(workBook, 'Users Report' + ".xlsx");  
+    })
+
+  }
+
 }

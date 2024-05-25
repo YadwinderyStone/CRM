@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { InteractionCategory, InteractionStatus, InteractionType } from '@core/domain-classes/interactionCatetgory';
 import { Queue } from '@core/domain-classes/queue.model';
+import * as XLSX from 'xlsx';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-inventory-list',
@@ -82,6 +84,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService,
     public toasterService: ToastrService,
     private commonDialogService: CommonDialogService,
+    private datePipe: DatePipe,
     private dialog: MatDialog) {
     super(translationService);
     this.getLangDir();
@@ -258,7 +261,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     this.paginator.pageIndex = 0; 
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search,
+    this.inventoryResource.search = this.search?this.prefix+this.search :'',
     this.inventoryResource.team = this.selectedTeam,
     this.inventoryResource.category = this.selectedCategory,
     this.inventoryResource.subCategory = this.selectedSubCategory,
@@ -266,4 +269,66 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     this.inventoryResource.subStatus = this.selectedSubStatus
     // this.inventoryResource.priority = this.selectedPriority
   }
+
+
+
+
+
+  dowanloadList(){
+    this.setParams();
+    this.inventoryService.getInteractionsList(this.inventoryResource).subscribe((res:any)=>{
+      let InteractionRecods:any = res?.body;
+      let heading = [[
+        this.translationService.getValue('Interaction Id'),
+        this.translationService.getValue('Interaction Type'),
+        this.translationService.getValue('Status'),
+        this.translationService.getValue('Sub Status'),
+        this.translationService.getValue('Category'),
+        this.translationService.getValue('Sub Category'),
+        this.translationService.getValue('Subject'),
+        this.translationService.getValue('Contact Name'),
+        this.translationService.getValue('Email'),
+        this.translationService.getValue('Team'),
+        this.translationService.getValue('GSTN'),
+        this.translationService.getValue('Problem Reported'),
+        this.translationService.getValue('Docket no'),
+        this.translationService.getValue('Assign To'),
+        this.translationService.getValue('Created At'),
+        this.translationService.getValue('Agent Remarks'),
+      ]];
+  
+      let interactionsReport = [];
+      InteractionRecods.forEach(data => {
+        interactionsReport.push({
+          'Interaction Id':data?.transactionNumber,
+          'Interaction Type':data?.ticketType,
+          'Status':data?.statusName,
+          'Sub Status':data?.subStatusName,
+          'Category':data?.categoryName,
+          'Sub Category':data?.subcategoryName,
+          'Subject':data?.subject,
+          'Contact Name':data?.contactName,
+          'Email ':data?.emailId,
+          'Team':data?.teamName,
+          'GSTN':data?.gstn,
+          'Problem Reported':data?.problemReported,
+          'Docket no':data?.docketNumber,
+          'Assign To':data?.assignToName,
+          'Created At': this.datePipe.transform(data?.createDateTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Agent Remarks':data?.agentRemarks,
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report');
+      XLSX.writeFile(workBook, 'Interaction Report' + ".xlsx");  
+    })
+
+  }
+
+
+
+
+
 }

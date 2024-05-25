@@ -35,7 +35,6 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
 //   ngOnChanges(changes: SimpleChanges): void {
     
 // this.transactionNo
-//     debugger
 //   }
   ngOnInit(): void {
     this.getNotesList();
@@ -73,7 +72,6 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
       createdByName: userData?.firstName + ' ' + userData?.lastName,
       teamName: userData?.teamName
     }
-debugger
     this.InteractionServices.addCrmNote(crmNoteData).subscribe(res => {
       if (res) {
         this.toastrService.success('Comment added successfully');
