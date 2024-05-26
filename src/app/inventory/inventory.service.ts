@@ -274,8 +274,8 @@ export class InventoryService {
 
 
   getTeamListForTransfer(id){
-    // const url = `Queues`;
-    const url = `GetQueueEscaltionMatixTeamId/${id}`;
+    const url = `Queues`;
+    // const url = `GetQueueEscaltionMatixTeamId/${id}`;
     // const url = `Queues/${id}`;
     return this.http.get<any>(url);
   }
