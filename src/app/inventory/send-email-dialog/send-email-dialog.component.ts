@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BaseComponent } from 'src/app/base.component';
 import { EmailSendService } from 'src/app/email-send/email-send.service';
 import { EmailTemplateService } from 'src/app/email-template/email-template.service';
+import { InventoryService } from '../inventory.service';
 
 @Component({
   selector: 'app-send-email-dialog',
@@ -26,14 +27,15 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
   fileData: FileInfo[] = [];
   extension: string = '';
   fileType: string = '';
+  user:any
   constructor(public dialogRef: MatDialogRef<SendEmailDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data,
-
     private fb: UntypedFormBuilder,
     private emailTemplateService: EmailTemplateService,
     private toastrService: ToastrService,
     private emailSendService: EmailSendService,
+    private inventoryService: InventoryService,
     public translationService: TranslationService,
   ) {
     super(translationService);
@@ -43,7 +45,7 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     value += `-${this.data?.subcategoryName}`
 
     this.subject = value;
-
+    this.user = JSON.parse(localStorage.getItem('authObj'));
   }
 
 
@@ -67,7 +69,6 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
 
 
     this.selectedEmailTamplate.body = status
-
     this.emailForm.patchValue(this.selectedEmailTamplate);
     this.emailForm.get('subject').setValue(this.subject);
   }
@@ -143,7 +144,8 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
         this.toastrService.success(this.translationService.getValue('EMAIL_SENT_SUCCESSFULLY'));
         this.isLoading = false;
         this.clearForm();
-        this.dialogRef.close(true);
+        this.createTransferHistory(emailObj);
+        // this.dialogRef.close(true);
       }, error => {
         this.toastrService.error(error);
         this.isLoading = false;
@@ -186,5 +188,27 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     }
     this.getFileInfo();
 
+  }
+
+
+
+
+
+  createTransferHistory(value:any){
+    this.isLoading=true
+    let data = {
+      id: this.data?.id,
+      action: 'ReplySent',
+      message: `Email replay ${value?.body} by ${this.user?.firstName}`
+    }
+    this.inventoryService.createHistory(data).subscribe(res=>{
+      if(res){
+        this.dialogRef.close(true);
+        this.isLoading= false;
+      }
+    },error=>{
+      this.toastrService.error(error);
+      this.isLoading=false
+    })
   }
 }

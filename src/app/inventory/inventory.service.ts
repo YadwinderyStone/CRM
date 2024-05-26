@@ -274,7 +274,7 @@ export class InventoryService {
 
 
   getTeamListForTransfer(id){
-    const url = `Queues`;
+    const url = `GetQueueEscaltionMatixTeamId/${id}`;
     // const url = `Queues/${id}`;
     return this.http.get<any>(url);
   }
@@ -282,6 +282,11 @@ export class InventoryService {
   transferToTeam(data) { 
     // const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
     const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
+    return this.http.post<any[]>(url,data);
+  }
+
+  createHistory(data) { 
+    const url = `Interaction/CreateCRMInteractionHistory`;
     return this.http.post<any[]>(url,data);
   }
 
@@ -336,18 +341,16 @@ getTeamWiseInteractionsList(params) {
 addCrmNote(data){
   const url = `CrmNotes/AddCrmNotes`;
   return this.http.post<any[]>(url,data);
-  
-
 }
-
-
-
-
-
 
 // notes api end 
 
-
+getEmailInboxListByInteractionId(id){
+  const url = `Email/GetEmailInboxListByInteractionId?interactionId=${id}`;
+  return this.http.get<any>(url, {
+    observe: 'response',
+  }); 
+}
 
 
 }

@@ -243,7 +243,7 @@
                     <div class="form-group">
                         <mat-label>Docket Number:</mat-label>
                         <input type="text" class="form-control"
-                            id="docketNumber" formControlName="docketNumber">
+                            id="docketNumber" [readonly]="true" formControlName="docketNumber">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('docketNumber').touched && addInventoryForm.get('docketNumber').errors?.required"
                             class="text-danger">
@@ -296,7 +296,7 @@
                         <mat-label>Agent Remarks</mat-label>
                         <!-- <input type="text" maxlength="600" class="form-control"
                             formControlName="agentRemarks"> -->
-                            <textarea type="text" maxlength="2000"  formControlName="agentRemarks"
+                            <textarea type="text" maxlength="2000" [readonly]="resValue?.ticketType==1 || resValue?.ticketType=='FCR'"  formControlName="agentRemarks"
                         class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"

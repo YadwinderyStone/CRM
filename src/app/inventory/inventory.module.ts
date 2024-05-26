@@ -43,6 +43,7 @@ import { TransferTeamComponent } from './inventory-properties/transfer-team/tran
 import { MyInteractionsListComponent } from './my-interactions-list/my-interactions-list.component';
 import { TeamInteractionsListComponent } from './team-interactions-list/team-interactions-list.component';
 import { InteractionAttachmentsListComponent } from './interaction-attachments-list/interaction-attachments-list.component';
+import { InteractionEmailComponent } from './interaction-email/interaction-email.component';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -65,7 +66,8 @@ import { InteractionAttachmentsListComponent } from './interaction-attachments-l
     TransferTeamComponent,
     MyInteractionsListComponent,
     TeamInteractionsListComponent,
-    InteractionAttachmentsListComponent
+    InteractionAttachmentsListComponent,
+    InteractionEmailComponent
   ],
   imports: [
     CommonModule,

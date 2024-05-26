@@ -231,13 +231,13 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     }
 
     let data = this.addInventoryForm.getRawValue();
-    // let ticketType = this.ticketTypeList.filter(e => e.id == this.addInventoryForm.value.ticketType);
-    // let statusName = this.statusList.filter(e => e.id == this.addInventoryForm.value.statusId);
-    // let subStatusName = this.subStatusList.filter(e => e.id == this.addInventoryForm.value.subStatusId);
-    // let priorityName = this.priorityList.filter(e => e.id == this.addInventoryForm.value.priority);
-    // let categoryName = this.categoryList.filter(e => e.id == this.addInventoryForm.value.categoryId);
-    // let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
-    // let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
+    let ticketType = this.ticketTypeList.filter(e => e.id == this.addInventoryForm.value.ticketType);
+    let statusName = this.statusList.filter(e => e.id == this.addInventoryForm.value.statusId);
+    let subStatusName = this.subStatusList.filter(e => e.id == this.addInventoryForm.value.subStatusId);
+    let priorityName = this.priorityList.filter(e => e.id == this.addInventoryForm.value.priority);
+    let categoryName = this.categoryList.filter(e => e.id == this.addInventoryForm.value.categoryId);
+    let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
+    let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
     let value = {
       id:this.id,
       agentRemarks: data?.agentRemarks,
@@ -249,8 +249,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       resolutionComments: data?.resolutionComments,
       statusId: data?.statusId,
       statusName: data?.statusName,
-      subStatusId: data?.statusId,
+      subStatusName: subStatusName[0]?.name,
+      subStatusId: data?.subStatusId,
       subcategoryId: data?.subcategoryId,
+      subcategoryName: subcategoryName[0]?.name,
       uniqueNumber: data?.uniqueNumber,
       cpin: data?.cpin,
       errorMessage: data?.errorMessage,
@@ -261,7 +263,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       registrationForm: data?.registrationForm,
       returnForm: data?.returnForm,
       returnType: data?.returnType,
-      subject: data?.subject
+      subject: this.resValue?.subject
     }
 
 
@@ -327,8 +329,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   updateForm(res) {
     res.ticketType = JSON.parse(res.ticketType);
     this.addInventoryForm.patchValue(res);
-    let subject = `${res?.transactionNumber}-${res?.categoryName}-${res?.subcategoryName}`
-    this.addInventoryForm.get('subject').setValue(subject);
+    // this.addInventoryForm.get('subject').setValue(this.resValue?.);
+    this.addInventoryForm.get('docketNumber').setValue(this.interactionData?.transactionNumber);
   }
 
   addNote() {

@@ -12,9 +12,9 @@ import { InventoryService } from '../inventory.service';
   styleUrls: ['./interaction-notes.component.scss']
 })
 export class InteractionNotesComponent extends BaseComponent implements OnInit {
-  currentDate = new Date();
   @Input() id: string
   @Input() InteractionDetail: any
+  currentDate = new Date();
   editorConfig = EditorConfig;
   notesForm: UntypedFormGroup;
   isLoading = false;
@@ -42,7 +42,7 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
   createForm() {
     this.notesForm = this.fb.group({
       body: ['', [Validators.required]],
-      nextStatusTime: ['', [Validators.required]],
+      nextStatusTime: [this.currentDate, [Validators.required]],
     });
   }
   getNotesList() {
@@ -77,6 +77,7 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
         this.toastrService.success('Comment added successfully');
         this.isLoading = false;
         this.getNotesList();
+        this.createTransferHistory(crmNoteData,userData);
       }
       this.isLoading = false
     }, error => {
@@ -84,4 +85,28 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
       this.isLoading = false
     })
   }
+
+
+  createTransferHistory(value:any,user){
+    this.isLoading=true
+    let data = {
+      id: value?.interactionId,
+      action: 'Comments',
+      message: `New Comment "${value?.noteDescription}" added by ${user?.firstName}`
+    }
+    this.InteractionServices.createHistory(data).subscribe(res=>{
+      if(res){
+        this.isLoading= false;
+      }
+    },error=>{
+      this.toastrService.error(error);
+      this.isLoading=false
+    })
+  }
+
+
+
+
+
+
 }

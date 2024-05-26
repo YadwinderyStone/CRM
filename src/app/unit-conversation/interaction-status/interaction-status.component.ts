@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
-import { ProductCategoryService } from '@core/services/product-category.service';
 import { InteractionCategoryService } from '@core/services/interactionCategory.service';
 import { TranslationService } from '@core/services/translation.service';
 import { BaseComponent } from 'src/app/base.component';

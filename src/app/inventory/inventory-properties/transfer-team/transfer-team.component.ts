@@ -14,6 +14,7 @@ export class TransferTeamComponent extends BaseComponent implements OnInit {
   isLoading: boolean = false;
   teamList: any = [];
   selectedTeam: any
+  user:any
   constructor(public dialogRef: MatDialogRef<TransferTeamComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data,
@@ -24,6 +25,7 @@ export class TransferTeamComponent extends BaseComponent implements OnInit {
   ) {
     super(translationService);
     this.getLangDir();
+    this.user = JSON.parse(localStorage.getItem('authObj'));
   }
 
   ngOnInit(): void {
@@ -40,7 +42,6 @@ export class TransferTeamComponent extends BaseComponent implements OnInit {
 
   transerToTeam() {
     if (this.selectedTeam) {
-
       let teamName = this.teamList.filter(team=>team?.id== this.selectedTeam)
       let data = {     
           id: this.data?.id,
@@ -50,7 +51,7 @@ export class TransferTeamComponent extends BaseComponent implements OnInit {
       this.isLoading = true
       this.inventoryService.transferToTeam(data).subscribe(res => {
         this.toastrService.success(`Interaction Transfer to Team ${data?.teamName} successfully`);
-        this.dialogRef.close(true)
+        this.createTransferHistory(data);
       }, error => {
         this.toastrService.error(error);
         this.isLoading = false
@@ -60,7 +61,27 @@ export class TransferTeamComponent extends BaseComponent implements OnInit {
     }
   }
 
+createTransferHistory(value:any){
+  this.isLoading=true
+  let data = {
+    id: this.data?.id,
+    action: 'TeamChanged',
+    message: `Interaction Assigned to ${value?.teamName} by ${this.user?.firstName}`
+  }
+  this.inventoryService.createHistory(data).subscribe(res=>{
+    if(res){
+      this.dialogRef.close(true);
+      this.isLoading= false;
+    }
+  },error=>{
+    this.toastrService.error(error);
+    this.isLoading=false
+  })
 
+
+
+
+}
 
 
 }

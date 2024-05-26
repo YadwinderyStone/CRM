@@ -38,7 +38,7 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
   createForm() {
     this.notesForm = this.fb.group({
       body: ['', [Validators.required]],
-      nextStatusTime: ['', [Validators.required]],
+      nextStatusTime: [this.currentDate, [Validators.required]],
     });
   }
 
@@ -63,7 +63,8 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
     this.inventoryService.addCrmNote(crmNoteData).subscribe(res => {
       if (res) {
         this.toastrService.success('Note added successfully');
-        this.dialogRef.close(true);
+        this.createTransferHistory(crmNoteData)
+        // this.dialogRef.close(true);
         this.isLoading = false
       }
       this.isLoading = false
@@ -72,4 +73,26 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
       this.isLoading = false
     })
   }
+
+  createTransferHistory(value:any){
+    this.isLoading=true
+    let data = {
+      id: value?.interactionId,
+      action: 'Comments',
+      message: `New Comment "${value?.noteDescription}" added by ${value?.createdByName}`
+    }
+    this.inventoryService.createHistory(data).subscribe(res=>{
+      if(res){
+        this.isLoading= false;
+        this.dialogRef.close(true);
+      }
+    },error=>{
+      this.toastrService.error(error);
+      this.isLoading=false
+    })
+  }
+
+
+
+
 }
