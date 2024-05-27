@@ -340,6 +340,7 @@ this.inventoryService.bulkAssignMemebers(data).subscribe(res=>{
     this.isLoading = false;
     this.selectedAssignMember='';
     this.selectedTeam ='';
+    this.toasterService.success('Interaction assigned successfully')
     this.dataSource.loadData(this.inventoryResource);
   }
 },error=>{
