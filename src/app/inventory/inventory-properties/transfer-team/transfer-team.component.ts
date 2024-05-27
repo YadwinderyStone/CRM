@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../../inventory.service';
+import {InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
 
 @Component({
   selector: 'app-transfer-team',
@@ -65,9 +66,10 @@ createTransferHistory(value:any){
   this.isLoading=true
   let data = {
     id: this.data?.id,
-    action: 17,
+    action: InteractionsActionEnums?.TeamChanged,
     message: `Team changed from ${this.data?.teamName} to ${value?.teamName}`
   }
+  debugger
   this.inventoryService.createHistory(data).subscribe(res=>{
     if(res){
       this.dialogRef.close(true);

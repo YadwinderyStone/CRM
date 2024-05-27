@@ -118,7 +118,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <mat-label>Assign Team </mat-label>
-            <mat-select [(ngModel)]="selectedTeam" (selectionChange)="onAssignTeamChange($event)" placeholder="Select team" class="form-control">
+            <mat-select [(ngModel)]="selectedTeam" (selectionChange)="onTeamChange($event)" placeholder="Select team" class="form-control">
                 <mat-option [value]="team?.assignTeamId" *ngFor="let team of teamList">{{team?.assignTeamName}}</mat-option>
             </mat-select>
         </div>

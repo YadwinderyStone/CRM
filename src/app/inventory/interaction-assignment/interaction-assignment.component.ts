@@ -134,7 +134,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
   }
 
 
-  onAssignTeamChange(event) {
+  onTeamChange(event) {
     this.membersList = [];
     this.inventoryService.getQueueMembers(event.value).subscribe((res: any) => {
       this.membersList = res
@@ -331,13 +331,15 @@ this.isLoading = true;
 let member:any =  this.userList.filter((e:any)=>e.id==this.selectedAssignMember);
     let memberName = member[0].firstName+ member[0].lastName 
 let data = {
-memberId:this.selectedAssignMember,
-userAssignedId:value,
-memberName:memberName
+  memberId:this.selectedAssignMember,
+  userAssignedId:value,
+  memberName:memberName
 }
 this.inventoryService.bulkAssignMemebers(data).subscribe(res=>{
   if(res){
     this.isLoading = false;
+    this.selectedAssignMember='';
+    this.selectedTeam ='';
     this.dataSource.loadData(this.inventoryResource);
   }
 },error=>{

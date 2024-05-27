@@ -9,8 +9,8 @@ const routes: Routes = [
     path: '',
     component: EmailInboxComponent,
     canActivate: [AuthGuard],
-    // data: { claimType: 'EMAIL_VIEW_MAIL' }
-    data: { claimType: 'EMAIL_MANAGE_EMAIL_SMTP_SETTINS' }
+    data: { claimType: 'EMAIL_VIEW_MAIL' }
+    // data: { claimType: 'EMAIL_MANAGE_EMAIL_SMTP_SETTINS' }
   },
   {
     path: 'inbox-detail/:id',

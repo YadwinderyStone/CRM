@@ -46,7 +46,7 @@ emailForm: UntypedFormGroup;
     this.emailForm.get('toAddress').setValue(this.emailDetail[0]?.mailTo)
     this.emailForm.get('cCAddress').setValue(this.emailDetail[0]?.mailCC)
     this.emailForm.get('subject').setValue(this.emailDetail[0]?.mailSubject)
-    this.emailForm.get('body').setValue(this.emailDetail[0]?.mailMessage)
+    this.emailForm.get('body').setValue(this.emailDetail[0]?.mailMessageHtml)
      })
     }
   

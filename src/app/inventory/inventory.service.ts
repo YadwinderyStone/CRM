@@ -287,7 +287,7 @@ export class InventoryService {
   }
 
   bulkAssignMemebers(data) { 
-    const url = `Dashboard/MultipleAssignmentByInteractionsIds`;
+    const url = `Integration/MultipleAssignmentByInteractionsIds`;
     return this.http.post<any[]>(url,data);
   }
 

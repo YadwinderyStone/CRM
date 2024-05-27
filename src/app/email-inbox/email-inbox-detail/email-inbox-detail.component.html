@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="row d-none" >
+<!-- <div class="row d-none" >
     <div class="w-100" *ngFor="let data of emailDetail" >
 
         <div class="col-md-12 my-2">
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 
@@ -61,7 +61,7 @@
             </span>
           </div>
           <input [readonly]="true" formControlName="toAddress" type="text" class="form-control"
-            placeholder="{{'COMMA_SEPARATED_EMAILS' | translate}}" aria-label="To" aria-describedby="toAddress">
+            aria-describedby="toAddress">
         </div>
         <div *ngIf="emailForm.get('toAddress').touched && emailForm.get('toAddress').errors">
           <div class="text-danger" *ngIf="emailForm.get('toAddress').errors?.required">
@@ -117,3 +117,4 @@
       </div>
     </div>
   </form>
+  <!-- <div [innerHTML]="this.emailDetail[0]?.mailMessage"></div> -->
