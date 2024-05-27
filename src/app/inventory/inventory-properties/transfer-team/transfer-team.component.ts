@@ -42,11 +42,11 @@ export class TransferTeamComponent extends BaseComponent implements OnInit {
 
   transerToTeam() {
     if (this.selectedTeam) {
-      let teamName = this.teamList.filter(team=>team?.id== this.selectedTeam)
+      let teamName = this.teamList.filter(team=>team?.assignTeamId== this.selectedTeam)
       let data = {     
           id: this.data?.id,
           teamId:this.selectedTeam,
-          teamName: teamName[0]?.name
+          teamName: teamName[0]?.assignTeamName
       }
       this.isLoading = true
       this.inventoryService.transferToTeam(data).subscribe(res => {
@@ -65,8 +65,8 @@ createTransferHistory(value:any){
   this.isLoading=true
   let data = {
     id: this.data?.id,
-    action: 'TeamChanged',
-    message: `Interaction Assigned to ${value?.teamName} by ${this.user?.firstName}`
+    action: 17,
+    message: `Team changed from ${this.data?.teamName} to ${value?.teamName}`
   }
   this.inventoryService.createHistory(data).subscribe(res=>{
     if(res){

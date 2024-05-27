@@ -131,7 +131,7 @@
                     <div class="form-group">
                         <mat-label>Priority</mat-label>
                         <mat-select
-                            [dir]="langDir" formControlName="priority"
+                            [dir]="langDir" [disabled]="true" formControlName="priority"
                             class="form-control">
                             <mat-option *ngFor="let data of priorityList" [value]="data.id">
                                 {{data.name}}
@@ -209,7 +209,7 @@
                             *ngIf="addInventoryForm.get('teamId').touched && addInventoryForm.get('teamId').errors?.required"
                             class="text-danger">
                             <!-- {{'PLEASE_SELECT_COUNTRY' | translate}} -->
-                            Please select created team
+                            Please select team
                         </mat-error>
                     </div>
                 </div>
@@ -356,7 +356,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Previous Docket No:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" formControlName="previousDocket" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -386,13 +386,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Composition Start Date/End Date :</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="compositionDate" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Return Period:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" formControlName="refundPeriod" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -416,15 +416,10 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Taxpayer Type :</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <input type="text" class="form-control" formControlName="isTaxpayer" id="">
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <mat-label>ETA:</mat-label>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
+              
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Pending With:</mat-label>
@@ -445,8 +440,20 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <mat-label>Remarks:</mat-label>
-                        <input type="text" class="form-control" id="">
+                        <mat-label>State Id :</mat-label>
+                        <input type="text" formControlName="stateID" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Refund Period :</mat-label>
+                        <input type="text" formControlName="refundPeriod" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Type Name :</mat-label>
+                        <input type="text" formControlName="typeName" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -661,9 +668,9 @@
                     <div class="form-group">
                         <mat-label>Pan Card No. : </mat-label>
                         <input [readonly]="true" type="text" class="form-control" 
-                            id="interactionThread" formControlName="panCardNo">
+                            id="interactionThread" formControlName="panNo">
                         <mat-error [dir]="langDir"
-                            *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
+                            *ngIf="addInventoryForm.get('panNo').touched && addInventoryForm.get('panNo').errors?.required"
                             class="text-danger">
                             Please enter Pan Card No.
                         </mat-error>
@@ -683,9 +690,9 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <mat-label>Clearification filed : </mat-label>
+                        <mat-label>Clarification Filled : </mat-label>
                         <input [readonly]="true" type="text" class="form-control"
-                            id="interactionThread">
+                            id="interactionThread" formControlName="clarificationFilled">
                         <!-- <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('panCardNo').touched && addInventoryForm.get('panCardNo').errors?.required"
                             class="text-danger">

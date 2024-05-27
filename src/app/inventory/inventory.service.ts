@@ -218,7 +218,7 @@ export class InventoryService {
     return this.http.get<any[]>(url);
   }
   downloadDocument(id): Observable<Blob> {
-      const url = `Document/GetViewDocumentDataById?id=${id}`;
+      const url = ` =${id}`;
     return this.http.get(url, { responseType: 'blob' });
   }
   // downloadDocument(id){
@@ -274,8 +274,8 @@ export class InventoryService {
 
 
   getTeamListForTransfer(id){
-    const url = `Queues`;
-    // const url = `GetQueueEscaltionMatixTeamId/${id}`;
+    // const url = `Queues`;
+    const url = `Integration/GetQueueEscaltionMatixTeamId?teamId=${id}`;
     // const url = `Queues/${id}`;
     return this.http.get<any>(url);
   }
@@ -283,6 +283,11 @@ export class InventoryService {
   transferToTeam(data) { 
     // const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
     const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
+    return this.http.post<any[]>(url,data);
+  }
+
+  bulkAssignMemebers(data) { 
+    const url = `Dashboard/MultipleAssignmentByInteractionsIds`;
     return this.http.post<any[]>(url,data);
   }
 
@@ -353,5 +358,8 @@ getEmailInboxListByInteractionId(id){
   }); 
 }
 
-
+getQueueMembers(id){
+  const url = `QueueMembers?queueId=${id}`;
+    return this.http.get<any[]>(url);
+}
 }

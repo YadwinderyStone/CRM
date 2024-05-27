@@ -13,8 +13,8 @@ export class InteractionAttachmentsListComponent implements OnChanges {
   documentList:any=[];
   emailDocumentList:any=[];
   isLoading = false
-  columnsToDisplay: string[] = ['transactionNo','fileName','fileType','createdByName','date' ];
-  columnsToDisplay2: string[] = ['transactionNo','fileName','fileType','createdByName' ];
+  columnsToDisplay: string[] = ['fileName','fileType','createdByName','date' ];
+  columnsToDisplay2: string[] = ['fileName','fileType','createdByName' ];
     constructor(
       private inventoryService: InventoryService,
       private toastrService: ToastrService,
@@ -47,9 +47,9 @@ export class InteractionAttachmentsListComponent implements OnChanges {
     }
     downloadFile(doc){
       this.isLoading = true
-
       this.inventoryService.downloadDocument(doc?.id).subscribe(res => {
-        const url = window.URL.createObjectURL(res);
+      let receivedData =  new Blob([res],{type:doc?.attchmntContentType || res?.type})
+        const url = window.URL.createObjectURL(receivedData);
         const a = document.createElement('a');
         a.href = url;
         a.download = doc?.attchmntFileName;
@@ -75,8 +75,8 @@ export class InteractionAttachmentsListComponent implements OnChanges {
       // document.body.removeChild(a);
       // window.URL.revokeObjectURL(url);
       // this.isLoading = false
-debugger
-      const url = URL.createObjectURL(data?.attchmntFileData);
+let receivedData =  new Blob([data?.attchmntFileData],{type:data?.attchmntContentSubtype})
+      const url = URL.createObjectURL(receivedData);
       const a = document.createElement('a');
       a.href = url;
       a.download = data?.attchmntFileName;

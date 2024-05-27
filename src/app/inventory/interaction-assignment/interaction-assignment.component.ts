@@ -1,6 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Inventory } from '@core/domain-classes/inventory';
@@ -11,13 +9,12 @@ import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../inventory.service';
-import { ManageInventoryComponent } from '../manage-inventory/manage-inventory.component';
 import { InventoryDataSource } from '../inventory-list/inventory-datasource';
 import { ToastrService } from 'ngx-toastr';
-import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { InteractionCategory, InteractionStatus, InteractionType } from '@core/domain-classes/interactionCatetgory';
 import { Queue } from '@core/domain-classes/queue.model';
 import { DatePipe } from '@angular/common';
+import { QueueService } from 'src/app/queue/queue.service';
 
 @Component({
   selector: 'app-interaction-assignment',
@@ -25,16 +22,18 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./interaction-assignment.component.scss']
 })
 export class InteractionAssignmentComponent extends BaseComponent implements OnInit {
-
+  isLoading:boolean = false
   typeList: InteractionType[] = [];
   teamList: Queue[] = [];
+  userList:any = [];
+  membersList: Queue[] = [];
   statusList: InteractionStatus[] = [];
   subStatusList: InteractionStatus[] = [];
   categoryList: InteractionCategory[] = [];
   subCategoryList: InteractionCategory[] = [];
   AssignToTeamList: any = [];
-
-  selectedAssignTeam: string = ''
+  selectedInteractions: string[] = []
+  selectedAssignMember: string = ''
   prefix = 'G-'
   search: string = '';
   selectedTeam: string = ''
@@ -79,6 +78,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
     private cd: ChangeDetectorRef,
     public datepipe: DatePipe,
     public translationService: TranslationService,
+    private QueueService: QueueService,
     public toasterService: ToastrService,
   ) {
     super(translationService);
@@ -94,6 +94,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
   }
 
   ngOnInit(): void {
+    this.getUsersList();
     this.dataSource = new InventoryDataSource(this.inventoryService);
     this.dataSource.loadData(this.inventoryResource);
     this.getResourceParameter();
@@ -114,7 +115,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
       });
     this.getTypeList();
     this.getStatusList();
-    this.getTeamList();
+    this.getTeamListForDropDown();
     this.getCatList(2);
   }
 
@@ -134,20 +135,13 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
 
 
   onAssignTeamChange(event) {
-    this.AssignToTeamList = [];
-    let teamName = event?.value?.name
-    if (teamName == 'L0') {
-      this.AssignToTeamList = this.teamList.filter(e => e.name == 'L1');
-    }
-    if (teamName == 'L1') {
-      this.AssignToTeamList = this.teamList.filter(e => (e.name == 'L2' || e.name == 'GSTN' || e.name == 'NIC' || e.name == 'IRIS' || e.name == 'EY' || e.name == 'CYGNET' || e.name == 'CLEAR' || e.name == 'E-Connect'));
-    }
-    if (teamName == 'L2') {
-      this.AssignToTeamList = this.teamList.filter(e => (e.name == 'L1' || e.name == 'L2' || e.name == 'L3' ||
-      e.name == 'GSTN' || e.name == 'NIC' || e.name == 'IRIS' || e.name == 'EY' || e.name == 'CYGNET' || 
-      e.name == 'CLEAR' || e.name == 'E-Connect' || e.name == 'E-Connect' || e.name == 'MMI' || e.name == 'RE' 
-      || e.name == 'NIC-L3-EINVAPI' || e.name == 'NIC-L3-EINVWEB' || e.name == 'NIC-L3-EWBAPI' || e.name == 'NIC-L3-EWBWEB'));
-    }
+    this.membersList = [];
+    this.inventoryService.getQueueMembers(event.value).subscribe((res: any) => {
+      this.membersList = res
+      if (!this.membersList.length) {
+        this.toasterService.warning('This team has no members please add members to this team')
+      }
+    });
   }
 
   getResourceParameter() {
@@ -161,10 +155,10 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
       });
   }
 
-  toggleRow(element: Inventory) {
-    this.expandedElement = this.expandedElement === element ? null : element;
-    this.cd.detectChanges();
-  }
+  // toggleRow(element: Inventory) {
+  //   this.expandedElement = this.expandedElement === element ? null : element;
+  //   this.cd.detectChanges();
+  // }
   onChange(id) {
     let index = this.interactionIds.indexOf(id);    // <-- Not supported in <IE9
     if (index !== -1) {
@@ -242,7 +236,7 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
     this.selectedSubCategory = ''
     this.getSubCatList(event?.value)
   }
-  
+
 
   onClear() {
     this.search = '',
@@ -253,12 +247,12 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
       this.selectedStatus = '',
       this.selectedSubStatus = '',
       this.setParams();
-      this.fromDate = new Date();
-      this.toDate = new Date();
-      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
-      this.inventoryResource.fromDate = toDate
-      this.inventoryResource.toDate = fromDate
+    this.fromDate = new Date();
+    this.toDate = new Date();
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.fromDate = toDate
+    this.inventoryResource.toDate = fromDate
     this.dataSource.loadData(this.inventoryResource);
   }
   searchList() {
@@ -270,21 +264,93 @@ export class InteractionAssignmentComponent extends BaseComponent implements OnI
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search? this.prefix+this.search:'',
+    this.inventoryResource.search = this.search ? this.prefix + this.search : '',
       this.inventoryResource.team = this.selectedTeam,
       this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
       this.inventoryResource.subStatus = this.selectedSubStatus
-      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
-      this.inventoryResource.toDate = toDate
-      this.inventoryResource.fromDate = fromDate
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.toDate = toDate
+    this.inventoryResource.fromDate = fromDate
   }
 
-  onSelectAll(event){
-// FIXME : NEED to add select all functionality
+  onSelectAll(event,data) {
+    if (event?.checked){
+this.interactionIds = [];
+this.dataSource.responseHeaderSubject$.subscribe(res=>{
+  let resValue  =res
+})
+
+}
+
   }
+
+
+  getTeamListForDropDown() {
+    let userData = JSON.parse(localStorage.getItem('authObj'))
+    let teamId = userData?.teamId || 6
+    this.inventoryService.getTeamListForTransfer(teamId).subscribe(res => {
+      this.teamList = res?.body || res
+    }, error => {
+      this.toasterService.error(error);
+    })
+  }
+
+
+
+  getMembersName(id){
+    let user:any =  this.userList.filter((e:any)=>e.id==id);
+    let userName = user[0].firstName +' '+ user[0].lastName +' --'+ '['+user[0]?.email+']'+ '-- '+' Max Bucket ' +'('+user[0]?.maxAssignInteraction+')';
+    return userName
+  }
+
+  
+  getUsersList() {
+    this.QueueService.getUsersList().subscribe(res => {
+      this.userList = res;
+    }, error => {
+      this.toasterService.error(error);
+    })
+  }
+
+
+  bulkAssign(){
+    if(this.interactionIds.length && this.selectedAssignMember){
+      let value=''
+      this.interactionIds.forEach(e=>{ 
+        value += e+','
+      })
+      
+      if (value.endsWith(',')) {
+        value = value.slice(0, -1);
+      }
+
+this.isLoading = true;
+let member:any =  this.userList.filter((e:any)=>e.id==this.selectedAssignMember);
+    let memberName = member[0].firstName+ member[0].lastName 
+let data = {
+memberId:this.selectedAssignMember,
+userAssignedId:value,
+memberName:memberName
+}
+this.inventoryService.bulkAssignMemebers(data).subscribe(res=>{
+  if(res){
+    this.isLoading = false;
+    this.dataSource.loadData(this.inventoryResource);
+  }
+},error=>{
+  this.isLoading = false;
+  this.toasterService.error(error)
+})
+    }else{
+      if(!this.interactionIds.length)this.toasterService.error('Please select interaction for assign to member')
+      if(!this.selectedAssignMember)this.toasterService.error('Please select member')
+    }
+
+  }
+
 
 
 }

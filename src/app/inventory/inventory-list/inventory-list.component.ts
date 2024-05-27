@@ -50,13 +50,13 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   selectedSubCategory: string = ''
   selectedStatus: string = ''
   selectedSubStatus: string = ''
-  catInput:string = '';
-  subCatInput:string = ''
+  catInput: string = '';
+  subCatInput: string = ''
   // selectedPriority: string = ''
 
-  
+
   dataSource: InventoryDataSource;
-  displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'contant', 'createdteam',  'assignto','createdat','status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno'];
+  displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'status', 'substatus', 'contant', 'createdteam', 'assignto', 'createdat', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno'];
   // displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -161,7 +161,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   }
   deleteById(id) {
     this.inventoryService.deleteCustomerInteraction(id).subscribe(res => {
-      if (res) this.dataSource.loadData(this.inventoryResource);
+      if (!res) { this.dataSource.loadData(this.inventoryResource) }
     }, error => {
       this.toasterService.error(error);
     })
@@ -250,23 +250,23 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
       this.selectedSubStatus = '',
       // this.selectedPriority = ''
       this.setParams();
-      this.dataSource.loadData(this.inventoryResource);
-    }
-    searchList(){
-     this.setParams();
+    this.dataSource.loadData(this.inventoryResource);
+  }
+  searchList() {
+    this.setParams();
     this.dataSource.loadData(this.inventoryResource);
   }
 
-  setParams(){
-    this.paginator.pageIndex = 0; 
+  setParams() {
+    this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search?this.prefix+this.search :'',
-    this.inventoryResource.team = this.selectedTeam,
-    this.inventoryResource.category = this.selectedCategory,
-    this.inventoryResource.subCategory = this.selectedSubCategory,
-    this.inventoryResource.status = this.selectedStatus,
-    this.inventoryResource.subStatus = this.selectedSubStatus
+    this.inventoryResource.search = this.search ? this.prefix + this.search : '',
+      this.inventoryResource.team = this.selectedTeam,
+      this.inventoryResource.category = this.selectedCategory,
+      this.inventoryResource.subCategory = this.selectedSubCategory,
+      this.inventoryResource.status = this.selectedStatus,
+      this.inventoryResource.subStatus = this.selectedSubStatus
     // this.inventoryResource.priority = this.selectedPriority
   }
 
@@ -274,10 +274,10 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
 
 
 
-  dowanloadList(){
+  dowanloadList() {
     this.setParams();
-    this.inventoryService.getInteractionsList(this.inventoryResource).subscribe((res:any)=>{
-      let InteractionRecods:any = res?.body;
+    this.inventoryService.getInteractionsList(this.inventoryResource).subscribe((res: any) => {
+      let InteractionRecods: any = res?.body;
       let heading = [[
         this.translationService.getValue('Interaction Id'),
         this.translationService.getValue('Interaction Type'),
@@ -296,33 +296,33 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
         this.translationService.getValue('Created At'),
         this.translationService.getValue('Agent Remarks'),
       ]];
-  
+
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
-          'Interaction Id':data?.transactionNumber,
-          'Interaction Type':data?.ticketType,
-          'Status':data?.statusName,
-          'Sub Status':data?.subStatusName,
-          'Category':data?.categoryName,
-          'Sub Category':data?.subcategoryName,
-          'Subject':data?.subject,
-          'Contact Name':data?.contactName,
-          'Email ':data?.emailId,
-          'Team':data?.teamName,
-          'GSTN':data?.gstn,
-          'Problem Reported':data?.problemReported,
-          'Docket no':data?.docketNumber,
-          'Assign To':data?.assignToName,
+          'Interaction Id': data?.transactionNumber,
+          'Interaction Type': data?.ticketType,
+          'Status': data?.statusName,
+          'Sub Status': data?.subStatusName,
+          'Category': data?.categoryName,
+          'Sub Category': data?.subcategoryName,
+          'Subject': data?.subject,
+          'Contact Name': data?.contactName,
+          'Email ': data?.emailId,
+          'Team': data?.teamName,
+          'GSTN': data?.gstn,
+          'Problem Reported': data?.problemReported,
+          'Docket no': data?.docketNumber,
+          'Assign To': data?.assignToName,
           'Created At': this.datePipe.transform(data?.createDateTime, 'yyyy-MM-dd hh:mm:ss a'),
-          'Agent Remarks':data?.agentRemarks,
+          'Agent Remarks': data?.agentRemarks,
         })
       });
       let workBook = XLSX.utils.book_new();
       XLSX.utils.sheet_add_aoa(workBook, heading);
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report');
-      XLSX.writeFile(workBook, 'Interaction Report' + ".xlsx");  
+      XLSX.writeFile(workBook, 'Interaction Report' + ".xlsx");
     })
 
   }

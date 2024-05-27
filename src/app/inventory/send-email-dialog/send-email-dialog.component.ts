@@ -198,7 +198,7 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     this.isLoading=true
     let data = {
       id: this.data?.id,
-      action: 'ReplySent',
+      action: 11,
       message: `Email replay ${value?.body} by ${this.user?.firstName}`
     }
     this.inventoryService.createHistory(data).subscribe(res=>{

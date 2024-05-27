@@ -100,7 +100,7 @@ export class UserService {
 
 
   bulkUpload(formData){
-    const url = `Interaction/bulkCloser`;
+    const url = `User/bulkUploadUser`;
     return this.httpClient.post<any[]>(url,formData);
   }
 }

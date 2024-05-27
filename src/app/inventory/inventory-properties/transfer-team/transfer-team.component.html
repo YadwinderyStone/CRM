@@ -19,8 +19,8 @@
           </mat-label>
           <mat-select [dir]="langDir" placeholder="Select Team" class="form-control"
             name="select Team" [(ngModel)]="selectedTeam">
-            <mat-option *ngFor="let team of teamList" [value]="team?.id">
-              {{team.name}}
+            <mat-option *ngFor="let team of teamList" [value]="team?.assignTeamId">
+              {{team.assignTeamName}}
             </mat-option>
           </mat-select>
         </div>

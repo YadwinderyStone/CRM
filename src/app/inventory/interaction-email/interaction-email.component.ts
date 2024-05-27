@@ -20,8 +20,8 @@ export class InteractionEmailComponent extends BaseComponent implements OnInit {
   @Input() id?:string
   emailList:any=[]
   isLoading = false;
-  columnsToDisplay: string[] = ['id', 'name'];
-  emailDetailColumnToDisplay: string[] = ['name','date'];
+  columnsToDisplay: string[] = ['id', 'name','date','sentTime','to'];
+  emailDetailColumnToDisplay: string[] = ['name'];
   expandedElement: any | null;
   emailDetail:any = []
   constructor(

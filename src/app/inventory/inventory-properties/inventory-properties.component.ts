@@ -75,6 +75,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       priority: ['',],
       statusId: ['',],
       contactName: ['',],
+      clarificationFilled: ['',],
+      compositionDate: ['',],
       subStatusId: [this.interactionData?.subStatusId,],
       categoryId: [0],
       subcategoryId: [this.interactionData?.subCategoryId],
@@ -106,12 +108,16 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       timeFromCreatedToUpdateInHrs: [''],
       timeFromLastUpdateToCurrentInHrs: [''],
       timeFromCreatedToCurrentInHrs: [0],
-      panCardNo: [''],
+      panNo: [''],
+      previousDocket:[''],
       currentStatus: [''],
       cpin:[''],
       errorMessage:[''],
       formName:[''],
       refundPeriod:[''],
+      typeName:[''],
+      isTaxpayer:[''],
+      stateID:[''],
       lastSuccessfulReturn:[''],
       registrationType:[''],
       registrationForm:[''],
@@ -274,8 +280,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
         if (res) {
           this.toastrService.success('Interaction update succcessfully');
-          this.router.navigate(['/interactions'])
-
+          // this.router.navigate(['/interactions'])
+          this.getInteractionDetailById(this.id);
         }
       }, error => {
         this.toastrService.error(error);
