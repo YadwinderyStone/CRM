@@ -29,7 +29,7 @@
         </ng-container>
         <ng-container matColumnDef="description">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Description</th>
-            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.activityDescription}}</td>
+            <td class="table-column-200" mat-cell *matCellDef="let row"> <div [innerHtml]="row.activityDescription" class="descDiv"></div></td>
         </ng-container>
         <ng-container matColumnDef="actionBy">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Activity Action</th>

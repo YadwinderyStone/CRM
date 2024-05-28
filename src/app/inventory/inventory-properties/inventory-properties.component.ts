@@ -287,13 +287,20 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     // data.transactionNumber = this.resValue?.transactionNumber
     if (this.checkChanges()) {
       this.createTransferHistory(value);
-    } else {
-      this.getInteractionDetailById(this.id);
     }
+    // else {
+    //   this.getInteractionDetailById(this.id);
+    // }
     if (this.id) {
       this.isLoading = true
       this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
         if (res) {
+          // if (res?.statusId == 2 || res?.statusId == 3) {
+            //   this.openSendEmailDialog(res);
+            // }
+            this.getInteractionDetailById(this.id);
+              this.isLoading = false
+
           this.toastrService.success('Interaction update succcessfully');
           // this.router.navigate(['/interactions'])
 
@@ -330,27 +337,14 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.isLoading = true
     let action
     let message = ''
-    // if (this.resValue?.categoryId != updatedData?.categoryId) {
-    //   message = `Category changed from ${this.resValue?.categoryName} to ${updatedData?.categoryName}`;
-    //   action = InteractionsActionEnums?.CategoryChanged
-    // }
-    // if (this, this.resValue?.statusId != updatedData?.statusId) {
-    //   message = `Status changed from ${this.resValue?.statusName} to ${updatedData?.statusName}`;
-    //   action = InteractionsActionEnums?.StatusChanged
-    // }
-    // if (this.resValue?.categoryId != updatedData?.categoryId && this.resValue?.statusId != updatedData?.statusId) {
-    //   message = `Status changed from ${this.resValue?.statusName} to ${updatedData?.statusName} and Category changed from ${this.resValue?.categoryName} to ${updatedData?.categoryName}`;
-    //   action = InteractionsActionEnums?.Update
-    // }
-
-if(this.resValue?.categoryId != updatedData?.categoryId) message += `Catergory Name: ${updatedData?.categoryName}`;
-if(this.resValue?.subcategoryId != updatedData?.subcategoryId) message += `Subcategory Name: ${updatedData?.subcategoryName}`;
-if(this.resValue?.statusId != updatedData?.statusId) message += `Status Name : ${updatedData?.statusName}`;
-if(this.resValue?.subStatusId != updatedData?.subStatusId) message += `Sub Status name : ${updatedData?.subStatusName}`;
-if(this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
-if(this.resValue?.problemReported != updatedData?.problemReported) message += `Problem Reported : ${updatedData?.problemReported}`;
-if(this.resValue?.teamName != updatedData?.teamName) message += `Team Name : ${updatedData?.teamName}`;
-if(this.resValue?.priorityName != updatedData?.priorityName) message += `Priority Name : ${updatedData?.priorityName}`;
+    if (this.resValue?.categoryId != updatedData?.categoryId) message += `Catergory Name: ${updatedData?.categoryName}`;
+    if (this.resValue?.subcategoryId != updatedData?.subcategoryId) message += `Subcategory Name: ${updatedData?.subcategoryName}`;
+    if (this.resValue?.statusId != updatedData?.statusId) message += `Status Name : ${updatedData?.statusName}`;
+    if (this.resValue?.subStatusId != updatedData?.subStatusId) message += `Sub Status name : ${updatedData?.subStatusName}`;
+    if (this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
+    if (this.resValue?.problemReported != updatedData?.problemReported) message += `Problem Reported : ${updatedData?.problemReported}`;
+    if (this.resValue?.teamName != updatedData?.teamName) message += `Team Name : ${updatedData?.teamName}`;
+    if (this.resValue?.priorityName != updatedData?.priorityName) message += `Priority Name : ${updatedData?.priorityName}`;
 
     let data = {
       id: this.id,
@@ -429,14 +423,16 @@ if(this.resValue?.priorityName != updatedData?.priorityName) message += `Priorit
 
   }
 
-  openSendEmailDialog() {
+  openSendEmailDialog(resData?: any) {
     this.dialog.open(SendEmailDialogComponent, {
       disableClose: true,
-      width: '800px',
+      width: '80vw',
       height: 'auto',
-      data: this.interactionData
+      data: resData || this.interactionData
     }).afterClosed().subscribe(res => {
-
+      if (res) {
+        this.getInteractionDetailById(this.id);
+      }
     })
 
   }

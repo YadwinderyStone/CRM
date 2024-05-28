@@ -117,8 +117,18 @@
                         <mat-label>Interaction Sub Status</mat-label>
                         <mat-select (selectionChange)="subStatusChange($event)" [dir]="langDir"
                             formControlName="subStatusId" class="form-control">
-                           <ng-container *ngFor="let data of subStatusList">
-                               <mat-option [disabled]="addInventoryForm.get('statusId')?.value==2 && (data?.name !='ACI' && data?.name !='ACI Follow Up')" [value]="data.id">
+                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==2">
+                               <mat-option *ngFor="let data of subStatusList" [disabled]="addInventoryForm.get('statusId')?.value==2 && data?.name !='ACI'" [value]="data.id">
+                                   {{data.name}}
+                                </mat-option>
+                            </ng-container>
+                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==3">
+                               <mat-option *ngFor="let data of subStatusList" [disabled]="addInventoryForm.get('statusId')?.value==3 && data?.name !='Resolved'" [value]="data.id">
+                                   {{data.name}}
+                                </mat-option>
+                            </ng-container>
+                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==4 || addInventoryForm.get('statusId')?.value==1">
+                               <mat-option *ngFor="let data of subStatusList" [disabled]="addInventoryForm.get('statusId')?.value==2 && data?.name !='ACI'" [value]="data.id">
                                    {{data.name}}
                                 </mat-option>
                             </ng-container>

@@ -25,3 +25,19 @@
   background-color: #2196f3;
   width: 100%;
 }
+
+
+.email-div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+
+.email-div i {
+  font-size: 16px;
+  margin-left: -25px;
+  cursor: pointer;
+  color: #f2b602;
+}

@@ -271,8 +271,8 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 createHistory(values:any,res){
   let data = {
     id: res?.id,
-    action: InteractionsActionEnums?.Add,
-    message: `Interaction Added -- Ticket Type: ${values?.ticketType}, Catergory Name: ${values?.categoryName}  Subcategory Name: ${values?.subcategoryName} status Name : ${values?.statusName}
+    action: InteractionsActionEnums?.AddHistory,
+    message: `Interaction Added -- Ticket Type: ${res?.ticketType} , Catergory Name: ${values?.categoryName}  Subcategory Name: ${values?.subcategoryName} Status Name : ${res?.statusName}
     Sub Status name : ${values?.subStatusName}, Agent Remarks : ${values?.agentRemarks}, Problem Reported : ${values?.problemReported}, Team Name : ${values?.teamName}
     Priority Name :${values?.priorityName} , GSTN : ${values?.gstn}`  
   }

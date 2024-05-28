@@ -75,15 +75,22 @@ export class InteractionAttachmentsListComponent implements OnChanges {
       // document.body.removeChild(a);
       // window.URL.revokeObjectURL(url);
       // this.isLoading = false
-let receivedData =  new Blob([data?.attchmntFileData],{type:data?.attchmntContentSubtype})
-      const url = URL.createObjectURL(receivedData);
+      debugger
+      let fileUrl
+      const reader = new FileReader();
+      reader.onload = () => {
+       fileUrl = reader.result as string;
+      };
+      reader.readAsDataURL(data?.attchmntFileData);
+// let receivedData =  new Blob([data?.attchmntFileData],{type:data?.attchmntContentType.toLowerCase()})
+      // const url = URL.createObjectURL(receivedData);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = data?.attchmntFileName;
+      a.href = fileUrl;
+      a.download = data?.attchmntFileName+'.'+data?.attchmntContentSubtype;
       document.body.appendChild(a);  
       a.click();
       document.body.removeChild(a);  
-      URL.revokeObjectURL(url);
+      // URL.revokeObjectURL(url);
     }
 
 

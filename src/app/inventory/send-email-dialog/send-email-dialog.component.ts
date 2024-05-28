@@ -27,7 +27,7 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
   fileData: FileInfo[] = [];
   extension: string = '';
   fileType: string = '';
-  user:any
+  user: any
   constructor(public dialogRef: MatDialogRef<SendEmailDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data,
@@ -55,7 +55,9 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     this.getEmailTamplate();
   }
   replacetno(content: string, ticketNumber: string, status: string): string {
-    return content.replace('&#160; ##TicketNumber##&#160', `&#160; ${ticketNumber}&#160`).replace('##Status##', status);
+    let value = content.replace('&#160; ##TicketNumber##&#160', `&#160; ${ticketNumber}&#160`).replace('##Status##', status);
+    value = value.replace('&#160; ##TICKETNUMBER##&#160', `&#160; ${ticketNumber}&#160`).replace('##STATUS##', status);
+    return value
   }
 
   onTempateChange() {
@@ -83,6 +85,11 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
   getEmailTamplate() {
     this.sub$.sink = this.emailTemplateService.getEmailTemplates().subscribe((emailTamplats: EmailTemplate[]) => {
       this.emailTamplates = emailTamplats;
+      let aciTemplate = this.emailTamplates.filter(e => e.name == 'ACI Template')
+      if (this.data?.statusId == 2) {
+        this.selectedEmailTamplate = aciTemplate[0];
+        this.onTempateChange();
+      }
     })
   }
 
@@ -194,21 +201,21 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
 
 
 
-  createTransferHistory(value:any){
-    this.isLoading=true
+  createTransferHistory(value: any) {
+    this.isLoading = true
     let data = {
       id: this.data?.id,
       action: 11,
       message: `Email replay ${value?.body} by ${this.user?.firstName}`
     }
-    this.inventoryService.createHistory(data).subscribe(res=>{
-      if(res){
+    this.inventoryService.createHistory(data).subscribe(res => {
+      if (res) {
         this.dialogRef.close(true);
-        this.isLoading= false;
+        this.isLoading = false;
       }
-    },error=>{
+    }, error => {
       this.toastrService.error(error);
-      this.isLoading=false
+      this.isLoading = false
     })
   }
 }

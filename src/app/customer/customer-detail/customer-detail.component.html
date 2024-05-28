@@ -119,9 +119,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>{{'EMAIL' | translate}} *</mat-label>
-                        <input (change)="onEmailChange($event)" formControlName="emailId" class="form-control"
-                            type="text">
-
+                       <div class="email-div">
+                           <input (change)="onEmailChange($event)" formControlName="emailId" class="form-control"
+                           type="text">
+                           <i class="fas fa-search"></i>
+                        </div>
+                           
                         <div *ngIf="customerForm.get('emailId').touched && customerForm.get('emailId').errors?.email"
                             class="text-danger">
                             {{'PLEASE_ENTER_VALID_EMAIL' | translate}}
@@ -136,8 +139,11 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label class="text-danger">{{'MOBILE_NUMBER' | translate}} *</mat-label>
+                        <div class="email-div">
                         <input formControlName="mobileNo" (change)="onMobileNoChange($event)" class="form-control"
                             type="text" maxlength="10" minlength="10">
+                            <i class="fas fa-search"></i>
+                         </div>
                         <div *ngIf="
                     customerForm.get('mobileNo').touched &&
                     customerForm.get('mobileNo').errors?.required" class="text-danger">
