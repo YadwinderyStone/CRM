@@ -16,6 +16,7 @@ import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.compo
 import { TransferTeamComponent } from './transfer-team/transfer-team.component';
 import { Router } from '@angular/router';
 import { DisabledTransportError } from '@microsoft/signalr/dist/esm/Errors';
+import { InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
 @Component({
   selector: 'app-inventory-properties',
   templateUrl: './inventory-properties.component.html',
@@ -26,7 +27,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   @Input() id: boolean
   @Output() userId = new EventEmitter<string>();
   @Output() interactionDetail = new EventEmitter<string>();
-
+  isLoading: boolean = false
   addInventoryForm: UntypedFormGroup;
   teamList: any = [];
   teamMemberList: any = [];
@@ -109,20 +110,20 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       timeFromLastUpdateToCurrentInHrs: [''],
       timeFromCreatedToCurrentInHrs: [0],
       panNo: [''],
-      previousDocket:[''],
+      previousDocket: [''],
       currentStatus: [''],
-      cpin:[''],
-      errorMessage:[''],
-      formName:[''],
-      refundPeriod:[''],
-      typeName:[''],
-      isTaxpayer:[''],
-      stateID:[''],
-      lastSuccessfulReturn:[''],
-      registrationType:[''],
-      registrationForm:[''],
-      returnForm:[''],
-      returnType:[''],
+      cpin: [''],
+      errorMessage: [''],
+      formName: [''],
+      refundPeriod: [''],
+      typeName: [''],
+      isTaxpayer: [''],
+      stateID: [''],
+      lastSuccessfulReturn: [''],
+      registrationType: [''],
+      registrationForm: [''],
+      returnForm: [''],
+      returnType: [''],
     });
   }
 
@@ -141,6 +142,16 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.addInventoryForm.get('subcategoryId').setValue('');
 
 
+  }
+
+  subStatusChange(event) {
+    if (event?.value == 28) {
+      this.addInventoryForm.get('resolutionComments')?.setValidators([Validators?.required]);
+      this.addInventoryForm.get('resolutionComments')?.updateValueAndValidity();
+    } else {
+      this.addInventoryForm.get('resolutionComments')?.setValidators([]);
+      this.addInventoryForm.get('resolutionComments')?.updateValueAndValidity();
+    }
   }
 
   getTeamList() {
@@ -245,10 +256,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
     let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
     let value = {
-      id:this.id,
+      id: this.id,
       agentRemarks: data?.agentRemarks,
       categoryId: data?.categoryId,
-      categoryName: data?.categoryName,
+      categoryName: categoryName[0]?.name,
       docketNumber: data?.docketNumber,
       errorCode: data?.errorCode,
       panCardNo: data?.panCardNo,
@@ -271,20 +282,25 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       returnType: data?.returnType,
       subject: this.resValue?.subject
     }
-
-
     // data.contactId = this.interactionData?.contactId
     // data.contactName = this.interactionData?.contactName
     // data.transactionNumber = this.resValue?.transactionNumber
+    if (this.checkChanges()) {
+      this.createTransferHistory(value);
+    } else {
+      this.getInteractionDetailById(this.id);
+    }
     if (this.id) {
+      this.isLoading = true
       this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
         if (res) {
           this.toastrService.success('Interaction update succcessfully');
           // this.router.navigate(['/interactions'])
-          this.getInteractionDetailById(this.id);
+
         }
       }, error => {
         this.toastrService.error(error);
+        this.isLoading = true
       })
 
 
@@ -292,7 +308,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
       this.inventoryService.addInteraction(data).subscribe(res => {
         if (res) {
-          this.toastrService.success('Interact')
+          this.toastrService.success('Interaction added successfully')
         }
       }, error => {
         this.toastrService.error(error);
@@ -301,13 +317,69 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
   }
 
+  checkChanges(): boolean {
+    let data: boolean = false;
+    if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId || this.resValue?.statusId != this.addInventoryForm.value?.statusId) {
+      data = true;
+    }
+    return data
+  }
+
+
+  createTransferHistory(updatedData) {
+    this.isLoading = true
+    let action
+    let message = ''
+    // if (this.resValue?.categoryId != updatedData?.categoryId) {
+    //   message = `Category changed from ${this.resValue?.categoryName} to ${updatedData?.categoryName}`;
+    //   action = InteractionsActionEnums?.CategoryChanged
+    // }
+    // if (this, this.resValue?.statusId != updatedData?.statusId) {
+    //   message = `Status changed from ${this.resValue?.statusName} to ${updatedData?.statusName}`;
+    //   action = InteractionsActionEnums?.StatusChanged
+    // }
+    // if (this.resValue?.categoryId != updatedData?.categoryId && this.resValue?.statusId != updatedData?.statusId) {
+    //   message = `Status changed from ${this.resValue?.statusName} to ${updatedData?.statusName} and Category changed from ${this.resValue?.categoryName} to ${updatedData?.categoryName}`;
+    //   action = InteractionsActionEnums?.Update
+    // }
+
+if(this.resValue?.categoryId != updatedData?.categoryId) message += `Catergory Name: ${updatedData?.categoryName}`;
+if(this.resValue?.subcategoryId != updatedData?.subcategoryId) message += `Subcategory Name: ${updatedData?.subcategoryName}`;
+if(this.resValue?.statusId != updatedData?.statusId) message += `Status Name : ${updatedData?.statusName}`;
+if(this.resValue?.subStatusId != updatedData?.subStatusId) message += `Sub Status name : ${updatedData?.subStatusName}`;
+if(this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
+if(this.resValue?.problemReported != updatedData?.problemReported) message += `Problem Reported : ${updatedData?.problemReported}`;
+if(this.resValue?.teamName != updatedData?.teamName) message += `Team Name : ${updatedData?.teamName}`;
+if(this.resValue?.priorityName != updatedData?.priorityName) message += `Priority Name : ${updatedData?.priorityName}`;
+
+    let data = {
+      id: this.id,
+      action: action,
+      message: message
+    }
+    this.inventoryService.createHistory(data).subscribe(res => {
+      if (res) {
+
+        this.getInteractionDetailById(this.id);
+      }
+    }, error => {
+      this.toastrService.error(error);
+      this.isLoading = false;
+    })
+
+  }
+
+
+
+
+
+
   getInteractionDetailById(id) {
+    this.isLoading = true;
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
       this.resValue = { ...res };
       this.getTeamMemberList(res?.teamId);
-      // this.userId.emit(this.interactionData?.contactId);
-      // this.interactionDetail.emit(this.interactionData);
       this.userId.emit(res?.contactId);
       this.interactionDetail.emit(res);
       if (typeof this.interactionData?.ticketType == 'string' && this.interactionData?.ticketType.length > 2) {
@@ -327,8 +399,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.getSubCategoryList(this.interactionData?.categoryId);
       this.getSubStatusList(this.interactionData?.statusId);
       this.updateForm(res);
+      this.isLoading = false;
     }, error => {
       this.toastrService.error(error);
+      this.isLoading = false;
     })
   }
 

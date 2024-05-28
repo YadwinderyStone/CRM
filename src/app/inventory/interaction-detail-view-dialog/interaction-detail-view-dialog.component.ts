@@ -34,8 +34,8 @@ export class InteractionDetailViewDialogComponent implements OnInit {
   }
 
   submit() {
+    this.dialogRef.close(true);
     if (this.selectedValue) {
-      this.dialogRef.close(true);
     // let UserId = localStorage.getItem('authObj')
     //   let data={
 
@@ -49,7 +49,7 @@ export class InteractionDetailViewDialogComponent implements OnInit {
     //     this.toasterService.error(error)
     //   })
     } else {
-      this.toasterService.error('please Select value')
+      // this.toasterService.error('please Select value')
     }
   }
 

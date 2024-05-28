@@ -18,9 +18,11 @@
       </mat-label>
       <mat-select [dir]="langDir" placeholder="{{'SELECT_EMAIL_TAMPLATE' | translate}}" class="form-control"
         name="selectedEmailTamplate" [(ngModel)]="selectedEmailTamplate" (selectionChange)="onTempateChange()">
-        <mat-option *ngFor="let tamplate of emailTamplates" [value]="tamplate">
-          {{tamplate.name}}
-        </mat-option>
+        <ng-container *ngFor="let tamplate of emailTamplates">
+          <mat-option [disabled]="tamplate.name !== 'ACI Template' && tamplate.name !== 'Resolved Template'" [value]="tamplate">
+            {{tamplate.name}}
+          </mat-option>
+        </ng-container>
       </mat-select>
     </div>
   </div>

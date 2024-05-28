@@ -80,9 +80,6 @@ createTransferHistory(value:any){
     this.isLoading=false
   })
 
-
-
-
 }
 
 

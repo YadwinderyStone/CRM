@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InteractionDetailViewDialogComponent } from '../interaction-detail-view-dialog/interaction-detail-view-dialog.component';
+import { InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
 
 
 @Component({
@@ -259,12 +260,29 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.inventoryService.addInteraction(formData).subscribe(res => {
       if (res) {
         this.toastrService.success('Interaction added successfully.');
+        this.createHistory(formData,res);
         this.openDialog(res);
       }
     }, error => {
       this.toastrService.error(error);
     })
   }
+
+createHistory(values:any,res){
+  let data = {
+    id: res?.id,
+    action: InteractionsActionEnums?.Add,
+    message: `Interaction Added -- Ticket Type: ${values?.ticketType}, Catergory Name: ${values?.categoryName}  Subcategory Name: ${values?.subcategoryName} status Name : ${values?.statusName}
+    Sub Status name : ${values?.subStatusName}, Agent Remarks : ${values?.agentRemarks}, Problem Reported : ${values?.problemReported}, Team Name : ${values?.teamName}
+    Priority Name :${values?.priorityName} , GSTN : ${values?.gstn}`  
+  }
+  this.inventoryService.createHistory(data).subscribe(res => {
+  }, error => {
+    this.toastrService.error(error);
+  })
+}
+
+
 
   openDialog(value) {
     this.dialog.open(InteractionDetailViewDialogComponent, {
