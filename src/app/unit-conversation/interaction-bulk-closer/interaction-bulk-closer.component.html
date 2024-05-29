@@ -1,5 +1,5 @@
 <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="tabIndex">
-    <mat-tab label="Bulk Closer">
+    <mat-tab label="Bulk Closer" *hasClaim="'INT_BULK_INTERACTION_CLOSER'">
         <div class="page-header-main mt-3">
             <div class="row align-items-center justify-content-between">
                 <div class="col-md-auto col-sm-auto col">
@@ -26,9 +26,12 @@
                 <div class="fileUploadDiv">
                     <button (click)="previewUploadedFile()" class="btn blue-btn btn-sm m-right-10"> Preview</button>
                     <!-- <button class="btn blue-btn btn-sm m-right-10"> Upload</button> -->
-                    <a href="../../../assets/Bulk Upload Template.xlsx" download> <button  class="btn blue-btn btn-sm m-right-10"> Download Template</button></a>
-                    <a href="../../../assets/ProblemId Template.xlsx" download> <button class="btn blue-btn btn-sm m-right-10"> Problem Id Download</button></a>
-                    <a href="../../../assets/Users Report Template.xlsx" download><button class="btn blue-btn btn-sm m-right-10"> User LIst Download</button></a>
+                    <a href="../../../assets/Bulk Upload Template.xlsx" download> <button
+                            class="btn blue-btn btn-sm m-right-10"> Download Template</button></a>
+                    <a href="../../../assets/ProblemId Template.xlsx" download> <button
+                            class="btn blue-btn btn-sm m-right-10"> Problem Id Download</button></a>
+                    <a href="../../../assets/Users Report Template.xlsx" download><button
+                            class="btn blue-btn btn-sm m-right-10"> User LIst Download</button></a>
                 </div>
             </div>
             <div class="page-header-main w-100 mt-3">
@@ -64,7 +67,8 @@
             </div>
             <div class="col-md-4 my-3">
                 <div class="mb-3 text-right">
-                    <button type="button" (click)="uploadFile()" class="btn blue-btn btn-sm m-right-10">Click For
+                    <button type="button" *hasClaim="'INT_BULK_INTERACTION_CLOSER'" (click)="uploadFile()"
+                        class="btn blue-btn btn-sm m-right-10">Click For
                         Updation
                         Records</button>
                     <button type="button" (click)="resetFiles()"
@@ -72,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="w-100" *ngIf="previewFile" >
+            <div class="w-100" *ngIf="previewFile">
                 <div class="page-header-main headerBackground">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-md-auto col-sm-auto col">
@@ -148,65 +152,67 @@
             </div>
         </div>
     </mat-tab>
-    <mat-tab label="Import History">
-        <div class="page-header-main mt-2">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-md-auto col-sm-auto col">
-                    <div class="content-header">
-                        <h1>Bulk Closer History</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="table-responsive">
-            <table mat-table [dataSource]="bulkCloserHistoryList" class="table table-bordered table-hover grid-height">
-                <ng-container matColumnDef="name">
-                    <th class="table-column-200" mat-header-cell *matHeaderCellDef> {{'NAME' | translate}} </th>
-                    <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-                <ng-container matColumnDef="subStatus">
-                    <th class="table-column-150" mat-header-cell *matHeaderCellDef>Sub Status</th>
-                    <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.subStatus}} </td>
-                </ng-container>
-                <ng-container matColumnDef="comment">
-                    <th class="table-column-250" mat-header-cell *matHeaderCellDef> With Resolution Comment </th>
-                    <td class="table-column-250" mat-cell *matCellDef="let element"> {{element.withResolutionComment}}
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="WithCategoryAndSubCategory">
-                    <th class="table-column-300" mat-header-cell *matHeaderCellDef> With Category And SubCategory </th>
-                    <td class="table-column-300" mat-cell *matCellDef="let element">
-                        {{element.withCategoryAndSubCategory}} </td>
-                </ng-container>
-                <ng-container matColumnDef="withProblemId">
-                    <th class="table-column-150" mat-header-cell *matHeaderCellDef> With ProblemId </th>
-                    <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.withProblemId}} </td>
-                </ng-container>
-                <ng-container matColumnDef="fileName">
-                    <th class="table-column-300" mat-header-cell *matHeaderCellDef>File Name </th>
-                    <td class="table-column-300" mat-cell *matCellDef="let element"> {{element.fileName}} </td>
-                </ng-container>
-                <ng-container matColumnDef="totalRecords">
-                    <th class="table-column-150" mat-header-cell *matHeaderCellDef>Total Records</th>
-                    <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.totalRecords}} </td>
-                </ng-container>
-                <ng-container matColumnDef="updateRecords">
-                    <th class="table-column-150" mat-header-cell *matHeaderCellDef>Update Records</th>
-                    <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.updateRecords}} </td>
-                </ng-container>
-                <ng-container matColumnDef="createdBy">
-                    <th class="table-column-300" mat-header-cell *matHeaderCellDef>Created By</th>
-                    <td class="table-column-300" mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
-                </ng-container>
-                <ng-container matColumnDef="createdDate">
-                    <th class="table-column-200" mat-header-cell *matHeaderCellDef>Date</th>
-                    <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate | date:'MMMM
-                        d, y'}} </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="columnsToDisplay;sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-            </table>
-        </div>
+    <mat-tab label="Import History"
+        *hasClaim="'INT_BULK_INTERACTION_CLOSER_HISTORY'"><app-bulk-closer-history></app-bulk-closer-history>
     </mat-tab>
 </mat-tab-group>
+
+<!-- <div class="page-header-main mt-2">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header">
+                <h1>Bulk Closer History</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table mat-table [dataSource]="bulkCloserHistoryList" class="table table-bordered table-hover grid-height">
+        <ng-container matColumnDef="name">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef> {{'NAME' | translate}} </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subStatus">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>Sub Status</th>
+            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.subStatus}} </td>
+        </ng-container>
+        <ng-container matColumnDef="comment">
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef> With Resolution Comment </th>
+            <td class="table-column-250" mat-cell *matCellDef="let element"> {{element.withResolutionComment}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="WithCategoryAndSubCategory">
+            <th class="table-column-300" mat-header-cell *matHeaderCellDef> With Category And SubCategory </th>
+            <td class="table-column-300" mat-cell *matCellDef="let element">
+                {{element.withCategoryAndSubCategory}} </td>
+        </ng-container>
+        <ng-container matColumnDef="withProblemId">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef> With ProblemId </th>
+            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.withProblemId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="fileName">
+            <th class="table-column-300" mat-header-cell *matHeaderCellDef>File Name </th>
+            <td class="table-column-300" mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="totalRecords">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>Total Records</th>
+            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.totalRecords}} </td>
+        </ng-container>
+        <ng-container matColumnDef="updateRecords">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>Update Records</th>
+            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.updateRecords}} </td>
+        </ng-container>
+        <ng-container matColumnDef="createdBy">
+            <th class="table-column-300" mat-header-cell *matHeaderCellDef>Created By</th>
+            <td class="table-column-300" mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+        </ng-container>
+        <ng-container matColumnDef="createdDate">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Date</th>
+            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate | date:'MMMM
+                d, y'}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+</div> -->

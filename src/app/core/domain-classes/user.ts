@@ -21,4 +21,5 @@ export interface User {
   userClaims?: UserClaim[];
   isImageUpdate?: boolean;
   imgSrc?: string;
+  maxAssignInteraction?:any
 }

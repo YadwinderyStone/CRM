@@ -70,7 +70,7 @@
         <ng-container matColumnDef="bucketSize">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Bucket Size
             </th>
-            <td class="table-column-150" mat-cell *matCellDef="let user"> {{user.bucketSize || 0}} </td>
+            <td class="table-column-150" mat-cell *matCellDef="let user"> {{user.maxAssignInteraction || 0}} </td>
         </ng-container>
         <ng-container matColumnDef="userId">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>User Id

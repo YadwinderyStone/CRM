@@ -178,6 +178,11 @@ export class CustomerService {
         const url = `Categories/list/${id}`;
         return this.http.get<any[]>(url);
   }
+  getCatDroplistForTicket(id:any):Observable<any>{
+    // need to change url for ticket type list  
+    const url = `Categories/list/${id}`;
+        return this.http.get<any[]>(url);
+  }
 
   
 }

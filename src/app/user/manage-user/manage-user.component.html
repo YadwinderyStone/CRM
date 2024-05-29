@@ -8,7 +8,9 @@
     </div>
   </div>
 </div>
-
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
 <form [formGroup]="userForm">
   <div class="row">
     <div class="col-md-9">
@@ -131,9 +133,9 @@
             <div class="form-group col-md-6">
               <div class="form-group">
                 <label class="text-danger">Bucket Size *</label>
-                <input maxlength="3" formControlName="bucketSize" class="form-control" type="text">
-                <div *ngIf="userForm.get('bucketSize').touched && userForm.get('bucketSize').errors">
-                  <div class="text-danger" *ngIf="userForm.get('bucketSize').errors?.required">
+                <input maxlength="3" formControlName="maxAssignInteraction" class="form-control" type="text">
+                <div *ngIf="userForm.get('maxAssignInteraction').touched && userForm.get('maxAssignInteraction').errors">
+                  <div class="text-danger" *ngIf="userForm.get('maxAssignInteraction').errors?.required">
                     Bucket size is required
                   </div>
                 </div>

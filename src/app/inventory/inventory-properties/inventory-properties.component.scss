@@ -64,3 +64,8 @@ textarea::placeholder,input::-webkit-input-placeholder{
   transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1) !important;
   color: rgba(0, 0, 0, 0.42)!important;
 }
+
+input#message {
+  color: black;
+  font-size: 20px;
+}

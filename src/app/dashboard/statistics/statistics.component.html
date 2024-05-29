@@ -5,7 +5,7 @@
                 <!-- <h3>{{dashboardStaticatics?.totalPurchase | number}}</h3>
                 <p>{{'TOTAL' | translate }}</p> -->
                 <h3>{{dashboardStaticatics?.total}}</h3>
-                <p>Total Interactions</p>
+                <p>TOTAL</p>
             </div>
             <div class="icon">
                 <i class="fas fa-cart-plus"></i>
@@ -58,11 +58,21 @@
             </div>
         </div>
     </div>
-
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-yellow"  routerLink="/team">
+            <div class="inner">
+                <h3>{{dashboardStaticatics?.reopen}}</h3>
+                <p>REOPEN</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-teal"  routerLink="/customer">
             <div class="inner">
-                <h3>50</h3>
+                <h3>{{dashboardStaticaticsForUser?.contactCount}}</h3>
                 <p>CONTACT</p>
             </div>
             <div class="icon">
@@ -74,7 +84,7 @@
     <div class="col-lg-3 col-xs-6" routerLink="/users">
         <div class="small-box bg-pink">
             <div class="inner">
-                <h3>20</h3>
+                <h3>{{dashboardStaticaticsForUser?.userCount}}</h3>
                 <p>USER</p>
             </div>
             <div class="icon">
@@ -82,17 +92,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-yellow"  routerLink="/team">
-            <div class="inner">
-                <h3>17</h3>
-                <p>TEAMS</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-user-shield"></i>
-            </div>
-        </div>
-    </div>
+    
     <!-- <div class="col-lg-3 col-xs-6 d-none">
         <div class="small-box bg-danger">
             <div class="inner">

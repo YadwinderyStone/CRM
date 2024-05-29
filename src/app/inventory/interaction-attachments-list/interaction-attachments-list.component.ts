@@ -14,7 +14,7 @@ export class InteractionAttachmentsListComponent implements OnChanges {
   emailDocumentList:any=[];
   isLoading = false
   columnsToDisplay: string[] = ['fileName','fileType','createdByName','date' ];
-  columnsToDisplay2: string[] = ['fileName','fileType','createdByName' ];
+  columnsToDisplay2: string[] = ['fileName','fileType','createdByName','date' ];
     constructor(
       private inventoryService: InventoryService,
       private toastrService: ToastrService,
@@ -47,8 +47,9 @@ export class InteractionAttachmentsListComponent implements OnChanges {
     }
     downloadFile(doc){
       this.isLoading = true
-      this.inventoryService.downloadDocument(doc?.id).subscribe(res => {
-      let receivedData =  new Blob([res],{type:doc?.attchmntContentType || res?.type})
+      // this.inventoryService.downloadDocument(doc?.id).subscribe(res => {
+      // let receivedData =  new Blob([doc?.attchmntFileData],{type:doc?.attchmntContentType})
+      let receivedData =  new Blob([doc?.attchmntFileData],{type:doc?.attchmntContentSubtype})
         const url = window.URL.createObjectURL(receivedData);
         const a = document.createElement('a');
         a.href = url;
@@ -58,10 +59,10 @@ export class InteractionAttachmentsListComponent implements OnChanges {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
         this.isLoading = false
-      },error=>{
-        this.isLoading = false
-        this.toastrService.error(error);
-      })
+      // },error=>{
+      //   this.isLoading = false
+      //   this.toastrService.error(error);
+      // })
       
     }
   
@@ -75,22 +76,25 @@ export class InteractionAttachmentsListComponent implements OnChanges {
       // document.body.removeChild(a);
       // window.URL.revokeObjectURL(url);
       // this.isLoading = false
-      debugger
-      let fileUrl
-      const reader = new FileReader();
-      reader.onload = () => {
-       fileUrl = reader.result as string;
-      };
-      reader.readAsDataURL(data?.attchmntFileData);
-// let receivedData =  new Blob([data?.attchmntFileData],{type:data?.attchmntContentType.toLowerCase()})
-      // const url = URL.createObjectURL(receivedData);
+      // let fileUrl
+      // const reader = new FileReader();
+      // reader.onload = () => {
+      //  fileUrl = reader.result as string;
+      // };
+      // reader.readAsDataURL(data?.attchmntFileData);
+      // ,{type:data?.attchmntContentType.toLowerCase()}
+      const fileType = data?.attchmntFileName.split('.').pop()?.toLowerCase() || '';
+      const fileName = data?.attchmntFileName.split('.')[0]
+let receivedData =  new Blob([data?.attchmntFileData],{type:data?.attchmntContentType})
+      const url = window.URL.createObjectURL(receivedData);
       const a = document.createElement('a');
-      a.href = fileUrl;
-      a.download = data?.attchmntFileName+'.'+data?.attchmntContentSubtype;
+      a.href = url;
+      // a.download = fileName+data?.attchmntContentSubtype;
+      a.download = data?.attchmntFileName;
       document.body.appendChild(a);  
       a.click();
       document.body.removeChild(a);  
-      // URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url);
     }
 
 

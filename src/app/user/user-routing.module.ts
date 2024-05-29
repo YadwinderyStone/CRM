@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: 'users-bulk-upload',
     component: BulkUserUploadComponent,
-    data: { claimType:'USR_ADD_USER'},
+    data: { claimType:'USR_ADD_BULK_USER'},
     canActivate: [AuthGuard]
   }, 
   

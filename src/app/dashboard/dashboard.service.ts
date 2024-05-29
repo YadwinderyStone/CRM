@@ -22,6 +22,11 @@ export class DashboardService {
     return this.httpClient.get<DashboardStaticatics>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
+  getDashboardStaticaticsForUserTeam(): Observable<any | CommonError> {
+    const url = `Dashboard/GetDashboardUserAndTeamCountData`;
+    return this.httpClient.get<any>(url)
+      .pipe(catchError(this.commonHttpErrorService.handleError));
+  }
 
   getDailyReminders(month, year): Observable<CalenderReminderDto[] | CommonError> {
     const url = `dashboard/dailyreminder/${month}/${year}`;
@@ -129,6 +134,12 @@ export class DashboardService {
       .set('Skip', params.skip.toString())
     return this.httpClient.get<Inventory[]>(url, {
       params: customParams,
+      observe: 'response',
+    });
+  }
+  getInteractionsListBySubStatus(params) {
+    const url = 'Dashboard/GetInteractionSubStatusDashCountData';
+    return this.httpClient.get<Inventory[]>(url, {
       observe: 'response',
     });
   }

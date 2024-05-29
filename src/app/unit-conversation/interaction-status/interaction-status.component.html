@@ -5,7 +5,7 @@
                 <h1>Interaction Status</h1>
             </div>
         </div>
-        <div *hasClaim="'MST_ADD_CATEGORY'" class="col-md-auto col-sm-auto col-auto">
+        <div *hasClaim="'MST_ADD_STATUS'" class="col-md-auto col-sm-auto col-auto">
             <button class="btn blue-btn btn-sm m-right-10" (click)="manageStatus({})">
                 <i class="fas fa-plus"></i>
                 Add Status
@@ -30,12 +30,12 @@
         <ng-container matColumnDef="action">
             <th style="width:30%" mat-header-cell *matHeaderCellDef>{{'ACTION' | translate}} </th>
             <td style="width:30%" mat-cell *matCellDef="let element">
-                <button *hasClaim="'MST_UPDATE_CATEGORY'" (click)="manageStatus(element)"
+                <button *hasClaim="'MST_UPDATE_STATUS'" (click)="manageStatus(element)"
                     class="btn btn-success btn-sm m-right-10" type="button">
                     <i class="las la-pen"></i>
                     {{'EDIT' | translate}}
                 </button>
-                <button *hasClaim="'MST_DELETE_CATEGORY'" (click)="deleteStatus(element)" class="btn btn-danger btn-sm"
+                <button *hasClaim="'MST_DELETE_STATUS'" (click)="deleteStatus(element)" class="btn btn-danger btn-sm"
                     type="button">
                     <i class="las la-trash"></i>
                     {{'DELETE' | translate}}

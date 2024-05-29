@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UnitConversationListComponent } from './unit-conversation-list/unit-conversation-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@core/security/auth.guard';
 import { InteractionTypeComponent } from './interaction-type/interaction-type.component';
@@ -15,9 +13,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'interaction-category',
     pathMatch:'full'
-  //   component: UnitConversationListComponent,
-  //   canActivate: [AuthGuard],
-  //  data: { claimType: 'PRO_MANAGE_UNIT' },
   },
   {
     path: 'interaction-type',
@@ -41,7 +36,7 @@ const routes: Routes = [
     path: 'interaction-bulk-closer',
     component: InteractionBulkCloserComponent,
     canActivate: [AuthGuard],
-   data: { claimType: 'MST_VIEW_STATUS' },
+   data: { claimType: ['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY'] },
   }
 ];
 

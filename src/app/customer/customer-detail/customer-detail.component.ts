@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { CustomerService } from '../customer.service';
 import { EditorConfig } from '@shared/editor.config';
+// import { AddInteractionResolverService } from 'src/app/inventory/add-interactions/add-interactions-resolver.service';
 
 export class AlreadyExistValidator {
   static exist(flag: boolean): ValidatorFn {
@@ -60,6 +61,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     private route: ActivatedRoute,
+    // private addInteractionResolverService: AddInteractionResolverService,
     private toastrService: ToastrService,
     public translationService: TranslationService,
     private location: Location
@@ -134,8 +136,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   createCustomerForm() {
     this.customerForm = this.fb.group({
       ticketType: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      subCategory: ['', [Validators.required]],
+      // category: ['', [Validators.required]],
+      // subCategory: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.maxLength(500)]],
       lastName: [''],
       emailId: [''],
@@ -284,7 +286,12 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
         this.sub$.sink = this.customerService
           .saveCustomer(formValues)
           .subscribe(c => {
-            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName, catId: formValues?.category, subCatId: formValues?.subCategory,subject: subject } });
+            // let AddInteractionResolverService=
+            //   { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName, catId: formValues?.category, subCatId: formValues?.subCategory,subject: subject }
+            
+            // this.addInteractionResolverService.userData = AddInteractionResolverService
+            // this.router.navigate(['/interactions/add-interactions']);
+            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject } });
             this.toastrService.success('Contact save successfully');
 
           }, error => {
@@ -343,32 +350,25 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     return customerObj;
   }
   addInteractions() {
-    if(this.customerForm.get('ticketType')?.value==2){
+
       if(this.customerForm.invalid){
         this.customerForm.markAllAsTouched();
         return
       }
-    }
-    if (this.customerForm.get('category')?.value && this.customerForm.get('subCategory')?.value) {
+  
       let formValues = this.customerForm.value
       let catname: any = this.catList.filter((e: any) => e.id == formValues?.category)
       let subCatName: any = this.subCatList.filter((e: any) => e.id == formValues?.subCategory)
       let subject = `${catname[0]?.name}-${subCatName[0]?.name}`;
-
-
       this.router.navigate(['/interactions/add-interactions'],
         {
           queryParams: {
             ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
             transNo: this.customer?.transactionNumber, email: formValues?.emailId,
-            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, catId: formValues?.category,
-            subCatId: formValues?.subCategory, subject: subject
+            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject
           }
         });
-    } else {
-      this.customerForm.get('category')?.markAsTouched();
-      this.customerForm.get('subCategory')?.markAsTouched();
-    }
+
   }
 
 
@@ -388,7 +388,14 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   onTypeChange(event) {
     this.customerForm.get('category')?.setValue('')
     this.customerForm.get('subCategory')?.setValue('')
-    this.getCatList(event.value);
+
+if (event?.value == 2){
+  this.getCatListForTicket(event.value);
+}else{
+  this.getCatList(event.value);
+}
+
+
     if (event?.value == 1) {
       this.customerForm.get('emailId')?.setValidators([]);
       this.customerForm.get('emailId')?.updateValueAndValidity();
@@ -420,7 +427,11 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     this.customerService.getCatDroplist(id).subscribe((res: any) => {
       this.catList = res
     })
-
+  }
+  getCatListForTicket(id) {
+    this.customerService.getCatDroplist(id).subscribe((res: any) => {
+      this.catList = res
+    })
   }
   getSubCatList(id) {
     this.customerService.getCatDroplist(id).subscribe((res: any) => {

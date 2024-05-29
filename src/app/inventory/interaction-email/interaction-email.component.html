@@ -7,7 +7,7 @@
         </div>
     </div>
 </div>
-<!-- <pre>{{emailList[0] | json}}</pre> -->
+<!-- <pre>{{emailList | json}}</pre> -->
 
 <div class="table-responsive">
     <table [dir]="langDir" mat-table [dataSource]="emailList" multiTemplateDataRows
@@ -23,26 +23,38 @@
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Email Subject </th>
-            <td mat-cell *matCellDef="let element"> {{element.mailSubject}} </td>
+        <ng-container matColumnDef="emailType">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>Action </th>
+            <td class="table-column-150" mat-cell *matCellDef="let element"><i class="fas fa-envelope"></i> {{  element.mailFolder=='INBOX'?'Receive':'Sent' }} </td>
+        </ng-container>
+        <ng-container matColumnDef="subject">
+            <th class="table-column-400" mat-header-cell *matHeaderCellDef>Subject </th>
+            <td class="table-column-400" mat-cell *matCellDef="let element"> {{element.mailSubject}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sendBy">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Send By </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdByName}} </td>
         </ng-container>
         <ng-container matColumnDef="date">
-            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Email Date</th>
-            <td class="table-column-200" mat-cell *matCellDef="let element"><div>{{element.createdDate |date:'yyy-MM-dd hh:mm a':'UTC' }} </div> </td>
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Date</th>
+            <td class="table-column-200" mat-cell *matCellDef="let element"><div>{{element?.mailType== 'R'?(element.createdDate | date:'yyy-MM-dd hh:mm a':'UTC'):(element.mailSendDate | date:'yyy-MM-dd hh:mm a':'UTC') }} </div> </td>
         </ng-container>
         <ng-container matColumnDef="sentTime">
-            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Email Sent Time </th>
-            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.mailSentTime | date :'yyyy-MM-dd hh:mm a' :'UTC'}} </td>
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Sent Time </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element">{{element?.mailType== 'R'?(element.mailSentTime | date:'yyy-MM-dd hh:mm a':'UTC'):(element.mailSendDate | date:'yyy-MM-dd hh:mm a':'UTC') }}</td>
         </ng-container>
         <ng-container matColumnDef="fromMailId">
-            <th mat-header-cell *matHeaderCellDef>Email From </th>
+            <th mat-header-cell *matHeaderCellDef> From </th>
             <td mat-cell *matCellDef="let element"> {{element.mailFromEmailId}} </td>
         </ng-container>
         <ng-container matColumnDef="to">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>To </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element">{{element.mailTo}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="to">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Email To </th>
             <td class="table-column-200" mat-cell *matCellDef="let element">Email send to {{element.mailTo}} </td>
-        </ng-container>
+        </ng-container> -->
         <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let categoryObject" [attr.colspan]="columnsToDisplay.length">
                 <div class="example-element-detail"

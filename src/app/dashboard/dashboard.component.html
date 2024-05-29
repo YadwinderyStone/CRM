@@ -29,9 +29,6 @@
     <app-resolved-interaction-list *hasClaim="'DB_RESOLVESTATUS'"></app-resolved-interaction-list>
   </div>
   
-  <div class="col-md-12">
-    <!-- <app-sales-order-expected-shipment ></app-sales-order-expected-shipment> -->
-  </div>
   
   <div class="col-md-6 mt-2" *hasClaim="'DB_TEAMWISELIST'">
     <div class="dashboard-table">
@@ -54,6 +51,9 @@
     <div class="dashboard-table">
       <app-interaction-by-created-name></app-interaction-by-created-name>
     </div>
+  </div>
+  <div class="col-md-12 mt-2" *hasClaim="'DB_SUBSTATUSLIST'">
+   <app-sub-status-list></app-sub-status-list>
   </div>
   <div class="col-md-12 mt-2">
     <app-interaction-list-by-team *hasClaim="'DB_TEAMWISELIST'"></app-interaction-list-by-team>

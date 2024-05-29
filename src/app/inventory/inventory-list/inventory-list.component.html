@@ -163,6 +163,14 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
             </ng-container>
+            <ng-container matColumnDef="messages">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>No. Of Messages</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.noOfMessages}} </td>
+            </ng-container>
+            <ng-container matColumnDef="reopen">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Reopen Count</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.reopenCount || 0}} </td>
+            </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.contactName}} </td>
@@ -185,8 +193,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="category">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.categoryName}}
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.categoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subcatagory">

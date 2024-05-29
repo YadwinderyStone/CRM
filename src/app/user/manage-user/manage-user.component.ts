@@ -21,6 +21,7 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
   userForm: UntypedFormGroup;
   roleList: Role[];
   isEditMode = false;
+  isLoading: boolean = false;
   selectedRoles: Role[] = [];
   imgSrc: string | ArrayBuffer;
   isImageUpdate: boolean = false;
@@ -62,7 +63,7 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required]],
-      bucketSize: [0, [Validators.required]],
+      maxAssignInteraction: [0, [Validators.required]],
       password: [''],
       confirmPassword: [''],
       address: [''],
@@ -105,16 +106,24 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
 
   saveUser() {
     if (this.userForm.valid) {
+      this.isLoading = true;
       const user = this.createBuildObject();
       if (this.isEditMode) {
         this.sub$.sink = this.userService.updateUser(user).subscribe(() => {
           this.toastrService.success(this.translationService.getValue('USER_UPDATED_SUCCESSFULLY'));
           this.router.navigate(['/users']);
+        },error=>{
+          this.toastrService.error(error);
+          this.isLoading = false
         });
       } else {
         this.sub$.sink = this.userService.addUser(user).subscribe(() => {
           this.toastrService.success(this.translationService.getValue('USER_CREATED_SUCCESSFULLY'));
+          this.isLoading = false
           this.router.navigate(['/users']);
+        },error=>{
+          this.toastrService.error(error);
+          this.isLoading = false
         });
       }
     } else {
@@ -134,10 +143,12 @@ export class ManageUserComponent extends BaseComponent implements OnInit {
       userName: this.userForm.get('email').value,
       isActive: this.userForm.get('isActive').value,
       address: this.userForm.get('address').value,
+      maxAssignInteraction: this.userForm.get('maxAssignInteraction').value,
       userId: this.userForm.get('userId').value,
       userRoles: this.getSelectedRoles(),
       isImageUpdate: this.isImageUpdate,
       imgSrc: this.imgSrc as string
+      
     }
     return user;
   }

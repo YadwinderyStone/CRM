@@ -6,7 +6,6 @@ import { SecurityService } from '@core/security/security.service';
 import { CommonService } from '@core/services/common.service';
 import { TranslationService } from '@core/services/translation.service';
 import { environment } from '@environments/environment';
-import { filter } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 
 @Component({

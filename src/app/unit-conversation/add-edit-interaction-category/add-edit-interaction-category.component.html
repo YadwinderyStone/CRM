@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button *hasClaim="'MST_ADD_CATEGORY'" type="submit" class="btn btn-success btn-sm m-right-10"
+            <button *hasClaim="['MST_ADD_CATEGORY','MST_UPDATE_CATEGORY']" type="submit" class="btn btn-success btn-sm m-right-10"
                 cdkFocusInitial><i class="las la-save"></i> {{'SAVE' |
                 translate}}</button>
             <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()"> <i

@@ -15,7 +15,6 @@ import { SendEmailDialogComponent } from '../send-email-dialog/send-email-dialog
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
 import { TransferTeamComponent } from './transfer-team/transfer-team.component';
 import { Router } from '@angular/router';
-import { DisabledTransportError } from '@microsoft/signalr/dist/esm/Errors';
 import { InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
 @Component({
   selector: 'app-inventory-properties',
@@ -35,6 +34,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   statusList: any = [];
   subStatusList: any = [];
   priorityList: any = [];
+  problemList: any = [];
   ticketTypeList: any = [{ id: 1, name: "FCR" },
   { id: 2, name: "Ticket Created" }];
   categoryList: any = [];
@@ -59,6 +59,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.getTeamList();
     this.getStatusList();
     this.getPriorityList();
+    this.getProblemList();
     this.currentDate = new Date();
   }
 
@@ -83,8 +84,11 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       subcategoryId: [this.interactionData?.subCategoryId],
       subject: [''],
       problemReported: ['', Validators.required],
+      problemId: [''],
       resolutionComments: [''],
       teamId: [],
+      noOfMessages: [],
+      reopenCount: [],
       assignToId: [],
       gstn: [''],
       assignedToInteractionStatus: ['',],
@@ -185,6 +189,13 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.toastrService.error(error);
     })
   }
+  getProblemList() {
+    this.inventoryService.getProblemList().subscribe(res => {
+      this.problemList = res;
+    }, error => {
+      this.toastrService.error(error);
+    })
+  }
 
   getStatusList() {
     this.inventoryService.getstatusList().subscribe(res => {
@@ -244,6 +255,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   onSubmit() {
     if (this.addInventoryForm.invalid) {
       this.addInventoryForm.markAllAsTouched();
+      this.toastrService.error('Please enter the required fields');
       return
     }
 
@@ -335,7 +347,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
   createTransferHistory(updatedData) {
     this.isLoading = true
-    let action
     let message = ''
     if (this.resValue?.categoryId != updatedData?.categoryId) message += `Catergory Name: ${updatedData?.categoryName}`;
     if (this.resValue?.subcategoryId != updatedData?.subcategoryId) message += `Subcategory Name: ${updatedData?.subcategoryName}`;
@@ -345,10 +356,9 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     if (this.resValue?.problemReported != updatedData?.problemReported) message += `Problem Reported : ${updatedData?.problemReported}`;
     if (this.resValue?.teamName != updatedData?.teamName) message += `Team Name : ${updatedData?.teamName}`;
     if (this.resValue?.priorityName != updatedData?.priorityName) message += `Priority Name : ${updatedData?.priorityName}`;
-
     let data = {
       id: this.id,
-      action: action,
+      action: InteractionsActionEnums?.UpdateHistory,
       message: message
     }
     this.inventoryService.createHistory(data).subscribe(res => {

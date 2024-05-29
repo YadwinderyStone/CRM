@@ -92,7 +92,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <mat-label>Category</mat-label>
-                <mat-select [disabled]="contactSelectedType == 'FCR'" (selectionChange)="onCatChange($event)"
+                <mat-select (selectionChange)="onCatChange($event)"
                     [dir]="langDir" formControlName="categoryId" placeholder="Select Category" class="form-control">
                     <ng-container>
                         <input type="text" class="form-control sticky-input" formControlName="catInput"
@@ -116,7 +116,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <mat-label>Sub Category</mat-label>
-                <mat-select [disabled]="contactSelectedType == 'FCR'" [dir]="langDir" formControlName="subcategoryId"
+                <mat-select [dir]="langDir" formControlName="subcategoryId"
                     placeholder="Select Sub Category" class="form-control">
 
                     <ng-container>

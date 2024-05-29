@@ -1,0 +1,130 @@
+<ng-container>
+    <div class="page-header-main mt-2">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h1>{{'INTERACTIONS SUB-STATUS WISE' | translate }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <div class="table-responsive mainHeight">
+        <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover">
+          <ng-container matColumnDef="total">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Total</th>
+            <td class="table-column-200" mat-cell *matCellDef="let row">{{row.total}}</td>
+        </ng-container>
+        <ng-container matColumnDef="assignToTechnicalTeam">
+          <th class="table-column-250" mat-header-cell *matHeaderCellDef>Assign To Technical Team</th>
+          <td class="table-column-250"  mat-cell *matCellDef="let row"> {{row.assignToTechnicalTeam}} </td>
+      </ng-container>
+      <ng-container matColumnDef="responseReceivedFromEmail">
+          <th class="table-column-250" mat-header-cell *matHeaderCellDef>Response Received From Email</th>
+          <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.responseReceivedFromEmail}} </td>
+      </ng-container>
+      <ng-container matColumnDef="responseReceivedFromGRP">
+          <th class="table-column-250" mat-header-cell *matHeaderCellDef>Response Received From GRP</th>
+          <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.responseReceivedFromGRP}} </td>
+      </ng-container>
+      <ng-container matColumnDef="bulkCloser">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Bulk Closer
+          </th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.bulkCloser}} </td>
+      </ng-container>
+      <ng-container matColumnDef="closed">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>
+              Closed
+          </th>
+          <td class="table-column-200"  mat-cell *matCellDef="let row">{{row?.closed}}</td>
+      </ng-container>
+      <ng-container matColumnDef="open">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef>Open</th>
+          <td class="table-column-100" mat-cell *matCellDef="let row"> {{row?.open}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="assignedBacktoL1">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assigned Back To L1</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.assignedBacktoL1}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="iris">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef>IRIS</th>
+          <td class="table-column-100" mat-cell *matCellDef="let row"> {{row.iris}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="eY_EarnstAndYoung">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Earnst And Young</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.eY_EarnstAndYoung}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="assignedToMMI">
+          <th class="table-column-150" mat-header-cell *matHeaderCellDef>Assigned To MMI</th>
+          <td class="table-column-150" mat-cell *matCellDef="let row">{{row?.assignedToMMI}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="assignedToCYGNET">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assigned To CYGNET</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignedToCYGNET}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="aciNoResponseReceivedResolved">
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef>Aci No Response Received Resolved</th>
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.aciNoResponseReceivedResolved}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="resolved">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Resolved</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.resolved}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="aciFollowUp3">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Aci Follow Up 3</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.aciFollowUp3}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="aciFollowUp2">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Aci Follow Up 2</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.aciFollowUp2}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="aciFollowUp">
+          <th class="table-column-150" mat-header-cell *matHeaderCellDef>Aci Follow Up</th>
+          <td class="table-column-150" mat-cell *matCellDef="let row"> {{row.aciFollowUp}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="reOpen">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef>Reopen</th>
+          <td class="table-column-100" mat-cell *matCellDef="let row"> {{row.reOpen}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="assignedtoGstn">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assigned To GSTN</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignedtoGstn}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="assignedToClearTax">
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assigned To Clear Tax</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignedToClearTax}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="assignedtoNIC">
+          <th class="table-column-150" mat-header-cell *matHeaderCellDef>Assigned To NIC</th>
+          <td class="table-column-150" mat-cell *matCellDef="let row"> {{row.assignedtoNIC}}
+          </td>
+      </ng-container>
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+            <span class="p-4 mt-4">
+                <b> No Pending Interactions</b>
+            </span>
+        </td>
+        </tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+

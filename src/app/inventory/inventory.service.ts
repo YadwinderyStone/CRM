@@ -8,6 +8,7 @@ import { InventoryResourceParameter } from '@core/domain-classes/inventory-resou
 import { Lookup } from '@core/domain-classes/lookup.model';
 import { Queue } from '@core/domain-classes/queue.model';
 import { Observable } from 'rxjs';
+import { Problem } from '../problem/problem.model';
 
 @Injectable({
   providedIn: 'root'
@@ -164,6 +165,11 @@ export class InventoryService {
   getPriorityList() { //proirty list for dropdown
     const url = `Lookup/list/priority`
     return this.http.get<Lookup[]>(url);
+
+  }
+  getProblemList() { //prblem list for dropdown
+    const url = `Problem/GetProblemMasterList`
+    return this.http.get<Problem[]>(url);
 
   }
   getErrorCodeList() { //error code list for dropdown

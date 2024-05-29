@@ -2,14 +2,12 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header">
-                <!-- <h1>{{"PRODUCT_CATEGORIES" | translate}}</h1> -->
                 <h1>LookUp</h1>
             </div>
         </div>
-        <div *hasClaim="['MST_ADD_LOOKUP','MST_UPDATE_LOOKUP']" class="col-md-auto col-sm-auto col-auto">
+        <div *hasClaim="'MST_ADD_LOOKUP'" class="col-md-auto col-sm-auto col-auto">
             <button class="btn blue-btn btn-sm m-right-10" [routerLink]="['/lookup/add']">
                 <i class="fas fa-plus"></i>
-                <!-- {{"ADD_PRODUCT_CATEGORY" | translate}} -->
                 Add Lookup
             </button>
         </div>

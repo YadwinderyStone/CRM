@@ -19,14 +19,13 @@ export class InteractionBulkCloserComponent implements OnInit {
 
   bulkCloserHistoryList: any = [];
   displayedColumns: string[] = ['interactionid', 'comments', 'Disposition', 'SubDisposition', 'ProblemID', 'ResolveByUser', 'Team'];
-  columnsToDisplay = ['name', 'subStatus', 'fileName', 'createdBy', 'createdDate', 'totalRecords', 'updateRecords', 'comment', 'WithCategoryAndSubCategory', 'withProblemId',];
+ 
   constructor(
     private interactionCategoryService: InteractionCategoryService,
     private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
-    this.getInteractionBulkHistory();
   }
 
   onFileSelect(event: any) {

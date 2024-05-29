@@ -10,7 +10,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InteractionDetailViewDialogComponent } from '../interaction-detail-view-dialog/interaction-detail-view-dialog.component';
 import { InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
 
@@ -42,6 +42,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     private inventoryService: InventoryService,
     private toastrService: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog,
     private fb: UntypedFormBuilder,
   ) {
@@ -55,12 +56,13 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.createForm();
     this.getSourceList();
     // this.getErrorCodeList();
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("User Data", this.userData);
     this.getCategoryList(JSON.parse(this.userData?.ticketType));
-    this.getSubCategoryList(JSON.parse(this.userData?.catId));
+    // this.getSubCategoryList(JSON.parse(this.userData?.catId));
 
     this.interactionSubject = this.userData?.subject;
   }
@@ -89,9 +91,9 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       priority: ['', Validators.required],
       priorityName: [''],
       endRemarks: [''],
-      categoryId: [0],
+      categoryId: ['', Validators.required],
       categoryName: [''],
-      subcategoryId: [0],
+      subcategoryId: ['', Validators.required],
       subcategoryName: [''],
       problemReported: ['', Validators.required],
       gstn: ['', Validators.required],
@@ -272,10 +274,11 @@ createHistory(values:any,res){
   let data = {
     id: res?.id,
     action: InteractionsActionEnums?.AddHistory,
-    message: `Interaction Added -- Ticket Type: ${res?.ticketType} , Catergory Name: ${values?.categoryName}  Subcategory Name: ${values?.subcategoryName} Status Name : ${res?.statusName}
-    Sub Status name : ${values?.subStatusName}, Agent Remarks : ${values?.agentRemarks}, Problem Reported : ${values?.problemReported}, Team Name : ${values?.teamName}
-    Priority Name :${values?.priorityName} , GSTN : ${values?.gstn}`  
+    message: `Interaction Added -- Ticket Type: (${res?.ticketType}) , Catergory Name: (${values?.categoryName}),  Subcategory Name: (${values?.subcategoryName}) , Status Name :( ${res?.statusName})
+    , Sub Status name : (${values?.subStatusName}) , Agent Remarks : (${values?.agentRemarks}) , Problem Reported : (${values?.problemReported}) , Team Name : (${values?.teamName})
+   , Priority Name : (${values?.priorityName}) , GSTN : ( ${values?.gstn} ) `  
   }
+
   this.inventoryService.createHistory(data).subscribe(res => {
   }, error => {
     this.toastrService.error(error);

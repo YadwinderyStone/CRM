@@ -133,7 +133,7 @@
         </div>
     </div>
     <div class="col-md-3">
-        <button type="button" (click)="bulkAssign()" class="btn btn-success btn-md mx-2 button-margin"><i
+        <button type="button" *hasClaim="'INT_VIEW_MANNUALASSIGN'" (click)="bulkAssign()" class="btn btn-success btn-md mx-2 button-margin"><i
                 class="fas fa-save"></i>
             Bulk Assign</button>
         <button type="button" (click)="onClear();" class="btn btn-danger btn-md button-margin"><i

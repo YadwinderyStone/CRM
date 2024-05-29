@@ -32,6 +32,7 @@ import { InteractionListBySourceComponent } from './interaction-list-by-source/i
 import { InteractionByCreatedNameComponent } from './interaction-by-created-name/interaction-by-created-name.component';
 import { ResolvedInteractionListComponent } from './resolved-interaction-list/resolved-interaction-list.component';
 import { ClosedInteractionListComponent } from './closed-interaction-list/closed-interaction-list.component';
+import { SubStatusListComponent } from './sub-status-list/sub-status-list.component';
 
 @NgModule({
   declarations: [DashboardComponent,
@@ -51,6 +52,7 @@ import { ClosedInteractionListComponent } from './closed-interaction-list/closed
     InteractionByCreatedNameComponent,
     ResolvedInteractionListComponent,
     ClosedInteractionListComponent,
+    SubStatusListComponent,
   ],
   imports: [
     CommonModule,
