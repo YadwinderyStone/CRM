@@ -37,6 +37,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   displayedColumns: string[] = ['interactionid', 'contant', 'interactiontype', 'createdteam', 'assignto', 'status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat',];
   customerForm: UntypedFormGroup;
   imgSrc: any = null;
+  ctiInfo:any = {}
   isImageUpload: boolean = false;
   isLoading: boolean = false;
   customer: Customer;
@@ -68,6 +69,9 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   ) {
     super(translationService);
     this.getLangDir();
+    this.route.queryParams.subscribe(res => {
+      this.ctiInfo = res;
+    })
   }
 
   ngOnInit(): void {
@@ -118,19 +122,6 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
 
   patchCustomer() {
     this.customerForm.patchValue(this.customer)
-    // this.customerForm.patchValue({
-    //   name: this.customer.name,
-    //   companyName: this.customer.companyName,
-    //   mobileNo: this.customer.mobileNo,
-    //   phoneNo: this.customer.phoneNo,
-    //   description: this.customer.description,
-
-    //   address: this.customer.address,
-    //   emailId: this.customer.email || this.customer.emailId,
-    //   countryId: this.customer.countryId,
-    //   cityName: this.customer.cityName,
-    //   countryName: this.customer.countryName
-    // });
   }
 
   createCustomerForm() {
@@ -291,7 +282,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
             
             // this.addInteractionResolverService.userData = AddInteractionResolverService
             // this.router.navigate(['/interactions/add-interactions']);
-            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject } });
+            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli } });
             this.toastrService.success('Contact save successfully');
 
           }, error => {
@@ -365,7 +356,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
           queryParams: {
             ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
             transNo: this.customer?.transactionNumber, email: formValues?.emailId,
-            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject
+            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli
+            
           }
         });
 

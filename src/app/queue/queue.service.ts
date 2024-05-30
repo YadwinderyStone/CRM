@@ -77,7 +77,7 @@ updateQueueMember(data:QueueMember){
 }
 deleteQueueMember(data){
   const url = `QueueMemberDelete`;
-  return this.httpClient.delete<any[]>(url,data);
+  return this.httpClient.delete<any>(url,data);
 }
 // getQueueMembers(){
 //   const url = `QueueMemberAdd`;

@@ -274,7 +274,8 @@ export class InventoryService {
     return this.http.get<any[]>(url);
   }
   callDispose(data) { 
-    const url = `Categories/list/0`;
+    // change api end points 
+    const url = `CallDispose/GetCallDispose`;
     return this.http.post<any[]>(url,data);
   }
 

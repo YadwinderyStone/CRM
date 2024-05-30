@@ -9,7 +9,7 @@ import { CustomerResourceParameter } from '@core/domain-classes/customer-resourc
 
 export class CustomerDataSource implements DataSource<Customer> {
   private _entities$ = new BehaviorSubject<Customer[]>([]);
-  private _responseHeaderSubject$ = new BehaviorSubject<ResponseHeader>(null);
+  public _responseHeaderSubject$ = new BehaviorSubject<ResponseHeader>(null);
   private loadingSubject$ = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject$.asObservable();
   private _count: number = 0;

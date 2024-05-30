@@ -10,28 +10,36 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-3">
-                 <div class="form-group">
-                <label>CLI :</label>
-                <input type="text" class="form-control" [readonly]="true" [value]="">
-            </div></div>
-            <div class="col-md-3">
-                 <div class="form-group">
-                <label>Agent Id :</label>
-                <input type="text" class="form-control" [readonly]="true" [value]="">
-                <!-- [value]="interactionData?.lastActivityDate | date:'dd-MM-yyyy : hh:mm:ss'"> -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>CLI :</label>
+                    <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.cli ||''">
+                </div>
             </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Agent Id :</label>
+                    <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.agentId || ''">
+                </div>
             </div>
-            <div class="col-md-3">
-                 <div class="form-group">
-                <label>Terminal:</label>
-                <input type="text" class="form-control" [readonly]="true" [value]="">
-            </div></div>
-            <div class="col-md-3">
-                 <div class="form-group">
-                <label>Call Id:</label>
-                <input type="text" class="form-control" [readonly]="true" [value]="">
-            </div></div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Terminal:</label>
+                    <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.terminal || ''">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Call Id:</label>
+                    <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.callId || ''">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Direction:</label>
+                    <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.direction ||''">
+                </div>
+            </div>
 
             <!-- <hr class="hline"> -->
         </div>
@@ -54,7 +62,7 @@
                         <mat-select (selectionChange)="onTypeChange($event)" formControlName="ticketType"
                             placeholder="Select ticket type" class="form-control">
                             <ng-container *ngFor="let list of ticketTypeList">
-                            <mat-option *ngIf="list.name !='Email' " [value]="list.id">
+                                <mat-option *ngIf="list.name !='Email' " [value]="list.id">
                                     {{list.name}}
                                 </mat-option>
                             </ng-container>
@@ -119,12 +127,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>{{'EMAIL' | translate}} *</mat-label>
-                       <div class="email-div">
-                           <input (change)="onEmailChange($event)" formControlName="emailId" class="form-control"
-                           type="text">
-                           <i class="fas fa-search"></i>
+                        <div class="email-div">
+                            <input (change)="onEmailChange($event)" formControlName="emailId" class="form-control"
+                                type="text">
+                            <i class="fas fa-search"></i>
                         </div>
-                           
+
                         <div *ngIf="customerForm.get('emailId').touched && customerForm.get('emailId').errors?.email"
                             class="text-danger">
                             {{'PLEASE_ENTER_VALID_EMAIL' | translate}}
@@ -140,10 +148,10 @@
                     <div class="form-group">
                         <mat-label class="text-danger">{{'MOBILE_NUMBER' | translate}} *</mat-label>
                         <div class="email-div">
-                        <input formControlName="mobileNo" (change)="onMobileNoChange($event)" class="form-control"
-                            type="text" maxlength="10" minlength="10">
+                            <input formControlName="mobileNo" (change)="onMobileNoChange($event)" class="form-control"
+                                type="text" maxlength="10" minlength="10">
                             <i class="fas fa-search"></i>
-                         </div>
+                        </div>
                         <div *ngIf="
                     customerForm.get('mobileNo').touched &&
                     customerForm.get('mobileNo').errors?.required" class="text-danger">
@@ -171,31 +179,31 @@
                 <div class="mt-4 col-md-4 text-center">
                     <div *ngIf="!customer" class="button">
                         <button *hasClaim="['CNT_ADD_CONTACT','INT_ADD_INTERACTION',]" type="submit"
-                        class="py-2 btn btn-success btn-sm m-right-10">
-                        <i class="fas fa-save"></i>
-                        Save + Add Interaction
-                    </button>
-                    <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
-                        <i class="fas fa-times-circle"></i>
-                        {{'CANCEL' | translate}}
-                    </button>
+                            class="py-2 btn btn-success btn-sm m-right-10">
+                            <i class="fas fa-save"></i>
+                            Save + Add Interaction
+                        </button>
+                        <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
+                            <i class="fas fa-times-circle"></i>
+                            {{'CANCEL' | translate}}
+                        </button>
                     </div>
                     <div *ngIf="customer" class="button">
-                    <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" (click)="updateContact();"
-                        class="py-2 btn btn-success btn-sm m-right-10">
-                        <i class="fas fa-save"></i>
-                        Update
-                    </button>
-                    <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" type="button" (click)="addInteractions()"
-                        class="py-2 btn btn-success btn-sm m-right-10">
-                        <i class="fas fa-save"></i>
-                        Add Inteaction
-                    </button>
-                    <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
-                        <i class="fas fa-times-circle"></i>
-                        {{'CANCEL' | translate}}
-                    </button>
-                </div>
+                        <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" (click)="updateContact();"
+                            class="py-2 btn btn-success btn-sm m-right-10">
+                            <i class="fas fa-save"></i>
+                            Update
+                        </button>
+                        <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" type="button"
+                            (click)="addInteractions()" class="py-2 btn btn-success btn-sm m-right-10">
+                            <i class="fas fa-save"></i>
+                            Add Inteaction
+                        </button>
+                        <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
+                            <i class="fas fa-times-circle"></i>
+                            {{'CANCEL' | translate}}
+                        </button>
+                    </div>
                     <!-- </div> -->
                 </div>
                 <div class="col-md-3">
@@ -262,7 +270,8 @@
                     <ng-container matColumnDef="interactiontype">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type
                         </th>
-                        <td class="table-column-200" [ngClass]="row?.interactionTicketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.interactionTicketType}} </td>
+                        <td class="table-column-200" [ngClass]="row?.interactionTicketType=='FCR'?'fcr':'ticket-closed'"
+                            mat-cell *matCellDef="let row"> {{row.interactionTicketType}} </td>
                     </ng-container>
                     <ng-container matColumnDef="assignto">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
@@ -281,7 +290,9 @@
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>
                             Interaction Status
                         </th>
-                        <td class="table-column-150" [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved')" mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td>
+                        <td class="table-column-150"
+                            [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved')"
+                            mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td>
                     </ng-container>
                     <ng-container matColumnDef="substatus">
                         <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Sub
@@ -302,7 +313,7 @@
                     </ng-container>
                     <ng-container matColumnDef="problemreported1">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported
-                            </th>
+                        </th>
                         <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported}}
                         </td>
                     </ng-container>

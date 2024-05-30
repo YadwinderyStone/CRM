@@ -186,10 +186,10 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.inventoryService.getSubCategoryList(id).subscribe(res => {
       this.categoryList = res;
       if (this.userData) {
-        this.addInventoryForm.get('categoryId')?.setValue(JSON.parse(this.userData?.catId));
-        let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
-        let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
-        this.addInventoryForm.get('subject')?.setValue(`${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
+        // this.addInventoryForm.get('categoryId')?.setValue(JSON.parse(this.userData?.catId));
+        // let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
+        // let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
+        // this.addInventoryForm.get('subject')?.setValue(`${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
       }
 
     }, error => {
@@ -227,6 +227,11 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 
 
   onSubmit() {
+    // let value = {
+    //   name:123
+    // }
+    // this.openDialog(value,this.userData);
+
     if (this.addInventoryForm.invalid) {
       this.addInventoryForm.markAllAsTouched();
       return
@@ -263,7 +268,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       if (res) {
         this.toastrService.success('Interaction added successfully.');
         this.createHistory(formData,res);
-        this.openDialog(res);
+        this.openDialog(res,this.userData);
       }
     }, error => {
       this.toastrService.error(error);
@@ -287,13 +292,15 @@ createHistory(values:any,res){
 
 
 
-  openDialog(value) {
+  openDialog(value, data?) {
+    let detail = value;
+    detail.userData= data
     this.dialog.open(InteractionDetailViewDialogComponent, {
       disableClose: true,
       width: '500px',
       height: 'auto',
       minHeight: '150px',
-      data: value
+      data: detail
     }).afterClosed().subscribe(res => {
       if (res) {
         this.router.navigate(['/interactions'])

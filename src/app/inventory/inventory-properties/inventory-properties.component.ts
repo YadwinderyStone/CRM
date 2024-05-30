@@ -150,6 +150,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
   subStatusChange(event) {
     if (event?.value == 28) {
+      this.addInventoryForm.get('resolutionComments')?.setValue('Your issue has been resolved, Kindly check the email for further information');
       this.addInventoryForm.get('resolutionComments')?.setValidators([Validators?.required]);
       this.addInventoryForm.get('resolutionComments')?.updateValueAndValidity();
     } else {

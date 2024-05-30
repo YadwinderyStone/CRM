@@ -359,7 +359,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Resolution Comments </mat-label>
-                        <textarea maxlength="2000" [readonly]="addInventoryForm.get('subStatusId')?.value !== 28"
+                        <textarea maxlength="2000" [readonly]="true"
                             formControlName="resolutionComments" class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"

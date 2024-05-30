@@ -166,7 +166,6 @@ addMember(data:QueueMember){
 }
 
 deleteMember(data:QueueMember){
-
 this.sub$.sink = this.commonDialogService
 .deleteConformationDialog(`${this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')} ${this.getMembersName(data.userId)}`)
 .subscribe(isTrue => {
@@ -178,9 +177,8 @@ this.sub$.sink = this.commonDialogService
   }
   
 
-deleteMemberById(id){
-  this.QueueService.deleteQueueMember(id).subscribe(d => {
-    // this.toastrService.success(this.translationService.getValue(`CATEGORY_DELETED_SUCCESSFULLY`));
+deleteMemberById(value){
+  this.QueueService.deleteQueueMember(value).subscribe(d => {
     this.toastrService.success('Team member deleted sucessfully');
     this.getQueueList();
   });

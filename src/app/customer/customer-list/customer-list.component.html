@@ -13,6 +13,49 @@
         </div>
     </div>
 </div>
+<div class="page-header-main headerBackground">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header headerText">
+                <h1>CTI Information</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 d-none">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>CLI :</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.cli ||''">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Agent Id :</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.agentId || ''">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Terminal:</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.terminal || ''">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Call Id:</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.callId || ''">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Direction:</label>
+            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.direction ||''">
+        </div>
+    </div>
+
+    <!-- <hr class="hline"> -->
+</div>
 <div class="loading-shade" *ngIf="dataSource.loading$ | async">
     <mat-spinner></mat-spinner>
 </div>
@@ -27,8 +70,8 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <mat-label for="search">Search</mat-label>
-                    <input (keyup.enter)="searchList()" type="text" [(ngModel)]="search" placeholder="search by id, name, mobile, email"
-                        class="form-control" id="search">
+                    <input (keyup.enter)="searchList()" type="text" [(ngModel)]="search"
+                        placeholder="search by id, name, mobile, email" class="form-control" id="search">
                 </div>
             </div>
 
@@ -40,9 +83,10 @@
                     <button type="button" (click)="onClear();" class="btn btn-danger btn-md button-margin"><i
                             class="fas fa-times-circle"></i>
                         Clear </button>
-                        <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
-                            class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
-                        </button>
+                    <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
+                            class="fas fa-download"></i>
+                        {{'DOWNLOAD_REPORT' | translate}}
+                    </button>
                 </div>
             </div>
         </div>
@@ -60,7 +104,7 @@
     </div>
 </div>
 <div class="table-responsive">
-    <table [dir]="langDir" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows
+    <table [dir]="langDir" mat-table [dataSource]="dataSource" *ngIf="!searchListDetail.length" matSort multiTemplateDataRows
         matSortActive="customerName" class="table table-bordered table-hover grid-height">
         <ng-container matColumnDef="action">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef>Action
@@ -77,13 +121,14 @@
                     {{'DELETE' | translate}}
                 </button> -->
                 <mat-icon class="interButtonIcons" *hasClaim="'CNT_UPDATE_CONTACT'"
-                (click)="editCustomer(element.id)">edit</mat-icon>
-            <mat-icon class="interButtonIcons" *hasClaim="'CNT_DELETE_CONTACT'"
-            (click)="deleteCustomer(element)">delete</mat-icon>
+                    (click)="editCustomer(element.id)">edit</mat-icon>
+                <mat-icon class="interButtonIcons" *hasClaim="'CNT_DELETE_CONTACT'"
+                    (click)="deleteCustomer(element)">delete</mat-icon>
             </td>
         </ng-container>
         <ng-container matColumnDef="customerName">
-            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header> {{'NAME' | translate}} </th>
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header> {{'NAME' | translate}}
+            </th>
             <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.name}} {{row?.lastName}} </td>
         </ng-container>
         <ng-container matColumnDef="noofinteractions">
@@ -111,8 +156,8 @@
             </th>
             <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.transactionNumber}} </td>
         </ng-container>
-        
-        
+
+
 
         <ng-container matColumnDef="action-search" sticky>
             <th class="table-column-50" class="pr-5" mat-header-cell *matHeaderCellDef> </th>
@@ -145,22 +190,8 @@
         <ng-container matColumnDef="footer">
             <td mat-footer-cell colspan="8" *matFooterCellDef>
                 <mat-paginator [length]="customerResource.totalCount" [pageSize]="customerResource.pageSize"
-                    [pageSizeOptions]="[10,2, 20, 30,50]">
+                    [pageSizeOptions]="[10,20, 30,50]">
                 </mat-paginator>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="expandedDetail">
-            <td mat-cell *matCellDef="let customer" [attr.colspan]="displayedColumns.length">
-                <ng-container *ngIf="customer == expandedElement">
-                    <div class="example-element-detail"
-                        [@detailExpand]="customer == expandedElement ? 'expanded' : 'collapsed'">
-                        <div class="inner-table mat-elevation-z8">
-                            <app-customer-so-list [customerId]="customer.id">
-                            </app-customer-so-list>
-                        </div>
-                    </div>
-                </ng-container>
             </td>
         </ng-container>
         <tr *matNoDataRow>
@@ -176,6 +207,89 @@
             *matHeaderRowDef="['action-search','customerName-search','contactPerson-search', 'email-search','mobileNo-search','website-search'];sticky: true"
             class="example-second-header-row"> </tr> -->
         <tr mat-footer-row *matFooterRowDef="columnsToDisplay;sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <table [dir]="langDir" mat-table [dataSource]="searchListDetail" *ngIf="searchListDetail.length" matSort multiTemplateDataRows
+        matSortActive="customerName" class="table table-bordered table-hover grid-height">
+        <ng-container matColumnDef="action">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>Action
+            </th>
+            <td class="table-column-150" mat-cell *matCellDef="let element">
+                <mat-icon class="interButtonIcons" *hasClaim="'CNT_UPDATE_CONTACT'"
+                    (click)="editCustomer(element.id)">edit</mat-icon>
+                <mat-icon class="interButtonIcons" *hasClaim="'CNT_DELETE_CONTACT'"
+                    (click)="deleteCustomer(element)">delete</mat-icon>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="customerName">
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header> {{'NAME' | translate}}
+            </th>
+            <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.name}} {{row?.lastName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="noofinteractions">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> No. of Interactions
+            </th>
+            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.noOfInteraction}} </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header> {{'EMAIL' | translate}}
+            </th>
+            <td class="table-column-250" mat-cell *matCellDef="let row">
+                <ng-container *ngIf="row.emailId">
+                    <a href="mailto:{{row.email}}">{{row.emailId}}</a>
+                </ng-container>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="mobileNo">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header> {{'MOBILE' |
+                translate}}
+            </th>
+            <td class="table-column-150" mat-cell *matCellDef="let row"> {{row.mobileNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="contactid">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Id
+            </th>
+            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.transactionNumber}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="action-search" sticky>
+            <th class="table-column-50" class="pr-5" mat-header-cell *matHeaderCellDef> </th>
+        </ng-container>
+        <ng-container matColumnDef="customerName-search" sticky>
+            <th class="table-column-300" mat-header-cell *matHeaderCellDef>
+                <input type="text" class="form-control w-90" [(ngModel)]="NameFilter">
+            </th>
+        </ng-container>
+        <ng-container matColumnDef="contactPerson-search">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
+                <input type="text" class="form-control w-90" [(ngModel)]="ContactFilter">
+            </th>
+        </ng-container>
+        <ng-container matColumnDef="email-search">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>
+                <input type="text" class="form-control w-90" [(ngModel)]="EmailFilter">
+            </th>
+        </ng-container>
+        <ng-container matColumnDef="mobileNo-search">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
+                <input type="text" class="form-control w-90" [(ngModel)]="MobileOrPhoneFilter">
+            </th>
+        </ng-container>
+        <ng-container matColumnDef="website-search">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
+                <input type="text" class="form-control w-90" [(ngModel)]="WebsiteFilter">
+            </th>
+        </ng-container>
+        <ng-container matColumnDef="footer">
+            <td mat-footer-cell colspan="8" *matFooterCellDef>
+                <mat-paginator [length]="customerResource.totalCount" [pageSize]="customerResource.pageSize"
+                    [pageSizeOptions]="[10,20,30,50]">
+                </mat-paginator>
+            </td>
+        </ng-container> 
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="columnsToDisplay;sticky: true"></tr>
     </table>
 </div>

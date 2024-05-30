@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from 'src/app/base.component';
 import { CustomerService } from '../customer.service';
 import { merge, Observable, Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { CustomerResourceParameter } from '@core/domain-classes/customer-resource-parameter';
 import { Customer } from '@core/domain-classes/customer';
@@ -13,7 +13,6 @@ import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { TranslationService } from '@core/services/translation.service';
-import { MatDialog } from '@angular/material/dialog';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import * as XLSX from 'xlsx';
 @Component({
@@ -30,7 +29,9 @@ import * as XLSX from 'xlsx';
 })
 export class CustomerListComponent extends BaseComponent implements OnInit {
   dataSource: CustomerDataSource;
+  ctiInfo: any = {}
   search: string = ''
+  searchListDetail: any = []
   customers: Customer[] = [];
   displayedColumns: string[] = ['action', 'contactid', 'customerName', 'email', 'mobileNo', 'noofinteractions'];
   columnsToDisplay: string[] = ["footer"];
@@ -98,19 +99,22 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
     private toastrService: ToastrService,
     private commonDialogService: CommonDialogService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     public translationService: TranslationService,
-    private dialog: MatDialog,
     private cd: ChangeDetectorRef) {
     super(translationService);
     this.getLangDir();
     this.customerResource = new CustomerResourceParameter();
     this.customerResource.pageSize = 10;
     this.customerResource.orderBy = 'customerName asc'
+    this.activatedRoute.queryParams.subscribe(res => {
+      this.ctiInfo = res;
+    })
+
   }
 
   ngOnInit(): void {
     this.dataSource = new CustomerDataSource(this.customerService);
-    this.dataSource.loadData(this.customerResource);
     this.getResourceParameter();
     this.sub$.sink = this.filterObservable$
       .pipe(
@@ -132,6 +136,30 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
         }
         this.dataSource.loadData(this.customerResource);
       });
+    if (Object.keys(this.ctiInfo).length && this.ctiInfo?.cli) {
+      // this.search = this.ctiInfo?.cli
+      // this.searchList();
+      this.customerResource.search = this.ctiInfo?.cli;
+      this.searchCustomerList();
+      // this.dataSource.loadData(this.customerResource);
+    } else {
+      this.dataSource.loadData(this.customerResource);
+    }
+  }
+  searchCustomerList(): any {
+    this.customerService.getCustomers(this.customerResource).subscribe((resp: any) => {
+      this.searchListDetail = resp?.body;
+      if (resp && resp.headers.get('X-Pagination')) {
+        const paginationParam = JSON.parse(
+          resp.headers.get('X-Pagination')
+        ) as ResponseHeader;
+        this.customerResource.totalCount = paginationParam?.totalCount;
+        this.customerResource.pageSize = paginationParam?.pageSize;
+      }
+      if (!this.searchListDetail.length) {
+        this.router.navigate(['/customer/addItem'])
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -151,7 +179,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
 
   deleteCustomer(customer: Customer) {
     this.sub$.sink = this.commonDialogService
-      .deleteConformationDialog(`${this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')} ${customer.name??customer.name}`)
+      .deleteConformationDialog(`${this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')} ${customer.name ?? customer.name}`)
       .subscribe((isTrue: boolean) => {
         if (isTrue) {
           this.sub$.sink = this.customerService.deleteCustomer(customer.id)
@@ -212,44 +240,49 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
     });
   }
 
-dowanloadList(){
-  this.isLoading = true
+  dowanloadList() {
+    this.isLoading = true
 
-  this.customerService.getCustomers(this.customerResource).subscribe(res=>{
-    let customerRecods:any = res?.body;
-    let heading = [[
-      this.translationService.getValue('Contact Id'),
-      this.translationService.getValue('Name'),
-      this.translationService.getValue('Last Name'),
-      this.translationService.getValue('Email Id'),
-      this.translationService.getValue('Mobile'),
-    ]];
+    this.customerService.getCustomers(this.customerResource).subscribe(res => {
+      let customerRecods: any = res?.body;
+      let heading = [[
+        this.translationService.getValue('Contact Id'),
+        this.translationService.getValue('Name'),
+        this.translationService.getValue('Last Name'),
+        this.translationService.getValue('Email Id'),
+        this.translationService.getValue('Mobile'),
+      ]];
 
-    let customerReport = [];
-    customerRecods.forEach(data => {
-      customerReport.push({
-        'Contact Id':data?.transactionNumber,
-        'Name':data?.name,
-        'LastName':data?.lastName,
-        'Email':data?.emailId,
-        'Mobile':data?.mobileNo,
-      })
-    });
-    let workBook = XLSX.utils.book_new();
-    XLSX.utils.sheet_add_aoa(workBook, heading);
-    let workSheet = XLSX.utils.sheet_add_json(workBook, customerReport, { origin: "A2", skipHeader: true });
-    XLSX.utils.book_append_sheet(workBook, workSheet, 'Contact Report');
-    XLSX.writeFile(workBook, 'Contact Report' + ".xlsx");
+      let customerReport = [];
+      customerRecods.forEach(data => {
+        customerReport.push({
+          'Contact Id': data?.transactionNumber,
+          'Name': data?.name,
+          'LastName': data?.lastName,
+          'Email': data?.emailId,
+          'Mobile': data?.mobileNo,
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, customerReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Contact Report');
+      XLSX.writeFile(workBook, 'Contact Report' + ".xlsx");
 
-  })
+    })
 
-}
+  }
 
 
 
 
   editCustomer(customerId: string) {
-    this.router.navigate(['/customer', customerId])
+    if(this.ctiInfo?.cli){
+      this.router.navigate(['/customer', customerId],{ queryParams:this.ctiInfo });
+    }else{
+      this.router.navigate(['/customer', customerId]);
+    }
+
   }
 
   toggleRow(customer: Customer) {
@@ -264,17 +297,17 @@ dowanloadList(){
       this.paginator.pageIndex = 0;
       this.customerResource.skip = 0
       this.dataSource.loadData(this.customerResource);
-    }else{
+    } else {
       this.onClear();
     }
 
   }
   onClear() {
-      this.search = '';
-      this.paginator.pageIndex = 0;
-      this.customerResource.skip = 0
-      this.customerResource.search = this.search;
-      this.dataSource.loadData(this.customerResource);
+    this.search = '';
+    this.paginator.pageIndex = 0;
+    this.customerResource.skip = 0
+    this.customerResource.search = this.search;
+    this.dataSource.loadData(this.customerResource);
   }
 
 }
