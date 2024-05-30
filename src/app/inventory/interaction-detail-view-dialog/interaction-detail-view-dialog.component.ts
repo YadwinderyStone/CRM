@@ -25,9 +25,7 @@ export class InteractionDetailViewDialogComponent implements OnInit {
     private inventoryService: InventoryService,
     private toasterService: ToastrService,
   ) {
-    this.data
     this.loginUserDetail = JSON.parse(localStorage.getItem('authObj'));
-    debugger
   }
 
   ngOnInit(): void {
@@ -51,11 +49,9 @@ export class InteractionDetailViewDialogComponent implements OnInit {
 
       this.inventoryService.callDispose(data).subscribe(res => {
         if (res) {
-          // this.toasterService.success('successfully')
-          // this.dialogRef.close(true);
         }
       }, error => {
-        this.toasterService.error(error)
+        this.toasterService.error('Error In Cti Close Call Api')
       })
     }else{
       this.createForm();
