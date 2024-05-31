@@ -30,6 +30,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   addInventoryForm: UntypedFormGroup;
   teamList: any = [];
   teamMemberList: any = [];
+  sourceList: any[] = [];
   contactSelectedType: string = ''
   statusList: any = [];
   subStatusList: any = [];
@@ -60,9 +61,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.getStatusList();
     this.getPriorityList();
     this.getProblemList();
+    this.getProblemList();
+    this.getSourceList();
     this.currentDate = new Date();
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (this.id) {
       this.getInteractionDetailById(this.id)
@@ -70,7 +72,13 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   }
   ngOnInit(): void {
   }
-
+getSourceList(){
+  this.inventoryService.getSourceList().subscribe(res => {
+    this.sourceList = res;
+  }, error => {
+    this.toastrService.error(error);
+  })
+}
   createForm() {
     this.addInventoryForm = this.fb.group({
       ticketType: ['', Validators.required],
@@ -80,8 +88,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       clarificationFilled: ['',],
       compositionDate: ['',],
       subStatusId: [this.interactionData?.subStatusId,],
-      subCatInput:[''],
-      catInput:[''],
+      subCatInput: [''],
+      catInput: [''],
       categoryId: [],
       subcategoryId: [],
       subject: [''],
@@ -95,6 +103,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       gstn: [''],
       assignedToInteractionStatus: ['',],
       statusName: [''],
+      source: [],
       interactionThread: ['',],
       categoryName: ['',],
       lastUpdated: ['',],
@@ -311,10 +320,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
         if (res) {
           // if (res?.statusId == 2 || res?.statusId == 3) {
-            //   this.openSendEmailDialog(res);
-            // }
-            this.getInteractionDetailById(this.id);
-              this.isLoading = false
+          //   this.openSendEmailDialog(res);
+          // }
+          this.getInteractionDetailById(this.id);
+          this.isLoading = false
 
           this.toastrService.success('Interaction update succcessfully');
           // this.router.navigate(['/interactions'])
