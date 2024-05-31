@@ -33,7 +33,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
   search: string = ''
   searchListDetail: any = []
   customers: Customer[] = [];
-  displayedColumns: string[] = ['action', 'contactid', 'customerName', 'email', 'mobileNo', 'noofinteractions'];
+  displayedColumns: string[] = ['action', 'contactid', 'customerName', 'email', 'mobileNo','oldContactId' ,'noofinteractions'];
   columnsToDisplay: string[] = ["footer"];
   isLoadingResults = true;
   isLoading = false;

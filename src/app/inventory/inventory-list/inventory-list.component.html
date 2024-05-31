@@ -163,6 +163,10 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
             </ng-container>
+            <ng-container matColumnDef="telsimaID">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Telsima ID</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{"--"}} </td>
+            </ng-container>
             <ng-container matColumnDef="messages">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>No. Of Messages</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.noOfMessages}} </td>

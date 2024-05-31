@@ -250,6 +250,10 @@
             </th>
             <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.transactionNumber}} </td>
         </ng-container>
+        <ng-container matColumnDef="oldContactId">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Old Contact ID</th>
+            <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.oldContactId}} </td>
+        </ng-container>
 
 
 

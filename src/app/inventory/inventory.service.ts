@@ -226,12 +226,23 @@ export class InventoryService {
   }
   downloadDocumentForEmail(id): Observable<Blob> {
       const url = `Document/GetViewDocumentDataByIdEmail?id=${id}`;
-    return this.http.get(url, { responseType: 'blob' });
-  }
+    return this.http.get(url,{responseType:'blob'});
+  }  
   downloadDocumentForGrp(id): Observable<Blob> {
       const url = `Document/GetViewDocumentDataById?id=${id}`;
     return this.http.get(url, { responseType: 'blob' });
   }
+  // downloadDocumentForEmail(id): Observable<Blob> {
+  //     const url = `Document/GetViewDocumentDataByIdEmail?id=${id}`;
+  //   return this.http.get(url, { responseType: 'blob' });
+  // }
+  // downloadDocumentForGrp(id): Observable<Blob> {
+  //     const url = `Document/GetViewDocumentDataById?id=${id}`;
+  //   return this.http.get(url, { responseType: 'blob' });
+  // }
+
+
+
   // downloadDocument(id){
   //   const url = `Document/GetViewDocumentDataById?id=${id}`;
   //   return this.http.get<any>(url);
