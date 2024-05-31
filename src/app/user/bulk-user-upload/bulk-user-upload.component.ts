@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
 import { UserService } from '../user.service';
@@ -10,13 +10,14 @@ import { BaseComponent } from 'src/app/base.component';
   styleUrls: ['./bulk-user-upload.component.scss']
 })
 export class BulkUserUploadComponent extends BaseComponent implements OnInit {
-
+  @ViewChild('fileInput') fileInput: ElementRef;
   public addedFile: any[] = [];
   public uploadedList: any[] = [];
   uploadedFileName: string = '';
+  isLoading: boolean = false;
   tabIndex = 0;
   previewFile: boolean = false;
-responceData :any
+  responceData :any
   displayedColumns: string[] = ['firstName', 'lastName', 'userId', 'email', 'phoneNumber', 'role', 'MaxAssignInteraction', 'password'];
   footerToDisplayed = ['footer'];
   constructor(
@@ -71,18 +72,21 @@ responceData :any
 
   uploadFile() {
     if (this.addedFile.length) {
+      this.isLoading = true;
       const formData = new FormData();
       this.addedFile.forEach(e => {
         formData.append('file', e, e.name);
       })
-
+      
       this.userService.bulkUpload(formData).subscribe((res: any) => {
-       if(res){
-         this.responceData = res; 
-         this.toastrService.success('User file upload successfully');
-         this.resetFiles();
+        if(res){
+          this.responceData = res; 
+          this.toastrService.success('User file upload successfully');
+          this.resetFiles();
+          this.isLoading = false;
         }
       }, error => {
+        this.isLoading = false;
         this.toastrService.error(error);
       })
     } else {
@@ -96,7 +100,10 @@ responceData :any
   resetFiles() {
     this.uploadedList = [];
     this.addedFile = [];
-    this.previewFile = false
+    this.previewFile = false;
+    this.responceData = null
+    this.fileInput.nativeElement.value = '';
+    // window.location.reload();
   }
 
 

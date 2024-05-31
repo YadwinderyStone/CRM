@@ -69,7 +69,6 @@ createTransferHistory(value:any){
     action: InteractionsActionEnums?.TeamChanged,
     message: `Team changed from ${this.data?.teamName} to ${value?.teamName}`
   }
-  debugger
   this.inventoryService.createHistory(data).subscribe(res=>{
     if(res){
       this.dialogRef.close(true);

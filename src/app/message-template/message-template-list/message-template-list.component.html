@@ -6,7 +6,7 @@
         </div>
       </div>
       <div class="col-md-auto col-sm-auto">
-        <a *hasClaim="'EMAIL_MANAGE_EMAIL_TEMPLATES'" class="btn blue-btn btn-sm m-right-10"
+        <a *hasClaim="'MST_ADD_SMSTEMPLATE'" class="btn blue-btn btn-sm m-right-10"
           [routerLink]="'/message-template/add'" routerLinkActive="router-link-active" routerLinkActive="router-link-active">
           <i class="fas fa-plus"></i>
           Add SMS Template
@@ -22,12 +22,12 @@
           {{'ACTION' | translate }}
         </th>
         <td class="table-column-300" mat-cell *matCellDef="let message">
-          <a *hasClaim="'EMAIL_MANAGE_EMAIL_TEMPLATES'"
+          <a *hasClaim="'MST_EDIT_SMSTEMPLATE'"
           routerLink="/message-template/edit/{{message?.id}}" class="btn btn-success btn-sm m-right-10" type="button">
             <i class="fas fa-pen"></i>
             <span class="d-none d-sm-inline"> {{'EDIT' | translate }}</span>
           </a>
-          <button *hasClaim="'EMAIL_MANAGE_EMAIL_TEMPLATES'" class="btn btn-danger btn-sm"
+          <button *hasClaim="'MST_DELETE_SMSTEMPLATE'" class="btn btn-danger btn-sm"
             (click)="delteEmailTemplate(message)">
             <i class="fas fa-trash-alt"></i>
             <span class="d-none d-sm-inline"> {{'DELETE' | translate }}</span>

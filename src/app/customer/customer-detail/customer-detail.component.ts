@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { CustomerService } from '../customer.service';
 import { EditorConfig } from '@shared/editor.config';
+import { CustomerResourceParameter } from '@core/domain-classes/customer-resource-parameter';
 // import { AddInteractionResolverService } from 'src/app/inventory/add-interactions/add-interactions-resolver.service';
 
 export class AlreadyExistValidator {
@@ -60,6 +61,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private customerService: CustomerService,
     private commonService: CommonService,
+    private inventoryService: CommonService,
     private router: Router,
     private route: ActivatedRoute,
     // private addInteractionResolverService: AddInteractionResolverService,
@@ -356,7 +358,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
           queryParams: {
             ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
             transNo: this.customer?.transactionNumber, email: formValues?.emailId,
-            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli
+            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject,direction:this.ctiInfo?.direction,
+            cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId
             
           }
         });
@@ -437,5 +440,46 @@ if (event?.value == 2){
     let data = value[0]?.name
     return data
   }
+
+  onMobileSearch($event){
+    if(this.customerForm.value?.mobileNo.length == 10){
+      let params:CustomerResourceParameter;
+      params = new CustomerResourceParameter();
+      params.search = this.customerForm.value?.mobileNo
+      this.customerService.getCustomers(params).subscribe((resp: any) => {
+        if(resp?.body.length){
+
+          this.customerForm.patchValue(resp?.body[0]);
+        }else{
+          this.toastrService.warning('No data found for this mobile no.')
+        }
+      })}else{
+        this.toastrService.error('Please enter valid mobile')
+      }
+  }
+
+  onEmailSearch($event){
+    if(this.customerForm.value?.emailId){
+      let params:CustomerResourceParameter;
+      params.search = this.customerForm.value?.emailId
+      this.customerService.getCustomers(params).subscribe((resp: any) => {
+        if(resp?.body.length){
+          this.customerForm.patchValue(resp?.body[0]);
+        }else{
+          this.toastrService.success('NO data found')
+        }
+      })
+    }else{
+      this.toastrService.error('Please enter emailid')
+    }
+}
+
+
+
+
+
+
+
+
 
 }

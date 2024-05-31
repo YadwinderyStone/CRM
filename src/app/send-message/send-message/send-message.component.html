@@ -11,7 +11,7 @@
     <mat-spinner></mat-spinner>
   </div>
   <div class="row">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-12 col-sm-12 d-none">
       <div class="form-group">
         <mat-label [dir]="langDir">
           Select SMS Template
@@ -148,7 +148,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-12 mt-1" *hasClaim="'EMAIL_SEND_EMAIL'">
+      <div class="col-md-12 mt-1" *hasClaim="'MST_SMSSEND'">
         <button (click)="sendEmail()" type="submit" class="btn btn-success">
           <i class="fas fa-paper-plane"></i>
           {{'SEND' | translate }}

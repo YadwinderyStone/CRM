@@ -165,9 +165,13 @@
                         <mat-label>Category</mat-label>
                         <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1" (selectionChange)="onCatChange($event)" [dir]="langDir" formControlName="categoryId"
                             class="form-control">
-                            <mat-option *ngFor="let subCat of categoryList" [value]="subCat.id">
+                            <ng-container>
+                                <input type="text" class="form-control sticky-input" formControlName="catInput"
+                                    placeholder="Search Category" autocomplete="off" />
+                            <mat-option *ngFor="let subCat of categoryList | searchFilter : 'name':addInventoryForm.value.catInput" [value]="subCat.id">
                                 {{subCat.name}}
                             </mat-option>
+                            </ng-container>
                         </mat-select>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('categoryId').touched && addInventoryForm.get('categoryId').errors?.required"
@@ -180,10 +184,15 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Sub Category</mat-label>
+                        
                         <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1" formControlName="subcategoryId" class="form-control">
-                            <mat-option *ngFor="let subCat of subCategoryList" [value]="subCat.id">
+                            <ng-container>
+                                <input type="text" class="form-control sticky-input" formControlName="subCatInput"
+                                    placeholder="Search Sub Category" autocomplete="off" />
+                            <mat-option *ngFor="let subCat of subCategoryList | searchFilter : 'name':addInventoryForm.value.subCatInput" [value]="subCat.id">
                                 {{subCat.name}}
                             </mat-option>
+                        </ng-container>
                         </mat-select>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('subcategoryId').touched && addInventoryForm.get('subcategoryId').errors?.required"

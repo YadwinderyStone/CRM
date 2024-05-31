@@ -75,7 +75,7 @@
         <ng-container matColumnDef="userId">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>User Id
             </th>
-            <td class="table-column-200" mat-cell *matCellDef="let user"> {{user.userId || '--'}} </td>
+            <td class="table-column-200" mat-cell *matCellDef="let user"> {{user.userName || '--'}} </td>
         </ng-container>
         <ng-container matColumnDef="firstName">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> {{'FIRST_NAME' | translate}}

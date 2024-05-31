@@ -8,19 +8,19 @@ const routes: Routes = [
   {
     path: '',
     component: MessageTemplateListComponent,
-    data: { claimType: 'EMAIL_MANAGE_EMAIL_TEMPLATES' },
+    data: { claimType: 'MST_VIEW_SMSTEMPLATE' },
     canActivate: [AuthGuard]
   },
   {
     path: 'add',
     component: AddMessageTemplateComponent,
-    data: { claimType: ['EMAIL_MANAGE_EMAIL_TEMPLATES', 'EMAIL_MANAGE_EMAIL_TEMPLATES'] },
+    data: { claimType: ['MST_ADD_SMSTEMPLATE'] },
     canActivate: [AuthGuard]
   },
   {
     path: 'edit/:id',
     component: AddMessageTemplateComponent,
-    data: { claimType: ['EMAIL_MANAGE_EMAIL_TEMPLATES', 'EMAIL_MANAGE_EMAIL_TEMPLATES']  },
+    data: { claimType: ['MST_EDIT_SMSTEMPLATE']  },
     canActivate: [AuthGuard]
   },
 

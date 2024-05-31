@@ -90,6 +90,7 @@ export class InventoryService {
     param+=`&PageSize=${params?.pageSize.toString()}`
    if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.type) param+=`&TicketType=${params?.type}`
+    if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     if(params?.team) param+=`&TeamId=${params?.team}`

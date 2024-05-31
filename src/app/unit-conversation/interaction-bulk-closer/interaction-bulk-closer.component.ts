@@ -12,6 +12,7 @@ export class InteractionBulkCloserComponent implements OnInit {
   public uploadedList: any[] = [];
   uploadedFileName: string = '';
   tabIndex = 0;
+  isLoading: boolean = false;
   previewFile: boolean = false;
   WithResolutionComment: boolean = false;
   WithCategoryAndSubCategory: boolean = false;
@@ -69,6 +70,7 @@ export class InteractionBulkCloserComponent implements OnInit {
 
   uploadFile() {
     if (this.addedFile.length) {
+    this.isLoading = true
       const formData = new FormData();
       this.addedFile.forEach(e => {
         formData.append('file', e, e.name);
@@ -83,13 +85,17 @@ export class InteractionBulkCloserComponent implements OnInit {
         this.interactionCategoryService.bulkUpload(data, formData).subscribe(res => {
           this.toastrService.success('File upload successfully');
           this.resetFiles();
+          this.isLoading = false;
         }, error => {
+          this.isLoading = false;
           this.toastrService.error(error);
         })
       } else {
+        this.isLoading = false;
         this.toastrService.error('please enter valid data in file')
       }
     } else {
+      this.isLoading = false;
       this.toastrService.error('Please select file to upload')
     }
 

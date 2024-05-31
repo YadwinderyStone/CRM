@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserAuth } from '@core/domain-classes/user-auth';
 import { SecurityService } from '@core/security/security.service';
 import { CommonService } from '@core/services/common.service';

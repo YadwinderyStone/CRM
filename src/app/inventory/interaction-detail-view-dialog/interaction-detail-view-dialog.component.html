@@ -6,7 +6,7 @@
   <div class="loading-shade" *ngIf="isLoading">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>
-  <form [formGroup]="disposeForm" *ngIf="data?.userData?.direction !='INBOUND'">
+   <!-- <form [formGroup]="disposeForm" *ngIf="data?.userData?.direction !='INBOUND'">
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -39,19 +39,20 @@
           </div>
         </div>
         </div>
-  </form>
+  </form>  -->
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <div class="col-md-12 mt-1">
-    <button (click)="submit()" type="button" class="btn btn-success" *ngIf="data?.userData?.direction !='INBOUND'">
+   <div class="col-md-12 mt-1">
+  <!-- <button (click)="submit()" type="button" class="btn btn-success" *ngIf="data?.userData?.direction !='INBOUND'">
       <i class="fas fa-save"></i> Close Call
     </button>
     <button type="button" *ngIf="isError" class="btn btn-danger btn-md mx-3 px-3 py-2"  (click)="dialogRef.close(true)" ><i
       class="fas fa-times-circle"></i>
   {{"CANCEL" | translate}}
-</button>
-    <button (click)="dialogRef.close(true)" type="button" class="btn btn-success"
-      *ngIf="data?.userData?.direction =='INBOUND'">
+</button>  -->
+    <button (click)="submit()" type="button" class="btn btn-success"
+    >
+      <!-- *ngIf="data?.userData?.direction =='INBOUND'" -->
       <i class="fas fa-save"></i> Done
     </button>
   </div>

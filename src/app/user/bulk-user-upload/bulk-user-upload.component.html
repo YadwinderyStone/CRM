@@ -7,6 +7,9 @@
         </div>
     </div>
 </div>
+<div class="loading-shade" *ngIf="isLoading">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
 <div class="row mt-3">
     <div class="col-md-3">
         <div class="fileUploadDiv">
@@ -21,11 +24,11 @@
     </div>
     <div class="col-md-7">
         <div class="fileUploadDiv">
-            <button (click)="previewUploadedFile()" class="btn blue-btn btn-sm m-right-10"> Preview</button>
-            <button type="button" *hasClaim="'USR_ADD_BULK_USER'" (click)="uploadFile()" class="btn blue-btn btn-sm m-right-10">Click For
+            <button (click)="previewUploadedFile()" class="btn btn-warning btn-sm m-right-10"> Preview</button>
+            <button type="button" *hasClaim="'USR_ADD_BULK_USER'" (click)="uploadFile()" class="btn btn-success btn-sm m-right-10">Click For
                 Updload Records
             </button>
-            <button type="button" (click)="resetFiles()" class="btn blue-btn btn-sm m-right-10 mx-3">Reset</button>
+            <button type="button" (click)="resetFiles(); " class="btn btn-danger btn-sm m-right-10 mx-3">Reset</button>
             <a href="../../../assets/UserUpload.xlsx" download><button class="btn blue-btn btn-sm m-right-10"> Download Template</button></a>
         </div>
     </div>

@@ -39,7 +39,7 @@ export class SendMessageComponent extends BaseComponent implements OnInit {
   
     ngOnInit(): void {
       this.createEmailForm();
-      this.getEmailTamplate();
+      // this.getEmailTamplate();
     }
   
     onTempateChange() {

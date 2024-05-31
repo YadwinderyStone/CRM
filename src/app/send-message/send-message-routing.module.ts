@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: SendMessageComponent,
     canActivate: [AuthGuard],
-    data: { claimType: 'EMAIL_SEND_EMAIL' }
+    data: { claimType: 'MST_SMSSEND' }
   }
 ];
 

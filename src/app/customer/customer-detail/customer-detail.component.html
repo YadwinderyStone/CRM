@@ -130,7 +130,7 @@
                         <div class="email-div">
                             <input (change)="onEmailChange($event)" formControlName="emailId" class="form-control"
                                 type="text">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search" (click)="onEmailSearch($event)"  ></i>
                         </div>
 
                         <div *ngIf="customerForm.get('emailId').touched && customerForm.get('emailId').errors?.email"
@@ -148,9 +148,9 @@
                     <div class="form-group">
                         <mat-label class="text-danger">{{'MOBILE_NUMBER' | translate}} *</mat-label>
                         <div class="email-div">
-                            <input formControlName="mobileNo" (change)="onMobileNoChange($event)" class="form-control"
+                            <input formControlName="mobileNo" class="form-control"
                                 type="text" maxlength="10" minlength="10">
-                            <i class="fas fa-search"></i>
+                            <!-- <i class="fas fa-search" (click)="onMobileSearch($event)"></i> -->
                         </div>
                         <div *ngIf="
                     customerForm.get('mobileNo').touched &&
@@ -170,12 +170,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="col-md-2">
-                    <div class="form-group ">
-                        <mat-label>No. Of Interactions</mat-label>
-                        <input formControlName="noOfInteractions" class="form-control" [readOnly]="true" type="number">
-                    </div>
-                </div> -->
                 <div class="mt-4 col-md-4 text-center">
                     <div *ngIf="!customer" class="button">
                         <button *hasClaim="['CNT_ADD_CONTACT','INT_ADD_INTERACTION',]" type="submit"
@@ -204,32 +198,7 @@
                             {{'CANCEL' | translate}}
                         </button>
                     </div>
-                    <!-- </div> -->
                 </div>
-                <div class="col-md-3">
-                    <!-- <label>
-                        {{'UPLOAD_LOGO' | translate}}
-                    </label>
-                    <mat-card [dir]="langDir" class="cus-mat-card text-center">
-                        <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Image"
-                            fxFlex="30">
-                        <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
-                        <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/company-logo.jpg" />
-                        <mat-card-actions>
-                            <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm m-right-10"
-                                (click)="fileInput.click()">
-                                <i class="far fa-image"></i> {{'ADD_LOGO' | translate}}</button>
-                            <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10"
-                                (click)="fileInput.click()">
-                                <i class="far fa-image"></i> {{'CHANGE_LOGO' | translate}}</button>
-                            <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i> {{'REMOVE_LOGO' | translate}}</button>
-                        </mat-card-actions>
-                    </mat-card> -->
-
-
-                </div>
-
             </div>
         </form>
 

@@ -243,12 +243,23 @@
               <p>{{'SEND_EMAIL' | translate}}</p>
             </a>
           </li>
-          <li *hasClaim="'EMAIL_SEND_EMAIL'" class="nav-item">
+        </ul>
+        <li id="SMSHeading" aria-expanded="true" aria-controls="collapseOne"
+         *hasClaim="['MST_VIEW_SMSTEMPLATE','MST_ADD_SMSTEMPLATE','MST_EDIT_SMSTEMPLATE','MST_SMSSEND','MST_SMSSETTING','MST_DELETE_SMSTEMPLATE']"
+          data-toggle="collapse" data-target="#SMS" class="collapsed">
+          <a class="nav-link" [ngClass]="{'active': currentUrl == 'sms'}">
+            <i class="nav-icon fas fa-envelope-open-text"></i>
+            <span>{{'SMS' | translate}}</span>
+            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
+          </a>
+        </li>
+        <ul class="sub-menu collapse" id="SMS" aria-labelledby="SMSHeading"
+          [ngClass]="{'show': currentUrl == 'sms'}" data-parent="#accordionExample">
+          <li *hasClaim="'MST_VIEW_SMSTEMPLATE'" class="nav-item">
             <a [routerLink]="['/message-template']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
               <i class="fas fa-mail-bulk nav-icon"></i>
               <p>SMS Template</p>
-              <!-- <p>{{'SEND_EMAIL' | translate}}</p> -->
             </a>
           </li>
           <li *hasClaim="'EMAIL_SEND_EMAIL'" class="nav-item">
@@ -256,7 +267,6 @@
               class="nav-link">
               <i class="fas fa-paper-plane nav-icon"></i>
               <p>Send SMS</p>
-              <!-- <p>{{'SEND_EMAIL' | translate}}</p> -->
             </a>
           </li>
         </ul>
@@ -288,7 +298,7 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_DUMP_REPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_187_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/187-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>

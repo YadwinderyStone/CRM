@@ -121,7 +121,7 @@
 
                     <ng-container>
                         <input type="text" class="form-control sticky-input" formControlName="subCatInput"
-                            placeholder="Search Category" autocomplete="off" />
+                            placeholder="Search Sub Category" autocomplete="off" />
                         <mat-option
                             *ngFor="let subCat of subCategoryList | searchFilter : 'name':addInventoryForm.value.subCatInput"
                             [value]="subCat.id">

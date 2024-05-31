@@ -21,7 +21,7 @@
           <input formControlName="name" class="form-control" type="text">
           <div *ngIf="messageTemplateForm.get('name').dirty && messageTemplateForm.get('name').errors">
             <div class="text-danger" *ngIf="messageTemplateForm.get('name').errors?.required">
-              {{'EMAIL_TEMPLATE_NAME_IS_REQUIRED' | translate }}
+              {{'SMS_TEMPLATE_NAME_IS_REQUIRED' | translate }}
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
     </div>
     <div class="row">
       <div class="mt-2 col-md-12">
-        <button *hasClaim="'EMAIL_MANAGE_EMAIL_TEMPLATES'" class="btn btn-success btn-sm m-right-10"
+        <button *hasClaim="'MST_EDIT_SMSTEMPLATE','MST_ADD_SMSTEMPLATE' " class="btn btn-success btn-sm m-right-10"
           (click)="addUpdateEmailTemplate()" cdkFocusInitial><i class="las la-save"></i>
           {{'SAVE' | translate }}
         </button>

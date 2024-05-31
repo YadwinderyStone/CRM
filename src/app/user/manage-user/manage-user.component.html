@@ -127,7 +127,9 @@
                     (+{{selectedRoles.length - 1}} {{selectedRoles.length === 2 ? 'other' : 'others'}})
                   </span>
                 </mat-select-trigger>
-                <mat-option *ngFor="let role of roleList" [value]="role">{{role.name}}</mat-option>
+                <ng-container *ngFor="let role of roleList">
+                  <mat-option *ngIf="role.name !== 'Super Admin'" [value]="role">{{role.name}}</mat-option>
+                </ng-container> 
               </mat-select>
             </div>
             <div class="form-group col-md-6">
@@ -179,7 +181,7 @@
         </div>
       </div>
     </div>
-    <div class="page-header-main headerBackground w-100">
+    <!-- <div class="page-header-main headerBackground w-100">
       <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto">
           <div class="content-header">
@@ -198,7 +200,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="m-top-10 col-md-12">
       <ng-container *ngIf="isEditMode">
         <button *hasClaim="'USR_UPDATE_USER'" class="btn btn-success btn-sm m-right-10" (click)="saveUser()"

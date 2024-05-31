@@ -30,33 +30,33 @@ export class InteractionDetailViewDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDisPositionList();
-    if (this.data?.userData?.direction == "INBOUND") {
+    // if (this.data?.userData?.direction == "INBOUND") {
 
-      let data = {
-        "dispCode": "NONE",
-        "isCallback": "0",
-        "callBackTime": "",
-        "crmid": this.loginUserDetail?.email,
-        "lob": "",
-        "productCode": "",
-        "isPersonalcall": "0",
-        "mobileNumber": this.data?.userData?.cli,
-        "intercationId": this.data?.id,
-        "userId": this.loginUserDetail?.id,
-        "contactId": this.data?.userData?.custId,
-        "dispositionDesc": "NONE"
-      }
+    //   let data = {
+    //     "dispCode": "NONE",
+    //     "isCallback": "0",
+    //     "callBackTime": "",
+    //     "crmid": this.loginUserDetail?.email,
+    //     "lob": "",
+    //     "productCode": "",
+    //     "isPersonalcall": "0",
+    //     "mobileNumber": this.data?.userData?.cli,
+    //     "intercationId": this.data?.id,
+    //     "userId": this.loginUserDetail?.id,
+    //     "contactId": this.data?.userData?.custId,
+    //     "dispositionDesc": "NONE"
+    //   }
 
-      this.inventoryService.callDispose(data).subscribe(res => {
-        if (res) {
-        }
-      }, error => {
-        this.toasterService.error('Error In Cti Close Call Api')
-      })
-    }else{
+    //   this.inventoryService.callDispose(data).subscribe(res => {
+    //     if (res) {
+    //     }
+    //   }, error => {
+    //     this.toasterService.error('Error In Cti Close Call Api')
+    //   })
+    // }else{
+      // }
       this.createForm();
     }
-  }
   createForm() {
     this.disposeForm = this.fb.group({
       dispositionId: ['', Validators.required],
@@ -72,40 +72,41 @@ export class InteractionDetailViewDialogComponent implements OnInit {
   }
 
   submit() {
-    if (this.disposeForm.valid) {
+    // if (this.disposeForm.valid) {
       this.isLoading = true
-let dispodesc =this.statusList.filter(e=> e.dispoCode==this.disposeForm.value?.dispositionId)
+// let dispodesc =this.statusList.filter(e=> e.dispoCode==this.disposeForm.value?.dispositionId)
 let data ={
-  "dispCode": this.disposeForm.value?.dispositionId,
-        "isCallback": "0",
-        "callBackTime":this.disposeForm.value?.date || '',
-        "crmid": this.loginUserDetail?.email,
-        "lob": "",
-        "productCode": "",
-        "isPersonalcall": "0",
-        "mobileNumber": this.data?.userData?.cli,
-        "intercationId": this.data?.id,
-        "userId": this.loginUserDetail?.id,
-        "contactId": this.data?.userData?.custId,
-        "dispositionDesc": dispodesc[0]?.dispoDesc
+    "callId": this.data?.userData?.callId,
+    "agentId":this.data?.userData?.agentId,
+    "mobileNumber": this.data?.userData?.cli,
+    "dni": "",
+    "direction": this.data?.userData?.direction,
+    "terminal":this.data?.userData?.terminal,
+    "intercationId": this.data?.id,
+    "contactId": this.data?.userData?.custId,
 }
+debugger
       this.inventoryService.callDispose(data).subscribe(res => {
         if (res) {
           // this.toasterService.success('successfully')
           this.dialogRef.close(true);
           this.isLoading = false
           
+        }else{
+          this.dialogRef.close(true);
         }
       }, error => {
         this.isLoading = false
+        this.dialogRef.close(true);
         // this.dialogRef.close(true);
         this.isError = true
-        this.toasterService.error('Error In Cti Close Call Api')
+        // this.toasterService.error('Error In Cti Close Call Api')
       })
-    } else {
-      this.disposeForm.markAllAsTouched();
-    }
-  }
+    } 
+    // else {
+    //   this.disposeForm.markAllAsTouched();
+    // }
+  // }
 
   onChange(event) {
     if (event?.value == 'Call_Back') {

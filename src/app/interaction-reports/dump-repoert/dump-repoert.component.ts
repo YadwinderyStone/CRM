@@ -14,6 +14,7 @@ import { InteractionReportsService } from '../interaction-reports.service';
 import { InteractionDataSource } from '../interaction-report-list/interaction-reports-datasource';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-dump-repoert',
@@ -25,21 +26,13 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno','agentRemarks'];
-  displayedColumns: string[] = ['interactionId','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
-   'interactionSubState','disposition','subDisposition','gstn','subject','problemReported','agentRemarks',
-     'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-      'interactionThreadLastUpdated', 'lastResolvedAt','currentStatus',
-    'noOfMessages', 'priorityName',  'reopenFlag', 'ticketAssignedTime',
-     'uniqueNumber']
-
-
-
-
-
-
-
-
+  isLoading: boolean = false;
+  displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
+    'interactionSubState', 'disposition', 'subDisposition', 'gstn', 'subject', 'problemReported', 'agentRemarks',
+    'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+    'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
+    'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
+    'uniqueNumber']
 
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -160,8 +153,59 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
 
 
   onDownloadReport() {
+    this.isLoading = true
 
+    this.interactionReportsService.getInteractionsDumpReports(this.inventoryResource).subscribe(res => {
+      let dumpRecords: any = res?.body;
+      if(dumpRecords.length){
+      let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
+        'Sub State', 'Disposition', 'Sub Disposition', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
+        'Docket Number', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
+        'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
+        'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
+        'Unique Number']];
+
+      let dumpReport = [];
+      dumpRecords.forEach(data => {
+        dumpReport.push({
+          'InteractionId':data?.interactionId,
+          'Date':data?.createdDate,
+          'Ticket Type':data?.ticketType,
+          'Contact Name':data?.contactName,
+          'Team':data?.team,
+          'Assigned To':data?.assignedTo,
+          'Status':data?.interactionState,
+          'Sub State':data?.interactionSubState,
+          'Disposition':data?.disposition,
+          'Sub Disposition':data?.subDisposition,
+          'GSTN':data?.gstn,
+          'Subject':data?.subject,
+          'Problem Reported':data?.problemReported,
+          'Agent Remarks':data?.agentRemarks,
+          'Docket Number':data?.docketNumber,
+          'Email Id':data?.emailId,
+          'Escalation Start Date Time':data?.escalationStartDateTime,
+          'Interaction Created Through Media':data?.interactionCreatedThroughMedia,
+          'Interaction Thread Last Updated':data?.interactionThreadLastUpdated,
+          'Last Resolved At':data?.lastResolvedAt,
+          'Current Status':data?.currentStatus,
+          'No Of Messages':data?.noOfMessages,
+          'Priority Name':data?.priorityName,
+          'Reopen Flag':data?.reopenFlag,
+          'Ticket Assigned Time':data?.ticketAssignedTime,
+          'Unique Number':data?.uniqueNumber,
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, dumpReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Dump Report');
+      XLSX.writeFile(workBook, 'Dump Report' + ".xlsx");
+
+    }else{
+      this.toasterService.error('No records to dowanload')
+    }
+    })
   }
-
 }
 

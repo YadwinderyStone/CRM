@@ -9,13 +9,13 @@ const routes: Routes = [
     path: '',
     component: EmailOutboxComponent,
     canActivate: [AuthGuard],
-    data: { claimType: 'EMAIL_SEND_EMAIL' }
+    data: { claimType: 'EMAIL_VIEW_MAIL_OUTBOX' }
   },
   {
     path: 'outbox-detail/:id',
     component: EmailOutboxDetailComponent,
     canActivate: [AuthGuard],
-    data: { claimType: 'EMAIL_DETAIL_EMAIL' }
+    data: { claimType: 'EMAIL_DETAIL_EMAIL_OUTBOX' }
   }
 ];
 

@@ -63,8 +63,7 @@
             matSortActive="productName">
             <ng-container matColumnDef="interactionId">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"><a
-                        routerLink="/interactions/edit-interactions/{{row?.id}}">{{row?.interactionId}}</a> </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.interactionId}} </td>
             </ng-container>
             <ng-container matColumnDef="ticketType">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type</th>

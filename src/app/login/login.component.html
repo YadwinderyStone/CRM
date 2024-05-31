@@ -12,13 +12,15 @@
         <div class="col-md-12 col-sm-12 col-12">
           <div class="form-group ">
             <label class="text-danger">
-              {{'EMAIL' | translate }} *
+              <!-- {{'EMAIL' | translate }} * -->
+              User Name *
             </label>
             <input formControlName="userName" class="form-control" type="text">
             <div *ngIf="loginFormGroup.get('userName').touched && loginFormGroup.get('userName').errors"
               class="k-tooltip-validation">
               <div class="text-danger" *ngIf="loginFormGroup.get('userName').errors?.required">
-                {{'EMAIL_IS_REQUIRED' | translate }}
+                <!-- {{'EMAIL_IS_REQUIRED' | translate }} -->
+                User Name is required
               </div>
               <div class="text-danger" *ngIf="loginFormGroup.get('userName').errors?.email">
                 {{'PLEASE_ENTER_VALID_EMAIL' | translate }}

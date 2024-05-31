@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BestSellingProudct } from '@core/domain-classes/bast-selling-product';
 import { Months } from '@core/domain-classes/months';
 import { TranslationService } from '@core/services/translation.service';
 import { ChartOptions, ChartDataSets } from 'chart.js';
@@ -45,8 +44,8 @@ export class DashboardStatusChartComponent implements OnInit {
   };
 
   public pieChartColors: Array < any > = [{
-    backgroundColor: ['#dc3545', '#009688 ', '#ffc107','#dc3545', '#009688 '],
-    hoverBackgroundColor: ['#dc3545', '#009688 ', '#ffc107','#dc3545', '#009688 '],
+    backgroundColor: ['#dc3545', '#009688 ', '#ffc107','#ea5545', '#009688 '],
+    hoverBackgroundColor: ['#dc3545', '#009688 ', '#ffc107','#ea5545', '#009688 '],
     // borderColor: ['#dc3545', '#009688 ', '#ffc107'],
     // hoverBorderColor: ['#dc3545', '#009688 ', '#ffc107'],
  }];
