@@ -98,5 +98,27 @@ let receivedData =  new Blob([data?.attchmntFileData],{type:data?.attchmntConten
     }
 
 
+DownloadEmailDocAPiEmail(data){
+
+  this.inventoryService.downloadDocumentForEmail(data?.id).subscribe((res:any)=>{
+    debugger
+    let emailDocumentList = res?.body || res
+    this.isLoading = false
+  })
+
+}
+DownloadEmailDocAPiChatAndGrp(data){
+
+  this.inventoryService.downloadDocumentForEmail(data?.id).subscribe((res:any)=>{
+    let emailDocumentList = res?.body || res
+    this.isLoading = false
+  })
+
+}
+
+
+
+
+
   }
   

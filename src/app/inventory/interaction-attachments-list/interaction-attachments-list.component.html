@@ -23,7 +23,7 @@
         </ng-container>
         <ng-container matColumnDef="fileName">
             <th mat-header-cell *matHeaderCellDef>File Name </th>
-            <td mat-cell *matCellDef="let element"> <span class="downloadFile" (click)="downloadFile(element)">{{element.attchmntFileName}}</span> </td>
+            <td mat-cell *matCellDef="let element"> <span class="downloadFile" (click)="DownloadEmailDocAPiChatAndGrp(element)">{{element.attchmntFileName}}</span> </td>
         </ng-container>
         <ng-container matColumnDef="fileType">
             <th mat-header-cell *matHeaderCellDef>File Type </th>
@@ -70,7 +70,7 @@
         class="table table-bordered table-hover">
         <ng-container matColumnDef="fileName">
             <th mat-header-cell *matHeaderCellDef>File Name </th>
-            <td mat-cell *matCellDef="let element"> <span class="downloadFile" (click)="downloadEmailFile(element)">{{element.attchmntFileName}}</span> </td>
+            <td mat-cell *matCellDef="let element"> <span class="downloadFile" (click)="DownloadEmailDocAPiEmail(element)">{{element.attchmntFileName}}</span> </td>
         </ng-container>
         <ng-container matColumnDef="fileType">
             <th mat-header-cell *matHeaderCellDef>File Type </th>

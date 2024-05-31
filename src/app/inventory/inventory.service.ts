@@ -224,8 +224,12 @@ export class InventoryService {
     const url = `Document/GetDocumentDetailByEmail?interactionId=${id}`;
     return this.http.get<any[]>(url);
   }
-  downloadDocument(id): Observable<Blob> {
-      const url = ` =${id}`;
+  downloadDocumentForEmail(id): Observable<Blob> {
+      const url = `Document/GetViewDocumentDataByIdEmail?id=${id}`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+  downloadDocumentForGrp(id): Observable<Blob> {
+      const url = `Document/GetViewDocumentDataById?id=${id}`;
     return this.http.get(url, { responseType: 'blob' });
   }
   // downloadDocument(id){
