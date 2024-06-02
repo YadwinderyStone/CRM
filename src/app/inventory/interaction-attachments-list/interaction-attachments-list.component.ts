@@ -117,9 +117,10 @@ export class InteractionAttachmentsListComponent implements OnChanges {
   }
   DownloadEmailDocAPiChatAndGrp(data) {
 
-    this.inventoryService.downloadDocumentForGrp(data?.attchmntId || data?.id).subscribe((res: Blob) => {
+    this.inventoryService.downloadDocumentForGrp(data?.attchmntId || data?.id).subscribe((res: any) => {
       let emailDocumentList =  res
       let receivedData = new Blob([emailDocumentList], { type: data?.attchmntContentType })
+
       const url = window.URL.createObjectURL(receivedData);
       const a = document.createElement('a');
       a.href = url;
@@ -129,6 +130,9 @@ export class InteractionAttachmentsListComponent implements OnChanges {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       this.isLoading = false
+    },error=>{
+      debugger
+      this.toastrService.error(error);
     })
 
   }

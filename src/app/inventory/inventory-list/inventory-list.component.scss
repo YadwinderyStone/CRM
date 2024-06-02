@@ -18,7 +18,7 @@ tr.example-detail-row {
 }
 
 .button-margin {
-  margin-top: 20px;
+  margin-top: 26px;
 }
 
 .interButtonIcons {
@@ -91,4 +91,9 @@ tr.example-detail-row {
   overflow: auto;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.table_height{
+  max-height: 320px;
+  overflow: auto;
 }

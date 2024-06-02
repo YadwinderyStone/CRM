@@ -31,11 +31,11 @@
     <div class="col-md-6" *hasClaim="'DB_STATUSWISEGRAPH'">
         <div class="chartDiv1 statusCount text-center">
             <p> Status Wise Count </p>
-            <canvas *ngIf="!isLoading && statusPieChartData" baseChart [data]="statusChartData" [labels]="statusChartLabels"
+            <canvas *ngIf="!isLoading && statusPieChartData.length" baseChart [data]="statusChartData" [labels]="statusChartLabels"
                 [options]="barChartOptions" [legend]="true" [colors]="pieChartColors" [borderWidth]="[10]"
                 chartType="pie">
             </canvas>
-            <div *ngIf="!isLoading && !statusPieChartData.length">
+            <div class="chart d-flex align-items-center justify-content-center" *ngIf="!isLoading && !statusPieChartData.length">
                 No data found 
             </div>
         </div>

@@ -101,9 +101,11 @@
                             [disabled]="addInventoryForm.get('ticketType')?.value == 1"
                             (selectionChange)="setStatusName($event)" [dir]="langDir" formControlName="statusId"
                             class="form-control">
-                            <mat-option *ngFor="let status of statusList" [value]="status.id">
-                                {{status.name}}
-                            </mat-option>
+                            <ng-container *ngFor="let status of statusList">
+                                <mat-option [disabled]="status.name =='Closed'" [value]="status.id">
+                                    {{status.name}}
+                                </mat-option>
+                            </ng-container>
                         </mat-select>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('statusId').touched && addInventoryForm.get('statusId').errors?.required"
@@ -294,7 +296,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <mat-label>Telsima ID</mat-label>
+                        <mat-label>Telsima Interaction ID</mat-label>
                         <input type="text" [readonly]="true" class="form-control">
                     </div>
                 </div>

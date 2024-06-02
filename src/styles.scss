@@ -56,7 +56,10 @@ body {
 .m-right-5 {
     margin-right: 5px !important;
 }
-
+.table_height{
+    max-height: 320px;
+    overflow: auto;
+  }
 .m-top-10 {
     margin-top: 10px !important;
 }

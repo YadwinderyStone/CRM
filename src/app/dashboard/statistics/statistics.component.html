@@ -4,7 +4,7 @@
             <div class="inner">
                 <!-- <h3>{{dashboardStaticatics?.totalPurchase | number}}</h3>
                 <p>{{'TOTAL' | translate }}</p> -->
-                <h3>{{dashboardStaticatics?.total}}</h3>
+                <h3>{{dashboardStaticatics?.total || '0'}}</h3>
                 <p>TOTAL</p>
             </div>
             <div class="icon">
@@ -13,11 +13,11 @@
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-pink" routerLink="/interactions">
+        <div class="small-box bg-pink" [routerLink]="'/interactions'" [queryParams]="{status:1}">
             <div class="inner">
                 <!-- <h3>{{dashboardStaticatics?.totalSales | number}}</h3>
                 <p> {{'OPEN' | translate }}</p> -->
-                <h3>{{dashboardStaticatics?.open}}</h3>
+                <h3>{{dashboardStaticatics?.open || '0'}}</h3>
                 <p> OPEN</p>
             </div>
             <div class="icon">
@@ -27,9 +27,9 @@
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-yellow"  routerLink="/interactions">
+        <div class="small-box bg-yellow" [routerLink]="'/interactions'" [queryParams]="{status:2}">
             <div class="inner">
-                <h3>{{dashboardStaticatics?.pending}}</h3>
+                <h3>{{dashboardStaticatics?.pending || '0'}}</h3>
                 <p>PENDING</p>
             </div>
             <div class="icon">
@@ -38,9 +38,9 @@
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-danger"  routerLink="/interactions">
+        <div class="small-box bg-danger" [routerLink]="'/interactions'" [queryParams]="{status:4}">
             <div class="inner">
-                <h3>{{dashboardStaticatics?.closed}}</h3>
+                <h3>{{dashboardStaticatics?.closed || '0'}}</h3>
                 <p>CLOSED</p>
             </div>
             <div class="icon">
@@ -50,9 +50,9 @@
     </div>
     <div class="col-lg-3 col-xs-6">
         <!-- <div class="small-box bg-danger"  [routerLink]="'/interactions'"> -->
-        <div class="small-box bg-danger"  [routerLink]="'/interactions'" [queryParams]="{status:3}"     > 
+        <div class="small-box bg-danger"  [routerLink]="'/interactions'" [queryParams]="{status:3}" > 
             <div class="inner">
-                <h3>{{dashboardStaticatics?.resolved}}</h3>
+                <h3>{{dashboardStaticatics?.resolved || '0'}}</h3>
                 <p>RESOLVED</p>
             </div>
             <div class="icon">
@@ -63,7 +63,7 @@
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-yellow"  routerLink="/interactions">
             <div class="inner">
-                <h3>{{dashboardStaticatics?.reopen}}</h3>
+                <h3>{{dashboardStaticatics?.reopen || '0'}}</h3>
                 <p>REOPEN</p>
             </div>
             <div class="icon">

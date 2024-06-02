@@ -9,8 +9,8 @@
       </div>
     </div>
     <div class="mat-elevation-z8">
-      <div class="table-responsive mainHeight">
-        <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover">
+      <div class="table-responsive">
+        <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover mainHeight">
           <ng-container matColumnDef="interactionid">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction ID</th>
             <td class="table-column-200" mat-cell *matCellDef="let row"><a  routerLink="/interactions/edit-interactions/{{row?.id}}">{{row.interactionId}}</a> </td>

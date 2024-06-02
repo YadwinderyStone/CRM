@@ -90,6 +90,8 @@ export class InventoryService {
     param+=`&PageSize=${params?.pageSize.toString()}`
    if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.type) param+=`&TicketType=${params?.type}`
+    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.toDate}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
@@ -228,9 +230,9 @@ export class InventoryService {
       const url = `Document/GetViewDocumentDataByIdEmail?id=${id}`;
     return this.http.get(url,{responseType:'blob'});
   }  
-  downloadDocumentForGrp(id): Observable<Blob> {
+  downloadDocumentForGrp(id) {
       const url = `Document/GetViewDocumentDataById?id=${id}`;
-    return this.http.get(url, { responseType: 'blob' });
+    return this.http.get(url,{responseType:'arraybuffer'});
   }
   // downloadDocumentForEmail(id): Observable<Blob> {
   //     const url = `Document/GetViewDocumentDataByIdEmail?id=${id}`;

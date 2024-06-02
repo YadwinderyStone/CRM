@@ -18,6 +18,7 @@ import { InteractionCategory, InteractionStatus, InteractionType } from '@core/d
 import { Queue } from '@core/domain-classes/queue.model';
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-inventory-list',
@@ -41,7 +42,9 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   categoryList: InteractionCategory[] = [];
   subCategoryList: InteractionCategory[] = [];
 
-
+  toDate:any = new Date();
+  currentDate:any = new Date();
+  fromDate: any = new Date();
   prefix: string = 'G-';
   search: string = '';
   selectedTeam: string = ''
@@ -56,7 +59,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
 
 
   dataSource: InventoryDataSource;
-  displayedColumns: string[] = ['action', 'interactionid','createdat', 'interactiontype','status', 'substatus','messages','contant', 'createdteam', 'assignto', 'reopen','category', 'subcatagory', 'gstn', 'problemreported1','docketno','telsimaID'];
+  displayedColumns: string[] = ['action', 'interactionid', 'createdat', 'interactiontype', 'status', 'substatus', 'messages', 'contant', 'createdteam', 'assignto', 'reopen', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'telsimaID'];
   // displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -85,12 +88,25 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     public toasterService: ToastrService,
     private commonDialogService: CommonDialogService,
     private datePipe: DatePipe,
-    private dialog: MatDialog) {
+    private activatedRouter: ActivatedRoute,
+    public datepipe: DatePipe
+  ) {
     super(translationService);
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
     this.inventoryResource.IsAdmin = true
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy/MM/dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy/MM/dd');
+    this.inventoryResource.toDate = toDate
+    this.inventoryResource.fromDate = fromDate
+    this.activatedRouter.queryParams.subscribe(res => {
+      if (res) {
+        let status: any = res?.status
+        this.selectedStatus = JSON.parse(status);
+        this.inventoryResource.status = this.selectedStatus
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -248,6 +264,12 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
       this.selectedSubCategory = '',
       this.selectedStatus = '',
       this.selectedSubStatus = '',
+      this.fromDate = new Date();
+      this.toDate = new Date();
+      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+      this.inventoryResource.toDate = toDate
+      this.inventoryResource.fromDate = fromDate
       // this.selectedPriority = ''
       this.setParams();
     this.dataSource.loadData(this.inventoryResource);
@@ -261,12 +283,17 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
-    this.inventoryResource.search = this.search ? this.prefix + this.search : '',
+    // this.inventoryResource.search = this.search ? this.prefix + this.search : '',
+    this.inventoryResource.search = this.search.trim(),
       this.inventoryResource.team = this.selectedTeam,
       this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
       this.inventoryResource.subStatus = this.selectedSubStatus
+      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+      this.inventoryResource.toDate = toDate
+      this.inventoryResource.fromDate = fromDate
     // this.inventoryResource.priority = this.selectedPriority
   }
 
