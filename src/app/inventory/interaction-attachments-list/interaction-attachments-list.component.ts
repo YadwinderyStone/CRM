@@ -117,7 +117,7 @@ export class InteractionAttachmentsListComponent implements OnChanges {
   }
   DownloadEmailDocAPiChatAndGrp(data) {
 
-    this.inventoryService.downloadDocumentForGrp(data?.attchmntId).subscribe((res: Blob) => {
+    this.inventoryService.downloadDocumentForGrp(data?.attchmntId || data?.id).subscribe((res: Blob) => {
       let emailDocumentList =  res
       let receivedData = new Blob([emailDocumentList], { type: data?.attchmntContentType })
       const url = window.URL.createObjectURL(receivedData);

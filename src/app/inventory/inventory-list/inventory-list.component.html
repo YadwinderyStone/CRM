@@ -27,7 +27,7 @@
                 <mat-label for="search">Interaction ID</mat-label>
                 <div class="input-container">
                     <span class="input-prefix">{{prefix}}</span>
-                    <input type="text" [(ngModel)]="search" maxlength="15" class="form-control searchPrefix" id="search">
+                    <input type="text" [(ngModel)]="search" maxlength="20" class="form-control searchPrefix" id="search">
                 </div>
             </div>
         </div>
@@ -164,7 +164,7 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
             </ng-container>
             <ng-container matColumnDef="telsimaID">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Telsima ID</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Talisma Intercation ID</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{"--"}} </td>
             </ng-container>
             <ng-container matColumnDef="messages">
@@ -207,8 +207,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemreported1">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemReported }}
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> <div class="problemDiv">{{row.problemReported }}</div>
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">

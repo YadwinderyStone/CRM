@@ -21,7 +21,7 @@ tr.example-detail-row {
   margin-top: 20px;
 }
 
-.interButtonIcons{
+.interButtonIcons {
   color: rgba(0, 0, 0, 0.54);
   cursor: pointer;
   margin-top: 10px;
@@ -41,8 +41,9 @@ tr.example-detail-row {
 .open {
   background-color: yellow;
 }
+
 .resolved {
-  background-color:rgb(17 159 17);
+  background-color: rgb(17 159 17);
 }
 
 
@@ -73,7 +74,7 @@ tr.example-detail-row {
 //   flex: 1;
 // }
 
-.searchPrefix{
+.searchPrefix {
   border-left: none !important;
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
@@ -83,4 +84,11 @@ tr.example-detail-row {
 .form-control:focus {
   border-color: #ced4da !important;
   box-shadow: none !important;
+}
+
+.problemDiv {
+  max-height: 75px;
+  overflow: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
