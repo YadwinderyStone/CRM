@@ -10,7 +10,7 @@
 
 <div>
     <table [dir]="langDir" mat-table [dataSource]="createdByNameInteractionsList" multiTemplateDataRows
-        class="table table-bordered table-hover grid-height w-100">
+        class="table table-bordered table-hover table_height w-100">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Created By</th>
             <td mat-cell *matCellDef="let element"> {{element.createdByName}} </td>

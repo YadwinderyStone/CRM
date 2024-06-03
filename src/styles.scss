@@ -60,6 +60,10 @@ body {
     max-height: 320px;
     overflow: auto;
   }
+  .table_height_reports{
+    max-height: 400px;
+    overflow: auto;
+}
 .m-top-10 {
     margin-top: 10px !important;
 }
@@ -182,7 +186,9 @@ th.mat-header-cell {
 .full-width {
     width: 100% !important;
 }
-
+.button-marginReports {
+    margin-top: 28px;
+  }
 .table {
     border: 1px solid #dcddea;
     border-radius: 4px;

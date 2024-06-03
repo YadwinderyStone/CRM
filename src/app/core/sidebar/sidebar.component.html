@@ -298,12 +298,75 @@
               </p>
             </a>
           </li>
+          <li *hasClaim="'REP_INTERCATION_185_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/185-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                185 Reports
+              </p>
+            </a>
+          </li>
           <li *hasClaim="'REP_INTERCATION_187_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/187-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>
                 187 Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_OPEN_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/open-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Open Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_CLOSED_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/closed-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Closed Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_PENDING_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/pending-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+              Pending Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_REOPEN_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/reopen-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Reopen Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_RESOLVED_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/resolved-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Resolved Reports
+              </p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_L2L3_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/L2-L3-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                L2 L3 Reports
               </p>
             </a>
           </li>

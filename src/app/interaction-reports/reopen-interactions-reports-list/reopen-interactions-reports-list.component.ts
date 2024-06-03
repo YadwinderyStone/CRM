@@ -1,5 +1,5 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common'
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Inventory } from '@core/domain-classes/inventory';
@@ -13,25 +13,17 @@ import { InteractionReportsService } from '../interaction-reports.service';
 import { InteractionDataSource } from '../interaction-report-list/interaction-reports-datasource';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
-
 @Component({
-  selector: 'app-reports187',
-  templateUrl: './reports187.component.html',
-  styleUrls: ['./reports187.component.scss']
+  selector: 'app-reopen-interactions-reports-list',
+  templateUrl: './reopen-interactions-reports-list.component.html',
+  styleUrls: ['./reopen-interactions-reports-list.component.scss']
 })
-export class Reports187Component extends BaseComponent implements OnInit {
-
+export class ReopenInteractionsReportsListComponent extends BaseComponent implements OnInit {
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
-  // displayedColumns: string[] =['interactionId','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
-  // 'interactionSubState','disposition','subDisposition','gstn','subject','problemReported','agentRemarks',
-  //   'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-  //    'interactionThreadLastUpdated', 'lastResolvedAt','currentStatus',
-  //  'noOfMessages', 'priorityName',  'reopenFlag', 'ticketAssignedTime',
-  //   'uniqueNumber']
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
@@ -54,7 +46,6 @@ export class Reports187Component extends BaseComponent implements OnInit {
 
   constructor(
     private interactionReportsService: InteractionReportsService,
-    private cd: ChangeDetectorRef,
     public translationService: TranslationService,
     public toasterService: ToastrService,
     public datepipe: DatePipe
@@ -63,7 +54,6 @@ export class Reports187Component extends BaseComponent implements OnInit {
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    // this.inventoryResource.IsAdmin = true
     let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.fromDate = toDate
@@ -73,7 +63,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new InteractionDataSource(this.interactionReportsService);
-    this.dataSource.load187Data(this.inventoryResource);
+    this.dataSource.loadReopenData(this.inventoryResource);
     this.getResourceParameter();
     this.sub$.sink = this.filterObservable$
       .pipe(
@@ -87,7 +77,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
         if (strArray[0] === 'productName') {
           this.inventoryResource.productName = escape(strArray[1]);
         }
-        this.dataSource.load187Data(this.inventoryResource);
+        this.dataSource.loadReopenData(this.inventoryResource);
       });
   }
 
@@ -99,7 +89,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
           this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
           this.inventoryResource.pageSize = this.paginator.pageSize;
           this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
-          this.dataSource.load187Data(this.inventoryResource);
+          this.dataSource.loadReopenData(this.inventoryResource);
         })
       )
       .subscribe();
@@ -125,11 +115,11 @@ export class Reports187Component extends BaseComponent implements OnInit {
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.fromDate = toDate
     this.inventoryResource.toDate = fromDate
-    this.dataSource.load187Data(this.inventoryResource);
+    this.dataSource.loadReopenData(this.inventoryResource);
   }
   searchList() {
     this.setParams();
-    this.dataSource.load187Data(this.inventoryResource);
+    this.dataSource.loadReopenData(this.inventoryResource);
   }
 
   setParams() {
@@ -143,10 +133,10 @@ export class Reports187Component extends BaseComponent implements OnInit {
   }
 
 
-  dowanloadList(){
+  dowanloadList() {
     this.setParams();
-    this.interactionReportsService.get187InteractionsReportsList(this.inventoryResource).subscribe((res:any)=>{
-      let InteractionRecods:any = res?.body;
+    this.interactionReportsService.getReopenInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
+      let InteractionRecods: any = res?.body;
       let heading = [[
         this.translationService.getValue('Interaction Id'),
         this.translationService.getValue('Interaction Type'),
@@ -165,40 +155,38 @@ export class Reports187Component extends BaseComponent implements OnInit {
         this.translationService.getValue('Created At'),
         this.translationService.getValue('Agent Remarks'),
       ]];
-  
+
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
-          'Interaction Id':data?.interactionId,
-          'Interaction Type':data?.ticketType,
-          'Status':data?.interactionState,
-          'Sub Status':data?.interactionSubState,
-          'Category':data?.disposition,
-          'Sub Category':data?.subDisposition,
-          'Subject':data?.subject,
-          'Contact Name':data?.contactName,
-          'Email ':data?.emailId,
-          'Team':data?.teamName,
-          'GSTN':data?.gstn,
-          'Problem Reported':data?.problemReported,
-          'Docket no':data?.docketNumber,
-          'Assign To':data?.assignToName,
+          'Interaction Id': data?.interactionId,
+          'Interaction Type': data?.ticketType,
+          'Status': data?.interactionState,
+          'Sub Status': data?.interactionSubState,
+          'Category': data?.disposition,
+          'Sub Category': data?.subDisposition,
+          'Subject': data?.subject,
+          'Contact Name': data?.contactName,
+          'Email ': data?.emailId,
+          'Team': data?.teamName,
+          'GSTN': data?.gstn,
+          'Problem Reported': data?.problemReported,
+          'Docket no': data?.docketNumber,
+          'Assign To': data?.assignToName,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
-          'Agent Remarks':data?.agentRemarks,
+          'Agent Remarks': data?.agentRemarks,
         })
       });
       let workBook = XLSX.utils.book_new();
       XLSX.utils.sheet_add_aoa(workBook, heading);
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
-      XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report List');
-      XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");  
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Reopen Interaction Report List');
+      XLSX.writeFile(workBook, 'Reopen Interaction Report List' + ".xlsx");
     })
 
   }
 
 
-
-
-
 }
+
 

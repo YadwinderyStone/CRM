@@ -59,7 +59,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
 
 
   dataSource: InventoryDataSource;
-  displayedColumns: string[] = ['action', 'interactionid', 'createdat', 'interactiontype', 'status', 'substatus', 'messages', 'contant', 'createdteam', 'assignto', 'reopen', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'telsimaID'];
+  displayedColumns: string[] = ['action', 'interactionid', 'createdat', 'interactiontype', 'status', 'substatus', 'messages', 'contant', 'createdteam', 'assignto', 'reopen', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno'];
   // displayedColumns: string[] = ['action', 'interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -101,7 +101,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     this.inventoryResource.toDate = toDate
     this.inventoryResource.fromDate = fromDate
     this.activatedRouter.queryParams.subscribe(res => {
-      if (res) {
+      if (res?.status) {
         let status: any = res?.status
         this.selectedStatus = JSON.parse(status);
         this.inventoryResource.status = this.selectedStatus

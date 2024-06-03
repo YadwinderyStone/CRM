@@ -24,13 +24,27 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime-ex'
 import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 import { DumpRepoertComponent } from './dump-repoert/dump-repoert.component';
 import { Reports187Component } from './reports187/reports187.component';
+import { OpenInteractionsReportComponent } from './open-interactions-report/open-interactions-report.component';
+import { PendingInteractionsReportsListComponent } from './pending-interactions-reports-list/pending-interactions-reports-list.component';
+import { ClosedInteractionsReportsListComponent } from './closed-interactions-reports-list/closed-interactions-reports-list.component';
+import { ResolvedInteractionsReportsListComponent } from './resolved-interactions-reports-list/resolved-interactions-reports-list.component';
+import { ReopenInteractionsReportsListComponent } from './reopen-interactions-reports-list/reopen-interactions-reports-list.component';
+import { L2L3InteractionsReportsListComponent } from './l2-l3-interactions-reports-list/l2-l3-interactions-reports-list.component';
+import { Reports185ListComponent } from './reports185-list/reports185-list.component';
 
 
 @NgModule({
   declarations: [
     InteractionReportListComponent,
     DumpRepoertComponent,
-    Reports187Component
+    Reports187Component,
+    OpenInteractionsReportComponent,
+    PendingInteractionsReportsListComponent,
+    ClosedInteractionsReportsListComponent,
+    ResolvedInteractionsReportsListComponent,
+    ReopenInteractionsReportsListComponent,
+    L2L3InteractionsReportsListComponent,
+    Reports185ListComponent
   ],
   imports: [
     CommonModule,

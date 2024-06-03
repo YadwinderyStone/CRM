@@ -74,11 +74,163 @@ export class InteractionDataSource implements DataSource<Inventory> {
         this._entities$.next(entities);
       });
   }
-
-
+  
   load187Data(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
     this.sub$ = this.inventoryService.get187InteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  load185Data(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.get185InteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadClosedData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    // need to change api for closed
+    this.sub$ = this.inventoryService.getClosedInteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadReopenData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    // need to change api for reopen
+    this.sub$ = this.inventoryService.getReopenInteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadOpenData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    // need to change api for open
+    this.sub$ = this.inventoryService.getOpenInteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadResolvedData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    // need to change api for resolved
+    this.sub$ = this.inventoryService.getResolvedInteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadPendingData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    // need to change api for pending
+    this.sub$ = this.inventoryService.getPendingInteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadL2L3Data(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    // need to change api for pending
+    this.sub$ = this.inventoryService.getL2L3InteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
