@@ -9,7 +9,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./email-outbox.component.scss']
 })
 export class EmailOutboxComponent extends BaseComponent implements OnInit {
-  outboxList: any[] = []
+  outboxList: any[] = [];
+  totalCount: any = 0;
+  PageSize: any = 10;
+  pageNo: any = 1;
+  isLoading:boolean = false
   constructor(
     private emailOutBoxService: EmailOutboxService,
     public toasterService: ToastrService,
@@ -21,15 +25,23 @@ export class EmailOutboxComponent extends BaseComponent implements OnInit {
     this.getEmailOutboxList();
   }
   getEmailOutboxList() {
+    this.isLoading = true
     let data = {
-      pageSize: 10,
-      skip: 0
+      pageSize: this.PageSize,
+      PageNumber: this.pageNo
     }
     this.emailOutBoxService.getOutboxEmailList(data).subscribe((res: any) => {
       this.outboxList = res?.body || res
+      this.totalCount = this.outboxList[0]?.totalRecords || 0
+      this.isLoading = false
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error);
     })
   }
-
+  onPageChange(event) {
+    this.PageSize = event?.pageSize;
+    this.pageNo = event?.pageIndex + 1
+    this.getEmailOutboxList();
+  }
 }

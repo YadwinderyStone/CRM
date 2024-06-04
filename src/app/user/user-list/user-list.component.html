@@ -27,7 +27,7 @@
             </button>
         </div>
     </div>
-    <table mat-table [dir]="langDir" class="table table-bordered table-hover table-striped" [dataSource]="dataSource"
+    <table mat-table [dir]="langDir" class="table table-bordered table-hover table_height_user table-striped" [dataSource]="dataSource"
         matSort matSortActive="email">
         <ng-container matColumnDef="action">
             <th class="table-column-100" mat-header-cell *matHeaderCellDef>
@@ -120,8 +120,8 @@
                 </span>
             </td>
         </tr>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <tr mat-footer-row *matFooterRowDef="footerToDisplayed"></tr>
+        <tr mat-footer-row *matFooterRowDef="footerToDisplayed; sticky:true"></tr>
     </table>
 </div>

@@ -1,0 +1,16 @@
+<div class="text-center my-3 p-3">
+    <h2>Self Assign</h2>
+    <p>Do some want to self assign interaction?</p>
+</div>
+<div class="my-3">
+    <div class="text-center">
+        <button class="btn btn-success btn-md m-right-10"
+            (click)="selfAssign()"><i class="fas fa-save"></i>
+            Confirm
+        </button>
+        <button class="btn btn-danger btn-md" (click)="dialogRef.close()">
+            <i class="fas fa-times-circle"></i>
+            {{"CANCEL" | translate}}
+        </button>
+    </div>
+</div>

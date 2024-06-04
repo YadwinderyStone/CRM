@@ -1,27 +1,29 @@
 <form [formGroup]="addInventoryForm">
     <div class="example-action-buttons justify-content-between">
-        <div class="ml-2" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2 ">
-            <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
-                class="btn btn-success btn-md">
-                <i class="fas fa-envelope"></i>
-                Reply</button>
-            <button type="button" *hasClaim="'INT_UPDATE_INTERACTION_TEAM'" (click)="openTransfer()"
-                class="btn btn-warning btn-md mx-3">
-                <i class="fas fa-paper-plane"></i>
-                Transfer</button>
+        <div class="ml-2" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2">
+            <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id">
+                <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
+                    class="btn btn-success btn-md">
+                    <i class="fas fa-envelope"></i>
+                    Reply</button>
+                <button type="button" *hasClaim="'INT_UPDATE_INTERACTION_TEAM'" (click)="openTransfer()"
+                    class="btn btn-warning btn-md mx-3">
+                    <i class="fas fa-paper-plane"></i>
+                    Transfer</button>
+            </div>
         </div>
         <div class="" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2">
-
-            <button type="button" *hasClaim="'INT_UPDATE_INTERACTION'"  (click)="onSubmit()" class="btn btn-success btn-md m-right-10"><i
-                    class="fas fa-save"></i>
-                {{"SAVE" | translate}}</button>
-            <button type="button" class="btn btn-danger btn-md" [routerLink]="['/interactions']"><i
-                    class="fas fa-times-circle"></i>
-                {{"CANCEL" | translate}}
-            </button>
-
-            <button mat-button (click)="accordion.openAll()">Expand All</button>
-            <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+            <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id">
+                <button type="button" *hasClaim="'INT_UPDATE_INTERACTION'" (click)="onSubmit()"
+                    class="btn btn-success btn-md m-right-10"><i class="fas fa-save"></i>
+                    {{"SAVE" | translate}}</button>
+                <button type="button" class="btn btn-danger btn-md" [routerLink]="['/interactions']"><i
+                        class="fas fa-times-circle"></i>
+                    {{"Back" | translate}}
+                </button>
+                <button mat-button (click)="accordion.openAll()">Expand All</button>
+                <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+            </div>
         </div>
 
     </div>
@@ -97,8 +99,7 @@
                     <div class="form-group">
                         <!-- <mat-label> {{'TICKET_TYPE' | translate}}</mat-label> -->
                         <mat-label> Interaction Status</mat-label>
-                        <mat-select
-                            [disabled]="addInventoryForm.get('ticketType')?.value == 1"
+                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1"
                             (selectionChange)="setStatusName($event)" [dir]="langDir" formControlName="statusId"
                             class="form-control">
                             <ng-container *ngFor="let status of statusList">
@@ -117,26 +118,34 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Interaction Sub Status</mat-label>
-                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1" (selectionChange)="subStatusChange($event)" [dir]="langDir"
-                            formControlName="subStatusId" class="form-control">
-                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==2">
-                               <mat-option *ngFor="let data of subStatusList" [disabled]="addInventoryForm.get('statusId')?.value==2 && data?.name !='ACI'" [value]="data.id">
-                                   {{data.name}}
+                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1"
+                            (selectionChange)="subStatusChange($event)" [dir]="langDir" formControlName="subStatusId"
+                            class="form-control">
+                            <ng-container *ngIf="addInventoryForm.get('statusId')?.value==2">
+                                <mat-option *ngFor="let data of subStatusList"
+                                    [disabled]="addInventoryForm.get('statusId')?.value==2 && data?.name !='ACI'"
+                                    [value]="data.id">
+                                    {{data.name}}
                                 </mat-option>
                             </ng-container>
-                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==3">
-                               <mat-option *ngFor="let data of subStatusList" [disabled]="addInventoryForm.get('statusId')?.value==3 && data?.name !='Resolved'" [value]="data.id">
-                                   {{data.name}}
+                            <ng-container *ngIf="addInventoryForm.get('statusId')?.value==3">
+                                <mat-option *ngFor="let data of subStatusList"
+                                    [disabled]="addInventoryForm.get('statusId')?.value==3 && data?.name !='Resolved'"
+                                    [value]="data.id">
+                                    {{data.name}}
                                 </mat-option>
                             </ng-container>
-                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==4">
-                               <mat-option *ngFor="let data of subStatusList" [disabled]="data?.name !='ACI'" [value]="data.id">
-                                   {{data.name}}
+                            <ng-container *ngIf="addInventoryForm.get('statusId')?.value==4">
+                                <mat-option *ngFor="let data of subStatusList" [disabled]="data?.name !='ACI'"
+                                    [value]="data.id">
+                                    {{data.name}}
                                 </mat-option>
                             </ng-container>
-                           <ng-container *ngIf="addInventoryForm.get('statusId')?.value==1">
-                               <mat-option *ngFor="let data of subStatusList" [disabled]="data?.name =='Response Received From Email'|| data?.name =='ReOpen'|| data?.name =='Response Received From GRP'" [value]="data.id">
-                                   {{data.name}}
+                            <ng-container *ngIf="addInventoryForm.get('statusId')?.value==1">
+                                <mat-option *ngFor="let data of subStatusList"
+                                    [disabled]="data?.name =='Response Received From Email'|| data?.name =='ReOpen'|| data?.name =='Response Received From GRP'"
+                                    [value]="data.id">
+                                    {{data.name}}
                                 </mat-option>
                             </ng-container>
                         </mat-select>
@@ -165,14 +174,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Category</mat-label>
-                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1" (selectionChange)="onCatChange($event)" [dir]="langDir" formControlName="categoryId"
+                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1"
+                            (selectionChange)="onCatChange($event)" [dir]="langDir" formControlName="categoryId"
                             class="form-control">
                             <ng-container>
                                 <input type="text" class="form-control sticky-input" formControlName="catInput"
                                     placeholder="Search Category" autocomplete="off" />
-                            <mat-option *ngFor="let subCat of categoryList | searchFilter : 'name':addInventoryForm.value.catInput" [value]="subCat.id">
-                                {{subCat.name}}
-                            </mat-option>
+                                <mat-option
+                                    *ngFor="let subCat of categoryList | searchFilter : 'name':addInventoryForm.value.catInput"
+                                    [value]="subCat.id">
+                                    {{subCat.name}}
+                                </mat-option>
                             </ng-container>
                         </mat-select>
                         <mat-error [dir]="langDir"
@@ -186,15 +198,18 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Sub Category</mat-label>
-                        
-                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1" formControlName="subcategoryId" class="form-control">
+
+                        <mat-select [disabled]="addInventoryForm.get('ticketType')?.value == 1"
+                            formControlName="subcategoryId" class="form-control">
                             <ng-container>
                                 <input type="text" class="form-control sticky-input" formControlName="subCatInput"
                                     placeholder="Search Sub Category" autocomplete="off" />
-                            <mat-option *ngFor="let subCat of subCategoryList | searchFilter : 'name':addInventoryForm.value.subCatInput" [value]="subCat.id">
-                                {{subCat.name}}
-                            </mat-option>
-                        </ng-container>
+                                <mat-option
+                                    *ngFor="let subCat of subCategoryList | searchFilter : 'name':addInventoryForm.value.subCatInput"
+                                    [value]="subCat.id">
+                                    {{subCat.name}}
+                                </mat-option>
+                            </ng-container>
                         </mat-select>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('subcategoryId').touched && addInventoryForm.get('subcategoryId').errors?.required"
@@ -357,9 +372,7 @@
                 <div class="col-md-10">
                     <div class="form-group">
                         <mat-label>Comments </mat-label>
-                        <textarea
-                            [readonly]="true"
-                            type="text" maxlength="2000" class="form-control" id="docketNumber"
+                        <textarea [readonly]="true" type="text" maxlength="2000" class="form-control" id="docketNumber"
                             formControlName="currentStatus"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('currentStatus').touched && addInventoryForm.get('currentStatus').errors?.required"
@@ -380,8 +393,8 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Resolution Comments </mat-label>
-                        <textarea maxlength="2000" [readonly]="true"
-                            formControlName="resolutionComments" class="form-control"></textarea>
+                        <textarea maxlength="2000" [readonly]="true" formControlName="resolutionComments"
+                            class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
                             class="text-danger">
@@ -446,25 +459,27 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Return Period:</mat-label>
-                        <input type="text" formControlName="refundPeriod" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="refundPeriod" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Last successful return :</mat-label>
-                        <input type="text" formControlName="lastSuccessfulReturn" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="lastSuccessfulReturn" class="form-control"
+                            id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Form Name:</mat-label>
-                        <input type="text" formControlName="formName" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="formName" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Registration Type :</mat-label>
-                        <input type="text" formControlName="registrationType" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="registrationType" class="form-control"
+                            id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -495,13 +510,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>State Id :</mat-label>
-                        <input type="text" formControlName="stateID" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="stateID" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Refund Period :</mat-label>
-                        <input type="text" formControlName="refundPeriod" class="form-control" id="">
+                        <input type="text" [readonly]="true" formControlName="refundPeriod" class="form-control" id="">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -525,10 +540,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Problem Id:</mat-label>
-                        <mat-select formControlName="problemId" class="form-control">
-                            <mat-option *ngFor="let data of problemList" [value]="data.id">
-                                {{data.problemName}}
-                            </mat-option>
+                        <mat-select (selectionChange)="addInventoryForm.get('problemSearch')?.setValue('')"
+                            formControlName="problemID" class="form-control">
+                            <ng-container>
+                                <input type="text" class="form-control sticky-input" formControlName="problemSearch"
+                                    placeholder="Search" autocomplete="off" />
+                                <mat-option
+                                    *ngFor="let data of problemList | searchFilter : 'problemName':addInventoryForm.value.problemSearch"
+                                    [value]="data.problemId">
+                                    {{data.problemName}}
+                                </mat-option>
+                            </ng-container>
                         </mat-select>
                     </div>
                 </div>

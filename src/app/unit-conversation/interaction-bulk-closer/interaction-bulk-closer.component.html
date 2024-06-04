@@ -27,11 +27,13 @@
                     <button (click)="previewUploadedFile()" class="btn blue-btn btn-sm m-right-10"> Preview</button>
                     <a href="../../../assets/Bulk Upload Template.xlsx" download> <button
                             class="btn btn-warning btn-sm m-right-10"> Download Template</button></a>
-                    <a href="../../../assets/ProblemId Template.xlsx" download> <button
-                            class="btn btn-warning btn-sm m-right-10"> Problem Id Download</button></a>
-                    <a href="../../../assets/Users Report Template.xlsx" download><button
-                            class="btn btn-warning btn-sm m-right-10"> User LIst Download</button></a>
-                </div>
+                    <!-- <a href="../../../assets/ProblemId Template.xlsx" download>
+                    </a> -->
+                    <button type="button" (click)="downloadProblemId()" class="btn btn-warning btn-sm m-right-10"> Problem Id Download</button>
+                    <button type="button" (click)="downloadUserList()" class="btn btn-warning btn-sm m-right-10"> User List Download</button>
+                    </div>
+                    <!-- <a href="../../../assets/Users Report Template.xlsx" download><button
+                            class="btn btn-warning btn-sm m-right-10"> User LIst Download</button></a> -->
             </div>
             <div class="page-header-main w-100 mt-3">
                 <div class="row align-items-center justify-content-between">

@@ -16,6 +16,7 @@ import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.compo
 import { TransferTeamComponent } from './transfer-team/transfer-team.component';
 import { Router } from '@angular/router';
 import { InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
+import { SelfAssignDialogComponent } from '../self-assign-dialog/self-assign-dialog.component';
 @Component({
   selector: 'app-inventory-properties',
   templateUrl: './inventory-properties.component.html',
@@ -27,6 +28,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   @Output() userId = new EventEmitter<string>();
   @Output() interactionDetail = new EventEmitter<string>();
   isLoading: boolean = false
+  loginUserDetail:any;
+
   addInventoryForm: UntypedFormGroup;
   teamList: any = [];
   teamMemberList: any = [];
@@ -50,7 +53,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     private inventoryService: InventoryService,
     private toastrService: ToastrService,
     private fb: UntypedFormBuilder,
-    private router: Router,
     public dialog: MatDialog
   ) {
     super();
@@ -64,6 +66,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.getProblemList();
     this.getSourceList();
     this.currentDate = new Date();
+    this.loginUserDetail = JSON.parse(localStorage.getItem('authObj'));
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.id) {
@@ -72,13 +76,13 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   }
   ngOnInit(): void {
   }
-getSourceList(){
-  this.inventoryService.getSourceList().subscribe(res => {
-    this.sourceList = res;
-  }, error => {
-    this.toastrService.error(error);
-  })
-}
+  getSourceList() {
+    this.inventoryService.getSourceList().subscribe(res => {
+      this.sourceList = res;
+    }, error => {
+      this.toastrService.error(error);
+    })
+  }
   createForm() {
     this.addInventoryForm = this.fb.group({
       ticketType: ['', Validators.required],
@@ -94,7 +98,8 @@ getSourceList(){
       subcategoryId: [],
       subject: [''],
       problemReported: ['', Validators.required],
-      problemId: [''],
+      problemID: [''],
+      problemSearch: [''],
       resolutionComments: [''],
       teamId: [],
       noOfMessages: [],
@@ -304,11 +309,14 @@ getSourceList(){
       registrationForm: data?.registrationForm,
       returnForm: data?.returnForm,
       returnType: data?.returnType,
-      subject: this.resValue?.subject
+      subject: this.resValue?.subject,
+      problemID: data?.problemID
     }
     // data.contactId = this.interactionData?.contactId
     // data.contactName = this.interactionData?.contactName
     // data.transactionNumber = this.resValue?.transactionNumber
+    // let valueData = value;
+    // valueData.problemReported = ''
     if (this.checkChanges()) {
       this.createTransferHistory(value);
     }
@@ -350,7 +358,11 @@ getSourceList(){
 
   checkChanges(): boolean {
     let data: boolean = false;
-    if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId || this.resValue?.statusId != this.addInventoryForm.value?.statusId) {
+    if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId ||
+      this.resValue?.statusId != this.addInventoryForm.value?.statusId || this.resValue
+        ?.agentRemarks != this.addInventoryForm.value?.agentRemarks ||
+      this.resValue?.problemID != this.addInventoryForm.value?.problemID
+    ) {
       data = true;
     }
     return data
@@ -365,9 +377,7 @@ getSourceList(){
     if (this.resValue?.statusId != updatedData?.statusId) message += `Status Name : ${updatedData?.statusName}`;
     if (this.resValue?.subStatusId != updatedData?.subStatusId) message += `Sub Status name : ${updatedData?.subStatusName}`;
     if (this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
-    if (this.resValue?.problemReported != updatedData?.problemReported) message += `Problem Reported : ${updatedData?.problemReported}`;
-    if (this.resValue?.teamName != updatedData?.teamName) message += `Team Name : ${updatedData?.teamName}`;
-    if (this.resValue?.priorityName != updatedData?.priorityName) message += `Priority Name : ${updatedData?.priorityName}`;
+    if (this.resValue?.problemID != updatedData?.problemID) message += `problem Id : ${updatedData?.problemID}`;
     let data = {
       id: this.id,
       action: InteractionsActionEnums?.UpdateHistory,
@@ -386,7 +396,19 @@ getSourceList(){
   }
 
 
-
+  openSelfAssign(data) {
+    this.dialog.open(SelfAssignDialogComponent, {
+      disableClose: false,
+      width: '500px',
+      maxHeight: '500px',
+      height: 'auto',
+      data: data
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.getInteractionDetailById(this.id)
+      }
+    })
+  }
 
 
 
@@ -395,6 +417,13 @@ getSourceList(){
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
       this.resValue = { ...res };
+      if (this.resValue?.assignToId !== this.loginUserDetail?.id) {
+        let dialogData = {
+          interactionData: this.resValue,
+          userDetail: this.loginUserDetail
+        }
+        this.openSelfAssign(dialogData);
+      }
       this.getTeamMemberList(res?.teamId);
       this.userId.emit(res?.contactId);
       this.interactionDetail.emit(res);

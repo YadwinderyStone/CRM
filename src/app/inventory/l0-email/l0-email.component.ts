@@ -36,7 +36,7 @@ export class L0EmailComponent extends BaseComponent implements OnInit  {
     // selectedSubStatus: string = ''
     // catInput:string = '';
     // subCatInput:string = ''
-  
+    tempData = [{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},{name:'1'},]
 
     interactionIds = [];
     selectedTeamsIds = [];

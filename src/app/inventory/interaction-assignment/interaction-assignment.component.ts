@@ -303,7 +303,7 @@ this.dataSource.responseHeaderSubject$.subscribe(res=>{
 
   getMembersName(id){
     let user:any =  this.userList.filter((e:any)=>e.id==id);
-    let userName = user[0].firstName +' '+ user[0].lastName +' --'+ '['+user[0]?.email+']'+ '-- '+' Max Bucket ' +'('+user[0]?.maxAssignInteraction+')';
+    let userName = user[0]?.firstName +' '+ user[0]?.lastName +' --'+ '['+user[0]?.email+']'+ '-- '+' Max Bucket ' +'('+user[0]?.maxAssignInteraction+')';
     return userName
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InteractionCategoryService } from '@core/services/interactionCategory.service';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-bulk-closer-history',
   templateUrl: './bulk-closer-history.component.html',
@@ -9,15 +8,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class BulkCloserHistoryComponent implements OnInit {
   bulkCloserHistoryList: any = [];
-  isLoading:boolean = false
+  isLoading: boolean = false
   columnsToDisplay = ['name', 'subStatus', 'fileName', 'createdBy', 'createdDate', 'totalRecords', 'updateRecords', 'comment', 'WithCategoryAndSubCategory', 'withProblemId'];
   constructor(
     private interactionCategoryService: InteractionCategoryService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    this. getInteractionBulkHistory();
+    this.getInteractionBulkHistory();
   }
   getInteractionBulkHistory() {
     this.isLoading = true;
@@ -29,4 +28,6 @@ export class BulkCloserHistoryComponent implements OnInit {
       this.toastrService.error(error);
     })
   }
+
 }
+

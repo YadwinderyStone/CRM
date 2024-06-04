@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '@shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     EmailOutboxRoutingModule,
     SharedModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     MatIconModule,
     MatCardModule,
     AngularEditorModule,

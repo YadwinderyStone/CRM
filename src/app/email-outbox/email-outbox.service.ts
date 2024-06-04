@@ -12,10 +12,10 @@ export class EmailOutboxService {
   getOutboxEmailList(emailParams): Observable<HttpResponse<any[]>> {
     const url = 'Email/GetOutboxEmailRecords'
     const customParams = new HttpParams()
-      .set('PageSize', emailParams.pageSize.toString())
-      .set('Skip', emailParams.skip.toString())
+    .set('PageSize', emailParams.pageSize.toString())
+    .set('PageNumber', emailParams.PageNumber.toString())
     return this.http.get<any[]>(url, {
-      // params: customParams,
+      params: customParams,
       observe: 'response',
     });
 

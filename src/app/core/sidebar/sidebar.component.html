@@ -72,13 +72,6 @@
             <p>Team list</p>
           </a>
         </li>
-        <!-- <li *hasClaim="'INT_VIEW_INTERACTION'" class="nav-item">
-          <a [routerLink]="['/interactions/add-interactions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-            class="nav-link">
-            <i class="fas fa-plus-square nav-icon"></i>
-            <p>{{'ADD_NEW' | translate}}</p>
-          </a>
-        </li> -->
         <li *hasClaim="'INT_VIEW_EMAILL0'" class="nav-item">
           <a [routerLink]="['/interactions/l0-email']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
             class="nav-link">
@@ -93,6 +86,14 @@
             <p>Manual Assignment</p>
           </a>
         </li> 
+        <li class="nav-item" *hasClaim="['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY']">
+          <a [routerLink]="['/interaction/interaction-bulk-closer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="nav-link">
+            <!-- <i class="far fa-list-alt nav-icon"></i> -->
+            <i class="fa fa-upload nav-icon"></i>
+            <p>Interaction Bulk Closer</p>
+          </a>
+        </li>
       </ul>
 
         <li id="UsersHeading" aria-expanded="true" aria-controls="collapseOne"
@@ -298,7 +299,7 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_185_REPORT'" class="nav-item">
+          <!-- <li *hasClaim="'REP_INTERCATION_185_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/185-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
@@ -306,7 +307,7 @@
                 185 Reports
               </p>
             </a>
-          </li>
+          </li> -->
           <li *hasClaim="'REP_INTERCATION_187_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/187-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
@@ -425,14 +426,13 @@
               <p>Escalation Matrix</p>
             </a>
           </li>
-          <li class="nav-item" *hasClaim="['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY']">
+          <!-- <li class="nav-item" *hasClaim="['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY']">
             <a [routerLink]="['/interaction/interaction-bulk-closer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
-              <!-- <i class="far fa-list-alt nav-icon"></i> -->
               <i class="fa fa-upload nav-icon"></i>
               <p>Interaction Bulk Closer</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item" *hasClaim="['MST_ADD_LOOKUP','MST_UPDATE_LOOKUP','MST_VIEW_LOOKUP']">
             <a [routerLink]="['/lookup']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">

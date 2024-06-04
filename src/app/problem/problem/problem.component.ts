@@ -45,6 +45,8 @@ export class ProblemComponent extends BaseComponent implements OnInit {
   getProblemList(): void {
     this.problemService.getProblemList().subscribe(res => {
       this.problemList = res;
+    },error=>{
+      
     })
   }
 

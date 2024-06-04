@@ -8,7 +8,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./email-inbox.component.scss']
 })
 export class EmailInboxComponent implements OnInit {
-  inboxList: any[] = []
+  inboxList: any[] = [];
+  totalCount: any = 0;
+  PageSize: any = 10;
+  pageNo: any = 1;
+  isLoading:boolean = false
   constructor(
     private emailInboxService: EmailInboxService,
     public toasterService: ToastrService,
@@ -18,22 +22,30 @@ export class EmailInboxComponent implements OnInit {
     this.getEmailList();
   }
   getEmailList() {
+    this.isLoading = true
     let data = {
-      pageSize: 10,
-      skip: 0
+      pageSize: this.PageSize,
+      PageNumber: this.pageNo
     }
     this.emailInboxService.getInboxEmailList(data).subscribe((res: any) => {
       this.inboxList = res?.body;
-    },error=>{
+      this.totalCount = this.inboxList[0]?.totalRecords || 0
+      this.isLoading = false
+    }, error => {
+      this.isLoading = false
       this.toasterService.error(error);
     })
   }
-
-  deleteMail(data){
+  onPageChange(event) {
+    this.PageSize = event?.pageSize;
+    this.pageNo = event?.pageIndex + 1
+    this.getEmailList();
+  }
+  deleteMail(data) {
 
   }
 
-  checkEnable(event){
+  checkEnable(event) {
 
 
   }

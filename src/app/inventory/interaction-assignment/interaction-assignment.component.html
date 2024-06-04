@@ -151,8 +151,8 @@
     </div>
 </div>
 <div class="table-responsive">
-    <div class="table table-bordered table-hover grid-height">
-        <table [dir]="langDir" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+    <div class="table table-bordered table-hover ">
+        <table [dir]="langDir" class="table_height" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
             <ng-container matColumnDef="action">
                 <!-- <th class="table-column-100" mat-header-cell *matHeaderCellDef="let data">
                     <mat-checkbox color="primary" name="enabled"  (change)="onSelectAll($event,dataSource)">Selcet All</mat-checkbox>

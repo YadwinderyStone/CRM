@@ -117,8 +117,8 @@
     </div>
 </div>
 <div class="table-responsive">
-    <div class="table table-bordered table-hover grid-height">
-        <table  [dir]="langDir" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows matSortActive="productName">
+    <div class="table table-bordered table-hover">
+        <table  [dir]="langDir" mat-table class="l0EmailTable" [dataSource]="dataSource" matSort multiTemplateDataRows matSortActive="productName">
             <ng-container matColumnDef="action">
                 <th class="table-column-100" mat-header-cell *matHeaderCellDef> Action
                 </th>

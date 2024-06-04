@@ -38,13 +38,15 @@ body {
     padding: 9px 0;
 }
 
-.hr-bottom{
+.hr-bottom {
     border-bottom: 1px solid #2095F3;
 }
+
 .mainHeight {
     max-height: 300px;
     overflow: scroll;
 }
+
 .m-left-0 {
     margin-left: 0px !important;
 }
@@ -56,14 +58,17 @@ body {
 .m-right-5 {
     margin-right: 5px !important;
 }
-.table_height{
+
+.table_height {
     max-height: 320px;
     overflow: auto;
-  }
-  .table_height_reports{
+}
+
+.table_height_reports {
     max-height: 400px;
     overflow: auto;
 }
+
 .m-top-10 {
     margin-top: 10px !important;
 }
@@ -186,9 +191,11 @@ th.mat-header-cell {
 .full-width {
     width: 100% !important;
 }
+
 .button-marginReports {
     margin-top: 28px;
-  }
+}
+
 .table {
     border: 1px solid #dcddea;
     border-radius: 4px;
@@ -526,4 +533,12 @@ textarea::placeholder,
 input::-webkit-input-placeholder {
     transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     color: rgba(0, 0, 0, 0.42) !important;
+}
+
+
+.noDataDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
 }

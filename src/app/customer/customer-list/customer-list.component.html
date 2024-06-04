@@ -13,49 +13,6 @@
         </div>
     </div>
 </div>
-<div class="page-header-main headerBackground d-none">
-    <div class="row align-items-center justify-content-between">
-        <div class="col-md-auto col-sm-auto">
-            <div class="content-header headerText">
-                <h1>CTI Information</h1>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row mt-3 d-none">
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>CLI :</label>
-            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.cli ||''">
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>Agent Id :</label>
-            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.agentId || ''">
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>Terminal:</label>
-            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.terminal || ''">
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>Call Id:</label>
-            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.callId || ''">
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>Direction:</label>
-            <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.direction ||''">
-        </div>
-    </div>
-
-    <!-- <hr class="hline"> -->
-</div>
 <div class="loading-shade" *ngIf="dataSource.loading$ | async">
     <mat-spinner></mat-spinner>
 </div>
@@ -85,7 +42,8 @@
                         Clear </button>
                     <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
                             class="fas fa-download"></i>
-                        {{'DOWNLOAD_REPORT' | translate}}
+                        <!-- {{'DOWNLOAD_REPORT' | translate}} -->
+                        Download Contact
                     </button>
                 </div>
             </div>
@@ -105,7 +63,7 @@
 </div>
 <div class="table-responsive">
     <table [dir]="langDir" mat-table [dataSource]="dataSource" *ngIf="!searchListDetail.length" matSort multiTemplateDataRows
-        matSortActive="customerName" class="table table-bordered table-hover grid-height">
+        matSortActive="customerName" class="table grid_table table-bordered table-hover">
         <ng-container matColumnDef="action">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef>Action
             </th>
@@ -209,7 +167,7 @@
         <tr mat-footer-row *matFooterRowDef="columnsToDisplay;sticky: true"></tr>
     </table>
     <table [dir]="langDir" mat-table [dataSource]="searchListDetail" *ngIf="searchListDetail.length" matSort multiTemplateDataRows
-        matSortActive="customerName" class="table table-bordered table-hover grid-height">
+        matSortActive="customerName" class="table table-bordered table_height table-hover">
         <ng-container matColumnDef="action">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef>Action
             </th>

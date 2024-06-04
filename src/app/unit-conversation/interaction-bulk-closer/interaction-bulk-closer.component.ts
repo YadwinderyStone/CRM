@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InteractionCategoryService } from '@core/services/interactionCategory.service';
 import { ToastrService } from 'ngx-toastr';
+import { ProblemService } from 'src/app/problem/problem.service';
+import { UserService } from 'src/app/user/user.service';
 import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-interaction-bulk-closer',
@@ -20,10 +22,13 @@ export class InteractionBulkCloserComponent implements OnInit {
 
   bulkCloserHistoryList: any = [];
   displayedColumns: string[] = ['interactionid', 'comments', 'Disposition', 'SubDisposition', 'ProblemID', 'ResolveByUser', 'Team'];
- 
+
   constructor(
     private interactionCategoryService: InteractionCategoryService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private userService: UserService,
+    private problemService: ProblemService,
+
   ) { }
 
   ngOnInit() {
@@ -34,7 +39,7 @@ export class InteractionBulkCloserComponent implements OnInit {
     if (!fileSelected) {
       return;
     }
-    this.previewFile=false;
+    this.previewFile = false;
     const fileExtension: string = fileSelected.name.split('.').pop()?.toLowerCase() || '';
 
     if (fileExtension === 'xls' || fileExtension === 'xlsx') {
@@ -70,7 +75,7 @@ export class InteractionBulkCloserComponent implements OnInit {
 
   uploadFile() {
     if (this.addedFile.length) {
-    this.isLoading = true
+      this.isLoading = true
       const formData = new FormData();
       this.addedFile.forEach(e => {
         formData.append('file', e, e.name);
@@ -140,4 +145,75 @@ export class InteractionBulkCloserComponent implements OnInit {
     }
   }
 
+
+  downloadUserList() {
+    this.isLoading = true
+    this.userService.getUsersForDownload().subscribe((res: any) => {
+      let usersRecods: any = res?.body;
+      let heading = [[
+        // 'First Name',
+        // 'Last Name',
+        // 'Email',
+        // 'Mobile',
+        // 'ROLE',
+        // 'IsActive',
+        'Login Name',
+        'Name',
+        'Email',
+        'Team'
+      ]];
+
+      let usersReport = [];
+      usersRecods.forEach(data => {
+        usersReport.push({
+          'Login Name': data?.tLoginName,
+          'Name': data?.fullName,
+          'Email': data?.tEmail,
+          // 'Mobile': data?.phoneNumber,
+          'Team': data?.team,
+     
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, usersReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Users Report');
+      XLSX.writeFile(workBook, 'Users Report' + ".xlsx");
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+    })
+
+  }
+  downloadProblemId() {
+    this.isLoading = true
+    this.problemService.getProblemList().subscribe(res => {
+      let problemList = res;
+  let heading = [[
+        'Problem Id',
+        'Problem Name',
+        'IsActive',
+      ]];
+
+      let problemReport = [];
+      problemList.forEach(data => {
+        problemReport.push({
+          'Problem Id': data?.problemId,
+          'Problem Name': data?.problemName,
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, problemReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Users Report');
+      XLSX.writeFile(workBook, 'Problem Report' + ".xlsx");
+      this.isLoading = false
+    },error=>{
+      this.isLoading = false
+    })
+
+
+
+
+  }
 }

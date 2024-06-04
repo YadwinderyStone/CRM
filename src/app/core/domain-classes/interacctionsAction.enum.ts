@@ -25,6 +25,6 @@ export enum InteractionsActionEnums {
     CategoryChanged=23,
     SubCategoryChanged=24,
     AddHistory =25,
-    UpdateHistory = 26
-
+    UpdateHistory = 26,
+    UserSelfAssign= 27
 }

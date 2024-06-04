@@ -16,9 +16,9 @@ getInboxEmailList(emailParams):Observable<HttpResponse<any[]>>{
   const url = 'Email/GetEmailRecords';
   const customParams = new HttpParams()
 .set('PageSize', emailParams.pageSize.toString())
-.set('Skip', emailParams.skip.toString())
+.set('PageNumber', emailParams.PageNumber.toString())
 return this.http.get<any[]>(url, {
-  // params: customParams,
+  params: customParams,
   observe: 'response',
 });
 

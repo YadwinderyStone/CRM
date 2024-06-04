@@ -7,6 +7,9 @@
         </div>
     </div>
 </div>
+<div class="loading-shade" *ngIf="isLoading" >
+    <mat-spinner></mat-spinner>
+  </div>
 <div class="row">
     <div class="col-md-12" *ngFor="let data of outboxList"  >
         <div class="d-flex emaildiv">
@@ -30,5 +33,13 @@
             </div>
 
         </div>
+    </div>
+    <div class="col-md-12 mt-3" *ngIf="outboxList?.length">
+        <mat-paginator [length]="totalCount" [pageSize]="PageSize"
+                        [pageSizeOptions]="[10,20,30]" (page)="onPageChange($event)">
+                    </mat-paginator>
+    </div>
+    <div class="noDataDiv w-100" *ngIf="!isLoading && !outboxList.length" >
+        No data found
     </div>
 </div>

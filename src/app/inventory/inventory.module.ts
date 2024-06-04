@@ -44,6 +44,7 @@ import { MyInteractionsListComponent } from './my-interactions-list/my-interacti
 import { TeamInteractionsListComponent } from './team-interactions-list/team-interactions-list.component';
 import { InteractionAttachmentsListComponent } from './interaction-attachments-list/interaction-attachments-list.component';
 import { InteractionEmailComponent } from './interaction-email/interaction-email.component';
+import { SelfAssignDialogComponent } from './self-assign-dialog/self-assign-dialog.component';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -67,7 +68,8 @@ import { InteractionEmailComponent } from './interaction-email/interaction-email
     MyInteractionsListComponent,
     TeamInteractionsListComponent,
     InteractionAttachmentsListComponent,
-    InteractionEmailComponent
+    InteractionEmailComponent,
+    SelfAssignDialogComponent
   ],
   imports: [
     CommonModule,

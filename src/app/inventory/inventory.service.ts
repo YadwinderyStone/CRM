@@ -90,8 +90,8 @@ export class InventoryService {
     param+=`&PageSize=${params?.pageSize.toString()}`
    if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.type) param+=`&TicketType=${params?.type}`
-    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
-    if(params?.fromDate) param+=`&FromDate=${params?.toDate}`
+    // if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+    // if(params?.fromDate) param+=`&FromDate=${params?.toDate}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
@@ -387,4 +387,11 @@ getQueueMembers(id){
   const url = `QueueMembers?queueId=${id}`;
     return this.http.get<any[]>(url);
 }
+
+selfAssign(data){
+  const url = `Integration/SelfAssignmentUpdateTicket`;
+    return this.http.put<any[]>(url,data);
+}
+
+
 }

@@ -69,18 +69,24 @@ export class UserService {
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
-  getUsers(resource: UserResource): Observable<HttpResponse<User[]> | CommonError> {
+  getUsers(resource: any): Observable<HttpResponse<User[]> | CommonError> {
     const url = `user/GetUsers`;
     const customParams = new HttpParams()
-      .set('Fields', resource.fields)
-      .set('OrderBy', resource.orderBy)
-      .set('PageSize', resource.pageSize.toString())
-      .set('Skip', resource.skip.toString())
-      .set('SearchQuery', resource.searchQuery)
-      .set('name', resource.name.toString())
+      .set('Fields', resource?.fields|| '')
+      .set('OrderBy', resource?.orderBy||'')
+      .set('PageSize', resource?.pageSize?.toString() || '')
+      .set('Skip', resource?.skip?.toString()||'')
+      .set('SearchQuery', resource?.searchQuery||'')
+      .set('name', resource?.name?.toString()||'')
 
     return this.httpClient.get<User[]>(url, {
       params: customParams,
+      observe: 'response'
+    }).pipe(catchError(this.commonHttpErrorService.handleError));
+  }
+  getUsersForDownload(): Observable<HttpResponse<User[]> | CommonError> {
+    const url = `Excel/GetUserExcelListData`;
+    return this.httpClient.get<User[]>(url, {
       observe: 'response'
     }).pipe(catchError(this.commonHttpErrorService.handleError));
   }

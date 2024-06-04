@@ -50,7 +50,7 @@
     </div>
     <div class="col-lg-3 col-xs-6">
         <!-- <div class="small-box bg-danger"  [routerLink]="'/interactions'"> -->
-        <div class="small-box bg-danger"  [routerLink]="'/interactions'" [queryParams]="{status:3}" > 
+        <div class="small-box bg-success"  [routerLink]="'/interactions'" [queryParams]="{status:3}" > 
             <div class="inner">
                 <h3>{{dashboardStaticatics?.resolved || '0'}}</h3>
                 <p>RESOLVED</p>
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-yellow"  routerLink="/interactions">
+        <div class="small-box bg-info"  routerLink="/interactions">
             <div class="inner">
                 <h3>{{dashboardStaticatics?.reopen || '0'}}</h3>
                 <p>REOPEN</p>
@@ -79,13 +79,13 @@
                 <p>CONTACT</p>
             </div>
             <div class="icon">
-                <i class="fas fa-cart-plus"></i>
+                <i class="fas fa-users"></i>
             </div>
         </div>
     </div>
 
     <div class="col-lg-3 col-xs-6" routerLink="/users">
-        <div class="small-box bg-pink">
+        <div class="small-box bg-secondary">
             <div class="inner">
                 <h3>{{dashboardStaticaticsForUser?.userCount}}</h3>
                 <p>USER</p>
