@@ -284,7 +284,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
           'Subject':data?.subject,
           'Contact Name':data?.contactName,
           'Email ':data?.emailId,
-          'Team':data?.teamName,
+          'Team':data?.team,
           'GSTN':data?.gstn,
           'Problem Reported':data?.problemReported,
           'Docket no':data?.docketNumber,

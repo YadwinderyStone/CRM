@@ -176,13 +176,13 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Category':data?.disposition,
           'Sub Category':data?.subDisposition,
           'Subject':data?.subject,
-          'Contact Name':data?.contactName,
-          'Email ':data?.emailId,
-          'Team':data?.teamName,
+          'Contact Name':data?.contactName || data?.name,
+          'Email ':data?.emailId || data?.email,
+          'Team':data?.teamName || data?.team,
           'GSTN':data?.gstn,
           'Problem Reported':data?.problemReported,
           'Docket no':data?.docketNumber,
-          'Assign To':data?.assignToName,
+          'Assign To':data?.assignToName || data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
           'Agent Remarks':data?.agentRemarks,
         })
@@ -190,8 +190,8 @@ export class Reports187Component extends BaseComponent implements OnInit {
       let workBook = XLSX.utils.book_new();
       XLSX.utils.sheet_add_aoa(workBook, heading);
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
-      XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report List');
-      XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");  
+      XLSX.utils.book_append_sheet(workBook, workSheet, '187 Interaction Report List');
+      XLSX.writeFile(workBook, '187 Interaction Report List' + ".xlsx");  
     })
 
   }

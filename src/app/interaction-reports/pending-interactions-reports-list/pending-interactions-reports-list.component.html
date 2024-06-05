@@ -138,8 +138,56 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.created| date:'yyyy-MM-dd hh:mm a'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate| date:'yyyy-MM-dd hh:mm a'}}
                 </td>
+            </ng-container>
+            <ng-container matColumnDef="agentRemarks">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Agent Remarks</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.agentRemarks}}</td>
+            </ng-container>
+            <ng-container matColumnDef="currentStatus">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Current Status</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.currentStatus}}</td>
+            </ng-container>
+            <ng-container matColumnDef="emailId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Email Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.emailId}}</td>
+            </ng-container>
+            <ng-container matColumnDef="interactionCreatedThroughMedia">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionCreatedThroughMedia}}</td>
+            </ng-container>
+            <ng-container matColumnDef="lastResolvedAt">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved At</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.lastResolvedAt}}</td>
+            </ng-container>
+            <ng-container matColumnDef="noOfMessages">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>No Of Messages</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.noOfMessages}}</td>
+            </ng-container>
+            <ng-container matColumnDef="priorityName">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Priority Name</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.priorityName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="reopenFlag">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Reopen Flag</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.reopenFlag}}</td>
+            </ng-container>
+            <ng-container matColumnDef="interactionThreadLastUpdated">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionThreadLastUpdated| date:'yyyy-MM-dd hh:mm a'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="uniqueNumber">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Unique Number</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.uniqueNumber}}</td>
+            </ng-container>
+            <ng-container matColumnDef="ticketAssignedTime">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Assigned Time</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.ticketAssignedTime| date:'yyyy-MM-dd hh:mm a'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="escalationStartDateTime">
+                <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Escalation Start Date Time</th>
+                <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.escalationStartDateTime | date:'yyyy-MM-dd hh:mm a'}}</td>
             </ng-container>
             <ng-container matColumnDef="footer">
                 <td mat-footer-cell [attr.colspan]="displayedColumns.length"  class="d-none" *matFooterCellDef>

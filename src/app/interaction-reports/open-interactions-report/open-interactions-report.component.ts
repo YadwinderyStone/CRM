@@ -24,7 +24,9 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
+    'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
+    'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
@@ -139,22 +141,32 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
     this.interactionReportsService.getOpenInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
       let heading = [[
-        this.translationService.getValue('Interaction Id'),
-        this.translationService.getValue('Interaction Type'),
-        this.translationService.getValue('Status'),
-        this.translationService.getValue('Sub Status'),
-        this.translationService.getValue('Category'),
-        this.translationService.getValue('Sub Category'),
-        this.translationService.getValue('Subject'),
-        this.translationService.getValue('Contact Name'),
-        this.translationService.getValue('Email'),
-        this.translationService.getValue('Team'),
-        this.translationService.getValue('GSTN'),
-        this.translationService.getValue('Problem Reported'),
-        this.translationService.getValue('Docket no'),
-        this.translationService.getValue('Assign To'),
-        this.translationService.getValue('Created At'),
-        this.translationService.getValue('Agent Remarks'),
+        'Interaction Id',
+        'Interaction Type',
+        'Status',
+        'Sub Status',
+        'Category',
+        'Sub Category',
+        'Subject',
+        'Contact Name',
+        'Email',
+        'Team',
+        'GSTN',
+        'Problem Reported',
+        'Docket no',
+        'Assign To',
+        'Created At',
+        'Agent Remarks',
+        'Current Status',
+        'Escalation Start Date Time',
+        'Interaction Created Through Media',
+        'Interaction Thread Last Updated',
+        'Last Resolved At',
+        'No Of Messages',
+        'priority Name',
+        'Reopen Flag',
+        'Ticket Assigned Time',
+        'Unique Number'
       ]];
 
       let interactionsReport = [];
@@ -176,6 +188,16 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
           'Assign To': data?.assignToName,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
           'Agent Remarks': data?.agentRemarks,
+          'Current Status': data?.currentStatus,
+          'Escalation Start Date Time': this.datepipe.transform(data?.escalationStartDateTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
+          'Interaction Thread Last Updated': this.datepipe.transform(data?.interactionThreadLastUpdated, 'yyyy-MM-dd hh:mm:ss a'),
+          'Last Resolved At': this.datepipe.transform(data?.lastResolvedAt, 'yyyy-MM-dd hh:mm:ss a'),
+          'No Of Messages': data?.noOfMessages,
+          'priority Name': data?.priorityName,
+          'Reopen Flag': data?.reopenFlag,
+          'Ticket Assigned Time': this.datepipe.transform(data?.ticketAssignedTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Unique Number': data?.uniqueNumber
         })
       });
       let workBook = XLSX.utils.book_new();

@@ -74,12 +74,12 @@
             </ng-container>
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedto}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.contactName}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.name}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="createdteam">

@@ -384,10 +384,12 @@
                 <div class="col-md-2">
                     <div class="form-group text-center mt-3"
                         *ngIf="interactionData?.ticketType == '2'|| interactionData?.ticketType == 'Ticket Created'">
-                        <button (click)="addNote()" *hasClaim="'INT_ADD_NOTE_INTERACTION'" type="button"
-                            class="btn mt-3 btn-success btn-md">
-                            <i class="fas fa-plus"></i>
-                            Add Comments</button>
+                        <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id">
+                            <button (click)="addNote()" *hasClaim="'INT_ADD_NOTE_INTERACTION'" type="button"
+                                class="btn mt-3 btn-success btn-md">
+                                <i class="fas fa-plus"></i>
+                                Add Comments</button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
