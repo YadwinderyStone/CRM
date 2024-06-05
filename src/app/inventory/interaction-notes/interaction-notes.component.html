@@ -6,10 +6,13 @@
             </div>
         </div>
         <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">
-            <button *ngIf="InteractionDetail?.ticketType =='Ticket Created' || InteractionDetail?.ticketType == 2 "
+            <div class="" *ngIf="this.InteractionDetail?.assignToId == loginUserDetail?.id">
+
+                <button *ngIf="InteractionDetail?.ticketType =='Ticket Created' || InteractionDetail?.ticketType == 2 "
                 class="btn blue-btn btn-sm m-right-10" (click)="addNote()">
                 <i class="fas fa-plus"></i> Add Comment
             </button>
+        </div>
         </div>
     </div>
 </div>

@@ -17,6 +17,7 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
   currentDate = new Date();
   editorConfig = EditorConfig;
   notesForm: UntypedFormGroup;
+  loginUserDetail:any
   isLoading = false;
   notesList: any = [];
   columnsToDisplay: string[] = ['transactionNo','name','teamName','noteDesc','nextStatusTime','date'];
@@ -30,6 +31,7 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
     this.createForm();
     this.editorConfig.height='100px';
     this.editorConfig.minHeight='100px';
+    this.loginUserDetail =JSON.parse(localStorage.getItem('authObj'))
   }
 
 //   ngOnChanges(changes: SimpleChanges): void {
