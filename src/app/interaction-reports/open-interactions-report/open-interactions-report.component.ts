@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common'
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Inventory } from '@core/domain-classes/inventory';
@@ -24,7 +24,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category','subject','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus','subject','category','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];

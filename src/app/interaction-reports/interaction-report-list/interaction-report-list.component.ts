@@ -48,13 +48,17 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   selectedSubStatus: string = ''
   catInput: string = '';
   subCatInput: string = ''
-  toDate:any = new Date();
-  currentDate:any = new Date();
+  toDate: any = new Date();
+  currentDate: any = new Date();
   fromDate: any = new Date();
 
 
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype',  'createdat','status', 'substatus','subject','category', 'subcatagory', 'contant', 'createdteam','assignto', 'gstn', 'problemreported1', 'docketno'];
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
+    'subject', 'category', 'subcatagory', 'contant',
+    'createdteam', 'assignto', 'gstn', 'problemreported1', 'docketno', 'currentStatus',
+    'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+    'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
@@ -215,15 +219,15 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       this.selectedCategory = '',
       this.selectedSubCategory = '',
       this.selectedStatus = '';
-      this.selectedSubStatus = '';
-      // this.selectedPriority = '';
-      this.fromDate = new Date();
-      this.toDate = new Date();
-      let toDate = this.datepipe.transform(this.toDate, 'yyyy/MM/dd');
-      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy/MM/dd');
-      this.inventoryResource.fromDate = toDate
-      this.inventoryResource.toDate = fromDate
-      this.setParams();
+    this.selectedSubStatus = '';
+    // this.selectedPriority = '';
+    this.fromDate = new Date();
+    this.toDate = new Date();
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy/MM/dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy/MM/dd');
+    this.inventoryResource.fromDate = toDate
+    this.inventoryResource.toDate = fromDate
+    this.setParams();
     this.dataSource.loadData(this.inventoryResource);
   }
   searchList() {
@@ -242,62 +246,84 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
       this.inventoryResource.subStatus = this.selectedSubStatus;
-      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.toDate = toDate
     this.inventoryResource.fromDate = fromDate
   }
 
 
-  dowanloadList(){
+  dowanloadList() {
     this.setParams();
-    this.interactionReportsService.getInteractionsReportsList(this.inventoryResource).subscribe((res:any)=>{
-      let InteractionRecods:any = res?.body;
+    this.interactionReportsService.getInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
+      let InteractionRecods: any = res?.body;
       let heading = [[
-        this.translationService.getValue('Interaction Id'),
-        this.translationService.getValue('Interaction Type'),
-        this.translationService.getValue('Status'),
-        this.translationService.getValue('Sub Status'),
-        this.translationService.getValue('Category'),
-        this.translationService.getValue('Sub Category'),
-        this.translationService.getValue('Subject'),
-        this.translationService.getValue('Contact Name'),
-        this.translationService.getValue('Email'),
-        this.translationService.getValue('Team'),
-        this.translationService.getValue('GSTN'),
-        this.translationService.getValue('Problem Reported'),
-        this.translationService.getValue('Docket no'),
-        this.translationService.getValue('Assign To'),
-        this.translationService.getValue('Created At'),
-        this.translationService.getValue('Agent Remarks'),
+        'Interaction Id',
+        'Interaction Type',
+        'Status',
+        'Sub Status',
+        'Category',
+        'Sub Category',
+        'Subject',
+        'Contact Name',
+        'Email',
+        'Team',
+        'GSTN',
+        'Problem Reported',
+        'Docket no',
+        'Assign To',
+        'Created At',
+        'Agent Remarks',
+        'Current Status',
+        'Email Id',
+        'Escalation Start Date Time',
+        'Interaction Created Through Media',
+        'Interaction Thread Last Updated',
+        'Last Resolved At',
+        'No Of Messages',
+        'Priority Name',
+        'Reopen Flag',
+        'Ticket Assigned Time',
+        'Unique Number'
       ]];
-  
+
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
-          'Interaction Id':data?.interactionId,
-          'Interaction Type':data?.ticketType,
-          'Status':data?.interactionState,
-          'Sub Status':data?.interactionSubState,
-          'Category':data?.disposition,
-          'Sub Category':data?.subDisposition,
-          'Subject':data?.subject,
-          'Contact Name':data?.contactName,
-          'Email ':data?.emailId,
-          'Team':data?.team,
-          'GSTN':data?.gstn,
-          'Problem Reported':data?.problemReported,
-          'Docket no':data?.docketNumber,
-          'Assign To':data?.assignToName || data?.assignedTo,
+          'Interaction Id': data?.interactionId,
+          'Interaction Type': data?.ticketType,
+          'Status': data?.interactionState,
+          'Sub Status': data?.interactionSubState,
+          'Category': data?.disposition,
+          'Sub Category': data?.subDisposition,
+          'Subject': data?.subject,
+          'Contact Name': data?.contactName,
+          'Email ': data?.emailId,
+          'Team': data?.team,
+          'GSTN': data?.gstn,
+          'Problem Reported': data?.problemReported,
+          'Docket no': data?.docketNumber,
+          'Assign To': data?.assignToName || data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
-          'Agent Remarks':data?.agentRemarks,
+          'Agent Remarks': data?.agentRemarks,
+          'Current Status': data?.currentStatus,
+          'Email Id': data?.emailId,
+          'Escalation Start Date Time': data?.escalationStartDateTime,
+          'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
+          'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
+          'Last Resolved At': data?.lastResolvedAt,
+          'No Of Messages': data?.noOfMessages,
+          'Priority Name': data?.priorityName,
+          'Reopen Flag': data?.reopenFlag,
+          'Ticket Assigned Time': this.datepipe.transform(data?.ticketAssignedTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Unique Number': data?.uniqueNumber
         })
       });
       let workBook = XLSX.utils.book_new();
       XLSX.utils.sheet_add_aoa(workBook, heading);
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report List');
-      XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");  
+      XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");
     })
 
   }
