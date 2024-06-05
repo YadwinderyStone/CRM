@@ -24,7 +24,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category','subject','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
@@ -185,7 +185,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,
-          'Assign To': data?.assignToName,
+          'Assign To': data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
           'Agent Remarks': data?.agentRemarks,
           'Current Status': data?.currentStatus,

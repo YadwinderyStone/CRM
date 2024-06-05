@@ -116,9 +116,13 @@
                     {{row?.subDisposition||row.subcategoryName}}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="subject">
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subject}}</td>
+            </ng-container>
             <ng-container matColumnDef="problemreported1">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported}}
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> <div class="problemDiv">{{row?.problemReported}}</div>
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">

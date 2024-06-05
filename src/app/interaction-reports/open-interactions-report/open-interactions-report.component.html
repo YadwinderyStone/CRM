@@ -74,7 +74,7 @@
             </ng-container>
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedto}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="contant">
@@ -117,18 +117,13 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemreported1">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported}}
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> <div class="problemDiv">{{row?.problemReported}}</div>
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Docket no.</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.docketNumber}}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="uniquenumber">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Unique Number</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="gstn">
@@ -172,6 +167,10 @@
             <ng-container matColumnDef="reopenFlag">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Reopen Flag</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.reopenFlag}}</td>
+            </ng-container>
+            <ng-container matColumnDef="subject">
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subject}}</td>
             </ng-container>
             <ng-container matColumnDef="interactionThreadLastUpdated">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>

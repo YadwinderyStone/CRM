@@ -155,7 +155,7 @@
             </ng-container>
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedto}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}} </td>
             </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
@@ -170,9 +170,6 @@
                 <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
                 </th>
-                <!-- <td class="table-column-150"
-                    [ngClass]="row?.statusName=='CLOSED'?'closed':(row?.statusName=='OPEN'||row?.statusName=='Open'?'open':row?.statusName=='PENDING'?'pending':'resolved')"
-                    mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.statusName}}</span></td> -->
                 <td class="table-column-150"
                     [ngClass]="row?.interactionState=='CLOSED'?'closed':(row?.interactionState=='OPEN'||row?.interactionState=='Open'?'open':row?.interactionState=='PENDING'?'pending':'resolved')"
                     mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.interactionState}}</span></td>
@@ -188,6 +185,11 @@
                 <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.disposition || row?.categoryName}}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="subject">
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subject}}
+                </td>
+            </ng-container>
             <ng-container matColumnDef="subcatagory">
                 <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category</th>
                 <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subDisposition||row.subcategoryName}}
@@ -195,7 +197,7 @@
             </ng-container>
             <ng-container matColumnDef="problemreported1">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemReported}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"><div class="problemDiv">{{row?.problemReported}}</div>
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">

@@ -54,7 +54,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
 
 
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype',  'createdat','status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam','assignto', 'gstn', 'problemreported1', 'docketno'];
+  displayedColumns: string[] = ['interactionid', 'interactiontype',  'createdat','status', 'substatus','subject','category', 'subcatagory', 'contant', 'createdteam','assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
@@ -288,7 +288,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
           'GSTN':data?.gstn,
           'Problem Reported':data?.problemReported,
           'Docket no':data?.docketNumber,
-          'Assign To':data?.assignToName,
+          'Assign To':data?.assignToName || data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
           'Agent Remarks':data?.agentRemarks,
         })

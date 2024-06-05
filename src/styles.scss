@@ -542,3 +542,8 @@ input::-webkit-input-placeholder {
     justify-content: center;
     height: 75vh;
 }
+
+.problemDiv {
+    max-height: 150px;
+    overflow: auto;
+}
