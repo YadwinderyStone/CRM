@@ -186,7 +186,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,
-          'Assign To': data?.assignToName,
+          'Assign To': data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
           'Agent Remarks': data?.agentRemarks,
           'Current Status': data?.currentStatus,
