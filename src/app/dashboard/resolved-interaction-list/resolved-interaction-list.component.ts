@@ -29,13 +29,11 @@ export class ResolvedInteractionListComponent extends BaseComponent implements O
     getInteractions() {
       let data = {
         pageSize: 5,
-        statusName: 'PENDING',
-        statusId: 2,
         isAdmin: this.userDetail?.roleId || true,
         skip: 0
       }
       this.loading = true;
-      this.dashboardService.getInteractionsListForPending().subscribe((c: any) => {
+      this.dashboardService.getInteractionsListForResolved().subscribe((c: any) => {
           if(c.body.data!=null){
             this.loading = false;
           this.dataSource = c?.body.data;

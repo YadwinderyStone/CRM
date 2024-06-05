@@ -119,8 +119,7 @@ export class DashboardService {
     });
   }
   getInteractionsListForResolved() {
-    // FIXME: change api to resolved 
-    const url = 'Dashboard/GetInteractionPendingStatus';
+    const url = 'Dashboard/GetInteractionResolvedStatusData';
     return this.httpClient.get<Inventory[]>(url, {
       observe: 'response',
     });
