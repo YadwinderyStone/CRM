@@ -72,9 +72,9 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.hideOrShowBaseOnCurrentUrl();
+    // this.hideOrShowBaseOnCurrentUrl();
     this.languages = Languages.languages;
-    this.routerNavigate();
+    // this.routerNavigate();
     this.setTopLogAndName();
     this.setDefaultLanguage();
     this.getUserNotification();

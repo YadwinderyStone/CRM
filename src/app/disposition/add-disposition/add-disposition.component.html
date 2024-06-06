@@ -19,7 +19,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="categoryName">Desposition Description</label>
-                        <input required [(ngModel)]="data.dispoDesc" type="text" name="dispoDesc" #dispoDesc="ngModel"
+                        <input required [(ngModel)]="data.dispoDesc" [ngModelOptions]="{standalone: true}" type="text" name="dispoDesc" #dispoDesc="ngModel"
                             class="form-control" id="categoryName">
                         <div *ngIf="dispoDesc.invalid && (dispoDesc.dirty || dispoDesc.touched)">
                             <div class="text-danger" *ngIf="dispoDesc.errors?.required">
@@ -30,7 +30,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="categoryName">Desposition Code</label>
-                        <input required [(ngModel)]="data.dispoCode" type="text" name="dispoCode" #dispoCode="ngModel"
+                        <input required [(ngModel)]="data.dispoCode" [ngModelOptions]="{standalone: true}" type="text" name="dispoCode" #dispoCode="ngModel"
                             class="form-control" id="categoryName">
                         <div *ngIf="dispoCode.invalid && (dispoCode.dirty || dispoCode.touched)">
                             <div class="text-danger" *ngIf="dispoCode.errors?.required">
@@ -43,7 +43,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                             Is Enabled
-                            <mat-checkbox (change)="checkEnable($event)" [checked]="data.isEnabled"  [dir]="langDir" color="primary" [(ngModel)]="data.isEnabled">
+                            <mat-checkbox (change)="checkEnable($event)" [ngModelOptions]="{standalone: true}" [checked]="data.isEnabled"  [dir]="langDir" color="primary" [(ngModel)]="data.isEnabled">
                             </mat-checkbox>
                     </div>
                 </div>

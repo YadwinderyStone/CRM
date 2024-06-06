@@ -31,6 +31,7 @@ import { ResolvedInteractionsReportsListComponent } from './resolved-interaction
 import { ReopenInteractionsReportsListComponent } from './reopen-interactions-reports-list/reopen-interactions-reports-list.component';
 import { L2L3InteractionsReportsListComponent } from './l2-l3-interactions-reports-list/l2-l3-interactions-reports-list.component';
 import { Reports185ListComponent } from './reports185-list/reports185-list.component';
+import { AllTeamMonthDumpReportComponent } from './all-team-month-dump-report/all-team-month-dump-report.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { Reports185ListComponent } from './reports185-list/reports185-list.compo
     ResolvedInteractionsReportsListComponent,
     ReopenInteractionsReportsListComponent,
     L2L3InteractionsReportsListComponent,
-    Reports185ListComponent
+    Reports185ListComponent,
+    AllTeamMonthDumpReportComponent
   ],
   imports: [
     CommonModule,

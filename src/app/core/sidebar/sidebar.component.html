@@ -317,6 +317,15 @@
               </p>
             </a>
           </li>
+          <li *hasClaim="'REP_INTERCATION_L2L3_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/all-teams-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                All Teams Dump Report
+              </p>
+            </a>
+          </li>
           <li *hasClaim="'REP_INTERCATION_OPEN_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/open-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
@@ -406,7 +415,7 @@
             </a>
           </li>
           <li class="nav-item" *hasClaim="['MST_CTI_ADD_DISPOSTION','MST_CTI_DISPOSTION']">
-            <a [routerLink]="['/lookup12']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            <a [routerLink]="['/disposition-master']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>Disposition Master</p>

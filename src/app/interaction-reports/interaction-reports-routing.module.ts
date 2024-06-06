@@ -15,6 +15,7 @@ import { PendingInteractionsReportsListComponent } from './pending-interactions-
 import { ResolvedInteractionsReportsListComponent } from './resolved-interactions-reports-list/resolved-interactions-reports-list.component';
 import { Reports185ListComponent } from './reports185-list/reports185-list.component';
 import { L2L3InteractionsReportsListComponent } from './l2-l3-interactions-reports-list/l2-l3-interactions-reports-list.component';
+import { AllTeamMonthDumpReportComponent } from './all-team-month-dump-report/all-team-month-dump-report.component';
 
 const routes: Routes = [
   {
@@ -42,7 +43,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    // fixme need to change claim for all
     path:'closed-reports',
     component: ClosedInteractionsReportsListComponent,
     data: { claimType: 'REP_INTERCATION_CLOSED_REPORT' },
@@ -76,6 +76,13 @@ const routes: Routes = [
   {
     path:'L2-L3-reports',
     component: L2L3InteractionsReportsListComponent,
+    data: { claimType: 'REP_INTERCATION_L2L3_REPORT' },
+    canActivate: [AuthGuard]
+  },
+  {
+    // FIXME: NEED TO CHANGE CLAIM
+    path:'all-teams-reports',
+    component: AllTeamMonthDumpReportComponent,
     data: { claimType: 'REP_INTERCATION_L2L3_REPORT' },
     canActivate: [AuthGuard]
   }

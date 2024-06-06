@@ -392,15 +392,15 @@ const routes: Routes = [
               m => m.CalendarModule
             )
         }, 
+        // {
+        //   path: 'lookup12',
+        //   loadChildren: () =>
+        //     import('./disposition/disposition.module').then(
+        //       m => m.DispositionModule
+        //     )
+        // }, 
         {
-          path: 'lookup12',
-          loadChildren: () =>
-            import('./disposition/disposition.module').then(
-              m => m.DispositionModule
-            )
-        }, 
-        {
-          path: 'disposition',
+          path: 'disposition-master',
           loadChildren: () =>
             import('./disposition/disposition.module').then(
               m => m.DispositionModule

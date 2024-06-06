@@ -249,4 +249,28 @@ export class InteractionDataSource implements DataSource<Inventory> {
         this._entities$.next(entities);
       });
   }
+
+  loadAllTeamDumpData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getInteractionsAllTeamDumpReports(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+
+
+
+
 }

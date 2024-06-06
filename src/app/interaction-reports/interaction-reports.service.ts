@@ -71,6 +71,14 @@ export class InteractionReportsService {
       observe: 'response',
     });
   }
+  getInteractionsAllTeamDumpReports(params){
+    let param:any = `FromDate=${params?.fromDate}`
+    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+    const url = `Report/GetInteractionMonthRawDumpReportForAllTeams?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
   getInteractionsReportsList(params){
     let param:any = `FromDate=${params?.fromDate}`
     param+=`&PageSize=${params?.pageSize.toString()}`
