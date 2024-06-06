@@ -189,7 +189,7 @@
             <ng-container matColumnDef="createdteam">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Team
                 </th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.teamName || row?.team}} </td>
             </ng-container>
             <ng-container matColumnDef="status">
                 <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>

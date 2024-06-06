@@ -15,6 +15,7 @@ export class ResolvedInteractionListComponent extends BaseComponent implements O
     dataSource: any[] = [];
     loading: boolean = false;
     userDetail: any;
+    interval: any;
     constructor(private dashboardService: DashboardService, public translationService: TranslationService) {
       super(translationService);
       this.getLangDir();
@@ -24,6 +25,9 @@ export class ResolvedInteractionListComponent extends BaseComponent implements O
   
     ngOnInit(): void {
       this.getInteractions();
+      this.interval = setInterval(() => {
+        this.getInteractions();
+      }, 30000);
     }
   
     getInteractions() {
@@ -43,6 +47,9 @@ export class ResolvedInteractionListComponent extends BaseComponent implements O
           }
         }, (err) => this.loading = false);
     }
-  
+    ngOnDestroy(): void {
+      if(this.interval) {
+      clearInterval(this.interval);
+    }
+    }
   }
-  

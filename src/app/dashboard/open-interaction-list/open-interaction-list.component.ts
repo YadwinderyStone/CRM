@@ -14,6 +14,7 @@ export class OpenInteractionListComponent extends BaseComponent implements OnIni
     dataSource: any[] = [];
     loading: boolean = false;
     userDetail:any;
+    interval:any;
     constructor(private dashboardService: DashboardService,public translationService:TranslationService) {
       super(translationService);
       this.getLangDir();
@@ -23,6 +24,10 @@ export class OpenInteractionListComponent extends BaseComponent implements OnIni
   
     ngOnInit(): void {
       this.getInteractions();
+      this.interval = setInterval(() => {
+        this.getInteractions();
+      }, 30000);
+      
     }
   
     getInteractions() {
@@ -40,6 +45,10 @@ export class OpenInteractionListComponent extends BaseComponent implements OnIni
           this.dataSource = c?.body.data || [];
         }, (err) => this.loading = false);
     }
-  
+    ngOnDestroy(): void {
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+    }
   }
   

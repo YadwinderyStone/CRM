@@ -9,6 +9,7 @@ import { DashboardService } from '../dashboard.service';
 })
 export class StatisticsComponent implements OnInit {
   dashboardStaticatics: any;
+  interval:any
   dashboardStaticaticsForUser:any = {
       "teamCount": 0,
       "userCount": 0,
@@ -32,6 +33,13 @@ export class StatisticsComponent implements OnInit {
   ngOnInit(): void {
     this.getDashboardStaticatics();
     this.getDashboardCountForUserTeam();
+    this.interval = setInterval(() => {
+      this.getDashboardStaticatics();
+      this.getDashboardCountForUserTeam();
+    }, 30000);
+
+
+  
   }
 
   getDashboardStaticatics() {
@@ -46,5 +54,9 @@ export class StatisticsComponent implements OnInit {
         this.dashboardStaticaticsForUser = c;
       })
   }
-
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
 }

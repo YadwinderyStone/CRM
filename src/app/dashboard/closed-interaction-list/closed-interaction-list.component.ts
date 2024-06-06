@@ -16,6 +16,7 @@ export class ClosedInteractionListComponent extends BaseComponent implements OnI
   dataSource: any[] = [];
   loading: boolean = false;
   userDetail: any;
+  interval: any;
   constructor(
     private dashboardService: DashboardService,
     private toasterService: ToastrService,
@@ -31,6 +32,9 @@ export class ClosedInteractionListComponent extends BaseComponent implements OnI
 
   ngOnInit(): void {
     this.getInteractions();
+    this.interval = setInterval(() => {
+      this.getInteractions();
+    }, 30000);
   }
 
   getInteractions() {
@@ -50,7 +54,8 @@ export class ClosedInteractionListComponent extends BaseComponent implements OnI
         this.loading = false;
         this.dataSource = c?.body.data || [];
       }
-    }, (err) => {this.loading = false
+    }, (err) => {
+      this.loading = false
 
       this.toasterService.error(err)
     });

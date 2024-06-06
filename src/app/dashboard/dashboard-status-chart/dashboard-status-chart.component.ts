@@ -56,7 +56,7 @@ export class DashboardStatusChartComponent implements OnInit {
   sourceChartData: number[] = [];
   teamChartLabels: string[] = [];
   teamChartData: number[] = [];
-
+interval:any
 
   constructor(private dashboardService: DashboardService,
     public translationService: TranslationService,
@@ -68,10 +68,15 @@ export class DashboardStatusChartComponent implements OnInit {
     for (let index = 1995; index < 2050; index++) {
       this.years.push(index);
     }
-    // this.getChartsData();
+
     this.getStatusChartData();
     this.getSourceChartData();
-    // this.getTeamChartData();
+    
+    this.interval = setInterval(() => {
+      this.getStatusChartData();
+      this.getSourceChartData();
+    }, 30000);
+  
   }
 
   getChartsData() {
@@ -128,7 +133,11 @@ getTeamChartData(){
     });
 }
 
-
+ngOnDestroy(): void {
+  if (this.interval) {
+    clearInterval(this.interval);
+  }
+}
 
 
 }

@@ -259,7 +259,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       "contactId": data?.contactId,
       "contactName": this.userData?.custName || '',
       "teamId": data?.teamId,
-      "teamName": data?.teamName,
+      "teamName": data?.teamName || data?.team,
       "source": data?.source || '',
       "agentRemarks": data?.agentRemarks,
       // "subject": data?.subject,

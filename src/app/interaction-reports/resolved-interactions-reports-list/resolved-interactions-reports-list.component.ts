@@ -182,7 +182,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
           'Email ': data?.emailId,
-          'Team': data?.teamName,
+          'Team': data?.teamName || data?.team ,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,

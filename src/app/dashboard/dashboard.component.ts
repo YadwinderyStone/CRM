@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslationService } from '@core/services/translation.service';
 import { BaseComponent } from '../base.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,13 +9,16 @@ import { BaseComponent } from '../base.component';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent extends BaseComponent implements OnInit {
-
-  constructor (public  translationService: TranslationService) {
+  interval:any
+  constructor (public  translationService: TranslationService,
+    private router: Router
+  ) {
     super(translationService);
    
   }
 
   ngOnInit() {
   }
+  
 }
 

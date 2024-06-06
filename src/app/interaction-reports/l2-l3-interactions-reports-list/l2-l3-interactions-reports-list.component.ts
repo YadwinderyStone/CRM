@@ -176,7 +176,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
           'Email ': data?.emailId,
-          'Team': data?.teamName,
+          'Team': data?.teamName || data?.team,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,

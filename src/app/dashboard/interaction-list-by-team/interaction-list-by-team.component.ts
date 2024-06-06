@@ -15,6 +15,7 @@ export class InteractionListByTeamComponent extends BaseComponent implements OnI
   dataSource: any[] = [];
   loading: boolean = false;
   userDetail: any;
+  interval: any;
   constructor(private dashboardService: DashboardService, public translationService: TranslationService) {
     super(translationService);
     this.getLangDir();
@@ -24,6 +25,10 @@ export class InteractionListByTeamComponent extends BaseComponent implements OnI
 
   ngOnInit(): void {
     this.getInteractions();
+    
+    this.interval = setInterval(() => {
+      this.getInteractions();
+}, 30000);
   }
 // FIXME: change team name to dynamic
   getInteractions() {
@@ -37,16 +42,15 @@ export class InteractionListByTeamComponent extends BaseComponent implements OnI
     this.dashboardService.getInteractionsListByTeamId(data)
       .subscribe((c: any) => {
         this.dataSource = c?.body;
-        // if(c?.body.data !== null)
-        // {
-        //   this.loading = false;
-        // this.dataSource = c?.body.data;
-        // } else {
-        //   this.loading = false;
-        // this.dataSource = c?.body.data ||[];
-        // }
-        
       }, (err) => this.loading = false);
   }
 
+
+  ngOnDestroy(): void {
+    if(this.interval) {
+    clearInterval(this.interval);
+  }
+  }
 }
+
+

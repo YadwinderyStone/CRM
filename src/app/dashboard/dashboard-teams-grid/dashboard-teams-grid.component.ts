@@ -13,7 +13,7 @@ import { InteractionsByTeam } from './teamsList.model';
   styleUrls: ['./dashboard-teams-grid.component.scss']
 })
 export class DashboardTeamsGridComponent extends BaseComponent implements OnInit {
-
+  interval:any;
   teamInteractionsList: InteractionsByTeam[] = [];
   columnsToDisplay: string[] = ['name','total', 'open', 'pending','resolved','closed'];
   constructor(
@@ -27,14 +27,10 @@ export class DashboardTeamsGridComponent extends BaseComponent implements OnInit
 
 
   ngOnInit(): void {
-    this.getInteractionsListByTeam()
-
-    // this.teamInteractionsList = [
-    //   {teamName:'L0',total:77,open:12,pending:15,resolved:25,closed:25},
-    //   {teamName:'L1',total:68,open:8,pending:10,resolved:20,closed:25},
-    //   {teamName:'L2',total:182,open:62,pending:30,resolved:40,closed:50},
-    //   {teamName:'L3',total:160,open:50,pending:30,resolved:35,closed:45},
-    // ]
+    this.getInteractionsListByTeam();
+    this.interval = setInterval(() => {
+      this.getInteractionsListByTeam();
+    }, 30000);
   }
 
   getInteractionsListByTeam(): void {
@@ -45,10 +41,10 @@ export class DashboardTeamsGridComponent extends BaseComponent implements OnInit
     })
   }
 
-
-
-
-
-
+  ngOnDestroy(): void {
+    if(this.interval) {
+    clearInterval(this.interval);
+  }
+  }
 
 }

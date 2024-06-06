@@ -12,32 +12,38 @@ import { CreatedByName } from './createdByName.model';
 })
 export class InteractionByCreatedNameComponent extends BaseComponent implements OnInit {
 
-  
-    createdByNameInteractionsList: CreatedByName[] = [];
-    columnsToDisplay: string[] = ['name', 'open', 'pending','resolved','closed'];
-    constructor(
-      private toastrService: ToastrService,
-      private dashboardService:DashboardService,
-      public translationService: TranslationService
-    ) {
-      super(translationService);
-      this.getLangDir();
-    }
-  
-  
-    ngOnInit(): void {
-      this.getInteractionsListByCreatedName()
-    }
-  
-    getInteractionsListByCreatedName(): void {
-      this.dashboardService.getInteractionListByCreatedName().subscribe((res :any)=> {
-        this.createdByNameInteractionsList = res?.body
-      },error=>{
-        this.toastrService.error(error)
-      })
-    }
-  
-  
-  
-
+  interval: any
+  createdByNameInteractionsList: CreatedByName[] = [];
+  columnsToDisplay: string[] = ['name', 'open', 'pending', 'resolved', 'closed'];
+  constructor(
+    private toastrService: ToastrService,
+    private dashboardService: DashboardService,
+    public translationService: TranslationService
+  ) {
+    super(translationService);
+    this.getLangDir();
   }
+
+
+  ngOnInit(): void {
+    this.getInteractionsListByCreatedName();
+    this.interval = setInterval(() => {
+      this.getInteractionsListByCreatedName();
+    }, 30000);
+  }
+
+  getInteractionsListByCreatedName(): void {
+    this.dashboardService.getInteractionListByCreatedName().subscribe((res: any) => {
+      this.createdByNameInteractionsList = res?.body
+    }, error => {
+      this.toastrService.error(error)
+    })
+  }
+
+  ngOnDestroy(): void {
+    if(this.interval) {
+    clearInterval(this.interval);
+  }
+  }
+
+}

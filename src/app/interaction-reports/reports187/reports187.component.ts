@@ -25,8 +25,13 @@ export class Reports187Component extends BaseComponent implements OnInit {
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
-  // displayedColumns: string[] =['interactionId','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
+  'subject', 'category', 'subcatagory', 'contant',
+  'createdteam', 'assignto', 'gstn', 'problemreported1', 'docketno',
+  'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+  'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+  // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+  // displayedColumns: string[] =['interactionid','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
   // 'interactionSubState','disposition','subDisposition','gstn','subject','problemReported','agentRemarks',
   //   'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
   //    'interactionThreadLastUpdated', 'lastResolvedAt','currentStatus',
@@ -148,22 +153,31 @@ export class Reports187Component extends BaseComponent implements OnInit {
     this.interactionReportsService.get187InteractionsReportsList(this.inventoryResource).subscribe((res:any)=>{
       let InteractionRecods:any = res?.body;
       let heading = [[
-        this.translationService.getValue('Interaction Id'),
-        this.translationService.getValue('Interaction Type'),
-        this.translationService.getValue('Status'),
-        this.translationService.getValue('Sub Status'),
-        this.translationService.getValue('Category'),
-        this.translationService.getValue('Sub Category'),
-        this.translationService.getValue('Subject'),
-        this.translationService.getValue('Contact Name'),
-        this.translationService.getValue('Email'),
-        this.translationService.getValue('Team'),
-        this.translationService.getValue('GSTN'),
-        this.translationService.getValue('Problem Reported'),
-        this.translationService.getValue('Docket no'),
-        this.translationService.getValue('Assign To'),
-        this.translationService.getValue('Created At'),
-        this.translationService.getValue('Agent Remarks'),
+        'Interaction Id',
+        'Interaction Type',
+        'Status',
+        'Sub Status',
+        'Category',
+        'Sub Category',
+        'Subject',
+        'Contact Name',
+        'Email',
+        'Team',
+        'GSTN',
+        'Problem Reported',
+        'Docket no',
+        'Assign To',
+        'Created At',
+        'Email Id',
+        'Escalation Start Date Time',
+        'Interaction Created Through Media',
+        'Interaction Thread Last Updated',
+        'Last Resolved At',
+        'No Of Messages',
+        'Priority Name',
+        'Reopen Flag',
+        'Ticket Assigned Time',
+        'Unique Number'
       ]];
   
       let interactionsReport = [];
@@ -184,7 +198,17 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Docket no':data?.docketNumber,
           'Assign To':data?.assignToName || data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
-          'Agent Remarks':data?.agentRemarks,
+          'Email Id': data?.emailId,
+          'Escalation Start Date Time': data?.escalationStartDateTime,
+          'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
+          'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
+          'Last Resolved At': data?.lastResolvedAt,
+          'No Of Messages': data?.noOfMessages,
+          'Priority Name': data?.priorityName,
+          'Reopen Flag': data?.reopenFlag,
+          'Ticket Assigned Time': this.datepipe.transform(data?.ticketAssignedTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Unique Number': data?.uniqueNumber
+          
         })
       });
       let workBook = XLSX.utils.book_new();

@@ -12,6 +12,7 @@ import { Source } from './source.model';
   styleUrls: ['./interaction-list-by-source.component.scss']
 })
 export class InteractionListBySourceComponent extends BaseComponent implements OnInit {
+  interval:any;
   sourceInteractionsList: Source[] = [];
   columnsToDisplay: string[] = ['name', 'total', 'open', 'pending', 'resolved', 'closed'];
   constructor(
@@ -26,12 +27,9 @@ export class InteractionListBySourceComponent extends BaseComponent implements O
 
   ngOnInit(): void {
     this.getInteractionsListBySource()
-
-    // this.sourceInteractionsList = [
-    //   { source: 'Email', total: 77, open: 12, pending: 15, resolved: 25, closed: 25 },
-    //   { source: 'GRP', total: 68, open: 8, pending: 10, resolved: 20, closed: 25 },
-    //   { source: 'Voice', total: 182, open: 62, pending: 30, resolved: 40, closed: 50 },
-    // ]
+    this.interval = setInterval(() => {
+      this.getInteractionsListBySource()
+    }, 30000);
   }
 
   getInteractionsListBySource(): void {
@@ -42,10 +40,10 @@ export class InteractionListBySourceComponent extends BaseComponent implements O
     })
   }
 
-
-
-
-
-
-
+  ngOnDestroy(): void {
+    if(this.interval) {
+    clearInterval(this.interval);
+  }
+  }
 }
+

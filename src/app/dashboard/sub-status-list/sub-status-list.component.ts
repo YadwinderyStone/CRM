@@ -19,6 +19,7 @@ export class SubStatusListComponent extends BaseComponent implements OnInit {
     dataSource: any[] = [];
     loading: boolean = false;
     userDetail: any;
+    interval: any;
     constructor(private dashboardService: DashboardService, public translationService: TranslationService) {
       super(translationService);
       this.getLangDir();
@@ -28,6 +29,9 @@ export class SubStatusListComponent extends BaseComponent implements OnInit {
   
     ngOnInit(): void {
       this.getInteractions();
+      this.interval = setInterval(() => {
+        this.getInteractions();
+      }, 30000);
     }
     getInteractions() {
       let data = {
@@ -42,6 +46,12 @@ export class SubStatusListComponent extends BaseComponent implements OnInit {
           this.loading = false;  
         }, (err) => this.loading = false);
     }
-  
+    ngOnDestroy(): void {
+      if(this.interval) {
+      clearInterval(this.interval);
+    }
+    }
+
   }
+  
   
