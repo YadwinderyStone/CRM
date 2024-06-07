@@ -8,7 +8,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-inventory',
   templateUrl: './add-inventory.component.html',
@@ -26,20 +26,25 @@ export class AddInventoryComponent implements OnInit {
     public translationService: TranslationService,
     public activatedRoute: ActivatedRoute,
     private fb: UntypedFormBuilder,
+    private route: ActivatedRoute,
   ) {
     this.interationId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.interationId) {
       this.isEdit = true
     }else{
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.userData = params;
-      });
+      // this.activatedRoute.queryParams.subscribe(params => {
+      //   this.userData = params;
+      // });
     }
 
   }
 
   ngOnInit(): void {
     this.createForm();
+    this.route.data.subscribe((data: any) => {
+      if (data) {}
+      this.userData = data?.userData
+        }) 
   }
 
 

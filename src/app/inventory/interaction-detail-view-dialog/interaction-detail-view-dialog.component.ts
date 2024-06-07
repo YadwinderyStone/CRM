@@ -85,7 +85,6 @@ let data ={
     "intercationId": this.data?.id,
     "contactId": this.data?.userData?.custId,
 }
-debugger
       this.inventoryService.callDispose(data).subscribe(res => {
         if (res) {
           // this.toasterService.success('successfully')

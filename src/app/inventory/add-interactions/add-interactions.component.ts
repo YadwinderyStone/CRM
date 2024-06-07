@@ -56,7 +56,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.createForm();
     this.getSourceList();
     // this.getErrorCodeList();
-    
+ 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -71,6 +71,11 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     if (this.userData) {
       this.bindValue(this.userData);
     }
+
+
+
+
+
 
   }
   ngAfterViewInit(){
@@ -201,7 +206,6 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       this.subCategoryList = res;
       let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
-    // this.interactionSubject = `${categoryName[0]?.name}-${subcategoryName[0]?.name}`;
       if (this.userData) {
         this.addInventoryForm.get('subcategoryId')?.setValue(JSON.parse(this.userData?.subCatId));
       }
@@ -221,17 +225,11 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
 
   onCatChange(event) {
     let id = event?.value ? event.value : event;
-    // this.addInventoryForm.get('catInput').setValue('');
     this.getSubCategoryList(id);
   }
 
 
   onSubmit() {
-    // let value = {
-    //   name:123
-    // }
-    // this.openDialog(value,this.userData);
-
     if (this.addInventoryForm.invalid) {
       this.addInventoryForm.markAllAsTouched();
       return

@@ -69,45 +69,12 @@
                         </mat-select>
                     </div>
                 </div>
-                <!-- <div class="col-md-4 d-none">
-                    <div class="form-group">
-                        <mat-label>Category</mat-label>
-                        <mat-select formControlName="category" (selectionChange)="onCatChange($event)"
-                            placeholder="Select category" class="form-control">
-                            <mat-option *ngFor="let list of catList" [value]="list.id">
-                                {{list.name}}
-                            </mat-option>
-                        </mat-select>
-                        <div *ngIf="customerForm.get('category').touched && customerForm.get('category').errors">
-                            <div class="text-danger" *ngIf="customerForm.get('category').errors?.required">
-                                Please select category.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-none">
-                    <div class="form-group">
-                        <mat-label>Sub Category</mat-label>
-                        <mat-select [disabled]="customerForm.get('category')?.value == ''" formControlName="subCategory"
-                            placeholder="Select Sub category" class="form-control">
-                            <mat-option *ngFor="let list of subCatList" [value]="list.id">
-                                {{list.name}}
-                            </mat-option>
-                        </mat-select>
-                        <div *ngIf="customerForm.get('subCategory').touched && customerForm.get('subCategory').errors">
-                            <div class="text-danger" *ngIf="customerForm.get('subCategory').errors?.required">
-                                Please select sub category.
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="col-md-4">
                     <div class="form-group ">
                         <mat-label class="text-danger">First Name *</mat-label>
                         <input formControlName="name" class="form-control" type="text">
                         <div *ngIf="customerForm.get('name').touched && customerForm.get('name').errors">
                             <div class="text-danger" *ngIf="customerForm.get('name').errors?.required">
-                                <!-- {{'CUSTOMER_NAME_IS_REQUIRED' | translate}} -->
                                 First name is required.
                             </div>
                         </div>
@@ -150,7 +117,6 @@
                         <div class="email-div">
                             <input formControlName="mobileNo" class="form-control"
                                 type="text" maxlength="10" minlength="10">
-                            <!-- <i class="fas fa-search" (click)="onMobileSearch($event)"></i> -->
                         </div>
                         <div *ngIf="
                     customerForm.get('mobileNo').touched &&

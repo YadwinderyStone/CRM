@@ -91,6 +91,7 @@ interval:any
 
 
 getStatusChartData(){
+  this.statusChartLabels = [];
   this.isLoading = true
   this.dashboardService.getStatusChartData().subscribe(res=>{
     this.statusPieChartData = res?.body;
@@ -105,6 +106,7 @@ getStatusChartData(){
     });
 }
 getSourceChartData(){
+  this.sourceChartLabels = [];
   this.isLoading = true
   this.dashboardService.getSourceChartData().subscribe(res=>{
     this.sourcePieChartData = res?.body;

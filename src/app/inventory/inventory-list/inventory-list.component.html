@@ -22,7 +22,7 @@
                 <h1>Searching Filter</h1>
             </div>
         </div>
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
             <div class="form-group">
               <mat-label for="fromDate">{{'FROM_DATE' | translate}} </mat-label>
               <input class="form-control" [max]="currentDate" [(ngModel)]="fromDate"
@@ -37,7 +37,7 @@
                 [owlDateTimeTrigger]="toDate1" [owlDateTime]="toDate1" placeholder="{{'TO_DATE' | translate}}">
               <owl-date-time [pickerType]="'calendar'" #toDate1></owl-date-time>
             </div>
-          </div>
+          </div> -->
         <div class="col-md-3">
             <div class="form-group">
                 <mat-label for="search">Interaction ID</mat-label>
@@ -47,7 +47,8 @@
                 <!-- </div> -->
             </div>
         </div>
-        <div class="col-md-2">
+        <!-- <div class="col-md-2"> -->
+        <div class="col-md-3">
             <div class="form-group">
                 <mat-label> Status </mat-label>
                 <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange($event)"

@@ -13,7 +13,7 @@ import { CustomerPayment } from '@core/domain-classes/customer-payment';
 })
 export class CustomerService {
   constructor(private http: HttpClient) {}
-
+userData:any
   getCustomers(
     resourceParams: CustomerResourceParameter
   ): Observable<HttpResponse<Customer[]>> {

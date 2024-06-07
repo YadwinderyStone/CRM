@@ -16,7 +16,7 @@ import { BaseComponent } from 'src/app/base.component';
 import { CustomerService } from '../customer.service';
 import { EditorConfig } from '@shared/editor.config';
 import { CustomerResourceParameter } from '@core/domain-classes/customer-resource-parameter';
-// import { AddInteractionResolverService } from 'src/app/inventory/add-interactions/add-interactions-resolver.service';
+import { AddInteractionResolverService } from 'src/app/inventory/add-interactions/add-interactions-resolver.service';
 
 export class AlreadyExistValidator {
   static exist(flag: boolean): ValidatorFn {
@@ -60,14 +60,10 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private customerService: CustomerService,
-    private commonService: CommonService,
-    private inventoryService: CommonService,
     private router: Router,
     private route: ActivatedRoute,
-    // private addInteractionResolverService: AddInteractionResolverService,
     private toastrService: ToastrService,
     public translationService: TranslationService,
-    private location: Location
   ) {
     super(translationService);
     this.getLangDir();
@@ -79,8 +75,6 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.createCustomerForm();
     this.getTicketTypeList();
-    this.getCountry();
-    this.getCityByName();
     const routeSub$ = this.route.data.subscribe(
       (data: { customer: Customer }) => {
         if (data.customer) {
@@ -100,26 +94,6 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
       }
     );
     this.sub$.add(routeSub$);
-  }
-
-  getCityByName() {
-    this.isLoadingCity = true;
-    this.sub$.sink = this.filterCityObservable$
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-        switchMap((c: string) => {
-          var strArray = c.split(':');
-          return this.commonService.getCityByName(strArray[0], strArray[1]);
-        })
-      )
-      .subscribe(
-        (c: City[]) => {
-          this.cities = [...c];
-          this.isLoadingCity = false;
-        },
-        (err) => (this.isLoadingCity = false)
-      );
   }
 
   patchCustomer() {
@@ -169,86 +143,6 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
       });
   }
 
-  onMobileNoChange(event: any) {
-    const mobileno = this.customerForm.get('mobileNo').value;
-    if (!mobileno) {
-      return;
-    }
-    const id =
-      this.customer && this.customer.id ? this.customer.id : Guid.create();
-    this.sub$.sink = this.customerService
-      .checkEmailOrPhoneExist('', mobileno, id)
-      .subscribe((c) => {
-        const mobileNoControl = this.customerForm.get('mobileNo');
-        if (c) {
-          mobileNoControl.setValidators([
-            Validators.required,
-            , Validators.pattern(/^[0-9]\d*$/),
-            AlreadyExistValidator.exist(true),
-          ]);
-        } else {
-          mobileNoControl.setValidators([Validators.required, , Validators.pattern(/^[0-9]\d*$/)]);
-        }
-        mobileNoControl.updateValueAndValidity();
-      });
-  }
-
-
-  onFileSelect($event) {
-    const fileSelected = $event.target.files[0];
-    if (!fileSelected) {
-      return;
-    }
-    const mimeType = fileSelected.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(fileSelected);
-    // tslint:disable-next-line: variable-name
-    reader.onload = (_event) => {
-      this.imgSrc = reader.result;
-      this.isImageUpload = true;
-      $event.target.value = '';
-    }
-  }
-
-  onRemoveImage() {
-    this.imgSrc = '';
-    this.isImageUpload = true;
-  }
-
-  getCountry() {
-    const CountrySub$ = this.commonService.getCountry().subscribe((data) => {
-      this.countries = data;
-    });
-    this.sub$.add(CountrySub$);
-  }
-
-  handleFilterCity(cityName: string) {
-    const country = this.customerForm.get('countryName').value;
-    if (cityName && country) {
-      const strCountryCity = country + ':' + cityName;
-      this.filterCityObservable$.next(strCountryCity);
-    }
-  }
-
-  onCountryChange(country: any) {
-    this.customerForm.patchValue({
-      cityName: '',
-    });
-    if (country.value) {
-      const strCountry = country.value + ':' + '';
-      this.filterCityObservable$.next(strCountry);
-    } else {
-      this.cities = [];
-    }
-  }
-
-  onCustomerList() {
-    this.location.back();
-  }
-
   onCustomerSubmit() {
     if (this.customerForm.valid) {
       let custData: any = {
@@ -265,10 +159,6 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
           .subscribe((c: any) => {
             this.toastrService.success('Contact update successfully');
             this.router.navigate(['/customer'])
-            // this.router.navigate(['/interactions/add-interactions'], { queryParams: 
-            //   { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), 
-            //     transNo: c?.transactionNumber, catId: formValues?.category, 
-            //     subCatId: formValues?.subCategory,email:formValues?.emailId,custId: c?.id,custName:c?.name} });
           }, error => {
             this.toastrService.error(error);
           });
@@ -279,12 +169,12 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
         this.sub$.sink = this.customerService
           .saveCustomer(formValues)
           .subscribe(c => {
-            // let AddInteractionResolverService=
-            //   { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName, catId: formValues?.category, subCatId: formValues?.subCategory,subject: subject }
-            
-            // this.addInteractionResolverService.userData = AddInteractionResolverService
-            // this.router.navigate(['/interactions/add-interactions']);
-            this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli } });
+            let routeData=
+              // { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName, catId: formValues?.category, subCatId: formValues?.subCategory,subject: subject }
+              { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli }
+            this.customerService.userData=routeData;
+            this.router.navigate(['/interactions/add-interactions']);
+            // this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli } });
             this.toastrService.success('Contact save successfully');
 
           }, error => {
@@ -353,16 +243,15 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
       let catname: any = this.catList.filter((e: any) => e.id == formValues?.category)
       let subCatName: any = this.subCatList.filter((e: any) => e.id == formValues?.subCategory)
       let subject = `${catname[0]?.name}-${subCatName[0]?.name}`;
-      this.router.navigate(['/interactions/add-interactions'],
-        {
-          queryParams: {
-            ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
-            transNo: this.customer?.transactionNumber, email: formValues?.emailId,
-            custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject,direction:this.ctiInfo?.direction,
-            cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId
-            
-          }
-        });
+
+      let routeData={
+        ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
+        transNo: this.customer?.transactionNumber, email: formValues?.emailId,
+        custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject,direction:this.ctiInfo?.direction,
+        cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId
+      }
+    this.customerService.userData=routeData;
+      this.router.navigate(['/interactions/add-interactions']);
 
   }
 

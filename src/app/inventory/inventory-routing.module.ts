@@ -7,7 +7,7 @@ import { InteractionAssignmentComponent } from './interaction-assignment/interac
 import { L0EmailComponent } from './l0-email/l0-email.component';
 import { MyInteractionsListComponent } from './my-interactions-list/my-interactions-list.component';
 import { TeamInteractionsListComponent } from './team-interactions-list/team-interactions-list.component';
-// import { AddInteractionResolverService } from './add-interactions/add-interactions-resolver.service';
+import { AddInteractionResolverService } from './add-interactions/add-interactions-resolver.service';
 
 
 const routes: Routes = [
@@ -20,14 +20,12 @@ const routes: Routes = [
   {
     path: 'My-interaction',
     component: MyInteractionsListComponent,
-    // Fixme : need to change interaction claim
     data: { claimType: 'INT_VIEW_INTERACTION' },
     canActivate: [AuthGuard]
   },
   {
     path: 'Team-interaction',
     component: TeamInteractionsListComponent,
-    // Fixme : need to change interaction claim
     data: { claimType: 'INT_VIEW_INTERACTION' },
     canActivate: [AuthGuard]
   },
@@ -35,9 +33,9 @@ const routes: Routes = [
     path: 'add-interactions',
     component: AddInventoryComponent,
     data: { claimType: ['INT_ADD_INTERACTION'] },
-    // resolve: {
-    //   userData: AddInteractionResolverService
-    // },
+    resolve: {
+      userData: AddInteractionResolverService
+    },
     canActivate: [AuthGuard]
   },
   {

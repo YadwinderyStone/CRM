@@ -45,6 +45,7 @@ import { TeamInteractionsListComponent } from './team-interactions-list/team-int
 import { InteractionAttachmentsListComponent } from './interaction-attachments-list/interaction-attachments-list.component';
 import { InteractionEmailComponent } from './interaction-email/interaction-email.component';
 import { SelfAssignDialogComponent } from './self-assign-dialog/self-assign-dialog.component';
+import { AddInteractionResolverService } from './add-interactions/add-interactions-resolver.service';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -97,6 +98,7 @@ import { SelfAssignDialogComponent } from './self-assign-dialog/self-assign-dial
     MatButtonModule,
     MatDividerModule,
     AngularEditorModule,
-  ]
+  ],
+  providers:[AddInteractionResolverService]
 })
 export class InventoryModule { }

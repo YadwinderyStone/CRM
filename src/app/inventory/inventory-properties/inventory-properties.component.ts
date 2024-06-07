@@ -101,6 +101,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       problemID: [''],
       problemSearch: [''],
       resolutionComments: [''],
+      resolutionCommentGRP: [''],
       teamId: [],
       noOfMessages: [],
       reopenCount: [],
@@ -166,12 +167,13 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
   subStatusChange(event) {
     if (event?.value == 28) {
-      this.addInventoryForm.get('resolutionComments')?.setValue('Your issue has been resolved, Kindly check the email for further information');
-      this.addInventoryForm.get('resolutionComments')?.setValidators([Validators?.required]);
-      this.addInventoryForm.get('resolutionComments')?.updateValueAndValidity();
+      this.addInventoryForm.get('resolutionCommentGRP')?.setValue('Your issue has been resolved, Kindly check the email for further information');
+      this.addInventoryForm.get('resolutionCommentGRP')?.setValidators([Validators?.required]);
+      this.addInventoryForm.get('resolutionCommentGRP')?.updateValueAndValidity();
     } else {
-      this.addInventoryForm.get('resolutionComments')?.setValidators([]);
-      this.addInventoryForm.get('resolutionComments')?.updateValueAndValidity();
+      this.addInventoryForm.get('resolutionCommentGRP')?.setValue('')
+      this.addInventoryForm.get('resolutionCommentGRP')?.setValidators([]);
+      this.addInventoryForm.get('resolutionCommentGRP')?.updateValueAndValidity();
     }
   }
 
@@ -417,12 +419,14 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
       this.resValue = { ...res };
-      if (this.resValue?.assignToId !== this.loginUserDetail?.id) {
-        let dialogData = {
-          interactionData: this.resValue,
-          userDetail: this.loginUserDetail
+      if(this.resValue?.statusId != 4){
+        if (this.resValue?.assignToId !== this.loginUserDetail?.id && this.resValue?.intercationTypeID==2) {
+          let dialogData = {
+            interactionData: this.resValue,
+            userDetail: this.loginUserDetail
+          }
+          this.openSelfAssign(dialogData);
         }
-        this.openSelfAssign(dialogData);
       }
       this.getTeamMemberList(res?.teamId);
       this.userId.emit(res?.contactId);

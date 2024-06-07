@@ -131,7 +131,6 @@ export class InteractionAttachmentsListComponent implements OnChanges {
       URL.revokeObjectURL(url);
       this.isLoading = false
     },error=>{
-      debugger
       this.toastrService.error(error);
     })
 

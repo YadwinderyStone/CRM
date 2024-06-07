@@ -149,7 +149,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
         let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
           'Sub State', 'Disposition', 'Sub Disposition', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
           'Docket Number', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
-          'Interaction Thread Last Updated','lastMessagefromCust', 'Last Resolved At', 'Current Status',
+          'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
           'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
           'Unique Number']];
   
@@ -182,7 +182,6 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
             'Reopen Flag':data?.reopenFlag,
             'Ticket Assigned Time':data?.ticketAssignedTime,
             'Unique Number':data?.uniqueNumber,
-            'Last Message From Customer':data?.lastMessagefromCust
           })
         });
         let workBook = XLSX.utils.book_new();

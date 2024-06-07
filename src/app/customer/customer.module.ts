@@ -22,6 +22,7 @@ import { CustomerSoListComponent } from './customer-list/customer-so-list/custom
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CustomerInteractionsComponent } from './customer-interactions/customer-interactions.component';
+import { AddInteractionResolverService } from '../inventory/add-interactions/add-interactions-resolver.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CustomerInteractionsComponent } from './customer-interactions/customer-
     MatButtonModule
   ],
   providers:[
-    CustomerResolverService
+    CustomerResolverService,
+    AddInteractionResolverService
   ]
 })
 export class CustomerModule {

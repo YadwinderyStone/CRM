@@ -394,8 +394,20 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <mat-label>Resolution Comments </mat-label>
+                        <mat-label>Resolution Comments To Show Tax Viewer </mat-label>
                         <textarea maxlength="2000" [readonly]="true" formControlName="resolutionComments"
+                            class="form-control"></textarea>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
+                            class="text-danger">
+                            Please enter resolution comments
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-label>Resolution Comments GRP </mat-label>
+                        <textarea maxlength="2000" [readonly]="true" formControlName="resolutionCommentGRP"
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
