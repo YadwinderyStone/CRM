@@ -24,7 +24,7 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
@@ -152,6 +152,7 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
         'Contact Name',
         'Email',
         'Team',
+        'Problem Id',
         'GSTN',
         'Problem Reported',
         'Docket no',
@@ -183,6 +184,7 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
           'Contact Name': data?.contactName,
           'Email ': data?.emailId,
           'Team': data?.teamName || data?.team,
+          'Problem Id': data?.problemId || data?.problemID,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,

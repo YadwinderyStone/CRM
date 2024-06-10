@@ -24,7 +24,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus','subject','category','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus','subject','category','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
@@ -151,6 +151,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
         'Contact Name',
         'Email',
         'Team',
+        'Problem Id',
         'GSTN',
         'Problem Reported',
         'Docket no',
@@ -182,6 +183,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
           'Contact Name': data?.contactName,
           'Email ': data?.emailId,
           'Team': data?.team,
+          'Problem Id': data?.problemId || data?.problemID,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,

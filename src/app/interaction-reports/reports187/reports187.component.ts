@@ -27,7 +27,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
   'subject', 'category', 'subcatagory', 'contant',
-  'createdteam', 'assignto', 'gstn', 'problemreported1', 'docketno',
+  'createdteam', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno',
   'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
   'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
@@ -163,6 +163,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
         'Contact Name',
         'Email',
         'Team',
+        'Problem Id',
         'GSTN',
         'Problem Reported',
         'Docket no',
@@ -193,6 +194,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Contact Name':data?.contactName || data?.name,
           'Email ':data?.emailId || data?.email,
           'Team':data?.teamName || data?.team,
+          'Problem Id':data?.problemId || data?.problemID,
           'GSTN':data?.gstn,
           'Problem Reported':data?.problemReported,
           'Docket no':data?.docketNumber,

@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" *hasClaim="'DB_SOURCEWISECOUNT'" >
+    <div class="col-md-6" *hasClaim="'DB_SOURCEWISECOUNT'">
         <div class="chartDiv1 sorceCount text-center">
             <p> Source Wise Count </p>
             <canvas *ngIf="!isLoading && sourcePieChartData.length" baseChart [data]="sourceChartData" [labels]="sourceChartLabels"

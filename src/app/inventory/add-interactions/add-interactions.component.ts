@@ -60,7 +60,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("User Data", this.userData);
+    // console.log("User Data", this.userData);
     this.getCategoryList(JSON.parse(this.userData?.ticketType));
     // this.getSubCategoryList(JSON.parse(this.userData?.catId));
 

@@ -247,7 +247,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
       let routeData={
         ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
         transNo: this.customer?.transactionNumber, email: formValues?.emailId,
-        custId: this.customer?.id, custName: this.customer?.name + ' ' + this.customer?.lastName, subject: subject,direction:this.ctiInfo?.direction,
+        custId: this.customer?.id, custName: this.customer?.name +' '+ this.customer?.lastName, subject: subject,
+        direction:this.ctiInfo?.direction,
         cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId
       }
     this.customerService.userData=routeData;

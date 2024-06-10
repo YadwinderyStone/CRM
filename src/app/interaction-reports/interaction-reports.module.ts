@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { InteractionReportsRoutingModule } from './interaction-reports-routing.module';
 import { InteractionReportListComponent } from './interaction-report-list/interaction-report-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

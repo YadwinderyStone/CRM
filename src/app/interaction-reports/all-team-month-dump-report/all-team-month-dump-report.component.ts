@@ -24,9 +24,10 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
     currentDate = new Date();
     dataSource: InteractionDataSource;
     isLoading: boolean = false;
+    list:any= [];
     displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
-      'interactionSubState', 'disposition', 'subDisposition', 'gstn', 'subject', 'problemReported', 'agentRemarks',
-      'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+      'interactionSubState', 'disposition', 'subDisposition','problemId', 'gstn', 'subject', 'problemReported', 'agentRemarks',
+      'docketNumber','mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
       'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
       'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
       'uniqueNumber']
@@ -147,7 +148,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
         let dumpRecords: any = res?.body;
         if(dumpRecords.length){
         let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
-          'Sub State', 'Disposition', 'Sub Disposition', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
+          'Sub State', 'Disposition', 'Sub Disposition','Problem Id','GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
           'Docket Number', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
           'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
           'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
@@ -166,6 +167,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
             'Sub State':data?.interactionSubState,
             'Disposition':data?.disposition,
             'Sub Disposition':data?.subDisposition,
+            'Problem Id':data?.problemId || data?.problemID,
             'GSTN':data?.gstn,
             'Subject':data?.subject,
             'Problem Reported':data?.problemReported,
@@ -187,8 +189,8 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
         let workBook = XLSX.utils.book_new();
         XLSX.utils.sheet_add_aoa(workBook, heading);
         let workSheet = XLSX.utils.sheet_add_json(workBook, dumpReport, { origin: "A2", skipHeader: true });
-        XLSX.utils.book_append_sheet(workBook, workSheet, 'Dump Report');
-        XLSX.writeFile(workBook, 'Dump Report' + ".xlsx");
+        XLSX.utils.book_append_sheet(workBook, workSheet, 'All Team Report');
+        XLSX.writeFile(workBook, 'All Team Report' + ".xlsx");
   
       }else{
         this.toasterService.error('No records to dowanload')

@@ -67,6 +67,10 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.interactionId ||
                         row.transactionNumber}} </td>
             </ng-container>
+            <ng-container matColumnDef="problemId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
+            </ng-container>
             <ng-container matColumnDef="interactiontype">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type</th>
                 <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell

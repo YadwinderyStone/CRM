@@ -92,6 +92,7 @@ interval:any
 
 getStatusChartData(){
   this.statusChartLabels = [];
+  this.statusChartData = [];
   this.isLoading = true
   this.dashboardService.getStatusChartData().subscribe(res=>{
     this.statusPieChartData = res?.body;
@@ -107,6 +108,7 @@ getStatusChartData(){
 }
 getSourceChartData(){
   this.sourceChartLabels = [];
+  this.sourceChartData = [];
   this.isLoading = true
   this.dashboardService.getSourceChartData().subscribe(res=>{
     this.sourcePieChartData = res?.body;
@@ -122,6 +124,8 @@ getSourceChartData(){
 }
 getTeamChartData(){
   this.isLoading = true
+  this.teamChartLabels=[];
+      this.teamChartData = []
   this.dashboardService.getTeamChartData().subscribe(res=>{
     this.teamPieChartData = res?.body;
     this.teamPieChartData.forEach(e => {

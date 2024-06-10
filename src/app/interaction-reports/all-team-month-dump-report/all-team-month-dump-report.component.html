@@ -74,6 +74,10 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}} </td>
             </ng-container>
+            <ng-container matColumnDef="problemId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.problemID}} </td>
+            </ng-container>
             <ng-container matColumnDef="contactName">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName}} </td>
@@ -110,6 +114,11 @@
             <ng-container matColumnDef="problemReported">
                 <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
                 <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.problemReported}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="mobile">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No.</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.mobile || '--'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketNumber">

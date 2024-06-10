@@ -28,7 +28,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
   dataSource: InteractionDataSource;
   isLoading: boolean = false;
   displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
-    'interactionSubState', 'disposition', 'subDisposition', 'gstn', 'subject', 'problemReported', 'agentRemarks',
+    'interactionSubState', 'disposition', 'subDisposition', 'problemId','gstn', 'subject', 'problemReported', 'agentRemarks',
     'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
     'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
     'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
@@ -159,7 +159,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
       let dumpRecords: any = res?.body;
       if(dumpRecords.length){
       let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
-        'Sub State', 'Disposition', 'Sub Disposition', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
+        'Sub State', 'Disposition', 'Sub Disposition','problemId', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
         'Docket Number', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
         'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
         'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
@@ -178,6 +178,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
           'Sub State':data?.interactionSubState,
           'Disposition':data?.disposition,
           'Sub Disposition':data?.subDisposition,
+          'Problem Id':data?.problemId || data?.problemID,
           'GSTN':data?.gstn,
           'Subject':data?.subject,
           'Problem Reported':data?.problemReported,

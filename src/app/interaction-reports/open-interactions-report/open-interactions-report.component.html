@@ -77,6 +77,10 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="problemId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
+            </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.contactName}}

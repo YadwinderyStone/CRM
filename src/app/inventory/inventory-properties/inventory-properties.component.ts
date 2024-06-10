@@ -303,6 +303,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       subcategoryName: subcategoryName[0]?.name,
       uniqueNumber: data?.uniqueNumber,
       cpin: data?.cpin,
+      resolutionCommentGRP: data?.resolutionCommentGRP,
       errorMessage: data?.errorMessage,
       formName: data?.formName,
       refundPeriod: data?.refundPeriod,
@@ -419,7 +420,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
       this.resValue = { ...res };
-      if(this.resValue?.statusId != 4){
+      if(this.resValue?.statusId == 1 || this.resValue?.statusId == 2){
         if (this.resValue?.assignToId !== this.loginUserDetail?.id && this.resValue?.intercationTypeID==2) {
           let dialogData = {
             interactionData: this.resValue,

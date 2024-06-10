@@ -168,6 +168,10 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.noOfMessages}}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="problemId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
+            </ng-container>
             <ng-container matColumnDef="reopenFlag">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Reopen Flag</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.reopenFlag}}

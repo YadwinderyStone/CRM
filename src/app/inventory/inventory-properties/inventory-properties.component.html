@@ -221,7 +221,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>GSTIN/ARN/TRN/UN</mat-label>
-                        <input type="text" maxlength="15" minlength="10" class="form-control" id="gstn"
+                        <input type="text" maxlength="15" class="form-control" id="gstn"
                             formControlName="gstn">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.required"

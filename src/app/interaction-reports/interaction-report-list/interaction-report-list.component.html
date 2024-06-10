@@ -39,9 +39,10 @@
                 <!-- <div class="input-container">
                     <span class="input-prefix">{{prefix}}</span>
                     <input type="text" [(ngModel)]="search" maxlength="20" class="form-control searchPrefix" id="search">
-                </div> -->
-                <input type="text" [(ngModel)]="search" placeholder="search by interaction id" class="form-control"
-                     id="search"> 
+                </div>
+                placeholder="search by interaction id"
+            -->
+                <input type="text" [(ngModel)]="search"  class="form-control" id="search"> 
             </div>
         </div>
         
@@ -49,7 +50,7 @@
             <div class="form-group">
                 <mat-label> Status </mat-label>
                 <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange($event)"
-                    placeholder="Select status" class="form-control">
+                     class="form-control">
                     <mat-option [value]="status?.id" *ngFor="let status of statusList">{{status?.name}}</mat-option>
                 </mat-select>
             </div>
@@ -57,7 +58,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <mat-label> Sub Status </mat-label>
-                <mat-select [disabled]="!selectedStatus" [(ngModel)]="selectedSubStatus" placeholder="Select status"
+                <mat-select [disabled]="!selectedStatus" [(ngModel)]="selectedSubStatus"
                     class="form-control">
                     <mat-option [value]="status?.id" *ngFor="let status of subStatusList">{{status?.name}}</mat-option>
                 </mat-select>
@@ -67,7 +68,7 @@
             <div class="form-group">
                 <mat-label>Type </mat-label>
                 <mat-select [(ngModel)]="selectedType" (selectionChange)="onTypeChange($event)"
-                    placeholder="Select type" class="form-control">
+                     class="form-control">
                     <mat-option [value]="type?.id" *ngFor="let type of typeList">{{type?.name}}</mat-option>
                 </mat-select>
             </div>
@@ -76,7 +77,7 @@
             <div class="form-group">
                 <mat-label> Category </mat-label>
                 <mat-select [disabled]="!selectedType" [(ngModel)]="selectedCategory"
-                    (selectionChange)="onCatChange($event);catInput=''" placeholder="Select category"
+                    (selectionChange)="onCatChange($event);catInput=''"
                     class="form-control">
 
                     <ng-container>
@@ -156,6 +157,10 @@
             <ng-container matColumnDef="assignto">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="problemId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
             </ng-container>
             <ng-container matColumnDef="contant">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>

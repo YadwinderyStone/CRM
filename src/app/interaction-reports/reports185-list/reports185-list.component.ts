@@ -24,7 +24,7 @@ export class Reports185ListComponent extends BaseComponent implements OnInit {
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId' ,'gstn', 'problemreported1', 'docketno'];
 
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -152,6 +152,7 @@ export class Reports185ListComponent extends BaseComponent implements OnInit {
         this.translationService.getValue('Contact Name'),
         this.translationService.getValue('Email'),
         this.translationService.getValue('Team'),
+        this.translationService.getValue('Problem Id'),
         this.translationService.getValue('GSTN'),
         this.translationService.getValue('Problem Reported'),
         this.translationService.getValue('Docket no'),
@@ -173,6 +174,7 @@ export class Reports185ListComponent extends BaseComponent implements OnInit {
           'Contact Name': data?.contactName,
           'Email ': data?.emailId,
           'Team': data?.teamName ||data?.team ,
+          'Problem Id': data?.problemId || data?.problemID,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,

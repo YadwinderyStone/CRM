@@ -187,6 +187,10 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate| date:'yyyy-MM-dd hh:mm a':'UTC'}}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="problemId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
+            </ng-container>
             <ng-container matColumnDef="agentRemarks">
                 <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header>Agent Remarks</th>
                 <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.agentRemarks}}

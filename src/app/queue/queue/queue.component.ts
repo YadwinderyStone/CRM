@@ -187,7 +187,7 @@ deleteMemberById(value){
 
 getMembersName(id){
   let user =  this.userList.filter(e=>e.id==id);
-  let userName = user[0].firstName +' '+ user[0].lastName;
+  let userName = user[0]?.firstName +' '+ user[0]?.lastName;
   return userName
 }
 
