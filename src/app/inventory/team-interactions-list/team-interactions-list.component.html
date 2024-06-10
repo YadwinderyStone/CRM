@@ -29,7 +29,25 @@
                     <span class="input-prefix">{{prefix}}</span>
                     <input type="text" [(ngModel)]="search" maxlength="20" class="form-control searchPrefix" id="search">
                 </div> -->
-                <input type="text" [(ngModel)]="search" placeholder="search by interaction id" class="form-control" id="search">
+                <input type="text" [(ngModel)]="search" (keyup.enter)="searchInteractionList()" placeholder="Search by interaction id" class="form-control" id="search">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <mat-label> Status </mat-label>
+                <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange($event)"
+                    placeholder="Select Status" class="form-control">
+                    <mat-option [value]="status?.id" *ngFor="let status of statusList">{{status?.name}}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <mat-label> Sub Status </mat-label>
+                <mat-select [disabled]="!selectedStatus" [(ngModel)]="selectedSubStatus" placeholder="Select Sub Status"
+                    class="form-control">
+                    <mat-option [value]="status?.id" *ngFor="let status of subStatusList">{{status?.name}}</mat-option>
+                </mat-select>
             </div>
         </div>
         <div class="col-md-2">
@@ -41,24 +59,6 @@
                         <mat-option *ngIf="type.name !='Email' " [value]="type?.id">{{type?.name}}</mat-option>
                     </ng-container>
                     <!-- <mat-option [value]="type?.id" *ngFor="let type of typeList">{{type?.name}}</mat-option> -->
-                </mat-select>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <mat-label> Status </mat-label>
-                <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange($event)"
-                    placeholder="Select status" class="form-control">
-                    <mat-option [value]="status?.id" *ngFor="let status of statusList">{{status?.name}}</mat-option>
-                </mat-select>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <mat-label> Sub Status </mat-label>
-                <mat-select [disabled]="!selectedStatus" [(ngModel)]="selectedSubStatus" placeholder="Select status"
-                    class="form-control">
-                    <mat-option [value]="status?.id" *ngFor="let status of subStatusList">{{status?.name}}</mat-option>
                 </mat-select>
             </div>
         </div>
@@ -84,10 +84,10 @@
             <div class="form-group">
                 <mat-label> Sub Category </mat-label>
                 <mat-select (selectionChange)="subCatInput=''" [disabled]="!selectedCategory"
-                    [(ngModel)]="selectedSubCategory" placeholder="Select type" class="form-control">
+                    [(ngModel)]="selectedSubCategory" placeholder="Select Sub Category" class="form-control">
                     <ng-container>
                         <input type="text" class="form-control sticky-input" [(ngModel)]="subCatInput"
-                            placeholder="Search Category" autocomplete="off" />
+                            placeholder="Search Sub Category" autocomplete="off" />
                         <mat-option [value]="cat?.id"
                             *ngFor="let cat of subCategoryList | searchFilter : 'name':subCatInput">{{cat?.name}}</mat-option>
                     </ng-container>

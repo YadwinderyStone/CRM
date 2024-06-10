@@ -169,6 +169,11 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
             </ng-container>
+            <ng-container matColumnDef="mobile">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No.</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.mobileNo || '--'}}
+                </td>
+            </ng-container>
             <ng-container matColumnDef="lastResolvedAt">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved At</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.lastResolvedAt}}</td>

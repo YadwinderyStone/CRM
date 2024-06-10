@@ -56,7 +56,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
     'subject', 'category', 'subcatagory', 'contant',
-    'createdteam', 'assignto', 'problemId','gstn', 'problemreported1', 'docketno', 'currentStatus',
+    'createdteam', 'assignto', 'problemId','gstn', 'problemreported1', 'docketno', 'currentStatus','mobile',
     'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
     'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
@@ -266,6 +266,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
         'Sub Category',
         'Subject',
         'Contact Name',
+        'Mobile No',
         'Email',
         'Team',
         'Problem Id',
@@ -299,6 +300,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
           'Sub Category': data?.subDisposition,
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
+          'Mobile No.':data?.mobileNo,
           'Email ': data?.emailId,
           'Team': data?.team,
           'problemId': data?.problemId || data?.problemID,

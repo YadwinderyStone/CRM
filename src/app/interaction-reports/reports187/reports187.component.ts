@@ -27,7 +27,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
   'subject', 'category', 'subcatagory', 'contant',
-  'createdteam', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno',
+  'createdteam', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno','mobile',
   'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
   'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
@@ -161,6 +161,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
         'Sub Category',
         'Subject',
         'Contact Name',
+        'Mobile No.',
         'Email',
         'Team',
         'Problem Id',
@@ -192,6 +193,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Sub Category':data?.subDisposition,
           'Subject':data?.subject,
           'Contact Name':data?.contactName || data?.name,
+          'Mobile No.':data?.mobileNo,
           'Email ':data?.emailId || data?.email,
           'Team':data?.teamName || data?.team,
           'Problem Id':data?.problemId || data?.problemID,

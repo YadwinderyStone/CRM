@@ -139,9 +139,15 @@ export class MyInteractionsListComponent extends BaseComponent implements OnInit
       });
   }
 
-  toggleRow(element: Inventory) {
-    this.expandedElement = this.expandedElement === element ? null : element;
-    this.cd.detectChanges();
+  searchInteractionList(){
+    if (this.search) {
+      this.inventoryResource.search = this.search.trim();
+      this.paginator.pageIndex = 0;
+      this.inventoryResource.skip = 0
+      this.dataSource.loadData(this.inventoryResource);
+    } else {
+      this.onClear();
+    }
   }
 
   deleteInteraction(data) {

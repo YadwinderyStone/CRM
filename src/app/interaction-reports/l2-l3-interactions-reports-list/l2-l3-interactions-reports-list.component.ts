@@ -24,7 +24,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
   currentDate = new Date();
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
-  'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
+  'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
   'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
@@ -144,6 +144,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
         'Sub Category',
         'Subject',
         'Contact Name',
+        'Mobile No.',
         'Email',
         'Team',
         'Problem Id',
@@ -176,6 +177,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
           'Sub Category': data?.subDisposition,
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
+          'Mobile No.':data?.mobileNo,
           'Email ': data?.emailId,
           'Team': data?.teamName || data?.team,
           'Problem Id': data?.problemId || data?.problemID,

@@ -25,7 +25,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
   currentDate = new Date();
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus','subject','category','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
-    'agentRemarks', 'currentStatus', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
+    'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -149,6 +149,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
         'Sub Category',
         'Subject',
         'Contact Name',
+        'Mobile No',
         'Email',
         'Team',
         'Problem Id',
@@ -181,6 +182,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
           'Sub Category': data?.subDisposition,
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
+          'Mobile No.':data?.mobileNo,
           'Email ': data?.emailId,
           'Team': data?.team,
           'Problem Id': data?.problemId || data?.problemID,

@@ -140,11 +140,16 @@ export class TeamInteractionsListComponent extends BaseComponent implements OnIn
         });
     }
   
-    toggleRow(element: Inventory) {
-      this.expandedElement = this.expandedElement === element ? null : element;
-      this.cd.detectChanges();
+    searchInteractionList(){
+      if (this.search) {
+        this.inventoryResource.search = this.search.trim();
+        this.paginator.pageIndex = 0;
+        this.inventoryResource.skip = 0
+        this.dataSource.loadData(this.inventoryResource);
+      } else {
+        this.onClear();
+      }
     }
-  
     deleteInteraction(data) {
       this.sub$.sink = this.commonDialogService
         .deleteConformationDialog(`${this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')}`)

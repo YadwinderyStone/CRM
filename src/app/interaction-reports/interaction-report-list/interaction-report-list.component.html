@@ -42,7 +42,7 @@
                 </div>
                 placeholder="search by interaction id"
             -->
-                <input type="text" [(ngModel)]="search"  class="form-control" id="search"> 
+                <input type="text" [(ngModel)]="search" placeholder="Search by Interaction id" class="form-control" id="search"> 
             </div>
         </div>
         
@@ -50,15 +50,17 @@
             <div class="form-group">
                 <mat-label> Status </mat-label>
                 <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange($event)"
+                placeholder="Select Status"
                      class="form-control">
                     <mat-option [value]="status?.id" *ngFor="let status of statusList">{{status?.name}}</mat-option>
                 </mat-select>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group">
                 <mat-label> Sub Status </mat-label>
                 <mat-select [disabled]="!selectedStatus" [(ngModel)]="selectedSubStatus"
+                placeholder="Select Sub Status"
                     class="form-control">
                     <mat-option [value]="status?.id" *ngFor="let status of subStatusList">{{status?.name}}</mat-option>
                 </mat-select>
@@ -68,6 +70,7 @@
             <div class="form-group">
                 <mat-label>Type </mat-label>
                 <mat-select [(ngModel)]="selectedType" (selectionChange)="onTypeChange($event)"
+                placeholder="Select Type"
                      class="form-control">
                     <mat-option [value]="type?.id" *ngFor="let type of typeList">{{type?.name}}</mat-option>
                 </mat-select>
@@ -77,6 +80,7 @@
             <div class="form-group">
                 <mat-label> Category </mat-label>
                 <mat-select [disabled]="!selectedType" [(ngModel)]="selectedCategory"
+                placeholder="Select Category"
                     (selectionChange)="onCatChange($event);catInput=''"
                     class="form-control">
 
@@ -95,7 +99,7 @@
             <div class="form-group">
                 <mat-label> Sub Category </mat-label>
                 <mat-select (selectionChange)="subCatInput=''" [disabled]="!selectedCategory"
-                    [(ngModel)]="selectedSubCategory" placeholder="Select type" class="form-control">
+                    [(ngModel)]="selectedSubCategory" placeholder="Select Sub Category" class="form-control">
                     <ng-container>
                         <input type="text" class="form-control sticky-input" [(ngModel)]="subCatInput"
                             placeholder="Search Category" autocomplete="off" />
@@ -110,7 +114,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <mat-label> Team </mat-label>
-                <mat-select [(ngModel)]="selectedTeam" placeholder="Select team" class="form-control">
+                <mat-select [(ngModel)]="selectedTeam" placeholder="Select Team" class="form-control">
                     <mat-option [value]="team?.id" *ngFor="let team of teamList">{{team?.name}}</mat-option>
                 </mat-select>
             </div>
@@ -183,6 +187,11 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Sub Status
                 </th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionSubState || row?.subStatusName}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="mobile">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No.</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.mobileNo || '--'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="category">

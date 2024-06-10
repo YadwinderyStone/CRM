@@ -28,8 +28,8 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
   dataSource: InteractionDataSource;
   isLoading: boolean = false;
   displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
-    'interactionSubState', 'disposition', 'subDisposition', 'problemId','gstn', 'subject', 'problemReported', 'agentRemarks',
-    'docketNumber', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+    'interactionSubState', 'disposition', 'subDisposition', 'problemId', 'gstn', 'subject', 'problemReported', 'agentRemarks',
+    'docketNumber', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
     'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
     'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
     'uniqueNumber']
@@ -154,58 +154,62 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
 
   onDownloadReport() {
     this.isLoading = true
-
     this.interactionReportsService.getInteractionsDumpReports(this.inventoryResource).subscribe(res => {
       let dumpRecords: any = res?.body;
-      if(dumpRecords.length){
-      let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
-        'Sub State', 'Disposition', 'Sub Disposition','problemId', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
-        'Docket Number', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
-        'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
-        'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
-        'Unique Number']];
+      if (dumpRecords.length) {
+        let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
+          'Sub State', 'Disposition', 'Sub Disposition', 'problemId', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
+          'Docket Number', 'Mobile NO.', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
+          'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
+          'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
+          'Unique Number']];
 
-      let dumpReport = [];
-      dumpRecords.forEach(data => {
-        dumpReport.push({
-          'InteractionId':data?.interactionId,
-          'Date':data?.createdDate,
-          'Ticket Type':data?.ticketType,
-          'Contact Name':data?.contactName,
-          'Team':data?.team,
-          'Assigned To':data?.assignedTo,
-          'Status':data?.interactionState,
-          'Sub State':data?.interactionSubState,
-          'Disposition':data?.disposition,
-          'Sub Disposition':data?.subDisposition,
-          'Problem Id':data?.problemId || data?.problemID,
-          'GSTN':data?.gstn,
-          'Subject':data?.subject,
-          'Problem Reported':data?.problemReported,
-          'Agent Remarks':data?.agentRemarks,
-          'Docket Number':data?.docketNumber,
-          'Email Id':data?.emailId,
-          'Escalation Start Date Time':data?.escalationStartDateTime,
-          'Interaction Created Through Media':data?.interactionCreatedThroughMedia,
-          'Interaction Thread Last Updated':data?.interactionThreadLastUpdated,
-          'Last Resolved At':data?.lastResolvedAt,
-          'Current Status':data?.currentStatus,
-          'No Of Messages':data?.noOfMessages,
-          'Priority Name':data?.priorityName,
-          'Reopen Flag':data?.reopenFlag,
-          'Ticket Assigned Time':data?.ticketAssignedTime,
-          'Unique Number':data?.uniqueNumber,
-        })
-      });
-      let workBook = XLSX.utils.book_new();
-      XLSX.utils.sheet_add_aoa(workBook, heading);
-      let workSheet = XLSX.utils.sheet_add_json(workBook, dumpReport, { origin: "A2", skipHeader: true });
-      XLSX.utils.book_append_sheet(workBook, workSheet, 'Dump Report');
-      XLSX.writeFile(workBook, 'Dump Report' + ".xlsx");
-
-    }else{
-      this.toasterService.error('No records to dowanload')
-    }
+        let dumpReport = [];
+        dumpRecords.forEach(data => {
+          dumpReport.push({
+            'InteractionId': data?.interactionId,
+            'Date': data?.createdDate,
+            'Ticket Type': data?.ticketType,
+            'Contact Name': data?.contactName,
+            'Team': data?.team,
+            'Assigned To': data?.assignedTo,
+            'Status': data?.interactionState,
+            'Sub State': data?.interactionSubState,
+            'Disposition': data?.disposition,
+            'Sub Disposition': data?.subDisposition,
+            'Problem Id': data?.problemId || data?.problemID,
+            'GSTN': data?.gstn,
+            'Subject': data?.subject,
+            'Problem Reported': data?.problemReported,
+            'Agent Remarks': data?.agentRemarks,
+            'Docket Number': data?.docketNumber,
+            'Mobile No.': data?.mobileNo,
+            'Email Id': data?.emailId,
+            'Escalation Start Date Time': data?.escalationStartDateTime,
+            'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
+            'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
+            'Last Resolved At': data?.lastResolvedAt,
+            'Current Status': data?.currentStatus,
+            'No Of Messages': data?.noOfMessages,
+            'Priority Name': data?.priorityName,
+            'Reopen Flag': data?.reopenFlag,
+            'Ticket Assigned Time': data?.ticketAssignedTime,
+            'Unique Number': data?.uniqueNumber,
+          })
+        });
+        let workBook = XLSX.utils.book_new();
+        XLSX.utils.sheet_add_aoa(workBook, heading);
+        let workSheet = XLSX.utils.sheet_add_json(workBook, dumpReport, { origin: "A2", skipHeader: true });
+        XLSX.utils.book_append_sheet(workBook, workSheet, 'Dump Report');
+        XLSX.writeFile(workBook, 'Dump Report' + ".xlsx");
+        this.isLoading = false;
+      } else {
+        this.isLoading = false;
+        this.toasterService.error('No records to dowanload')
+      }
+    },error=>{
+      this.isLoading = false;
+      this.toasterService.error(error)
     })
   }
 }

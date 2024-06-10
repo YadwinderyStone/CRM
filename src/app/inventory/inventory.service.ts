@@ -90,8 +90,9 @@ export class InventoryService {
     param+=`&PageSize=${params?.pageSize.toString()}`
    if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.type) param+=`&TicketType=${params?.type}`
-    // if(params?.toDate) param+=`&ToDate=${params?.toDate}`
-    // if(params?.fromDate) param+=`&FromDate=${params?.toDate}`
+    if(params?.gstn) param+=`&Gstn=${params?.gstn}`
+    if(params?.mobileNo) param+=`&MobileNumber=${params?.mobileNo}`
+    if(params?.emailId) param+=`&EmailId=${params?.emailId}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
     // if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
     // if(params?.toDate) param+=`&ToDate=${params?.toDate}`
@@ -115,7 +116,6 @@ export class InventoryService {
    if(params?.IsAdmin)param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.type) param+=`&TicketType=${params?.type}`
-    // if(params?.teamId) param+=`&TeamName=${params?.teamId}`
     if(params?.priority) param+=`&PriorityName=${params?.priority}`
     if(params?.status) param+=`&statusId=${params?.status}`
     if(params?.subStatus) param+=`&subStatusId=${params?.subStatus}`

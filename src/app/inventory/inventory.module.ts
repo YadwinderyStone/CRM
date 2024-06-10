@@ -46,6 +46,7 @@ import { InteractionAttachmentsListComponent } from './interaction-attachments-l
 import { InteractionEmailComponent } from './interaction-email/interaction-email.component';
 import { SelfAssignDialogComponent } from './self-assign-dialog/self-assign-dialog.component';
 import { AddInteractionResolverService } from './add-interactions/add-interactions-resolver.service';
+import { AdvanceSearchComponent } from './advance-search/advance-search.component';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -70,7 +71,8 @@ import { AddInteractionResolverService } from './add-interactions/add-interactio
     TeamInteractionsListComponent,
     InteractionAttachmentsListComponent,
     InteractionEmailComponent,
-    SelfAssignDialogComponent
+    SelfAssignDialogComponent,
+    AdvanceSearchComponent
   ],
   imports: [
     CommonModule,

@@ -19,6 +19,7 @@ import { Queue } from '@core/domain-classes/queue.model';
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { AdvanceSearchComponent } from '../advance-search/advance-search.component';
 
 @Component({
   selector: 'app-inventory-list',
@@ -42,11 +43,14 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   categoryList: InteractionCategory[] = [];
   subCategoryList: InteractionCategory[] = [];
 
-  toDate:any = new Date();
-  currentDate:any = new Date();
+  toDate: any = new Date();
+  currentDate: any = new Date();
   fromDate: any = new Date();
   prefix: string = 'G-';
   search: string = '';
+  gstn: string = ''
+  mobileNo: string = ''
+  emailId: string = ''
   selectedTeam: string = ''
   selectedType: string = ''
   selectedCategory: string = ''
@@ -55,6 +59,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   selectedSubStatus: string = ''
   catInput: string = '';
   subCatInput: string = ''
+  advanceSearchData: any
   // selectedPriority: string = ''
 
 
@@ -83,7 +88,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
 
   constructor(
     private inventoryService: InventoryService,
-    private cd: ChangeDetectorRef,
+    public dialog: MatDialog,
     public translationService: TranslationService,
     public toasterService: ToastrService,
     private commonDialogService: CommonDialogService,
@@ -159,11 +164,6 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
           this.inventoryResource.totalCount = c.totalCount;
         }
       });
-  }
-
-  toggleRow(element: Inventory) {
-    this.expandedElement = this.expandedElement === element ? null : element;
-    this.cd.detectChanges();
   }
 
   deleteInteraction(data) {
@@ -258,20 +258,22 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
 
   onClear() {
     this.search = '',
-      this.selectedTeam = '',
-      this.selectedType = '',
-      this.selectedCategory = '',
-      this.selectedSubCategory = '',
-      this.selectedStatus = '',
-      this.selectedSubStatus = '',
-      this.fromDate = new Date();
-      this.toDate = new Date();
-      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
-      this.inventoryResource.toDate = toDate
-      this.inventoryResource.fromDate = fromDate
-      // this.selectedPriority = ''
-      this.setParams();
+    this.selectedTeam = '',
+    this.selectedType = '',
+    this.selectedCategory = '',
+    this.selectedSubCategory = '',
+    this.selectedStatus = '',
+    this.selectedSubStatus = '',
+    this.inventoryResource.gstn = '',
+    this.inventoryResource.mobileNo = '',
+    this.inventoryResource.emailId = '',
+    this.fromDate = new Date();
+    this.toDate = new Date();
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.toDate = toDate
+    this.inventoryResource.fromDate = fromDate
+    this.setParams();
     this.dataSource.loadData(this.inventoryResource);
   }
   searchList() {
@@ -282,23 +284,59 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   setParams() {
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
-    this.inventoryResource.type = this.selectedType
-    // this.inventoryResource.search = this.search ? this.prefix + this.search : '',
     this.inventoryResource.search = this.search.trim(),
       this.inventoryResource.team = this.selectedTeam,
-      this.inventoryResource.category = this.selectedCategory,
+      this.inventoryResource.type = this.selectedType
+    this.inventoryResource.category = this.selectedCategory,
       this.inventoryResource.subCategory = this.selectedSubCategory,
       this.inventoryResource.status = this.selectedStatus,
       this.inventoryResource.subStatus = this.selectedSubStatus
-      let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-      let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
-      this.inventoryResource.toDate = toDate
-      this.inventoryResource.fromDate = fromDate
-    // this.inventoryResource.priority = this.selectedPriority
+    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    this.inventoryResource.toDate = toDate
+    this.inventoryResource.fromDate = fromDate
+    this.inventoryResource.gstn = this.gstn,
+      this.inventoryResource.mobileNo = this.mobileNo
+    this.inventoryResource.emailId = this.emailId
+
+    // this.inventoryResource.search = this.search ? this.prefix + this.search : '',
   }
 
 
+  searchInteractionList() {
+    if (this.search) {
+      this.inventoryResource.search = this.search.trim();
+      this.paginator.pageIndex = 0;
+      this.inventoryResource.skip = 0
+      this.dataSource.loadData(this.inventoryResource);
+    } else {
+      this.onClear();
+    }
+  }
 
+  OpenAdvanceSearch() {
+    this.dialog.open(AdvanceSearchComponent, {
+      disableClose: false,
+      width: '900px',
+      maxHeight: '500px',
+      height: 'auto',
+      data: this.advanceSearchData
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.gstn = res?.gstn,
+          this.mobileNo = res?.mobileNo,
+          this.emailId = res?.emailId,
+          this.selectedType = res?.selectedType
+        this.selectedCategory = res?.selectedCategory,
+          this.selectedSubCategory = res?.selectedSubCategory,
+          this.advanceSearchData = res
+        this.setParams();
+        this.dataSource.loadData(this.inventoryResource);
+      }else{
+        // this.onClear();
+      }
+    })
+  }
 
 
   dowanloadList() {

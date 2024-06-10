@@ -5,17 +5,20 @@ export class InventoryResourceParameter extends ResourceParameter {
     productId?: string;
     stock?: number;
     productName?: string;
-    IsAdmin?:boolean
-    search?:string
-    team?:string
-    type?:string
-    category?:string
-    subCategory?:string
-    status?:string
-    subStatus?:string
-    priority?:string
-    toDate?:string
-    fromDate?:string
-    teamId?:string | number
-    userID?:string
+    IsAdmin?: boolean
+    search?: string
+    team?: string
+    type?: string
+    category?: string
+    subCategory?: string
+    status?: string
+    subStatus?: string
+    priority?: string
+    toDate?: string
+    fromDate?: string
+    teamId?: string | number
+    userID?: string
+    gstn: string
+    mobileNo: string | number
+    emailId: string
 }
