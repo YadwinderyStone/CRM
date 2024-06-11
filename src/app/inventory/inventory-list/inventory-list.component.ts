@@ -328,6 +328,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
           this.emailId = res?.emailId,
           this.selectedType = res?.selectedType
         this.selectedCategory = res?.selectedCategory,
+        this.selectedTeam = res?.selectedTeam,
           this.selectedSubCategory = res?.selectedSubCategory,
           this.advanceSearchData = res
         this.setParams();

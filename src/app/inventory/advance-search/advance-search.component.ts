@@ -45,6 +45,10 @@ export class AdvanceSearchComponent extends BaseComponent implements OnInit {
     this.selectedType = data?.selectedType
     this.selectedCategory = data?.selectedCategory
     this.selectedSubCategory = data?.selectedSubCategory
+
+
+    if (data?.selectedType)this.getCatList( this.selectedType);
+    if (data?.selectedCategory)this.getSubCatList(this.selectedCategory);
   }
 
   ngOnInit(): void {
@@ -92,7 +96,7 @@ export class AdvanceSearchComponent extends BaseComponent implements OnInit {
 
   onCatChange(event) {
     this.selectedSubCategory = ''
-    this.getSubCatList(event?.value)
+    if(event?.value)this.getSubCatList(event?.value);
   }
 
 
@@ -111,12 +115,12 @@ export class AdvanceSearchComponent extends BaseComponent implements OnInit {
 
   onClear() {
     this.gstn = '',
-    this.mobileNo = ''
+      this.mobileNo = ''
     this.emailId = '',
-    this.selectedTeam = '',
-    this.selectedType = '',
-    this.selectedCategory = '',
-    this.selectedSubCategory = ''
+      this.selectedTeam = '',
+      this.selectedType = '',
+      this.selectedCategory = '',
+      this.selectedSubCategory = ''
 
   }
 

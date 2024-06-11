@@ -28,7 +28,7 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <mat-label> Category </mat-label>
+            <mat-label> Category</mat-label>
             <mat-select [disabled]="!selectedType" [(ngModel)]="selectedCategory"
                 (selectionChange)="onCatChange($event);catInput=''" placeholder="Select Category" class="form-control">
                
@@ -36,6 +36,7 @@
                     <input type="text" class="form-control sticky-input" [(ngModel)]="catInput"
                         placeholder="Search Category" autocomplete="off" />
                         <mat-option [value]="cat?.id" *ngFor="let cat of categoryList | searchFilter : 'name':catInput">{{cat?.name}}</mat-option>
+                        <mat-option (click)="catInput==''" *ngIf="(categoryList | searchFilter : 'name':catInput).length === 0" >No category found</mat-option>
                 </ng-container>
                
                 
@@ -51,6 +52,7 @@
                     <input type="text" class="form-control sticky-input" [(ngModel)]="subCatInput"
                         placeholder="Search Sub Category" autocomplete="off" />
                         <mat-option [value]="cat?.id" *ngFor="let cat of subCategoryList | searchFilter : 'name':subCatInput">{{cat?.name}}</mat-option>
+                        <mat-option (click)="catInput==''" *ngIf="(subCategoryList | searchFilter : 'name':subCatInput).length === 0" >No sub category found</mat-option>
                 </ng-container>
                
             </mat-select>
@@ -61,7 +63,7 @@
         <div class="form-group">
             <mat-label> Team </mat-label>
             <mat-select [(ngModel)]="selectedTeam" placeholder="Select Team" class="form-control" multiple>
-                <mat-option [value]="team?.id" *ngFor="let team of teamList">{{team?.name}}</mat-option>
+                <mat-option [disabled]="team?.name == 'L0 Email'" [value]="team?.id" *ngFor="let team of teamList">{{team?.name}}</mat-option>
             </mat-select>
         </div>
     </div>
