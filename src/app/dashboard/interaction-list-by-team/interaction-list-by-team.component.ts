@@ -28,7 +28,7 @@ export class InteractionListByTeamComponent extends BaseComponent implements OnI
     
     this.interval = setInterval(() => {
       this.getInteractions();
-}, 30000);
+}, 300000);
   }
 // FIXME: change team name to dynamic
   getInteractions() {

@@ -75,7 +75,7 @@ interval:any
     this.interval = setInterval(() => {
       this.getStatusChartData();
       this.getSourceChartData();
-    }, 30000);
+    }, 300000);
   
   }
 

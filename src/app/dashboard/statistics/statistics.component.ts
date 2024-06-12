@@ -36,7 +36,7 @@ export class StatisticsComponent implements OnInit {
     this.interval = setInterval(() => {
       this.getDashboardStaticatics();
       this.getDashboardCountForUserTeam();
-    }, 30000);
+    }, 300000);
 
 
   

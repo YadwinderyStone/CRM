@@ -25,6 +25,14 @@
                 <button mat-button (click)="accordion.closeAll()">Collapse All</button>
             </div>
         </div>
+        <div class="ml-2 text-right w-100" *ngIf="resValue?.ticketType !='Ticket Created' && resValue?.ticketType != 2">
+            <button type="button" class="btn btn-danger btn-md" [routerLink]="['/interactions']"><i
+                class="fas fa-times-circle"></i>
+            {{"Back" | translate}}
+        </button>
+        <button mat-button (click)="accordion.openAll()">Expand All</button>
+        <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+        </div>
 
     </div>
     <div class="loading-shade" *ngIf="isLoading">

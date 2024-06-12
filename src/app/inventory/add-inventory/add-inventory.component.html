@@ -4,9 +4,9 @@
         <app-add-interactions *ngIf="!isEdit" [userData]="userData"></app-add-interactions></mat-tab>
         <mat-tab *ngIf="isEdit" label="Email"><app-interaction-email *ngIf="tabIndex==1" [id]="interationId" ></app-interaction-email></mat-tab>
         <mat-tab *ngIf="isEdit" label="Attachments"><app-interaction-attachments-list *ngIf="tabIndex==2" [id]="interationId"></app-interaction-attachments-list></mat-tab>
-        <mat-tab *ngIf="isEdit" label="Comments"><app-interaction-notes *ngIf="tabIndex==3" [id]="interationId" [InteractionDetail]="InteractionDetail"    ></app-interaction-notes> </mat-tab>
+        <mat-tab *ngIf="isEdit" label="Comments"><app-interaction-notes *ngIf="tabIndex==3" [id]="interationId" [InteractionDetail]="InteractionDetail"></app-interaction-notes> </mat-tab>
         <mat-tab *ngIf="isEdit" label="History"><app-interaction-history *ngIf="tabIndex==4"  [id]="interationId"></app-interaction-history></mat-tab>
-        <mat-tab *ngIf="isEdit" label="Survey Questions"><app-survey-questions *ngIf="tabIndex==5" [id]="interationId"  ></app-survey-questions></mat-tab>
+        <mat-tab *ngIf="isEdit" label="Survey Questions"><app-survey-questions *ngIf="tabIndex==5" [id]="interationId" [InteractionDetail]="InteractionDetail"  ></app-survey-questions></mat-tab>
         <mat-tab *ngIf="isEdit" label="Contacts"><app-customer-info *ngIf="tabIndex==6" [userData]="userData" [id]="contactId" ></app-customer-info></mat-tab>
 </mat-tab-group>
 

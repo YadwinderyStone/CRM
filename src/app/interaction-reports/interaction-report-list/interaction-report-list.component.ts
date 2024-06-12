@@ -51,19 +51,19 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   toDate: any = new Date();
   currentDate: any = new Date();
   fromDate: any = new Date();
-
+  isLoading:boolean = false
 
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
     'subject', 'category', 'subcatagory', 'contant',
-    'createdteam', 'assignto', 'problemId','gstn', 'problemreported1', 'docketno', 'currentStatus','mobile',
+    'createdteam', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno', 'currentStatus', 'mobile',
     'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
     'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatSort) sort: MatSort;
   _productNameFilter: string;
   expandedElement: Inventory = null;
 
@@ -107,7 +107,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       .subscribe((c) => {
         this.inventoryResource.skip = 0;
         this.inventoryResource.IsAdmin = true;
-        this.paginator.pageIndex = 0;
+        // this.paginator.pageIndex = 0;
 
         const strArray: Array<string> = c.split('##');
         if (strArray[0] === 'productName') {
@@ -122,19 +122,19 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     this.getTeamList();
   }
 
-  ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        tap(() => {
-          this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
-          this.inventoryResource.pageSize = this.paginator.pageSize;
-          this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
-          this.dataSource.loadData(this.inventoryResource);
-        })
-      )
-      .subscribe();
-  }
+  // ngAfterViewInit() {
+  //   this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+  //   this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
+  //     .pipe(
+  //       tap(() => {
+  //         this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
+  //         this.inventoryResource.pageSize = this.paginator.pageSize;
+  //         this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
+  //         this.dataSource.loadData(this.inventoryResource);
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 
 
   getResourceParameter() {
@@ -236,7 +236,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   }
 
   setParams() {
-    this.paginator.pageIndex = 0;
+    // this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.type = this.selectedType
     // this.inventoryResource.search = this.search? this.prefix+this.search.trim():'',
@@ -254,6 +254,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
 
 
   dowanloadList() {
+    this.isLoading = true
     this.setParams();
     this.interactionReportsService.getInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
@@ -300,7 +301,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
           'Sub Category': data?.subDisposition,
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
-          'Mobile No.':data?.mobileNo,
+          'Mobile No.': data?.mobileNo,
           'Email ': data?.emailId,
           'Team': data?.team,
           'problemId': data?.problemId || data?.problemID,
@@ -328,6 +329,9 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report List');
       XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");
+      this.isLoading = false
+    }, error => {
+      this.isLoading = false
     })
 
   }

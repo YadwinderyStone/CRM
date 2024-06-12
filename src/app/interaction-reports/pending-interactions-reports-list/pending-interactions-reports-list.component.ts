@@ -23,6 +23,7 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
+  isLoading:boolean = false
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus','mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
@@ -138,6 +139,7 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
 
 
   dowanloadList() {
+    this.isLoading = true
     this.setParams();
     this.interactionReportsService.getPendingInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
@@ -170,11 +172,11 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
         'Reopen Flag',
         'Ticket Assigned Time',
         'Unique Number'
-      ]];
-
-      let interactionsReport = [];
-      InteractionRecods.forEach(data => {
-        interactionsReport.push({
+        ]];
+        
+        let interactionsReport = [];
+        InteractionRecods.forEach(data => {
+          interactionsReport.push({
           'Interaction Id': data?.interactionId,
           'Interaction Type': data?.ticketType,
           'Status': data?.interactionState,
@@ -210,8 +212,11 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Pending Interaction Report List');
       XLSX.writeFile(workBook, 'Pending Interaction Report List' + ".xlsx");
+    this.isLoading = false;
+    },error=>{
+      this.isLoading = false;
     })
-
+    
   }
 
 

@@ -74,6 +74,25 @@ export class InteractionDataSource implements DataSource<Inventory> {
         this._entities$.next(entities);
       });
   }
+  loadFcrDumpData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getInteractionsFcrDumpReports(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
   
   load187Data(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
@@ -207,7 +226,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadPendingData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    // need to change api for pending
+   
     this.sub$ = this.inventoryService.getPendingInteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
@@ -229,8 +248,50 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadL2L3Data(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    // need to change api for pending
+   
     this.sub$ = this.inventoryService.getL2L3InteractionsReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadSurveyData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getSurveyReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        let value = resp;
+        let paginationParam = new ResponseHeader();
+        if (resp && resp.headers.get('X-Pagination')) {
+          paginationParam = JSON.parse(
+            resp.headers.get('X-Pagination')
+          ) as ResponseHeader;
+        }
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadGrpTatData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getGrpTatReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))

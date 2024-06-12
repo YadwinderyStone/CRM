@@ -31,7 +31,7 @@ export class SubStatusListComponent extends BaseComponent implements OnInit {
       this.getInteractions();
       this.interval = setInterval(() => {
         this.getInteractions();
-      }, 30000);
+      }, 300000);
     }
     getInteractions() {
       let data = {

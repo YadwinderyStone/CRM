@@ -30,7 +30,7 @@ export class DashboardTeamsGridComponent extends BaseComponent implements OnInit
     this.getInteractionsListByTeam();
     this.interval = setInterval(() => {
       this.getInteractionsListByTeam();
-    }, 30000);
+    }, 300000);
   }
 
   getInteractionsListByTeam(): void {

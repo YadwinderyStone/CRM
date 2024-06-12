@@ -7,7 +7,7 @@
         </div>
     </div>
 </div>
-<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async) || isLoading">
     <mat-spinner></mat-spinner>
 </div>
 <div class="mb-3">
@@ -42,7 +42,7 @@
                 <i class="fas fa-eraser"></i>
                 {{'CLEAR' | translate}}
             </button>
-            <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
+            <button type="button" (click)="downloadList()" class="btn btn-warning btn-md button-margin ml-2"><i
                 class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
             </button>
         </div>
@@ -58,8 +58,8 @@
     </div>
 </div>
 <div class="table-responsive">
-    <div class="table table-bordered table-hover grid-height">
-        <table [dir]="langDir" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows
+    <div class="table table-bordered table-hover">
+        <table [dir]="langDir" class="table_height" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows
             matSortActive="productName">
 
             <ng-container matColumnDef="interactionid">
@@ -145,17 +145,17 @@
             </ng-container>
             <ng-container matColumnDef="escalationStartDateTime">
                 <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Escalation Start Date Time</th>
-                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.escalationStartDateTime| date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.escalationStartDateTime| date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="interactionThreadLastUpdated">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.interactionThreadLastUpdated| date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.interactionThreadLastUpdated| date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="lastResolvedAt">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt| date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt| date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="interactionCreatedThroughMedia">
@@ -194,41 +194,23 @@
             </ng-container>
             <ng-container matColumnDef="ticketAssignedTime">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Assigned Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.ticketAssignedTime | date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.ticketAssignedTime | date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.created | date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.created | date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">
-                <td mat-footer-cell colspan="5" *matFooterCellDef>
+                <td mat-footer-cell colspan="5" class="d-none" *matFooterCellDef>
                     <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"
                         [dir]="langDir" [pageSizeOptions]="[10, 20, 30]">
                     </mat-paginator>
                 </td>
             </ng-container>
-            <ng-container *ngIf="dataSource.count === 0" matColumnDef="no-records">
-                <td mat-footer-cell colspan="5" *matFooterCellDef>
-                    <b> {{'NO_DATA_FOUND' | translate}}</b>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="expandedDetail">
-                <td mat-cell *matCellDef="let inventoryObject" [attr.colspan]="displayedColumns.length">
-                    <ng-container *ngIf="inventoryObject == expandedElement">
-                        <div class="example-element-detail"
-                            [@detailExpand]="inventoryObject == expandedElement ? 'expanded' : 'collapsed'">
-                            <div class="inner-table mat-elevation-z8">
-                                <app-inventory-history-list [inventory]="inventoryObject">
-                                </app-inventory-history-list>
-                            </div>
-                        </div>
-                    </ng-container>
-                </td>
-            </ng-container>
             <tr *matNoDataRow>
-                <td colspan="9">
+                <td colspan="9"*ngIf="!(dataSource.loading$ | async)" >
                     <span class="p-4 mt-4">
                         <b> {{'NO_DATA_FOUND' | translate}}</b>
                     </span>

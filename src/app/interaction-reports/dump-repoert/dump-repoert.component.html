@@ -2,7 +2,7 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header">
-                <h1>Dump Reports</h1>
+                <h1>Ticket Created Dump Reports</h1>
             </div>
         </div>
     </div>
@@ -184,7 +184,7 @@
             </ng-container>
             <ng-container matColumnDef="createdDate">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate| date:'yyyy-MM-dd hh:mm a':'UTC'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate| date:'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemId">

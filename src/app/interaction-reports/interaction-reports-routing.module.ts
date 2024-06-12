@@ -16,6 +16,9 @@ import { ResolvedInteractionsReportsListComponent } from './resolved-interaction
 import { Reports185ListComponent } from './reports185-list/reports185-list.component';
 import { L2L3InteractionsReportsListComponent } from './l2-l3-interactions-reports-list/l2-l3-interactions-reports-list.component';
 import { AllTeamMonthDumpReportComponent } from './all-team-month-dump-report/all-team-month-dump-report.component';
+import { SurveyReportsComponent } from './survey-reports/survey-reports.component';
+import { GrpTatReportsComponent } from './grp-tat-reports/grp-tat-reports.component';
+import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.component';
 
 const routes: Routes = [
   {
@@ -27,6 +30,13 @@ const routes: Routes = [
   {
     path:'dump-reports',
     component: DumpRepoertComponent,
+    data: { claimType: 'REP_INTERCATION_DUMP_REPORT' },
+    canActivate: [AuthGuard]
+  },
+  {
+    // FIXME : need to change claim
+    path:'fcr-dump-reports',
+    component: DumpReportFcrComponent,
     data: { claimType: 'REP_INTERCATION_DUMP_REPORT' },
     canActivate: [AuthGuard]
   },
@@ -83,7 +93,21 @@ const routes: Routes = [
     // FIXME: NEED TO CHANGE CLAIM
     path:'all-teams-reports',
     component: AllTeamMonthDumpReportComponent,
-    data: { claimType: 'REP_INTERCATION_L2L3_REPORT' },
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    canActivate: [AuthGuard]
+  },
+  {
+    // FIXME: NEED TO CHANGE CLAIM
+    path:'survey-reports',
+    component: SurveyReportsComponent,
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    canActivate: [AuthGuard]
+  },
+  {
+    // FIXME: NEED TO CHANGE CLAIM
+    path:'grp-tat-reports',
+    component: GrpTatReportsComponent,
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
     canActivate: [AuthGuard]
   }
 

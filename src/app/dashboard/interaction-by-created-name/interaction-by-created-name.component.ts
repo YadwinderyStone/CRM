@@ -29,7 +29,7 @@ export class InteractionByCreatedNameComponent extends BaseComponent implements 
     this.getInteractionsListByCreatedName();
     this.interval = setInterval(() => {
       this.getInteractionsListByCreatedName();
-    }, 30000);
+    }, 300000);
   }
 
   getInteractionsListByCreatedName(): void {

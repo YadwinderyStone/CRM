@@ -222,13 +222,13 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'dd-MM-yyyy'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">
                 <td mat-footer-cell colspan="5" *matFooterCellDef>
                     <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"
-                        [dir]="langDir" [pageSizeOptions]="[10, 20, 30]">
+                        [dir]="langDir" [pageSizeOptions]="[10, 20,30,40,50]">
                     </mat-paginator>
                 </td>
             </ng-container>

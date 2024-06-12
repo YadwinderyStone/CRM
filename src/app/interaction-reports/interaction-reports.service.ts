@@ -71,6 +71,15 @@ export class InteractionReportsService {
       observe: 'response',
     });
   }
+  getInteractionsFcrDumpReports(params){
+    // FIXME :  need to change api end point
+    let param:any = `FromDate=${params?.fromDate}`
+    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+    const url = `Report/GetInteractionMonthRowReportList?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
   getInteractionsAllTeamDumpReports(params){
     let param:any = `FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
@@ -155,6 +164,23 @@ export class InteractionReportsService {
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
     const url = `Report/GetInteractionMonthRawDumpReportL2L3List?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getSurveyReportsList(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    const url = `Report/GetSurveyDayWiseReportList?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getGrpTatReportsList(params){
+    // FIXME: need to change api end points
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    const url = `Report/GetSurveyDayWiseReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
     });

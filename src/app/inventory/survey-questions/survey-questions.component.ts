@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TranslationService } from '@core/services/translation.service';
 import { InventoryService } from '../inventory.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,43 +13,58 @@ import {
   styleUrls: ['./survey-questions.component.scss']
 })
 export class SurveyQuestionsComponent implements OnInit {
-data = 'fcr'
+  data = 'fcr'
+  @Input() id: string;
+  @Input() InteractionDetail:any
+  surveyData: any;
+  isLoading:boolean = false;
   surveyForm: UntypedFormGroup;
   constructor(
     private inventoryService: InventoryService,
     private toastrService: ToastrService,
     public translationService: TranslationService,
-    private fb: UntypedFormBuilder,){}
+    private fb: UntypedFormBuilder,) { }
 
   ngOnInit(): void {
     this.createForm();
+    if(this.InteractionDetail?.statusId==3)this.getsurveyQuestions();
+    
   }
 
 
   createForm() {
 
     this.surveyForm = this.fb.group({
-      q1: ['',[Validators.required]],
-      q2: [''],
-      q3: [''],
-      q4: [''],
-      q5: [''],
-      q6: [''],
-      q7: [''],
-      totalSurveyValue: [''],
-      csatCategory: [''],
-      
+      q1: [this.surveyData?.accessibility],
+      q2: [this.surveyData?.knowledge],
+      q3: [this.surveyData?.resolution],
+      q4: [this.surveyData?.experience],
+      q5: [this.surveyData?.timeliness],
+      q6: [this.surveyData?.overallFeedback],
+      q7: [this.surveyData?.additionalFeedback],
+      totalSurveyValue: [this.surveyData?.totalServeyValue],
+      csatCategory: [this.surveyData?.CSATCategory || this.surveyData?.cSATCategory],
+
     });
   }
 
-  save(){
-    if(!this.surveyForm.valid){
+  save() {
+    if (!this.surveyForm.valid) {
       this.surveyForm.markAllAsTouched();
       return
     }
-// API for add survey 
 
+  }
 
+  getsurveyQuestions() {
+    this.isLoading = true;
+    this.inventoryService.getSurveyQuestions(this.id).subscribe(res => {
+      this.surveyData = res
+      this.isLoading = false;
+      }, error => {
+        this.toastrService.error(error);
+        this.isLoading = false;
+    })
   }
 
 

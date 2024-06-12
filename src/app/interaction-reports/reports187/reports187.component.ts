@@ -24,12 +24,13 @@ export class Reports187Component extends BaseComponent implements OnInit {
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
+  isLoading: boolean = false;
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'createdat', 'status', 'substatus',
-  'subject', 'category', 'subcatagory', 'contant',
-  'createdteam', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno','mobile',
-  'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-  'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+    'subject', 'category', 'subcatagory', 'contant',
+    'createdteam', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno', 'mobile',
+    'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
+    'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   // displayedColumns: string[] =['interactionid','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
   // 'interactionSubState','disposition','subDisposition','gstn','subject','problemReported','agentRemarks',
@@ -148,10 +149,11 @@ export class Reports187Component extends BaseComponent implements OnInit {
   }
 
 
-  dowanloadList(){
+  downloadList() {
+    this.isLoading = true;
     this.setParams();
-    this.interactionReportsService.get187InteractionsReportsList(this.inventoryResource).subscribe((res:any)=>{
-      let InteractionRecods:any = res?.body;
+    this.interactionReportsService.get187InteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
+      let InteractionRecods: any = res?.body;
       let heading = [[
         'Interaction Id',
         'Interaction Type',
@@ -181,26 +183,26 @@ export class Reports187Component extends BaseComponent implements OnInit {
         'Ticket Assigned Time',
         'Unique Number'
       ]];
-  
+
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
-          'Interaction Id':data?.interactionId,
-          'Interaction Type':data?.ticketType,
-          'Status':data?.interactionState,
-          'Sub Status':data?.interactionSubState,
-          'Category':data?.disposition,
-          'Sub Category':data?.subDisposition,
-          'Subject':data?.subject,
-          'Contact Name':data?.contactName || data?.name,
-          'Mobile No.':data?.mobileNo,
-          'Email ':data?.emailId || data?.email,
-          'Team':data?.teamName || data?.team,
-          'Problem Id':data?.problemId || data?.problemID,
-          'GSTN':data?.gstn,
-          'Problem Reported':data?.problemReported,
-          'Docket no':data?.docketNumber,
-          'Assign To':data?.assignToName || data?.assignedTo,
+          'Interaction Id': data?.interactionId,
+          'Interaction Type': data?.ticketType,
+          'Status': data?.interactionState,
+          'Sub Status': data?.interactionSubState,
+          'Category': data?.disposition,
+          'Sub Category': data?.subDisposition,
+          'Subject': data?.subject,
+          'Contact Name': data?.contactName || data?.name,
+          'Mobile No.': data?.mobileNo,
+          'Email ': data?.emailId || data?.email,
+          'Team': data?.teamName || data?.team,
+          'Problem Id': data?.problemId || data?.problemID,
+          'GSTN': data?.gstn,
+          'Problem Reported': data?.problemReported,
+          'Docket no': data?.docketNumber,
+          'Assign To': data?.assignToName || data?.assignedTo,
           'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
           'Email Id': data?.emailId,
           'Escalation Start Date Time': data?.escalationStartDateTime,
@@ -212,14 +214,17 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Reopen Flag': data?.reopenFlag,
           'Ticket Assigned Time': this.datepipe.transform(data?.ticketAssignedTime, 'yyyy-MM-dd hh:mm:ss a'),
           'Unique Number': data?.uniqueNumber
-          
+
         })
       });
       let workBook = XLSX.utils.book_new();
       XLSX.utils.sheet_add_aoa(workBook, heading);
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, '187 Interaction Report List');
-      XLSX.writeFile(workBook, '187 Interaction Report List' + ".xlsx");  
+      XLSX.writeFile(workBook, '187 Interaction Report List' + ".xlsx");
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
     })
 
   }

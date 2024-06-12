@@ -27,7 +27,7 @@ export class DashboardCategoryGridComponent extends BaseComponent implements OnI
     this.getInteractionListByCategory()
     this.interval = setInterval(() => {
       this.getInteractionListByCategory()
-    }, 30000);
+    }, 300000);
   }
 
   getInteractionListByCategory(): void {

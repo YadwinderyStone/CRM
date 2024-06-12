@@ -15,6 +15,9 @@ import { Queue } from '@core/domain-classes/queue.model';
 })
 export class AdvanceSearchComponent extends BaseComponent implements OnInit {
   isLoading = false;
+  toDate: any;
+  fromDate: any;
+  currentDate: any = new Date();
   gstn: string = ''
   mobileNo: string = ''
   emailId: string = ''
@@ -47,8 +50,8 @@ export class AdvanceSearchComponent extends BaseComponent implements OnInit {
     this.selectedSubCategory = data?.selectedSubCategory
 
 
-    if (data?.selectedType)this.getCatList( this.selectedType);
-    if (data?.selectedCategory)this.getSubCatList(this.selectedCategory);
+    if (data?.selectedType) this.getCatList(this.selectedType);
+    if (data?.selectedCategory) this.getSubCatList(this.selectedCategory);
   }
 
   ngOnInit(): void {
@@ -96,7 +99,7 @@ export class AdvanceSearchComponent extends BaseComponent implements OnInit {
 
   onCatChange(event) {
     this.selectedSubCategory = ''
-    if(event?.value)this.getSubCatList(event?.value);
+    if (event?.value) this.getSubCatList(event?.value);
   }
 
 
@@ -108,20 +111,23 @@ export class AdvanceSearchComponent extends BaseComponent implements OnInit {
       selectedTeam: this.selectedTeam,
       selectedType: this.selectedType,
       selectedCategory: this.selectedCategory,
-      selectedSubCategory: this.selectedSubCategory
+      selectedSubCategory: this.selectedSubCategory,
+      fromDate:this.fromDate,
+      toDate:this.toDate,
     }
     this.dialogRef.close(data)
   }
 
   onClear() {
     this.gstn = '',
-      this.mobileNo = ''
+    this.mobileNo = ''
     this.emailId = '',
-      this.selectedTeam = '',
-      this.selectedType = '',
-      this.selectedCategory = '',
-      this.selectedSubCategory = ''
-
+    this.selectedTeam = '',
+    this.selectedType = '',
+    this.selectedCategory = '',
+    this.selectedSubCategory = ''
+    this.fromDate = '';
+    this.toDate ='';
   }
 
 }

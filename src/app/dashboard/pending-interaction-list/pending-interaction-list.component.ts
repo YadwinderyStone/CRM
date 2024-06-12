@@ -27,7 +27,7 @@ export class PendingInteractionListComponent extends BaseComponent implements On
     this.getInteractions();
     this.interval = setInterval(() => {
       this.getInteractions();
-    }, 30000);
+    }, 300000);
     
   }
 

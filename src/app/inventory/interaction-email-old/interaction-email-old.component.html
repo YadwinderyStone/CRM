@@ -1,0 +1,94 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header">
+                <h1>Interaction Old Emails</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table [dir]="langDir" mat-table [dataSource]="emailList" multiTemplateDataRows
+        class="table table-bordered table-hover table_height">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon class="cursor-pointer" *ngIf="element != expandedElement" (click)="toggleRow(element)">
+                    chevron_right</mat-icon>
+                <mat-icon class="cursor-pointer" *ngIf="element == expandedElement" (click)="toggleRow(element)">
+                    expand_more</mat-icon>
+            </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="emailType">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>Action </th>
+            <td class="table-column-150" mat-cell *matCellDef="let element"><i class="fas fa-envelope"></i> {{  element.mailFolder=='INBOX'?'Receive':'Sent' }} </td>
+        </ng-container>
+        <ng-container matColumnDef="subject">
+            <th class="table-column-400" mat-header-cell *matHeaderCellDef>Subject </th>
+            <td class="table-column-400" mat-cell *matCellDef="let element"> {{element.mailSubject}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sendBy">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Send By </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdByName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Date</th>
+            <td class="table-column-200" mat-cell *matCellDef="let element"><div>{{element?.mailType== 'R'?(element.createdDate | date:'yyy-MM-dd hh:mm a':'UTC'):(element.mailSendDate | date:'yyy-MM-dd hh:mm a':'UTC') }} </div> </td>
+        </ng-container>
+        <ng-container matColumnDef="sentTime">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Sent Time </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element">{{element?.mailType== 'R'?(element.mailSentTime | date:'yyy-MM-dd hh:mm a':'UTC'):(element.mailSendDate | date:'yyy-MM-dd hh:mm a':'UTC') }}</td>
+        </ng-container>
+        <ng-container matColumnDef="fromMailId">
+            <th mat-header-cell *matHeaderCellDef> From </th>
+            <td mat-cell *matCellDef="let element"> {{element.mailFromEmailId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="to">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>To </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element">{{element.mailTo}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="to">
+            <th class="table-column-200" mat-header-cell *matHeaderCellDef>Email To </th>
+            <td class="table-column-200" mat-cell *matCellDef="let element">Email send to {{element.mailTo}} </td>
+        </ng-container> -->
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let categoryObject" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="categoryObject == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="inner-table mat-elevation-z8">
+                        <!-- <div class="row mb-3 align-items-center justify-content-between">
+                            <div class="col-md-auto col-sm-auto">
+                                <div class="section-title">
+                                    <h2>Sub Status</h2>
+                                </div>
+                            </div>
+                        </div> -->
+                        <table [dir]="langDir" mat-table [dataSource]="emailDetail" multiTemplateDataRows class="table">
+                            <ng-container matColumnDef="name">
+                                <th class="w-100" mat-header-cell *matHeaderCellDef>Email Message</th>
+                                <td class="w-100" mat-cell *matCellDef="let element"><div [innerHTML]="element.mailMessageHtml"  > </div> </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="emailDetailColumnToDisplay;sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: emailDetailColumnToDisplay;"></tr>
+                        </table>
+                    <!-- <div class="">
+                        <div [innerHTML]="emailDetail[0]?.mailMessageHtml" ]></div>
+                        <div class="">
+                            <p>Sent Time : {{emailDetail[0]?.mailSentTime | date :'yyyy-MM-dd hh:mm a' :'UTC'}}</p>
+                            <p>Email send to {{element.mailTo}}</p>
+                            <p>Email From : {{element.mailFromEmailId}} 
+                            </p>
+                        </div>
+                    </div>     -->
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"  class="example-detail-row"></tr>
+    </table>
+</div>

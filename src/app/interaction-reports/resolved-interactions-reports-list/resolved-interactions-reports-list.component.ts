@@ -22,10 +22,11 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
+  isLoading: boolean = false
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId', 'gstn', 'problemreported1', 'docketno',
-  'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
-  'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno',
+    'agentRemarks', 'currentStatus', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
+    'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -137,6 +138,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
 
 
   dowanloadList() {
+    this.isLoading = true
     this.setParams();
     this.interactionReportsService.getResolvedInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
@@ -183,9 +185,9 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
           'Sub Category': data?.subDisposition,
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
-          'Mobile No.':data?.mobileNo,
+          'Mobile No.': data?.mobileNo,
           'Email ': data?.emailId,
-          'Team': data?.teamName || data?.team ,
+          'Team': data?.teamName || data?.team,
           'Problem Id': data?.problemId || data?.problemID,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,
@@ -210,6 +212,9 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report List');
       XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");
+      this.isLoading = false
+    }, error => {
+      this.isLoading = false
     })
 
   }

@@ -258,16 +258,16 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
 
   onClear() {
     this.search = '',
-    this.selectedTeam = '',
-    this.selectedType = '',
-    this.selectedCategory = '',
-    this.selectedSubCategory = '',
-    this.selectedStatus = '',
-    this.selectedSubStatus = '',
-    this.inventoryResource.gstn = '',
-    this.inventoryResource.mobileNo = '',
-    this.inventoryResource.emailId = '',
-    this.fromDate = new Date();
+      this.selectedTeam = '',
+      this.selectedType = '',
+      this.selectedCategory = '',
+      this.selectedSubCategory = '',
+      this.selectedStatus = '',
+      this.selectedSubStatus = '',
+      this.inventoryResource.gstn = '',
+      this.inventoryResource.mobileNo = '',
+      this.inventoryResource.emailId = '',
+      this.fromDate = new Date();
     this.toDate = new Date();
     let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
@@ -324,16 +324,18 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
     }).afterClosed().subscribe(res => {
       if (res) {
         this.gstn = res?.gstn,
-          this.mobileNo = res?.mobileNo,
-          this.emailId = res?.emailId,
-          this.selectedType = res?.selectedType
+        this.mobileNo = res?.mobileNo,
+        this.emailId = res?.emailId,
+        this.selectedType = res?.selectedType
         this.selectedCategory = res?.selectedCategory,
         this.selectedTeam = res?.selectedTeam,
-          this.selectedSubCategory = res?.selectedSubCategory,
-          this.advanceSearchData = res
+        this.selectedSubCategory = res?.selectedSubCategory,
+        this.toDate = res?.toDate,
+        this.fromDate = res?.fromDate,
+        this.advanceSearchData = res
         this.setParams();
         this.dataSource.loadData(this.inventoryResource);
-      }else{
+      } else {
         // this.onClear();
       }
     })

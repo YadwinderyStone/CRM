@@ -7,7 +7,7 @@
         </div>
     </div>
 </div>
-<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async)||isLoading">
     <mat-spinner></mat-spinner>
 </div>
 <div class="mb-3">
@@ -144,39 +144,38 @@
     </div>
 </div>
 <div class="table-responsive">
-    <!-- {{this.dataSource | json}} -->
     <div class="table table-bordered table-hover">
         <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table_height" matSort multiTemplateDataRows
             matSortActive="productName">
 
             <ng-container matColumnDef="interactionid">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction ID</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.interactionId || row.transactionNumber}} </td>
             </ng-container>
             <ng-container matColumnDef="interactiontype">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction Type</th>
                 <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell
                     *matCellDef="let row"> {{row.ticketType}} </td>
             </ng-container>
             <ng-container matColumnDef="assignto">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assign To</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName || row?.assignedTo}} </td>
             </ng-container>
             <ng-container matColumnDef="problemId">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Id</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Problem Id</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.problemId || row?.problemID}} </td>
             </ng-container>
             <ng-container matColumnDef="contant">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Name</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Contact Name</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.contactName || row.contactName}} </td>
             </ng-container>
             <ng-container matColumnDef="createdteam">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Team
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Team
                 </th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.team || row?.teamName}} </td>
             </ng-container>
             <ng-container matColumnDef="status">
-                <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>
+                <th class="table-column-150" mat-header-cell *matHeaderCellDef>
                     Status
                 </th>
                 <td class="table-column-150"
@@ -184,116 +183,116 @@
                     mat-cell *matCellDef="let row"> <span class="text-uppercase">{{row?.interactionState}}</span></td>
             </ng-container>
             <ng-container matColumnDef="substatus">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Sub Status
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Sub Status
                 </th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.interactionSubState || row?.subStatusName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="mobile">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No.</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Mobile No.</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.mobileNo || '--'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="category">
-                <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                <th class="table-column-300" mat-header-cell *matHeaderCellDef>Category</th>
                 <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.disposition || row?.categoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subject">
-                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef>Subject</th>
                 <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subject}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subcatagory">
-                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category</th>
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef> Sub Category</th>
                 <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subDisposition||row.subcategoryName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="problemreported1">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef> Problem Reported</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"><div class="problemDiv">{{row?.problemReported}}</div>
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Docket no.</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef> Docket no.</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.docketNumber}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="uniquenumber">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Unique Number</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef> Unique Number</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="gstn">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>GSTN</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>GSTN</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.gstn}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="currentStatus">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Current Status</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Current Status</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.currentStatus}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="emailId">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Email</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.emailId}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="escalationStartDateTime">
-                <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Escalation Start Date Time</th>
-                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.escalationStartDateTime| date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <th class="table-column-250" mat-header-cell *matHeaderCellDef>Escalation Start Date Time</th>
+                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.escalationStartDateTime| date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="interactionThreadLastUpdated">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.interactionThreadLastUpdated| date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Last Updated</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.interactionThreadLastUpdated| date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="lastResolvedAt">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt| date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Last Resolved</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt| date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="interactionCreatedThroughMedia">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Source</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.interactionCreatedThroughMedia}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="noOfMessages">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>No Of Messages</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>No Of Messages</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.noOfMessages}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="reopenFlag">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Reopen Flag</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Reopen Flag</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.reopenFlag}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="priorityName">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Priority Name</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Priority Name</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.priorityName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="uniqueNumber">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Unique Number</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Unique Number</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="ticketAssignedTime">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Assigned Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.ticketAssignedTime | date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Ticket Assigned Time</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.ticketAssignedTime | date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="createdat">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate | date :'yyyy-MM-dd hh:mm a':'UTC'}}
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created At</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate | date :'yyyy-MM-dd hh:mm a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">
                 <td mat-footer-cell colspan="9" class="d-none" *matFooterCellDef>
-                    <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"
+                    <!-- <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"
                         [dir]="langDir" [pageSizeOptions]="[10, 20, 30]">
-                    </mat-paginator>
+                    </mat-paginator> -->
                 </td>
             </ng-container>
             <!-- <ng-container *ngIf="dataSource.count === 0" matColumnDef="no-records">

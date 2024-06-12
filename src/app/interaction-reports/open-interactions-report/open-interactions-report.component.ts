@@ -23,9 +23,10 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
+  isLoading: boolean = false;
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus','subject','category','subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
-    'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'subject', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno',
+    'agentRemarks', 'currentStatus', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -137,6 +138,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
 
 
   dowanloadList() {
+    this.isLoading = true;
     this.setParams();
     this.interactionReportsService.getOpenInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
@@ -182,7 +184,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
           'Sub Category': data?.subDisposition,
           'Subject': data?.subject,
           'Contact Name': data?.contactName,
-          'Mobile No.':data?.mobileNo,
+          'Mobile No.': data?.mobileNo,
           'Email ': data?.emailId,
           'Team': data?.team,
           'Problem Id': data?.problemId || data?.problemID,
@@ -209,6 +211,9 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Open Interaction Report List');
       XLSX.writeFile(workBook, 'Open Interaction Report List' + ".xlsx");
+      this.isLoading = false;
+    },error=>{
+      this.isLoading = false;
     })
 
   }

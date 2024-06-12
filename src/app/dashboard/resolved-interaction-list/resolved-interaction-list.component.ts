@@ -27,7 +27,7 @@ export class ResolvedInteractionListComponent extends BaseComponent implements O
       this.getInteractions();
       this.interval = setInterval(() => {
         this.getInteractions();
-      }, 30000);
+      }, 300000);
     }
   
     getInteractions() {

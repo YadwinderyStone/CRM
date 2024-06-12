@@ -29,7 +29,7 @@ export class InteractionListBySourceComponent extends BaseComponent implements O
     this.getInteractionsListBySource()
     this.interval = setInterval(() => {
       this.getInteractionsListBySource()
-    }, 30000);
+    }, 300000);
   }
 
   getInteractionsListBySource(): void {

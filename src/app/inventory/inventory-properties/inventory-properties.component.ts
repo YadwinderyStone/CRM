@@ -303,7 +303,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       subcategoryName: subcategoryName[0]?.name,
       uniqueNumber: data?.uniqueNumber,
       cpin: data?.cpin,
-      resolutionCommentGRP: data?.resolutionCommentGRP,
+      // resolutionCommentGRP: data?.resolutionCommentGRP,
       errorMessage: data?.errorMessage,
       formName: data?.formName,
       refundPeriod: data?.refundPeriod,
@@ -428,6 +428,15 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
           }
           this.openSelfAssign(dialogData);
         }
+      }
+      if (this.resValue?.subStatusId == 28) {
+        this.addInventoryForm.get('resolutionCommentGRP')?.setValue('Your issue has been resolved, Kindly check the email for further information');
+        this.addInventoryForm.get('resolutionCommentGRP')?.setValidators([Validators?.required]);
+        this.addInventoryForm.get('resolutionCommentGRP')?.updateValueAndValidity();
+      } else {
+        this.addInventoryForm.get('resolutionCommentGRP')?.setValue('')
+        this.addInventoryForm.get('resolutionCommentGRP')?.setValidators([]);
+        this.addInventoryForm.get('resolutionCommentGRP')?.updateValueAndValidity();
       }
       this.getTeamMemberList(res?.teamId);
       this.userId.emit(res?.contactId);

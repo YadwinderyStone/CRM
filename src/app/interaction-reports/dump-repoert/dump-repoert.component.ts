@@ -118,16 +118,6 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
         }
       });
   }
-
-  toggleRow(element: Inventory) {
-    this.expandedElement = this.expandedElement === element ? null : element;
-    this.cd.detectChanges();
-  }
-
-
-
-
-
   onClear() {
     let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
@@ -200,8 +190,8 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
         let workBook = XLSX.utils.book_new();
         XLSX.utils.sheet_add_aoa(workBook, heading);
         let workSheet = XLSX.utils.sheet_add_json(workBook, dumpReport, { origin: "A2", skipHeader: true });
-        XLSX.utils.book_append_sheet(workBook, workSheet, 'Dump Report');
-        XLSX.writeFile(workBook, 'Dump Report' + ".xlsx");
+        XLSX.utils.book_append_sheet(workBook, workSheet, 'Ticket Created Dump Report');
+        XLSX.writeFile(workBook, 'Ticket Created Dump Report' + ".xlsx");
         this.isLoading = false;
       } else {
         this.isLoading = false;

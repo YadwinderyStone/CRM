@@ -26,7 +26,7 @@ export class OpenInteractionListComponent extends BaseComponent implements OnIni
       this.getInteractions();
       this.interval = setInterval(() => {
         this.getInteractions();
-      }, 30000);
+      }, 300000);
       
     }
   

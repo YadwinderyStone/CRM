@@ -7,11 +7,9 @@
         </div>
     </div>
 </div>
-<!-- <pre>{{emailList | json}}</pre> -->
-
 <div class="table-responsive">
     <table [dir]="langDir" mat-table [dataSource]="emailList" multiTemplateDataRows
-        class="table table-bordered table-hover grid-height">
+        class="table table-bordered table-hover table_height">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
@@ -95,3 +93,6 @@
     </table>
 </div>
 
+<div class="w-100">
+    <app-interaction-email-old [list]="oldEmailData" ></app-interaction-email-old>
+</div>
