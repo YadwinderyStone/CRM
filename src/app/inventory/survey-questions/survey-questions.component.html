@@ -92,7 +92,7 @@
             <div class="form-group">
                 <mat-label>CSAT Category:</mat-label>
                 <input type="text" [disabled]="data=='fcr'" class="form-control"
-                    [value]="(this.surveyData?.CSATCategory || this.surveyData?.cSATCategory) || ''">
+                    [value]="(this.surveyData?.cSATCategory || this.surveyData?.csatCategory) || ''">
                 <mat-error [dir]="langDir"
                     *ngIf="surveyForm.get('csatCategory').touched && surveyForm.get('csatCategory').errors?.required"
                     class="text-danger">

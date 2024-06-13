@@ -7,7 +7,7 @@
         </div>
     </div>
 </div>
-<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async) || isLoading">
     <mat-spinner></mat-spinner>
 </div>
 <div class="mb-3">
@@ -120,9 +120,14 @@
                 <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Subject</th>
                 <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.subject}}</td>
             </ng-container>
-            <ng-container matColumnDef="problemreported1">
+            <ng-container matColumnDef="problemreported">
                 <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
                 <td class="table-column-350" mat-cell *matCellDef="let row"> <div class="problemDiv">{{row?.problemReported}}</div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="resolutionComments">
+                <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Resolution Comments</th>
+                <td class="table-column-350" mat-cell *matCellDef="let row"> <div class="problemDiv">{{row?.resolutionComments}}</div>
                 </td>
             </ng-container>
             <ng-container matColumnDef="docketno">
@@ -134,6 +139,42 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Unique Number</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.uniqueNumber}}
                 </td>
+            </ng-container>
+            <ng-container matColumnDef="q1">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q1</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.q1 ||row?.accessibility}}</td>
+            </ng-container>
+            <ng-container matColumnDef="q2">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q2</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.q2 ||row?.knowledge}}</td>
+            </ng-container>
+            <ng-container matColumnDef="q3">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q3</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.q3 ||row?.resolution}}</td>
+            </ng-container>
+            <ng-container matColumnDef="q4">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q4</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.q4 ||row?.experience}}</td>
+            </ng-container>
+            <ng-container matColumnDef="q5">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q5</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.q5 ||row?.timeliness}}</td>
+            </ng-container>
+            <ng-container matColumnDef="q6">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q6</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.q6 ||row?.overallFeedback}}</td>
+            </ng-container>
+            <ng-container matColumnDef="q7">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Q7</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.q7 ||row?.additionalFeedback}}</td>
+            </ng-container>
+            <ng-container matColumnDef="totalServeyValue">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Total Survey Value</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.totalServeyValue}}</td>
+            </ng-container>
+            <ng-container matColumnDef="csatCategory">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>CSAT Category</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.csatCategory}}</td>
             </ng-container>
             <ng-container matColumnDef="gstn">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>GSTN</th>

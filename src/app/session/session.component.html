@@ -2,7 +2,7 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header">
-        <h1>{{'CURRENT_LOGGED_USER' | translate}}</h1>
+        <h1>{{'CURRENT_LOGGED_USER' | translate}}:<span class="userCount">{{this.onlineUsers?.length}}</span></h1>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <ng-container *ngIf="onlineUsers && onlineUsers.length>0; else tempNoRecord">
-        <tr *ngFor="let onlineUser of onlineUsers">
+        <tr *ngFor="let onlineUser of onlineUsers; let i = index">
           <td>
             <i class="fas fa-circle text-success"></i>
             {{onlineUser.email}}

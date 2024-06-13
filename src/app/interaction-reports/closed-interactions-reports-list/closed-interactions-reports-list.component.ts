@@ -24,9 +24,10 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
   fromDate: any = new Date();
   currentDate = new Date();
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
-  'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
-  'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+  isLoading:boolean = false
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported', 'docketno',
+  'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated','resolutionComments','lastResolvedAt', 'noOfMessages',
+  'priorityName', 'reopenFlag','ticketAssignedTime', 'uniqueNumber','q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'totalServeyValue', 'csatCategory'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
@@ -133,6 +134,7 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
 
 
   dowanloadList() {
+    this.isLoading = true
     this.setParams();
     this.interactionReportsService.getClosedInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
@@ -162,9 +164,19 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
         'Last Resolved At',
         'No Of Messages',
         'priority Name',
+        'Resolution Comments',
         'Reopen Flag',
         'Ticket Assigned Time',
-        'Unique Number'
+        'Unique Number',
+        'Q1',
+        'Q2',
+        'Q3',
+        'Q4',
+        'Q5',
+        'Q6',
+        'Q7',
+        'Total Survey Value',
+        'CSAT Category'
       ]];
 
       let interactionsReport = [];
@@ -195,9 +207,19 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
           'Last Resolved At': this.datepipe.transform(data?.lastResolvedAt, 'yyyy-MM-dd hh:mm:ss a'),
           'No Of Messages': data?.noOfMessages,
           'priority Name': data?.priorityName,
+          'Resolution Comments':data?.resolutionComments,
           'Reopen Flag': data?.reopenFlag,
           'Ticket Assigned Time': this.datepipe.transform(data?.ticketAssignedTime, 'yyyy-MM-dd hh:mm:ss a'),
-          'Unique Number': data?.uniqueNumber
+          'Unique Number': data?.uniqueNumber,
+          'Q1': data?.q1||data?.accessibility,
+          'Q2': data?.q2||data?.knowledge,
+          'Q3': data?.q3||data?.resolution,
+          'Q4': data?.q4||data?.experience,
+          'Q5': data?.q5||data?.timeliness,
+          'Q6': data?.q6||data?.overallFeedback,
+          'Q7': data?.q7||data?.additionalFeedback,
+          'Total Survey Value': data?.totalServeyValue,
+          'CSAT Category': data?.csatCategory
         })
       });
       let workBook = XLSX.utils.book_new();
@@ -205,6 +227,9 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'Closed Interaction Report List');
       XLSX.writeFile(workBook, 'Closed Interaction Report List' + ".xlsx");
+      this.isLoading = false;
+      },error=>{
+      this.isLoading = false;
     })
 
   }

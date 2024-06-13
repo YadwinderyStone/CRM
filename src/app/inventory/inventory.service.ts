@@ -94,8 +94,8 @@ export class InventoryService {
     if(params?.mobileNo) param+=`&MobileNumber=${params?.mobileNo}`
     if(params?.emailId) param+=`&EmailId=${params?.emailId}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
-    // if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
-    // if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     if(params?.team) param+=`&TeamId=${params?.team}`
     if(params?.teamId) param+=`&TeamName=${params?.teamId}`
     if(params?.priority) param+=`&PriorityName=${params?.priority}`
