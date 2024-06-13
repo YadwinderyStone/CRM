@@ -58,8 +58,8 @@
     </div>
 </div>
 <div class="table-responsive">
-    <div class="table table-bordered table-hover">
-        <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table_height_reports" matSort multiTemplateDataRows
+    <div class="table table-bordered table-hover w-100">
+        <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table_height_reports" matSort multiTemplateDataRows
             >
 
             <ng-container matColumnDef="interactionid">
@@ -69,7 +69,7 @@
             </ng-container>
             <ng-container matColumnDef="resolvedDate">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date and Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.dateLastUpdated | date:'yyyy-MM-dd hh:mm a'}}</td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.resolvedDateAndTime | date:'yyyy-MM-dd hh:mm a'}}</td>
             </ng-container>
             <ng-container matColumnDef="team">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Resolved ByTeam</th>
@@ -77,7 +77,7 @@
             </ng-container>
             <ng-container matColumnDef="timeTaken">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Time Taken(In Hours)</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.time}} </td>
+                <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.timeTaken || '--'}} </td>
             </ng-container>
             <ng-container matColumnDef="footer">
                 <td mat-footer-cell [attr.colspan]="displayedColumns.length"  class="d-none" *matFooterCellDef>

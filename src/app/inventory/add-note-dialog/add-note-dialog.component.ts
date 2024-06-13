@@ -37,7 +37,7 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
   }
   createForm() {
     this.notesForm = this.fb.group({
-      body: ['', [Validators.required]],
+      body: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
       nextStatusTime: [this.currentDate, [Validators.required]],
     });
   }

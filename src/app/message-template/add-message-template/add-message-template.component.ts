@@ -84,7 +84,7 @@ export class AddMessageTemplateComponent extends BaseComponent implements OnInit
       this.messageTemplateForm = this.fb.group({
         name: ['', [Validators.required]],
         subject: ['', [Validators.required]],
-        body: ['', [Validators.required]]
+        body: ['', [Validators.required,,Validators.pattern(/^[a-zA-Z0-9.]*$/)]]
       })
     }
   

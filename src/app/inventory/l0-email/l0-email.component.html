@@ -193,7 +193,7 @@
             </ng-container>
             <ng-container matColumnDef="createdat">
                 <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
-                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'yyyy-MM-dd hh:mm:ss a'}}
+                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row.createDateTime | date:'yyyy-MM-dd hh:mm:ss a':"UTC"}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="footer">

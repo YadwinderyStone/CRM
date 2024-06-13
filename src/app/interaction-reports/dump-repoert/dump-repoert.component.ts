@@ -167,7 +167,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
             'Sub State': data?.interactionSubState,
             'Disposition': data?.disposition,
             'Sub Disposition': data?.subDisposition,
-            'Problem Id': data?.problemId || data?.problemID,
+            'Problem Id':data?.problemID || data?.problemId,
             'GSTN': data?.gstn,
             'Subject': data?.subject,
             'Problem Reported': data?.problemReported,

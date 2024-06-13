@@ -219,6 +219,11 @@
                     class="text-danger">
                     Please enter problem reported.
                 </mat-error>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('problemReported').touched && addInventoryForm.get('problemReported').errors?.pattern"
+                    class="text-danger">
+                    Special characters not allowed.
+                </mat-error>
             </div>
         </div>
         <div class="col-md-12">
@@ -231,7 +236,11 @@
                     class="text-danger">
                     Please enter agent remarks.
                 </mat-error>
-                
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.pattern"
+                    class="text-danger">
+                    Special characters not allowed.
+                </mat-error>
             </div>
         </div>
     </div>

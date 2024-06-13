@@ -171,7 +171,9 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
           .subscribe(c => {
             let routeData=
               // { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName, catId: formValues?.category, subCatId: formValues?.subCategory,subject: subject }
-              { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli }
+              { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
+                 transNo: c?.transactionNumber, email: formValues?.emailId,mobileNo:formValues?.mobileNo,
+                 custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli }
             this.customerService.userData=routeData;
             this.router.navigate(['/interactions/add-interactions']);
             // this.router.navigate(['/interactions/add-interactions'], { queryParams: { ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType), transNo: c?.transactionNumber, email: formValues?.emailId, custId: c?.id, custName: c?.name + ' ' + c?.lastName,subject: subject,direction:this.ctiInfo?.direction,cli:this.ctiInfo?.cli } });
@@ -246,7 +248,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
 
       let routeData={
         ticketType: formValues?.ticketType, ticketTypeName: this.getTypeName(formValues?.ticketType),
-        transNo: this.customer?.transactionNumber, email: formValues?.emailId,
+        transNo: this.customer?.transactionNumber, email: formValues?.emailId,mobileNo:formValues?.mobileNo,
         custId: this.customer?.id, custName: this.customer?.name +' '+ this.customer?.lastName, subject: subject,
         direction:this.ctiInfo?.direction,
         cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId

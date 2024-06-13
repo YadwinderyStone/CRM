@@ -54,6 +54,7 @@
             <div class="text-danger" *ngIf="messageTemplateForm.get('body').errors?.required">
               {{'BODY_IS_REQUIRED' | translate }}
             </div>
+            <div class="text-danger" *ngIf="messageTemplateForm.get('body').errors?.pattern">Special characters not allowed</div>
           </div>
         </div>
       </div>

@@ -144,9 +144,9 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
       InteractionRecods.forEach(data => {
         interactionsReport.push({
           'Interaction Id': data?.interactionId,
-          'Resolved Date and Time': this.datepipe.transform(data?.dateLastUpdated, 'yyyy-MM-dd hh:mm:ss a'),
-          'Resolved ByTeam': data?.team,
-          'Time Taken(In Hours)':data?.team
+          'Resolved Date and Time': this.datepipe.transform(data?.resolvedDateAndTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Resolved ByTeam': data?.resolvedByTeam,
+          'Time Taken(In Hours)':data?.timeTaken
           
         })
       });

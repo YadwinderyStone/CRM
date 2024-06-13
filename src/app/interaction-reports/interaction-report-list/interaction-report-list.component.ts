@@ -98,7 +98,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
 
   ngOnInit(): void {
     this.dataSource = new InteractionDataSource(this.interactionReportsService);
-    this.dataSource.loadData(this.inventoryResource);
+    // this.dataSource.loadData(this.inventoryResource);
     this.getResourceParameter();
     this.sub$.sink = this.filterObservable$
       .pipe(

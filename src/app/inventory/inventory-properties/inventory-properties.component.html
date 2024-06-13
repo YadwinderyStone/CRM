@@ -25,7 +25,7 @@
                 <button mat-button (click)="accordion.closeAll()">Collapse All</button>
             </div>
         </div>
-        <div class="ml-2 text-right w-100" *ngIf="resValue?.ticketType !='Ticket Created' && resValue?.ticketType != 2">
+        <div class="ml-2 text-right w-100" *ngIf="(resValue?.ticketType !='Ticket Created' && resValue?.ticketType != 2) || this.resValue?.assignToId != this.loginUserDetail?.id">
             <button type="button" class="btn btn-danger btn-md" [routerLink]="['/interactions']"><i
                 class="fas fa-times-circle"></i>
             {{"Back" | translate}}
@@ -347,6 +347,11 @@
                             class="text-danger">
                             Please enter agent remarks
                         </mat-error>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.pattern"
+                            class="text-danger">
+                            Special characters not allowed
+                        </mat-error>
                     </div>
                 </div>
 
@@ -357,6 +362,11 @@
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('problemReported').touched && addInventoryForm.get('problemReported').errors?.required"
+                            class="text-danger">
+                            Please enter problem reported
+                        </mat-error>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('problemReported').touched && addInventoryForm.get('problemReported').errors?.pattern"
                             class="text-danger">
                             Please enter problem reported
                         </mat-error>

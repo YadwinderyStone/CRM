@@ -28,18 +28,14 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
   currentDate = new Date();
   dataSource: InteractionDataSource;
   isLoading: boolean = false;
-  displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
-    'interactionSubState', 'disposition', 'subDisposition', 'problemId', 'gstn', 'subject', 'problemReported', 'agentRemarks',
-    'docketNumber', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-    'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
-    'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
-    'uniqueNumber']
-
+  displayedColumns: string[] = ['interactionId', 'createdDate','createdBy', 'ticketType', 'contactName', 'team', 'interactionState',
+    'interactionSubState', 'disposition', 'subDisposition','subject', 'problemReported', 'agentRemarks',
+    'docketNumber', 'mobile','closeDate','interactionCreatedThroughMedia','priorityName']
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatSort) sort: MatSort;
   _productNameFilter: string;
   expandedElement: Inventory = null;
 
@@ -94,19 +90,19 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        tap(() => {
-          this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
-          this.inventoryResource.pageSize = this.paginator.pageSize;
-          this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
-          this.dataSource.loadFcrDumpData(this.inventoryResource);
-        })
-      )
-      .subscribe();
-  }
+  // ngAfterViewInit() {
+  //   this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+  //   this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
+  //     .pipe(
+  //       tap(() => {
+  //         this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
+  //         this.inventoryResource.pageSize = this.paginator.pageSize;
+  //         this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
+  //         this.dataSource.loadFcrDumpData(this.inventoryResource);
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 
 
   getResourceParameter() {
@@ -148,44 +144,46 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
     this.interactionReportsService.getInteractionsFcrDumpReports(this.inventoryResource).subscribe(res => {
       let dumpRecords: any = res?.body;
       if (dumpRecords.length) {
-        let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
-          'Sub State', 'Disposition', 'Sub Disposition', 'problemId', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
-          'Docket Number', 'Mobile NO.', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
-          'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
-          'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
-          'Unique Number']];
+        let heading = [['InteractionId',
+            'Date',
+            'Created By',
+            'Ticket Type',
+            'Contact Name',
+            'Team',
+            'Status',
+            'Sub State',
+            'Disposition',
+            'Sub Disposition',
+            'Subject',
+            'Problem Reported',
+            'Agent Remarks',
+            'Docket Number',
+            'Mobile No.',
+            'Close Date',
+            'Interaction Created Through Media',
+            'Priority Name']];
 
         let dumpReport = [];
         dumpRecords.forEach(data => {
           dumpReport.push({
             'InteractionId': data?.interactionId,
             'Date': data?.createdDate,
+            'Created By': data?.createdByName,
             'Ticket Type': data?.ticketType,
             'Contact Name': data?.contactName,
             'Team': data?.team,
-            'Assigned To': data?.assignedTo,
             'Status': data?.interactionState,
             'Sub State': data?.interactionSubState,
             'Disposition': data?.disposition,
             'Sub Disposition': data?.subDisposition,
-            'Problem Id': data?.problemId || data?.problemID,
-            'GSTN': data?.gstn,
             'Subject': data?.subject,
             'Problem Reported': data?.problemReported,
             'Agent Remarks': data?.agentRemarks,
             'Docket Number': data?.docketNumber,
             'Mobile No.': data?.mobileNo,
-            'Email Id': data?.emailId,
-            'Escalation Start Date Time': data?.escalationStartDateTime,
+            'Close Date':data?.lastResolvedAt,
             'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
-            'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
-            'Last Resolved At': data?.lastResolvedAt,
-            'Current Status': data?.currentStatus,
-            'No Of Messages': data?.noOfMessages,
             'Priority Name': data?.priorityName,
-            'Reopen Flag': data?.reopenFlag,
-            'Ticket Assigned Time': data?.ticketAssignedTime,
-            'Unique Number': data?.uniqueNumber,
           })
         });
         let workBook = XLSX.utils.book_new();

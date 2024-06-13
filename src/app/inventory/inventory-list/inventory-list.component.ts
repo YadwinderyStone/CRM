@@ -43,9 +43,9 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
   categoryList: InteractionCategory[] = [];
   subCategoryList: InteractionCategory[] = [];
 
-  toDate: any = new Date();
+  toDate: any;
   currentDate: any = new Date();
-  fromDate: any = new Date();
+  fromDate: any;
   prefix: string = 'G-';
   search: string = '';
   gstn: string = ''
@@ -266,9 +266,7 @@ export class InventoryListComponent extends BaseComponent implements OnInit {
       this.selectedSubStatus = '',
       this.inventoryResource.gstn = '',
       this.inventoryResource.mobileNo = '',
-      this.inventoryResource.emailId = '',
-      this.fromDate = new Date();
-    this.toDate = new Date();
+      this.inventoryResource.emailId = '';
     let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.toDate = toDate

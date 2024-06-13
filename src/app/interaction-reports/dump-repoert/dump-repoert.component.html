@@ -109,8 +109,7 @@
             </ng-container>
             <ng-container matColumnDef="problemReported">
                 <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header> Problem Reported</th>
-                <td class="table-column-400" mat-cell *matCellDef="let row"> {{row?.problemReported}}
-                </td>
+                <td class="table-column-400" mat-cell *matCellDef="let row"><div class="problemDiv">{{row?.problemReported}}</div></td>
             </ng-container>
             <ng-container matColumnDef="docketNumber">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header> Docket no.</th>
@@ -123,7 +122,7 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="emailId">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>EmailId</th>
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Email Id</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.emailId}}
                 </td>
             </ng-container>
@@ -149,7 +148,7 @@
             </ng-container>
             <ng-container matColumnDef="lastResolvedAt">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Last Resolved At</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastResolvedAt | date:'yyyy/MM/dd hh:MM :a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="currentStatus">
@@ -174,7 +173,7 @@
             </ng-container>
             <ng-container matColumnDef="ticketAssignedTime">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Assigned Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.ticketAssignedTime | date:'yyyy-MM-dd'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.ticketAssignedTime | date:'yyyy-MM-dd hh:mm:ss aa'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subject">

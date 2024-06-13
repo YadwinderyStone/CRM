@@ -26,7 +26,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
-    'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+    'priorityName','reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;

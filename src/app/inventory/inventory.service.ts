@@ -94,8 +94,8 @@ export class InventoryService {
     if(params?.mobileNo) param+=`&MobileNumber=${params?.mobileNo}`
     if(params?.emailId) param+=`&EmailId=${params?.emailId}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
-    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
-    if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+    // if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    // if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     if(params?.team) param+=`&TeamId=${params?.team}`
     if(params?.teamId) param+=`&TeamName=${params?.teamId}`
     if(params?.priority) param+=`&PriorityName=${params?.priority}`
@@ -383,8 +383,7 @@ getEmailInboxListByInteractionId(id){
   }); 
 }
 getOldEmailInboxListByInteractionId(id){
-  // FIXME: need api end point change for old email 
-  const url = `Email/GetEmailInboxListByInteractionId?interactionId=${id}`;
+  const url = `Email/GetOldEmailListByInteractionId?interactionId=${id}`;
   return this.http.get<any>(url, {
     observe: 'response',
   }); 

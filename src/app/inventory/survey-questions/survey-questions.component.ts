@@ -15,9 +15,9 @@ import {
 export class SurveyQuestionsComponent implements OnInit {
   data = 'fcr'
   @Input() id: string;
-  @Input() InteractionDetail:any
+  @Input() InteractionDetail: any
   surveyData: any;
-  isLoading:boolean = false;
+  isLoading: boolean = false;
   surveyForm: UntypedFormGroup;
   constructor(
     private inventoryService: InventoryService,
@@ -27,8 +27,7 @@ export class SurveyQuestionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    if(this.InteractionDetail?.statusId==3)this.getsurveyQuestions();
-    
+    this.getsurveyQuestions();
   }
 
 
@@ -61,9 +60,9 @@ export class SurveyQuestionsComponent implements OnInit {
     this.inventoryService.getSurveyQuestions(this.id).subscribe(res => {
       this.surveyData = res
       this.isLoading = false;
-      }, error => {
-        this.toastrService.error(error);
-        this.isLoading = false;
+    }, error => {
+      this.toastrService.error(error);
+      this.isLoading = false;
     })
   }
 

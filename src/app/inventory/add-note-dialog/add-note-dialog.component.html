@@ -24,6 +24,7 @@
                         <div class="text-danger" *ngIf="notesForm.get('body').errors?.required">
                             Comment is required
                         </div>
+                        <div class="text-danger" *ngIf="notesForm.get('body').errors?.pattern">Special characters not allowed</div>
                     </div>
                 </div>
             </div>

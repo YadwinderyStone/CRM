@@ -62,7 +62,7 @@ emailForm: UntypedFormGroup;
         from: ['', [Validators.required]],
         cCAddress: [''],
         subject: [, [Validators.required]],
-        body: ['', [Validators.required]],
+        body: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
       });
     }
     

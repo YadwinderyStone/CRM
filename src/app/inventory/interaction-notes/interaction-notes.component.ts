@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { PatternValidator, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslationService } from '@core/services/translation.service';
 import { EditorConfig } from '@shared/editor.config';
@@ -43,7 +43,7 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
   }
   createForm() {
     this.notesForm = this.fb.group({
-      body: ['', [Validators.required]],
+      body: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
       nextStatusTime: [this.currentDate, [Validators.required]],
     });
   }

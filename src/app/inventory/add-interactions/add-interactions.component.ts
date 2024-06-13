@@ -100,14 +100,14 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       categoryName: [''],
       subcategoryId: ['', Validators.required],
       subcategoryName: [''],
-      problemReported: ['', Validators.required],
+      problemReported: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
       gstn: ['', Validators.required],
       contactId: [this.userData?.custId],
       teamId: [''],
       teamName: [''],
       source: [''],
       errorCode: [''],
-      agentRemarks: ['', [Validators.required]],
+      agentRemarks: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
       subject: [''],
       catInput: [''],
       subCatInput: [''],
@@ -256,6 +256,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       "emailId": data?.emailId || '',
       "contactId": data?.contactId,
       "contactName": this.userData?.custName || '',
+      "mobileNo": this.userData?.mobileNo || '',
       "teamId": data?.teamId,
       "teamName": data?.teamName || data?.team,
       "source": data?.source || '',
@@ -287,8 +288,6 @@ createHistory(values:any,res){
     this.toastrService.error(error);
   })
 }
-
-
 
   openDialog(value, data?) {
     let detail = value;

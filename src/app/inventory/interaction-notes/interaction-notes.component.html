@@ -31,6 +31,9 @@
                     <div class="text-danger" *ngIf="notesForm.get('body').errors?.required">
                         Comment is required
                     </div>
+                    <div class="text-danger" *ngIf="notesForm.get('body').errors?.pattern">
+                       Special characters not allowed
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,8 +74,7 @@
                     </ng-container>
                     <ng-container matColumnDef="date">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created Date </th>
-                        <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate|
-                            date:'dd-MM-yyyy hh:mm a' }} </td>
+                        <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate| date:'dd-MM-yyyy hh:mm a' }} </td>
                     </ng-container>
                     <ng-container matColumnDef="nextStatusTime">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef>Next Status Time </th>
@@ -82,7 +84,7 @@
                     <ng-container matColumnDef="noteDesc">
                         <th class="table-column-500" mat-header-cell *matHeaderCellDef> Description</th>
                         <td class="table-column-500" mat-cell *matCellDef="let element">
-                            <div class="Desc">{{element.noteDesc}} </div>
+                            <div class="Desc" [innerHTML]="element.noteDesc"></div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="teamName">

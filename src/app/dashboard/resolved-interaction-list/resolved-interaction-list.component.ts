@@ -38,12 +38,12 @@ export class ResolvedInteractionListComponent extends BaseComponent implements O
       }
       this.loading = true;
       this.dashboardService.getInteractionsListForResolved().subscribe((c: any) => {
-          if(c.body.data!=null){
+          if(c.body !=null){
             this.loading = false;
-          this.dataSource = c?.body.data;
+          this.dataSource = c?.body;
           } else{
             this.loading = false;
-            this.dataSource = c?.body.data || [];
+            this.dataSource = c?.body|| [];
           }
         }, (err) => this.loading = false);
     }

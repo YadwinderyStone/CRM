@@ -85,7 +85,7 @@ export class EmailTemplateManageComponent extends BaseComponent implements OnIni
     this.emailTemplateForm = this.fb.group({
       name: ['', [Validators.required]],
       subject: ['', [Validators.required]],
-      body: ['', [Validators.required]]
+      body: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]]
     })
   }
 

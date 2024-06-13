@@ -72,10 +72,9 @@ export class InteractionReportsService {
     });
   }
   getInteractionsFcrDumpReports(params){
-    // FIXME :  need to change api end point
     let param:any = `FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
-    const url = `Report/GetInteractionMonthRowReportList?${param}`;
+    const url = `Report/GetInteractionMonthRawDumpReportForFCRList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
     });
@@ -177,10 +176,9 @@ export class InteractionReportsService {
     });
   }
   getGrpTatReportsList(params){
-    // FIXME: need to change api end points
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
-    const url = `Report/GetSurveyDayWiseReportList?${param}`;
+    const url = `Report/GetGrpTatReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
     });

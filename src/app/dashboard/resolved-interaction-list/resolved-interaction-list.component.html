@@ -13,11 +13,11 @@
         <table [dir]="langDir" mat-table [dataSource]="dataSource" class="table table-bordered table-hover mainHeight ">
           <ng-container matColumnDef="interactionid">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction ID</th>
-            <td class="table-column-200" mat-cell *matCellDef="let row"><a  routerLink="/interactions/edit-interactions/{{row?.id}}">{{row.interactionId}}</a> </td>
+            <td class="table-column-200" mat-cell *matCellDef="let row"><a  routerLink="/interactions/edit-interactions/{{row?.id}}">{{row?.transactionNumber}}</a> </td>
         </ng-container>
         <ng-container matColumnDef="interactiontype">
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>Interaction Type</th>
-          <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.interactionType}} </td>
+          <td class="table-column-200" [ngClass]="row?.ticketType=='FCR'?'fcr':'ticket-closed'" mat-cell *matCellDef="let row"> {{row.ticketType}} </td>
       </ng-container>
       <ng-container matColumnDef="assignto">
           <th class="table-column-200" mat-header-cell *matHeaderCellDef>Assign To</th>
@@ -45,12 +45,12 @@
       </ng-container>
       <ng-container matColumnDef="category">
           <th class="table-column-300" mat-header-cell *matHeaderCellDef>Category</th>
-          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.category}}
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.categoryName}}
           </td>
       </ng-container>
       <ng-container matColumnDef="subcatagory">
           <th class="table-column-300" mat-header-cell *matHeaderCellDef> Sub Category</th>
-          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.subCategory}}
+          <td class="table-column-300" mat-cell *matCellDef="let row"> {{row.subCategoryName}}
           </td>
       </ng-container>
       <ng-container matColumnDef="problemreported1">
@@ -74,8 +74,8 @@
           </td>
       </ng-container>
       <ng-container matColumnDef="createdat">
-          <th class="table-column-150" mat-header-cell *matHeaderCellDef>Created At</th>
-          <td class="table-column-150" mat-cell *matCellDef="let row"> {{row.createdAt}}
+          <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created At</th>
+          <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.createdDate | date:'yyyy-MM-dd hh:mm :a '}}
           </td>
       </ng-container>
       <tr *matNoDataRow>

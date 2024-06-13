@@ -84,7 +84,8 @@
             </ng-container>
             <ng-container matColumnDef="team">
                 <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> Team
-                </th>
+                </th>Ticket Assigned Time
+
                 <td class="table-column-100" mat-cell *matCellDef="let row"> {{row?.team || row?.teamName}} </td>
             </ng-container>
             <ng-container matColumnDef="interactionState">
@@ -183,12 +184,12 @@
             </ng-container>
             <ng-container matColumnDef="ticketAssignedTime">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Assigned Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.ticketAssignedTime | date:'yyyy-MM-dd'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.ticketAssignedTime | date:'yyyy-MM-dd hh:mm :a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="lastMessagefromCust">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Customer Last Message Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastMessagefromCust | date:'yyyy-MM-dd'}}
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.lastMessagefromCust | date:'yyyy-MM-dd hh:mm :a'}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="subject">
