@@ -12,7 +12,7 @@ export class EmailService {
 
 
 getEmailStatus():any{
-  const url = `Report/GetInteraction185ReportFourList`;
+  const url = `Dashboard/ GetDashboardApplicationStatusList`;
   return this.http.get<emailStatusModel[]>(url, {
     observe: 'response',
   });
