@@ -230,9 +230,10 @@ export class Reports187Component extends BaseComponent implements OnInit {
   }
 
 dowanloadExcal(){
+  let url = `Excel/GetExcelFileInteraction187Report`
   this.isLoading = true;
   this.setParams();
-  this.interactionReportsService.get187InteractionsReportsExcelDowanload(this.inventoryResource).subscribe((res: any) => {
+  this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
     let emailDocumentList =  res
     let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
 

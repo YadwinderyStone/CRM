@@ -186,7 +186,7 @@ export class ReopenInteractionsReportsListComponent extends BaseComponent implem
           'Contact Name': data?.contactName,
           'Mobile No.': data?.mobileNo,
           'Email ': data?.emailId,
-          'Team': data?.teamName || data?.name,
+          'Team': data?.team || data?.name,
           'Problem Id': data?.problemId || data?.problemID,
           'GSTN': data?.gstn,
           'Problem Reported': data?.problemReported,

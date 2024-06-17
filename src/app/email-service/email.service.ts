@@ -1,7 +1,7 @@
-import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@microsoft/signalr';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+import { emailStatusModel } from './status.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,5 +9,15 @@ import { Observable } from 'rxjs';
 export class EmailService {
 
   constructor(private http: HttpClient) { }
+
+
+getEmailStatus():any{
+  const url = `Report/GetInteraction185ReportFourList`;
+  return this.http.get<emailStatusModel[]>(url, {
+    observe: 'response',
+  });
+}
+
+
 
 }
