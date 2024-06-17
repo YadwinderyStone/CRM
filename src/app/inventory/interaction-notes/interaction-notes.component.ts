@@ -43,7 +43,7 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
   }
   createForm() {
     this.notesForm = this.fb.group({
-      body: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
+      body: ['', [Validators.required]],
       nextStatusTime: [this.currentDate, [Validators.required]],
     });
   }

@@ -229,7 +229,27 @@ export class Reports187Component extends BaseComponent implements OnInit {
 
   }
 
+dowanloadExcal(){
+  this.isLoading = true;
+  this.setParams();
+  this.interactionReportsService.get187InteractionsReportsExcelDowanload(this.inventoryResource).subscribe((res: any) => {
+    let emailDocumentList =  res
+    let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
 
+    const url = window.URL.createObjectURL(receivedData);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '187Reports.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    this.isLoading = false
+
+  },error=>{
+    this.toasterService.error(error)
+  })
+}
 
 
 

@@ -27,7 +27,7 @@ export class SurveyQuestionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getsurveyQuestions();
+    if(this.InteractionDetail?.statusId == 3 || this.InteractionDetail?.statusId == 4 )this.getsurveyQuestions();
   }
 
 

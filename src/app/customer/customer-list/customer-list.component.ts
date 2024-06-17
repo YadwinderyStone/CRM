@@ -143,7 +143,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
       this.searchCustomerList();
       // this.dataSource.loadData(this.customerResource);
     } else {
-      this.dataSource.loadData(this.customerResource);
+      // this.dataSource.loadData(this.customerResource);
     }
   }
   searchCustomerList(): any {

@@ -100,7 +100,7 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
       from: ['donotreply@gst.gov.in', [Validators.required]],
       cCAddress: [''],
       subject: [this.subject, [Validators.required]],
-      body: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
+      body: ['', [Validators.required]],
     });
   }
 

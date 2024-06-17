@@ -4,7 +4,6 @@ import { AuthGuard } from '@core/security/auth.guard';
 import { ProblemComponent } from './problem/problem.component';
 
 const routes: Routes = [
-// FIXME : change the claim type saccording to role
   {
     path: '',
     component: ProblemComponent,

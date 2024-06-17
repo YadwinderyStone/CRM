@@ -88,7 +88,7 @@ export class EmailSendComponent extends BaseComponent implements OnInit {
       toAddress: ['', [Validators.required]],
       cCAddress: [''],
       subject: ['', [Validators.required]],
-      body: ['', [Validators.required,,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
+      body: ['', [Validators.required,]],
       parameters: this.fb.array([])
     });
   }

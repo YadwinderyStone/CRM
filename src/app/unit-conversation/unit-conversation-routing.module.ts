@@ -5,6 +5,7 @@ import { InteractionTypeComponent } from './interaction-type/interaction-type.co
 import { InteractionCategoryComponent } from './interaction-category/interaction-category.component';
 import { InteractionStatusComponent } from './interaction-status/interaction-status.component';
 import { InteractionBulkCloserComponent } from './interaction-bulk-closer/interaction-bulk-closer.component';
+import { InternalBulkCloserComponent } from './internal-bulk-closer/internal-bulk-closer.component';
 
 
 
@@ -35,6 +36,12 @@ const routes: Routes = [
   {
     path: 'interaction-bulk-closer',
     component: InteractionBulkCloserComponent,
+    canActivate: [AuthGuard],
+   data: { claimType: ['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY'] },
+  },
+  {
+    path: 'internal-bulk-closer',
+    component: InternalBulkCloserComponent,
     canActivate: [AuthGuard],
    data: { claimType: ['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY'] },
   }

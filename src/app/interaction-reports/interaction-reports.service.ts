@@ -109,6 +109,16 @@ export class InteractionReportsService {
       observe: 'response',
     });
   }
+  get187InteractionsReportsExcelDowanload(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    const url = `Excel/GetExcelFileInteraction187Report?${param}`;
+    return this.http.get(url,{responseType:'arraybuffer'});
+    //   {
+    //   observe: 'response',
+    // }
+   
+  }
 
   get185InteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`

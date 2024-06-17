@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Inventory } from '@core/domain-classes/inventory';
-import { InventoryResourceParameter } from '@core/domain-classes/inventory-resource-parameter';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

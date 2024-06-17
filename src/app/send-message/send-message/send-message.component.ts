@@ -88,7 +88,7 @@ export class SendMessageComponent extends BaseComponent implements OnInit {
         toAddress: ['', [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
         cCAddress: [''],
         subject: ['', [Validators.required]],
-        body: ['', [Validators.required,,Validators.pattern(/^[a-zA-Z0-9.]*$/)]],
+        body: ['', [Validators.required,]],
         parameters: this.fb.array([])
       });
     }

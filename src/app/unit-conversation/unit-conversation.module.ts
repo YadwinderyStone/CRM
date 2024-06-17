@@ -23,6 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { InteractionBulkCloserComponent } from './interaction-bulk-closer/interaction-bulk-closer.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BulkCloserHistoryComponent } from './bulk-closer-history/bulk-closer-history.component';
+import { InternalBulkCloserComponent } from './internal-bulk-closer/internal-bulk-closer.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { BulkCloserHistoryComponent } from './bulk-closer-history/bulk-closer-hi
     AddEditInteractionCategoryComponent,
     AddEditInteractionStatusComponent,
     InteractionBulkCloserComponent,
-    BulkCloserHistoryComponent
+    BulkCloserHistoryComponent,
+    InternalBulkCloserComponent
   ],
   imports: [
     CommonModule,

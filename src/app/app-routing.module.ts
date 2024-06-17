@@ -386,6 +386,13 @@ const routes: Routes = [
             )
         }, 
         {
+          path: 'email-service',
+          loadChildren: () =>
+            import('./email-service/email-service.module').then(
+              m => m.EmailServiceModule
+            )
+        }, 
+        {
           path: 'calendar',
           loadChildren: () =>
             import('./calendar/calendar.module').then(

@@ -1,7 +1,6 @@
 <form [formGroup]="addInventoryForm">
     <div class="example-action-buttons justify-content-between">
-        <div class="ml-2" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2">
-            <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id">
+        <div class="ml-2" *ngIf="(resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2)&& this.resValue?.assignToId == this.loginUserDetail?.id">
                 <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
                     class="btn btn-success btn-md">
                     <i class="fas fa-envelope"></i>
@@ -10,7 +9,6 @@
                     class="btn btn-warning btn-md mx-3">
                     <i class="fas fa-paper-plane"></i>
                     Transfer</button>
-            </div>
         </div>
         <div class="" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2">
             <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id">
@@ -340,8 +338,6 @@
                         <mat-label>Agent Remarks</mat-label>
                         <textarea type="text" maxlength="2000" formControlName="agentRemarks"
                             class="form-control"></textarea>
-                        <!-- <input type="text" maxlength="600" class="form-control"
-                            formControlName="agentRemarks"> -->
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"
                             class="text-danger">

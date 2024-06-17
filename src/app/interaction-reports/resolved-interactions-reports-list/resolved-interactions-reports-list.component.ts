@@ -177,7 +177,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
         'Q4',
         'Q5',
         'Q6',
-        'Q7',
+        'Additional Feedback',
         'Total Survey Value',
         'CSAT Category'
       ]];
@@ -220,7 +220,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
           'Q4': data?.q4||data?.experience,
           'Q5': data?.q5||data?.timeliness,
           'Q6': data?.q6||data?.overallFeedback,
-          'Q7': data?.q7||data?.additionalFeedback,
+          'Additional Feedback': data?.q7||data?.additionalFeedback,
           'Total Survey Value': data?.totalServeyValue,
           'CSAT Category': data?.csatCategory
         })

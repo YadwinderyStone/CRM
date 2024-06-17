@@ -1,11 +1,11 @@
 <form [formGroup]="surveyForm">
     <div class="my-3">
-        <h5>Survey Questions <span class="mx-2" *ngIf="InteractionDetail?.statusId!= 3">(Interaction is not resolved state)</span></h5>
+        <h5>Survey Questions <span class="mx-2 nodata" *ngIf="InteractionDetail?.statusId!= 3">(Interaction is not resolved state)</span></h5>
     </div>
     <div class="loading-shade" *ngIf="isLoading">
         <mat-spinner></mat-spinner>
       </div>
-    <div class="row">
+    <div class="row" *ngIf="InteractionDetail?.statusId == 3 || InteractionDetail?.statusId == 4">
         <div class="col-md-4">
             <div class="form-group">
                 <mat-label>Q1:</mat-label>
@@ -68,7 +68,7 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <mat-label>Q7:</mat-label>
+                <mat-label>Additional Remarks :</mat-label>
                 <input type="text" [disabled]="true" class="form-control" [value]="this.surveyData?.additionalFeedback">
                 <mat-error [dir]="langDir" *ngIf="surveyForm.get('q7').touched && surveyForm.get('q7').errors?.required"
                     class="text-danger">
@@ -130,5 +130,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="w-100 nodataDiv" *ngIf="InteractionDetail?.statusId != 3 && InteractionDetail?.statusId != 4">
+        No data found 
     </div>
 </form>
