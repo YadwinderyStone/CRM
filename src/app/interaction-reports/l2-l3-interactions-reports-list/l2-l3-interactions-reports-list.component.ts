@@ -22,6 +22,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
+  isLoading:boolean = false
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
   'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
@@ -132,6 +133,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
 
 
   dowanloadList() {
+    this.isLoading = true;
     this.setParams();
     this.interactionReportsService.getL2L3InteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
@@ -204,9 +206,38 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
       XLSX.utils.book_append_sheet(workBook, workSheet, 'L2 L3 Interaction Report List');
       XLSX.writeFile(workBook, 'L2 L3 Interaction Report List' + ".xlsx");
+      this.isLoading = false;
+    },error=>{
+      this.isLoading = false;
+      this.toasterService.error(error);
     })
 
   }
+
+  dowanloadExcal(){
+    //  FIXME: need to Change url 
+    let url = `Excel/GetExcelFileInteraction187Report`
+    this.isLoading = true;
+    this.setParams();
+    this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
+      let emailDocumentList =  res
+      let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
+      const url = window.URL.createObjectURL(receivedData);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'L2L3InteractionReports.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      this.isLoading = false
+  
+    },error=>{
+      this.toasterService.error(error)
+    })
+  }
+
+
 
 
 }

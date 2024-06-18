@@ -141,7 +141,6 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
   }
 
 
-
   onDownloadReport() {
     this.isLoading = true
     this.interactionReportsService.getInteractionsDumpReports(this.inventoryResource).subscribe(res => {
@@ -202,5 +201,34 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
       this.toasterService.error(error)
     })
   }
+
+  dowanloadExcal(){
+    //  FIXME: need to Change url 
+    let url = `Excel/GetExcelFileInteraction187Report`
+    this.isLoading = true;
+    this.setParams();
+    this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
+      let emailDocumentList =  res
+      let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
+  
+      const url = window.URL.createObjectURL(receivedData);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'TicketCreatedDumpReports.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      this.isLoading = false
+  
+    },error=>{
+      this.toasterService.error(error)
+    })
+  }
+
+
+
+
+
 }
 
