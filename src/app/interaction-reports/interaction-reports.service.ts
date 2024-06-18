@@ -188,11 +188,13 @@ export class InteractionReportsService {
   getGrpTatReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    param+=`&InteractionId=${param?.id || '0'}`
     const url = `Report/GetGrpTatReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
     });
   }
+
   
 
   dowanloadReports(data){

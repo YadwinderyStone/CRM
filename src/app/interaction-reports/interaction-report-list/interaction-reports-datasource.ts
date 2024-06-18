@@ -299,9 +299,9 @@ export class InteractionDataSource implements DataSource<Inventory> {
 
         let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
+        if (resp && resp?.headers?.get('X-Pagination')) {
           paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
+            resp.headers?.get('X-Pagination')
           ) as ResponseHeader;
         }
         this._responseHeaderSubject$.next(paginationParam);
