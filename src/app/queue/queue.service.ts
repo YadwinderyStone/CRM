@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Queue, QueueMember } from '@core/domain-classes/queue.model';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -75,10 +75,27 @@ updateQueueMember(data:QueueMember){
   const url = `QueueMember/${data?.id}`;
   return this.httpClient.put<Queue[]>(url,data);
 }
-deleteQueueMember(data){
+// deleteQueueMember(data){
+//   const url = `QueueMemberDelete`;
+//   return this.httpClient.delete<any>(url,data);
+// }
+
+deleteQueueMember(data) {
   const url = `QueueMemberDelete`;
-  return this.httpClient.delete<any>(url,data);
+  const options = {
+    body: data,
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  return this.httpClient.request('DELETE', url, options);
 }
+
+
+
+
+
 // getQueueMembers(){
 //   const url = `QueueMemberAdd`;
 //   return this.httpClient.get<Queue[]>(url);
