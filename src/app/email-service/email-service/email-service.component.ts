@@ -10,7 +10,8 @@ import { BaseComponent } from 'src/app/base.component';
   styleUrls: ['./email-service.component.scss']
 })
 export class EmailServiceComponent extends BaseComponent implements OnInit {
-  list: emailStatusModel[] = [];
+  // list: emailStatusModel[] = [];
+  list: any;
   isLoading: boolean = false;
   displayedColumns: string[] = ['appName','threadName','appStatus','machineName', 'appLastUpdated'];
 
@@ -25,7 +26,7 @@ export class EmailServiceComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.emailservices.getEmailStatus().subscribe((res: any) => {
-      this.list = res
+      this.list = res?.body
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

@@ -123,8 +123,8 @@ export class InteractionCategoryComponent extends BaseComponent implements OnIni
     this.manageCategory({
       id: '',
       name: '',
-      parentId: category.id,
-      isEnabled: false
+      parentId: category?.id,
+      isEnabled: category?.isEnabled
     });
   }
 
