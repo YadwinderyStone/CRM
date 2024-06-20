@@ -30,7 +30,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
     'subject', 'category', 'subcatagory', 'contant',
     'createdteam', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno', 'mobile',
     'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-    'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+    'interactionThreadLastUpdated','noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   // displayedColumns: string[] =['interactionid','createdDate', 'ticketType','contactName','team','assignedTo','interactionState',
   // 'interactionSubState','disposition','subDisposition','gstn','subject','problemReported','agentRemarks',
@@ -176,7 +176,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
         'Escalation Start Date Time',
         'Interaction Created Through Media',
         'Interaction Thread Last Updated',
-        'Last Resolved At',
+        // 'Last Resolved At',
         'No Of Messages',
         'Priority Name',
         'Reopen Flag',
@@ -208,7 +208,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Escalation Start Date Time': data?.escalationStartDateTime,
           'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
           'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
-          'Last Resolved At': data?.lastResolvedAt,
+          // 'Last Resolved At': data?.lastResolvedAt,
           'No Of Messages': data?.noOfMessages,
           'Priority Name': data?.priorityName,
           'Reopen Flag': data?.reopenFlag,

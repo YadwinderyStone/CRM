@@ -235,8 +235,7 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelFileForClosedReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

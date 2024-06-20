@@ -24,7 +24,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
   currentDate = new Date();
   dataSource: InteractionDataSource;
   isLoading: boolean = false
-  displayedColumns: string[] = ['interactionid','resolvedDate','team','timeTaken' ];
+  displayedColumns: string[] = ['interactionid','resolvedDate','team','timeTaken','createdDate','ticketStatus'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
@@ -137,7 +137,9 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
         'Interaction Id',
         'Resolved Date and Time',
         'Resolved ByTeam',
-        'Time Taken(In Hours)'
+        'Time Taken(In Hours)',
+        'Created Date',
+        'Ticket Status'
       ]];
 
       let interactionsReport = [];
@@ -146,7 +148,9 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
           'Interaction Id': data?.interactionId,
           'Resolved Date and Time': this.datepipe.transform(data?.resolvedDateAndTime, 'yyyy-MM-dd hh:mm:ss a'),
           'Resolved ByTeam': data?.resolvedByTeam,
-          'Time Taken(In Hours)':data?.timeTaken
+          'Time Taken(In Hours)':data?.timeTaken,
+          'Created Date':data?.createdDate,
+          'Ticket Status':data?.ticketStatus
           
         })
       });
@@ -164,8 +168,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelFileForGrpTatReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

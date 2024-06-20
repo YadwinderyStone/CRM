@@ -238,8 +238,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelFileForResolvedReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

@@ -25,7 +25,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
   isLoading:boolean = false
   dataSource: InteractionDataSource;
   displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported1', 'docketno',
-  'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages',
+  'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated','noOfMessages',
   'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
   columnsToDisplay: string[] = ["footer"];
@@ -160,7 +160,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
         'Escalation Start Date Time',
         'Interaction Created Through Media',
         'Interaction Thread Last Updated',
-        'Last Resolved At',
+        // 'Last Resolved At',
         'No Of Messages',
         'priority Name',
         'Reopen Flag',
@@ -193,7 +193,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
           'Escalation Start Date Time': this.datepipe.transform(data?.escalationStartDateTime, 'yyyy-MM-dd hh:mm:ss a'),
           'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
           'Interaction Thread Last Updated': this.datepipe.transform(data?.interactionThreadLastUpdated, 'yyyy-MM-dd hh:mm:ss a'),
-          'Last Resolved At': this.datepipe.transform(data?.lastResolvedAt, 'yyyy-MM-dd hh:mm:ss a'),
+          // 'Last Resolved At': this.datepipe.transform(data?.lastResolvedAt, 'yyyy-MM-dd hh:mm:ss a'),
           'No Of Messages': data?.noOfMessages,
           'priority Name': data?.priorityName,
           'Reopen Flag': data?.reopenFlag,
@@ -215,8 +215,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelnteractionDataL2L3Report`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

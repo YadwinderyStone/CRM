@@ -195,11 +195,11 @@ export class SurveyReportsComponent extends BaseComponent implements OnInit {
 
   }
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelFileForSurveyDayReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
+      if(res){
       let emailDocumentList =  res
       let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
       const url = window.URL.createObjectURL(receivedData);
@@ -211,7 +211,9 @@ export class SurveyReportsComponent extends BaseComponent implements OnInit {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       this.isLoading = false
-  
+    }else{
+     this.toasterService.warning('No data found for this date')
+    }
     },error=>{
       this.toasterService.error(error)
     })

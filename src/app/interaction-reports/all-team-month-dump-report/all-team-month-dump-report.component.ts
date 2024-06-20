@@ -28,7 +28,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
   displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
     'interactionSubState', 'disposition', 'subDisposition', 'problemId', 'gstn', 'subject', 'problemReported', 'agentRemarks',
     'docketNumber', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-    'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
+    'interactionThreadLastUpdated','currentStatus',
     'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
     'uniqueNumber']
 
@@ -150,7 +150,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
         let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
           'Sub State', 'Disposition', 'Sub Disposition', 'Problem Id', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
           'Docket Number', 'Mobile No', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
-          'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
+          'Interaction Thread Last Updated','Current Status',
           'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
           'Unique Number']];
 
@@ -178,7 +178,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
             'Escalation Start Date Time': data?.escalationStartDateTime,
             'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
             'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
-            'Last Resolved At': data?.lastResolvedAt,
+            // 'Last Resolved At': data?.lastResolvedAt,
             'Current Status': data?.currentStatus,
             'No Of Messages': data?.noOfMessages,
             'Priority Name': data?.priorityName,
@@ -204,14 +204,12 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelFIleInteractionForAllTeamsReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
       let emailDocumentList =  res
       let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
-  
       const url = window.URL.createObjectURL(receivedData);
       const a = document.createElement('a');
       a.href = url;

@@ -4,4 +4,5 @@ export class ResponseHeader {
     skip: number = 0;
     totalPages: number = 0;
     totalAmount: number=0;
+    pageNumber:any = 0;
   }

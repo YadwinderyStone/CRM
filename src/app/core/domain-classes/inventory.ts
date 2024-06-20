@@ -9,4 +9,5 @@ export interface Inventory {
     averagePurchasePrice: number;
     averageSalesPrice:number;
     unitId:string;
+    totalRecords:any;
 }

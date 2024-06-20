@@ -30,7 +30,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
   displayedColumns: string[] = ['interactionId', 'createdDate', 'ticketType', 'contactName', 'team', 'assignedTo', 'interactionState',
     'interactionSubState', 'disposition', 'subDisposition', 'problemId', 'gstn', 'subject', 'problemReported', 'agentRemarks',
     'docketNumber', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-    'interactionThreadLastUpdated', 'lastResolvedAt', 'currentStatus',
+    'interactionThreadLastUpdated', 'currentStatus',
     'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime',
     'uniqueNumber']
 
@@ -149,7 +149,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
         let heading = [['InteractionId', 'Date', 'Ticket Type', 'Contact Name', 'Team', 'Assigned To', 'Status',
           'Sub State', 'Disposition', 'Sub Disposition', 'problemId', 'GSTN', 'Subject', 'Problem Reported', 'Agent Remarks',
           'Docket Number', 'Mobile NO.', 'EmailId', 'Escalation Start Date Time', 'Interaction Created Through Media',
-          'Interaction Thread Last Updated', 'Last Resolved At', 'Current Status',
+          'Interaction Thread Last Updated','Current Status',
           'No Of Messages', 'Priority Name', 'Reopen Flag', 'Ticket Assigned Time',
           'Unique Number']];
 
@@ -177,7 +177,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
             'Escalation Start Date Time': data?.escalationStartDateTime,
             'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
             'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
-            'Last Resolved At': data?.lastResolvedAt,
+            // 'Last Resolved At': data?.lastResolvedAt,
             'Current Status': data?.currentStatus,
             'No Of Messages': data?.noOfMessages,
             'Priority Name': data?.priorityName,
@@ -204,7 +204,7 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
 
   dowanloadExcal(){
     //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelFIleInteractionMonthRowReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

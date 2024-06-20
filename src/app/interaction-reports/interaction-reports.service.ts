@@ -59,9 +59,8 @@ export class InteractionReportsService {
 
   getInteractionsDumpReports(params){
     let param:any = `FromDate=${params?.fromDate}`
-    // param = `Skip=${params?.skip.toString()}`
-    // param = `Skip=${params?.skip.toString()}`
-    // param+=`&PageSize=${params?.pageSize.toString()}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     // param+=`&IsAdmin=${params?.IsAdmin}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     // if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
@@ -74,6 +73,8 @@ export class InteractionReportsService {
   getInteractionsFcrDumpReports(params){
     let param:any = `FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpReportForFCRList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -82,6 +83,8 @@ export class InteractionReportsService {
   getInteractionsAllTeamDumpReports(params){
     let param:any = `FromDate=${params?.fromDate}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpReportForAllTeams?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -90,6 +93,7 @@ export class InteractionReportsService {
   getInteractionsReportsList(params){
     let param:any = `FromDate=${params?.fromDate}`
     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     if(params?.toDate) param+=`&ToDate=${params?.toDate}`
     if(params?.search) param+=`&TransactionNumber=${params?.search}`
     if(params?.type) param+=`&TicketType=${params?.type}`
@@ -104,6 +108,8 @@ export class InteractionReportsService {
   get187InteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteraction187ReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -112,17 +118,17 @@ export class InteractionReportsService {
   get187InteractionsReportsExcelDowanload(data,params){
     let param:any = `ToDate=${params?.toDate}` 
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    //  param+=`&PageSize=${params?.pageSize.toString()}`
+    // param+=`&PageNumber=${params?.pageNumber.toString()}`
   let url = `${data}?${param}`;
     return this.http.get(url,{responseType:'arraybuffer'});
-    //   {
-    //   observe: 'response',
-    // }
-   
   }
 
   get185InteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteraction185ReportFourList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -132,6 +138,8 @@ export class InteractionReportsService {
   getClosedInteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpClosedReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -140,6 +148,8 @@ export class InteractionReportsService {
   getReopenInteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpReOpenReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -148,6 +158,8 @@ export class InteractionReportsService {
   getOpenInteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpOpenReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -156,6 +168,8 @@ export class InteractionReportsService {
   getResolvedInteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpResolvedReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -164,6 +178,8 @@ export class InteractionReportsService {
   getPendingInteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpPendingReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -172,6 +188,8 @@ export class InteractionReportsService {
   getL2L3InteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionMonthRawDumpReportL2L3List?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -180,6 +198,8 @@ export class InteractionReportsService {
   getSurveyReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetSurveyDayWiseReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
@@ -188,6 +208,8 @@ export class InteractionReportsService {
   getGrpTatReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
     param+=`&InteractionId=${param?.id || '0'}`
     const url = `Report/GetGrpTatReportList?${param}`;
     return this.http.get<any[]>(url, {
@@ -196,14 +218,4 @@ export class InteractionReportsService {
   }
 
   
-
-  dowanloadReports(data){
-    const url = ``
-    return this.http.get<any[]>(url, {
-      observe: 'response',
-    });
-  }
-
-
-
 }

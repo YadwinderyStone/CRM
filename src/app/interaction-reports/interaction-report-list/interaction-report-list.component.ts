@@ -58,12 +58,12 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     'subject', 'category', 'subcatagory', 'contant',
     'createdteam', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno', 'currentStatus', 'mobile',
     'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia',
-    'interactionThreadLastUpdated', 'lastResolvedAt', 'noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
+    'interactionThreadLastUpdated','noOfMessages', 'priorityName', 'reopenFlag', 'ticketAssignedTime', 'uniqueNumber'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   _productNameFilter: string;
   expandedElement: Inventory = null;
 
@@ -90,6 +90,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
+    this.inventoryResource.pageNumber = 1;
     let toDate = this.datepipe.transform(this.toDate, 'yyyy/MM/dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy/MM/dd');
     this.inventoryResource.fromDate = toDate
@@ -107,7 +108,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       .subscribe((c) => {
         this.inventoryResource.skip = 0;
         this.inventoryResource.IsAdmin = true;
-        // this.paginator.pageIndex = 0;
+        this.paginator.pageIndex = 0;
 
         const strArray: Array<string> = c.split('##');
         if (strArray[0] === 'productName') {
@@ -122,19 +123,20 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     this.getTeamList();
   }
 
-  // ngAfterViewInit() {
-  //   this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-  //   this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
-  //     .pipe(
-  //       tap(() => {
-  //         this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
-  //         this.inventoryResource.pageSize = this.paginator.pageSize;
-  //         this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
-  //         this.dataSource.loadData(this.inventoryResource);
-  //       })
-  //     )
-  //     .subscribe();
-  // }
+  ngAfterViewInit() {
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => {
+          this.inventoryResource.pageNumber = (this.paginator.pageIndex+1);
+          // this.inventoryResource.pageNumber = (this.paginator.pageIndex+1) * this.paginator.pageSize;
+          this.inventoryResource.pageSize = this.paginator.pageSize;
+          this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
+          this.dataSource.loadData(this.inventoryResource);
+        })
+      )
+      .subscribe();
+  }
 
 
   getResourceParameter() {
@@ -282,7 +284,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
         'Escalation Start Date Time',
         'Interaction Created Through Media',
         'Interaction Thread Last Updated',
-        'Last Resolved At',
+        // 'Last Resolved At',
         'No Of Messages',
         'Priority Name',
         'Reopen Flag',
@@ -316,7 +318,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
           'Escalation Start Date Time': data?.escalationStartDateTime,
           'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
           'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
-          'Last Resolved At': data?.lastResolvedAt,
+          // 'Last Resolved At': data?.lastResolvedAt,
           'No Of Messages': data?.noOfMessages,
           'Priority Name': data?.priorityName,
           'Reopen Flag': data?.reopenFlag,
@@ -337,8 +339,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelInteractionRecordForReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

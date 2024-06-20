@@ -30,12 +30,12 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
   isLoading: boolean = false;
   displayedColumns: string[] = ['interactionId', 'createdDate','createdBy', 'ticketType', 'contactName', 'team', 'interactionState',
     'interactionSubState', 'disposition', 'subDisposition','subject', 'problemReported', 'agentRemarks',
-    'docketNumber', 'mobile','closeDate','interactionCreatedThroughMedia','priorityName']
+    'docketNumber', 'mobile','interactionCreatedThroughMedia','priorityName']
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatSort) sort: MatSort; 'closeDate',
   _productNameFilter: string;
   expandedElement: Inventory = null;
 
@@ -159,7 +159,7 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
             'Agent Remarks',
             'Docket Number',
             'Mobile No.',
-            'Close Date',
+            // 'Close Date',
             'Interaction Created Through Media',
             'Priority Name']];
 
@@ -181,7 +181,7 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
             'Agent Remarks': data?.agentRemarks,
             'Docket Number': data?.docketNumber,
             'Mobile No.': data?.mobileNo,
-            'Close Date':data?.lastResolvedAt,
+            // 'Close Date':data?.lastResolvedAt,
             'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
             'Priority Name': data?.priorityName,
           })
@@ -203,8 +203,7 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
-    let url = `Excel/GetExcelFileInteraction187Report`
+    let url = `Excel/GetExcelDownloadForForFCRReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {

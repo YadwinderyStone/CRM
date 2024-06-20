@@ -44,11 +44,14 @@ export class InteractionDataSource implements DataSource<Inventory> {
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -63,11 +66,14 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -82,11 +88,14 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -101,14 +110,15 @@ export class InteractionDataSource implements DataSource<Inventory> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -122,14 +132,15 @@ export class InteractionDataSource implements DataSource<Inventory> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -138,20 +149,21 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadClosedData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    // need to change api for closed
     this.sub$ = this.inventoryService.getClosedInteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -160,20 +172,20 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadReopenData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    // need to change api for reopen
     this.sub$ = this.inventoryService.getReopenInteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -182,20 +194,22 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadOpenData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    // need to change api for open
     this.sub$ = this.inventoryService.getOpenInteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        let value = resp;
+        
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -204,20 +218,20 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadResolvedData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-    // need to change api for resolved
     this.sub$ = this.inventoryService.getResolvedInteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
-      .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
+      .subscribe((resp: HttpResponse<Inventory[]>) => { 
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -226,20 +240,20 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadPendingData(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-   
     this.sub$ = this.inventoryService.getPendingInteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -248,20 +262,21 @@ export class InteractionDataSource implements DataSource<Inventory> {
   }
   loadL2L3Data(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
-   
     this.sub$ = this.inventoryService.getL2L3InteractionsReportsList(inventoryResource)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -276,13 +291,15 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -296,14 +313,15 @@ export class InteractionDataSource implements DataSource<Inventory> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        let value = resp;
         let paginationParam = new ResponseHeader();
-        if (resp && resp?.headers?.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers?.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp?.headers?.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers?.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;
@@ -319,11 +337,14 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
         let paginationParam = new ResponseHeader();
-        if (resp && resp.headers.get('X-Pagination')) {
-          paginationParam = JSON.parse(
-            resp.headers.get('X-Pagination')
-          ) as ResponseHeader;
-        }
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
         const entities = [...resp.body];
         this._count = entities.length;

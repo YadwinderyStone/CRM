@@ -42,9 +42,9 @@
                 <i class="fas fa-eraser"></i>
                 {{'CLEAR' | translate}}
             </button>
-            <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-marginReports ml-2"><i
+            <!-- <button type="button" (click)="dowanloadList()" class="btn btn-warning btn-md button-marginReports ml-2"><i
                 class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
-            </button>
+            </button> -->
             <button type="button" (click)="dowanloadExcal()" class="btn btn-warning btn-md button-marginReports ml-2"><i
                 class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
             </button>
@@ -210,7 +210,7 @@
                 <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.escalationStartDateTime | date:'yyyy-MM-dd hh:mm a'}}</td>
             </ng-container>
             <ng-container matColumnDef="footer">
-                <td mat-footer-cell [attr.colspan]="displayedColumns.length"  class="d-none" *matFooterCellDef>
+                <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
                     <mat-paginator [length]="inventoryResource.totalCount" [pageSize]="inventoryResource.pageSize"
                         [dir]="langDir" [pageSizeOptions]="[10, 20, 30]">
                     </mat-paginator>
