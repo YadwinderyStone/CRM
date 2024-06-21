@@ -203,7 +203,7 @@ export class Reports187Component extends BaseComponent implements OnInit {
           'Problem Reported': data?.problemReported,
           'Docket no': data?.docketNumber,
           'Assign To': data?.assignToName || data?.assignedTo,
-          'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
+          'Created At': this.datepipe.transform(data?.createdDate || data?.created, 'yyyy-MM-dd hh:mm:ss a'),
           'Email Id': data?.emailId,
           'Escalation Start Date Time': data?.escalationStartDateTime,
           'Interaction Created Through Media': data?.interactionCreatedThroughMedia,

@@ -364,7 +364,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId ||
       this.resValue?.statusId != this.addInventoryForm.value?.statusId || this.resValue
         ?.agentRemarks != this.addInventoryForm.value?.agentRemarks ||
-      this.resValue?.problemID != this.addInventoryForm.value?.problemID
+      this.resValue?.problemID != this.addInventoryForm.value?.problemID ||  this.resValue?.subStatusId != this.addInventoryForm.value?.subStatusId 
     ) {
       data = true;
     }

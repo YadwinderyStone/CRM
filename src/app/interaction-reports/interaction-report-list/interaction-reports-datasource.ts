@@ -53,7 +53,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
         //   ) as ResponseHeader;
         // }
         this._responseHeaderSubject$.next(paginationParam);
-        const entities = [...resp.body];
+        const entities = [...resp?.body];
         this._count = entities.length;
         this._entities$.next(entities);
       });
@@ -323,7 +323,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
         paginationParam.pageNumber = inventoryResource?.pageNumber
         paginationParam.pageSize = inventoryResource?.pageSize
         this._responseHeaderSubject$.next(paginationParam);
-        const entities = [...resp.body];
+        const entities = [...resp?.body];
         this._count = entities.length;
         this._entities$.next(entities);
       });

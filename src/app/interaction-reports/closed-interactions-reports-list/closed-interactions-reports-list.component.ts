@@ -218,7 +218,7 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
           'Q5': data?.q5||data?.timeliness,
           'Q6': data?.q6||data?.overallFeedback,
           'Additional Feedback': data?.q7||data?.additionalFeedback,
-          'Total Survey Value': data?.totalServeyValue,
+          'Total Survey Value': data?.totalSurveyValue,
           'CSAT Category': data?.csatCategory
         })
       });

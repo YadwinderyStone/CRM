@@ -72,11 +72,11 @@
             </ng-container>
             <ng-container matColumnDef="resolvedDate">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date and Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.resolvedDateAndTime | date:'yyyy-MM-dd hh:mm a'}}</td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.resolvedDateAndTime}}</td>
             </ng-container>
             <ng-container matColumnDef="createdDate">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate | date:'yyyy-MM-dd hh:mm a'}}</td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.createdDate}}</td>
             </ng-container>
             <ng-container matColumnDef="ticketStatus">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Status</th>

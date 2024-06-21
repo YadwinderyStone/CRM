@@ -149,7 +149,7 @@
                             </ng-container>
                             <ng-container *ngIf="addInventoryForm.get('statusId')?.value==1">
                                 <mat-option *ngFor="let data of subStatusList"
-                                    [disabled]="data?.name =='Response Received From Email'|| data?.name =='ReOpen'|| data?.name =='Response Received From GRP'"
+                                    [disabled]="data?.name =='Response Received From Email'|| data?.name =='Response Received From GRP'"
                                     [value]="data.id">
                                     {{data.name}}
                                 </mat-option>
