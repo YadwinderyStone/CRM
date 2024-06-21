@@ -342,7 +342,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
     let url = `Excel/GetExcelInteractionRecordForReport`
     this.isLoading = true;
     this.setParams();
-    this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
+    this.interactionReportsService.getInteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
       let emailDocumentList =  res
       let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
       const url = window.URL.createObjectURL(receivedData);

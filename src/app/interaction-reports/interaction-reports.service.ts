@@ -123,6 +123,21 @@ export class InteractionReportsService {
   let url = `${data}?${param}`;
     return this.http.get(url,{responseType:'arraybuffer'});
   }
+  getInteractionsReportsExcelDowanload(data,params){
+
+    // &TransactionNumber=G-202406150254945&TicketTypeId=1&StatusId=1&SubStatusId=1&CategoryId=1&SubCategoryId=1&TeamId=1
+    let param:any = `ToDate=${params?.toDate}` 
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    if(params?.search) param+=`&TransactionNumber=${params?.search}`
+    if(params?.status) param+=`&StatusId=${params?.status}`
+    if(params?.subStatus) param+=`&SubStatusId=${params?.subStatus}`
+    if(params?.category) param+=`&CategoryId=${params?.category}`
+    if(params?.subCategory) param+=`&SubCategoryId=${params?.subCategory}`
+    if(params?.team) param+=`&TeamId=${params?.team}`
+    if(params?.type) param+=`&TicketTypeId=${params?.type}`
+  let url = `${data}?${param}`;
+    return this.http.get(url,{responseType:'arraybuffer'});
+  }
 
   get185InteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
