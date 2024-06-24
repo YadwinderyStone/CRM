@@ -520,6 +520,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.toastrService.warning('Interaction already Closed Or resolved we cant transfer it')
     }
   }
-
+  stripHtml(html: string): string {
+    const tmp = document.createElement('DIV');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  }
 
 }

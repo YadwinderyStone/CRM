@@ -225,7 +225,7 @@ export class InteractionReportsService {
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
      param+=`&PageSize=${params?.pageSize.toString()}`
     param+=`&PageNumber=${params?.pageNumber.toString()}`
-    param+=`&InteractionId=${param?.id || '0'}`
+    // param+=`&InteractionId=${param?.id || '0'}`
     const url = `Report/GetGrpTatReportList?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',

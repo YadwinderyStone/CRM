@@ -4,7 +4,8 @@ export interface InteractionCategory {
     description?: string;
     subCategory?:SubCategory[];
     parentId?:string;
-    isEnabled?:boolean
+    isEnabled?:boolean;
+    nIndex:any;
 }
 
 

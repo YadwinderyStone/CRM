@@ -218,4 +218,6 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
       this.isLoading = false
     })
   }
+
+  
 }

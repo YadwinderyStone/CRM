@@ -25,8 +25,8 @@ import { AddEditInteractionCategoryComponent } from '../add-edit-interaction-cat
 export class InteractionCategoryComponent extends BaseComponent implements OnInit {
   interactionCategories: InteractionCategory[] = [];
   columnsToDisplay: string[] = ['subcategory', 'name', 'description', 'action'];
-  subCategoryColumnToDisplay: string[] = ['subcat','name', 'description', 'action'];
-  subCategoryColumnToDisplayInner: string[] = ['name', 'description', 'action'];
+  subCategoryColumnToDisplay: string[] = ['subcat','name','nIndex', 'description', 'action'];
+  subCategoryColumnToDisplayInner: string[] = ['name','nIndex', 'description', 'action'];
   subCategories: InteractionCategory[] = [];
   subCategoriesInner: InteractionCategory[] = [];
   expandedElement: InteractionCategory | null;
@@ -124,7 +124,8 @@ export class InteractionCategoryComponent extends BaseComponent implements OnIni
       id: '',
       name: '',
       parentId: category?.id,
-      isEnabled: category?.isEnabled
+      isEnabled: category?.isEnabled,
+      nIndex: category?.nIndex
     });
   }
 

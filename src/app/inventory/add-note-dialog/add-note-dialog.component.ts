@@ -6,6 +6,7 @@ import { EditorConfig } from '@shared/editor.config';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../inventory.service';
+import { FileInfo } from '@core/domain-classes/file-info';
 
 @Component({
   selector: 'app-add-note-dialog',
@@ -16,6 +17,10 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
   editorConfig = EditorConfig;
   notesForm: UntypedFormGroup;
   isLoading = false;
+  files: any = [];
+  fileData: FileInfo[] = [];
+  extension: string = '';
+  fileType: string = '';
   currentDate = new Date();
   constructor(public dialogRef: MatDialogRef<AddNoteDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -57,7 +62,8 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
       interactionNumber: this.data?.transactionNumber,
       userId: userData?.id,
       createdByName: userData?.firstName + ' ' + userData?.lastName,
-      teamName: userData?.teamName
+      teamName: userData?.teamName,
+      attechments: this.fileData,
     }
 
     this.inventoryService.addCrmNote(crmNoteData).subscribe(res => {
@@ -92,6 +98,39 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
     })
   }
 
+  onFileDropped($event) {
+    for (let file of $event) {
+      this.files.push(file);
+    }
+    this.getFileInfo();
+
+  }
+
+
+  fileBrowseHandler(files: any) {
+    for (let file of files) {
+      this.files.push(file);
+    }
+    this.getFileInfo();
+  }
+
+  getFileInfo() {
+    this.fileData = [];
+    for (let i = 0; i < this.files.length; i++) {
+      const reader = new FileReader();
+      this.extension = this.files[i].name.split('.').pop().toLowerCase();
+      this.fileType = this.files[i].type;
+      reader.onload = (ev: ProgressEvent<FileReader>) => {
+        const fileInfo = new FileInfo();
+        fileInfo.src = ev.target.result.toString();
+        fileInfo.extension = this.extension;
+        fileInfo.name = this.files[i].name;
+        fileInfo.fileType = this.fileType;
+        this.fileData.push(fileInfo);
+      }
+      reader.readAsDataURL(this.files[i]);
+    };
+  }
 
 
 

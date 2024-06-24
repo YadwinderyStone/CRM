@@ -4,7 +4,7 @@
             <div class="col-md-10 col">
                 <h4 class="modal-title">
                     <!-- {{"MANAGE_INTERACTION_CATEGORY" | translate}} -->
-                    Manage Interaction Type And Category
+                    Manage Category and Subcategory
                 </h4>
             </div>
             <div class="col-sm-auto col-auto ml-auto">
@@ -26,6 +26,15 @@
                             <div class="text-danger" *ngIf="name.errors?.required">
                                 {{'CATEGORY_NAME_IS_REQUIRED' | translate}}</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="categoryName">{{'NINDEX' | translate}}</label>
+                        <input required [(ngModel)]="data.nIndex" type="text" name="nIndex" #nIndex="ngModel"
+                            class="form-control" id="nIndex">
                     </div>
                 </div>
             </div>

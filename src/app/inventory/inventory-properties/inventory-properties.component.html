@@ -239,6 +239,11 @@
                             class="text-danger">
                             Please enter valid GSTIN/ARN/TRN/UN
                         </mat-error>
+                        <mat-error [dir]="langDir"
+                            *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.maxlength"
+                            class="text-danger">
+                            Please enter valid GSTIN/ARN/TRN/UN
+                        </mat-error>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -386,8 +391,7 @@
                 <div class="col-md-10">
                     <div class="form-group">
                         <mat-label>Comments </mat-label>
-                        <textarea [readonly]="true" type="text" maxlength="2000" class="form-control" id="docketNumber"
-                            formControlName="currentStatus"></textarea>
+                        <textarea [readonly]="true" type="text" maxlength="2000" class="form-control" id="docketNumber" [value]="stripHtml(addInventoryForm.get('currentStatus')?.value)"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('currentStatus').touched && addInventoryForm.get('currentStatus').errors?.required"
                             class="text-danger">

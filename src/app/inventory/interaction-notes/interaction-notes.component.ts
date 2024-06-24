@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PatternValidator, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FileInfo } from '@core/domain-classes/file-info';
 import { TranslationService } from '@core/services/translation.service';
 import { EditorConfig } from '@shared/editor.config';
 import { ToastrService } from 'ngx-toastr';
@@ -19,6 +19,10 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
   notesForm: UntypedFormGroup;
   loginUserDetail:any
   isLoading = false;
+  files: any = [];
+  fileData: FileInfo[] = [];
+  extension: string = '';
+  fileType: string = '';
   notesList: any = [];
   columnsToDisplay: string[] = ['transactionNo','name','teamName','noteDesc','nextStatusTime','date'];
   constructor(
@@ -34,10 +38,6 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
     this.loginUserDetail =JSON.parse(localStorage.getItem('authObj'))
   }
 
-//   ngOnChanges(changes: SimpleChanges): void {
-    
-// this.transactionNo
-//   }
   ngOnInit(): void {
     this.getNotesList();
   }
@@ -72,7 +72,8 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
       interactionNumber: this.InteractionDetail?.transactionNumber,
       userId: userData?.id,
       createdByName: userData?.firstName + ' ' + userData?.lastName,
-      teamName: userData?.teamName
+      teamName: userData?.teamName,
+      attechments: this.fileData,
     }
     this.InteractionServices.addCrmNote(crmNoteData).subscribe(res => {
       if (res) {
@@ -107,8 +108,39 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
   }
 
 
+  onFileDropped($event) {
+    for (let file of $event) {
+      this.files.push(file);
+    }
+    this.getFileInfo();
+
+  }
 
 
+  fileBrowseHandler(files: any) {
+    for (let file of files) {
+      this.files.push(file);
+    }
+    this.getFileInfo();
+  }
+
+  getFileInfo() {
+    this.fileData = [];
+    for (let i = 0; i < this.files.length; i++) {
+      const reader = new FileReader();
+      this.extension = this.files[i].name.split('.').pop().toLowerCase();
+      this.fileType = this.files[i].type;
+      reader.onload = (ev: ProgressEvent<FileReader>) => {
+        const fileInfo = new FileInfo();
+        fileInfo.src = ev.target.result.toString();
+        fileInfo.extension = this.extension;
+        fileInfo.name = this.files[i].name;
+        fileInfo.fileType = this.fileType;
+        this.fileData.push(fileInfo);
+      }
+      reader.readAsDataURL(this.files[i]);
+    };
+  }
 
 
 }

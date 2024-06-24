@@ -13,22 +13,22 @@
 <div class="mb-3">
     <div class="row">
         <div class="col-12">
-            <div class="content-header headerBackground px-2">
+            <div class="content-header headerBackground px- mb-2">
                 <h1>Searching Filter</h1>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
-              <mat-label for="fromDate">{{'FROM_DATE' | translate}} </mat-label>
-              <input class="form-control" [max]="currentDate" [(ngModel)]="fromDate"
+              <mat-label for="fromDate">{{'FROM_DATE' | translate}}<span class="text-danger">*</span> </mat-label>
+              <input class="form-control" [readonly]="true" [max]="currentDate" [(ngModel)]="fromDate"
                 [owlDateTimeTrigger]="fromDate1" [owlDateTime]="fromDate1" placeholder="{{'FROM_DATE' | translate}}">
               <owl-date-time [pickerType]="'calendar'" #fromDate1></owl-date-time>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-group">
-              <mat-label for="toDate">{{'TO_DATE' | translate}} </mat-label>
-              <input class="form-control" id="toDate1" [max]="currentDate" [(ngModel)]="toDate"
+              <mat-label for="toDate">{{'TO_DATE' | translate}}<span class="text-danger"> *</span></mat-label>
+              <input class="form-control" id="toDate1" [readonly]="true" [max]="currentDate" [(ngModel)]="toDate"
                 [owlDateTimeTrigger]="toDate1" [owlDateTime]="toDate1" placeholder="{{'TO_DATE' | translate}}">
               <owl-date-time [pickerType]="'calendar'" #toDate1></owl-date-time>
             </div>
