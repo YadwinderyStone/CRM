@@ -81,6 +81,9 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
         this.isLoading = false;
         this.getNotesList();
         this.createTransferHistory(crmNoteData,userData);
+        this.notesForm.reset();
+        this.fileData = []
+        this.files=  []
       }
       this.isLoading = false
     }, error => {
@@ -107,7 +110,17 @@ export class InteractionNotesComponent extends BaseComponent implements OnInit {
     })
   }
 
-
+  formatBytes(bytes: number) {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+    if (bytes === 0) return 'n/a'
+    const value = Math.floor(Math.log(bytes) / Math.log(1024));
+    const i = parseInt(value.toString(), 10)
+    if (i === 0) return `${bytes} ${sizes[i]})`
+    return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
+  }
+  onDeleteFile(index: number) {
+    this.files.splice(index, 1);
+  }
   onFileDropped($event) {
     for (let file of $event) {
       this.files.push(file);
