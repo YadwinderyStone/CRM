@@ -40,9 +40,14 @@ mat-form-field {
 .main{
     height: auto;
     overflow: auto;
-    scrollbar-width: none;
+    // scrollbar-width: none;
 }
 
 .fromInput{
   background: #edb50ac2;
+}
+
+.scrollbar-example {
+  overflow-y: auto; /* Add vertical scrollbar */
+  max-height: 300px; /* Set the maximum height */
 }

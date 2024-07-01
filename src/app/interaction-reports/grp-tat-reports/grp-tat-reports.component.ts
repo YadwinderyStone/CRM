@@ -131,7 +131,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
   dowanloadList() {
     this.isLoading = true
     this.setParams();
-    this.interactionReportsService.getGrpTatReportsList(this.inventoryResource).subscribe((res: any) => {
+    this.interactionReportsService.getGrpTatReportsListDowanload(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
       let heading = [[
         'Interaction Id',
@@ -171,21 +171,51 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
     let url = `Excel/GetExcelFileForGrpTatReport`
     this.isLoading = true;
     this.setParams();
-    this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
-      let emailDocumentList =  res
-      let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
-      const url = window.URL.createObjectURL(receivedData);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'GRPTATReports.xlsx';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+    this.interactionReportsService.getGrpTatInteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
+      debugger
+      // let emailDocumentList =  res
+      // let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
+      // const url = window.URL.createObjectURL(receivedData);
+      // const a = document.createElement('a');
+      // a.href = url;
+      // a.download = 'GRPTATReports.xlsx';
+      // document.body.appendChild(a);
+      // a.click();
+      // document.body.removeChild(a);
+      // URL.revokeObjectURL(url);
+      // this.isLoading = false
+      let InteractionRecods: any = res;
+      let heading = [[
+        'Interaction Id',
+        'Resolved Date and Time',
+        'Resolved ByTeam',
+        'Time Taken(In Hours)',
+        'Created Date',
+        'Ticket Status'
+      ]];
+
+      let interactionsReport = [];
+      InteractionRecods.forEach(data => {
+        interactionsReport.push({
+          'Interaction Id': data?.interactionId,
+          'Resolved Date and Time': data?.resolvedDateAndTime,
+          'Resolved ByTeam': data?.resolvedByTeam,
+          'Time Taken(In Hours)':data?.timeTaken,
+          'Created Date':data?.createdDate,
+          'Ticket Status':data?.ticketStatus
+          
+        })
+      });
+      let workBook = XLSX.utils.book_new();
+      XLSX.utils.sheet_add_aoa(workBook, heading);
+      let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'GRP TAT Report');
+      XLSX.writeFile(workBook, 'GRP TAT Report' + ".xlsx");
       this.isLoading = false
-  
     },error=>{
       this.toasterService.error(error)
+      this.isLoading = false
+
     })
   }
 

@@ -1,5 +1,5 @@
 
-<div class="page-header-main">
+<!-- <div class="page-header-main">
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header">
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="loading-shade" *ngIf="isLoading">
     <mat-spinner></mat-spinner>
 </div>
@@ -80,7 +80,7 @@
             </ng-container>
             <ng-container matColumnDef="appLastUpdated">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef>App Last Updated</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.appLastUpdated | date:'yyyy-MM-dd hh:mm :a'}}</td>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.appLastUpdated | date:'yyyy-MM-dd hh:mm :a':'UTC'}}</td>
             </ng-container>
             
 

@@ -123,6 +123,14 @@ export class InteractionReportsService {
   let url = `${data}?${param}`;
     return this.http.get(url,{responseType:'arraybuffer'});
   }
+  getGrpTatInteractionsReportsExcelDowanload(data,params){
+    let param:any = `ToDate=${params?.toDate}` 
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    //  param+=`&PageSize=${params?.pageSize.toString()}`
+    // param+=`&PageNumber=${params?.pageNumber.toString()}`
+  let url = `${data}?${param}`;
+    return this.http.get(url);
+  }
   getInteractionsReportsExcelDowanload(data,params){
 
     // &TransactionNumber=G-202406150254945&TicketTypeId=1&StatusId=1&SubStatusId=1&CategoryId=1&SubCategoryId=1&TeamId=1
@@ -225,6 +233,17 @@ export class InteractionReportsService {
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
      param+=`&PageSize=${params?.pageSize.toString()}`
     param+=`&PageNumber=${params?.pageNumber.toString()}`
+    // param+=`&InteractionId=${param?.id || '0'}`
+    const url = `Report/GetGrpTatReportList?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getGrpTatReportsListDowanload(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    //  param+=`&PageSize=${params?.pageSize.toString()}`
+    // param+=`&PageNumber=${params?.pageNumber.toString()}`
     // param+=`&InteractionId=${param?.id || '0'}`
     const url = `Report/GetGrpTatReportList?${param}`;
     return this.http.get<any[]>(url, {

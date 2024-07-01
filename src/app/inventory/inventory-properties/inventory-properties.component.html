@@ -1,6 +1,6 @@
 <form [formGroup]="addInventoryForm">
     <div class="example-action-buttons justify-content-between">
-        <div class="ml-2" *ngIf="(resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2)&& this.resValue?.assignToId == this.loginUserDetail?.id">
+        <div class="ml-2" *ngIf="(resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2) && this.resValue?.assignToId == this.loginUserDetail?.id">
                 <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
                     class="btn btn-success btn-md">
                     <i class="fas fa-envelope"></i>
