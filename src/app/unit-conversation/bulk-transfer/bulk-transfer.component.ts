@@ -128,16 +128,6 @@ export class BulkTransferComponent implements OnInit {
       this.previewFile = false
     }
   
-  
-    // getInteractionBulkHistory() {
-    //   this.interactionCategoryService.getBulkCloserHistory().subscribe((res: any) => {
-    //     this.bulkCloserHistoryList = res
-    //   }, error => {
-    //     this.toastrService.error(error);
-    //   })
-    // }
-  
-  
     previewUploadedFile() {
       if (this.addedFile.length) {
         this.previewFile = true;
@@ -212,10 +202,8 @@ export class BulkTransferComponent implements OnInit {
       },error=>{
         this.isLoading = false
       })
-  
-  
-  
-  
+
     }
+    
   }
   
