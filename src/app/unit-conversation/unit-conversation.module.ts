@@ -24,6 +24,8 @@ import { InteractionBulkCloserComponent } from './interaction-bulk-closer/intera
 import { MatTabsModule } from '@angular/material/tabs';
 import { BulkCloserHistoryComponent } from './bulk-closer-history/bulk-closer-history.component';
 import { InternalBulkCloserComponent } from './internal-bulk-closer/internal-bulk-closer.component';
+import { BulkTransferComponent } from './bulk-transfer/bulk-transfer.component';
+import { BulkTransferHistoryComponent } from './bulk-transfer-history/bulk-transfer-history.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { InternalBulkCloserComponent } from './internal-bulk-closer/internal-bul
     AddEditInteractionStatusComponent,
     InteractionBulkCloserComponent,
     BulkCloserHistoryComponent,
-    InternalBulkCloserComponent
+    InternalBulkCloserComponent,
+    BulkTransferComponent,
+    BulkTransferHistoryComponent
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import { InteractionCategoryComponent } from './interaction-category/interaction
 import { InteractionStatusComponent } from './interaction-status/interaction-status.component';
 import { InteractionBulkCloserComponent } from './interaction-bulk-closer/interaction-bulk-closer.component';
 import { InternalBulkCloserComponent } from './internal-bulk-closer/internal-bulk-closer.component';
+import { BulkTransferComponent } from './bulk-transfer/bulk-transfer.component';
 
 
 
@@ -40,8 +41,8 @@ const routes: Routes = [
    data: { claimType: ['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY'] },
   },
   {
-    path: 'internal-bulk-closer',
-    component: InternalBulkCloserComponent,
+    path: 'interaction-bulk-transfer',
+    component: BulkTransferComponent,
     canActivate: [AuthGuard],
    data: { claimType: ['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY'] },
   }

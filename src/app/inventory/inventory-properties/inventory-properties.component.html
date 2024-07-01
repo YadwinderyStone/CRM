@@ -1,17 +1,21 @@
 <form [formGroup]="addInventoryForm">
     <div class="example-action-buttons justify-content-between">
-        <div class="ml-2" *ngIf="(resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2) && this.resValue?.assignToId == this.loginUserDetail?.id">
-                <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
-                    class="btn btn-success btn-md">
-                    <i class="fas fa-envelope"></i>
-                    Reply</button>
-                <button type="button" *hasClaim="'INT_UPDATE_INTERACTION_TEAM'" (click)="openTransfer()"
-                    class="btn btn-warning btn-md mx-3">
-                    <i class="fas fa-paper-plane"></i>
-                    Transfer</button>
+        <div class="ml-2" *ngIf="(resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2) && this.resValue?.assignToId == this.loginUserDetail?.id;else elseBlock ">
+
+               <div class="" *ngIf="resValue?.statusId == 1 || resValue?.statusId== 2">
+                   <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
+                   class="btn btn-success btn-md">
+                   <i class="fas fa-envelope"></i>
+                   Reply</button>
+                   <button type="button" *hasClaim="'INT_UPDATE_INTERACTION_TEAM'" (click)="openTransfer()"
+                   class="btn btn-warning btn-md mx-3">
+                   <i class="fas fa-paper-plane"></i>
+                   Transfer</button>
+                </div> 
         </div>
+        <div #elseBlock></div>
         <div class="" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2">
-            <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id">
+            <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id || resValue?.statusId == 3">
                 <button type="button" *hasClaim="'INT_UPDATE_INTERACTION'" (click)="onSubmit()"
                     class="btn btn-success btn-md m-right-10"><i class="fas fa-save"></i>
                     {{"SAVE" | translate}}</button>
@@ -23,7 +27,7 @@
                 <button mat-button (click)="accordion.closeAll()">Collapse All</button>
             </div>
         </div>
-        <div class="ml-2 text-right w-100" *ngIf="(resValue?.ticketType !='Ticket Created' && resValue?.ticketType != 2) || this.resValue?.assignToId != this.loginUserDetail?.id">
+        <div class="ml-2 text-right w-100" *ngIf="(resValue?.ticketType !='Ticket Created' && resValue?.ticketType != 2) || this.resValue?.assignToId != this.loginUserDetail?.id && this.resValue?.statusId != 3 " >
             <button type="button" class="btn btn-danger btn-md" [routerLink]="['/interactions']"><i
                 class="fas fa-times-circle"></i>
             {{"Back" | translate}}
@@ -227,7 +231,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>GSTIN/ARN/TRN/UN</mat-label>
-                        <input type="text" maxlength="15" class="form-control" id="gstn"
+                        <input type="text" maxlength="20" class="form-control" id="gstn"
                             formControlName="gstn">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('gstn').touched && addInventoryForm.get('gstn').errors?.required"

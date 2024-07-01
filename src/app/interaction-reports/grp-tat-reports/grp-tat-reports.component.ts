@@ -137,7 +137,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
         'Interaction Id',
         'Resolved Date and Time',
         'Resolved ByTeam',
-        'Time Taken(In Hours)',
+        'Time Taken(In Minutes)',
         'Created Date',
         'Ticket Status'
       ]];
@@ -148,7 +148,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
           'Interaction Id': data?.interactionId,
           'Resolved Date and Time': data?.resolvedDateAndTime,
           'Resolved ByTeam': data?.resolvedByTeam,
-          'Time Taken(In Hours)':data?.timeTaken,
+          'Time Taken(In Minutes)':data?.timeTaken,
           'Created Date':data?.createdDate,
           'Ticket Status':data?.ticketStatus
           
@@ -189,7 +189,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
         'Interaction Id',
         'Resolved Date and Time',
         'Resolved ByTeam',
-        'Time Taken(In Hours)',
+        'Time Taken(In Minutes)',
         'Created Date',
         'Ticket Status'
       ]];
@@ -200,7 +200,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
           'Interaction Id': data?.interactionId,
           'Resolved Date and Time': data?.resolvedDateAndTime,
           'Resolved ByTeam': data?.resolvedByTeam,
-          'Time Taken(In Hours)':data?.timeTaken,
+          'Time Taken(In Minutes)':data?.timeTaken,
           'Created Date':data?.createdDate,
           'Ticket Status':data?.ticketStatus
           
