@@ -44,7 +44,7 @@ const routes: Routes = [
     path: 'interaction-bulk-transfer',
     component: BulkTransferComponent,
     canActivate: [AuthGuard],
-   data: { claimType: ['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY'] },
+   data: { claimType: ['INT_BULK_INTERACTION_TRANSFER'] },
   }
 ];
 

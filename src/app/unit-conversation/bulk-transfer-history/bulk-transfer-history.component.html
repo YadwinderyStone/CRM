@@ -21,8 +21,8 @@
             <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.subStatus}} </td>
         </ng-container>
         <ng-container matColumnDef="comment">
-            <th class="table-column-250" mat-header-cell *matHeaderCellDef> With Resolution Comment </th>
-            <td class="table-column-250" mat-cell *matCellDef="let element"> {{element.withResolutionComment}}
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef> With Comment </th>
+            <td class="table-column-250" mat-cell *matCellDef="let element"> {{element.withResolutionComment || element.withComment}}
             </td>
         </ng-container>
         <ng-container matColumnDef="WithCategoryAndSubCategory">

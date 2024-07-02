@@ -100,7 +100,7 @@
                                     <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header>
                                         Comments</th>
                                     <td class="table-column-400" mat-cell *matCellDef="let row">
-                                        <div class="tdMaxHeight">{{row.ResolutionComments}}</div>
+                                        <div class="tdMaxHeight">{{row.Comments}}</div>
                                     </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Disposition">
@@ -156,6 +156,6 @@
         </div>
     </mat-tab>
     <mat-tab label="Transfer History"
-        *hasClaim="'INT_BULK_INTERACTION_CLOSER_HISTORY'"><app-bulk-transfer-history *ngIf="tabIndex==1"  ></app-bulk-transfer-history>
+        *hasClaim="'INT_BULK_INTERACTION_TRANSFER'"><app-bulk-transfer-history *ngIf="tabIndex==1"  ></app-bulk-transfer-history>
     </mat-tab>
 </mat-tab-group>

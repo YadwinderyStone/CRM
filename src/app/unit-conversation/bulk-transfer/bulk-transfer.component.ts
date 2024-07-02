@@ -82,7 +82,7 @@ export class BulkTransferComponent implements OnInit {
           formData.append('file', e, e.name);
         })
         let data = {
-          WithResolutionComment: this.WithResolutionComment,
+          withComment: this.WithResolutionComment,
           WithCategoryAndSubCategory: this.WithCategoryAndSubCategory,
           WithProblemId: this.WithCategoryAndSubCategory
         }
