@@ -300,10 +300,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       subStatusName: subStatusName[0]?.name,
       subStatusId: data?.subStatusId,
       subcategoryId: data?.subcategoryId,
+      gstn:data?.gstn,
       subcategoryName: subcategoryName[0]?.name,
       uniqueNumber: data?.uniqueNumber,
       cpin: data?.cpin,
-      // resolutionCommentGRP: data?.resolutionCommentGRP,
       errorMessage: data?.errorMessage,
       formName: data?.formName,
       refundPeriod: data?.refundPeriod,
@@ -326,6 +326,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     // else {
     //   this.getInteractionDetailById(this.id);
     // }
+    debugger
     if (this.id) {
       this.isLoading = true
       this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
@@ -362,6 +363,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   checkChanges(): boolean {
     let data: boolean = false;
     if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId ||
+      this.resValue?.gstn != this.addInventoryForm.value?.gstn||
       this.resValue?.statusId != this.addInventoryForm.value?.statusId || this.resValue
         ?.agentRemarks != this.addInventoryForm.value?.agentRemarks ||
       this.resValue?.problemID != this.addInventoryForm.value?.problemID ||  this.resValue?.subStatusId != this.addInventoryForm.value?.subStatusId 
@@ -381,6 +383,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     if (this.resValue?.subStatusId != updatedData?.subStatusId) message += `Sub Status name : ${updatedData?.subStatusName}`;
     if (this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
     if (this.resValue?.problemID != updatedData?.problemID) message += `problem Id : ${updatedData?.problemID}`;
+    if (this.resValue?.gstn != updatedData?.gstn) message += `GSTN : ${updatedData?.gstn}`;
     let data = {
       id: this.id,
       action: InteractionsActionEnums?.UpdateHistory,
@@ -420,7 +423,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
       this.resValue = { ...res };
-      if(this.resValue?.statusId ==  1 || this.resValue?.statusId == 2){
+      if(this.resValue?.statusId ==  1 || this.resValue?.statusId == 2 ){
         if (this.resValue?.assignToId !== this.loginUserDetail?.id && this.resValue?.intercationTypeID==2) {
           let dialogData = {
             interactionData: this.resValue,

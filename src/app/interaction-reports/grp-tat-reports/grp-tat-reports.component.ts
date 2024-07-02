@@ -24,7 +24,7 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
   currentDate = new Date();
   dataSource: InteractionDataSource;
   isLoading: boolean = false
-  displayedColumns: string[] = ['interactionid','resolvedDate','team','timeTaken','createdDate','ticketStatus'];
+  displayedColumns: string[] = ['interactionid','createdDate','startDate','endDate','team','timeTaken','ticketStatus'];
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
@@ -135,23 +135,26 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
       let InteractionRecods: any = res?.body;
       let heading = [[
         'Interaction Id',
-        'Resolved Date and Time',
+        // 'Resolved Date and Time',
         'Resolved ByTeam',
         'Time Taken(In Minutes)',
         'Created Date',
-        'Ticket Status'
+        'Start Date',
+        'EndDate',
+        'Ticket Status',
       ]];
 
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
           'Interaction Id': data?.interactionId,
-          'Resolved Date and Time': data?.resolvedDateAndTime,
+          // 'Resolved Date and Time': data?.resolvedDateAndTime,
           'Resolved ByTeam': data?.resolvedByTeam,
           'Time Taken(In Minutes)':data?.timeTaken,
           'Created Date':data?.createdDate,
-          'Ticket Status':data?.ticketStatus
-          
+          'Start Date':data?.startDate,
+          'EndDate':data?.endDate,
+          'Ticket Status':data?.ticketStatus,
         })
       });
       let workBook = XLSX.utils.book_new();
@@ -187,22 +190,26 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
       let InteractionRecods: any = res;
       let heading = [[
         'Interaction Id',
-        'Resolved Date and Time',
+        // 'Resolved Date and Time',
         'Resolved ByTeam',
         'Time Taken(In Minutes)',
         'Created Date',
-        'Ticket Status'
+        'Start Date',
+        'EndDate',
+        'Ticket Status',
       ]];
 
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
           'Interaction Id': data?.interactionId,
-          'Resolved Date and Time': data?.resolvedDateAndTime,
+          // 'Resolved Date and Time': data?.resolvedDateAndTime,
           'Resolved ByTeam': data?.resolvedByTeam,
           'Time Taken(In Minutes)':data?.timeTaken,
           'Created Date':data?.createdDate,
-          'Ticket Status':data?.ticketStatus
+          'Start Date':data?.startDate,
+          'EndDate':data?.endDate,
+          'Ticket Status':data?.ticketStatus,
           
         })
       });

@@ -71,8 +71,8 @@
                         row.transactionNumber}} </td>
             </ng-container>
             <ng-container matColumnDef="resolvedDate">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date and Time</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.resolvedDateAndTime}}</td>
+                <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date and Time</th>
+                <td class="table-column-300" mat-cell *matCellDef="let row"> {{row?.resolvedDateAndTime}}</td>
             </ng-container>
             <ng-container matColumnDef="createdDate">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
@@ -87,8 +87,16 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.resolvedByTeam}} </td>
             </ng-container>
             <ng-container matColumnDef="timeTaken">
-                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Time Taken(In Minutes)</th>
-                <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.timeTaken || '--'}} </td>
+                <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Time Taken(In Minutes)</th>
+                <td class="table-column-300" mat-cell *matCellDef="let row">{{row?.timeTaken || '--'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="startDate">
+                <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+                <td class="table-column-250" mat-cell *matCellDef="let row">{{row?.startDate || ''}} </td>
+            </ng-container>
+            <ng-container matColumnDef="endDate">
+                <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>EndDate</th>
+                <td class="table-column-250" mat-cell *matCellDef="let row">{{row?.endDate || ''}} </td>
             </ng-container>
             <ng-container matColumnDef="footer">
                 <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>

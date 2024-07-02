@@ -69,7 +69,7 @@ getBulkCloserHistory(){
 }
 getBulkTransferHistory(){
   // FIXME: need change api endpoint
-    const url = `Interaction/GetBulkCloserHistory`;
+    const url = `Interaction/GetBulkCloserHistoryNewList`;
     return this.httpClient.get<any[]>(url);
 }
 
@@ -156,8 +156,7 @@ bulkUpload(data,formData){
   return this.httpClient.post<any[]>(url,formData);
 }
 bulkTransferUpload(data,formData){
-  // FIXME: need api end points change
-  const url = `Interaction/bulkCloser?WithResolutionComment=${data?.WithResolutionComment}&WithCategoryAndSubCategory=${data?.WithCategoryAndSubCategory}&WithProblemId=${data?.WithProblemId}`;
+  const url = `Interaction/InteractionBulkTransferUpload?WithResolutionComment=${data?.WithResolutionComment}&WithCategoryAndSubCategory=${data?.WithCategoryAndSubCategory}&WithProblemId=${data?.WithProblemId}`;
   return this.httpClient.post<any[]>(url,formData);
 }
 

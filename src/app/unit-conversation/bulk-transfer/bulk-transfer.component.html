@@ -25,7 +25,7 @@
             <div class="col-md-7 text-center">
                 <div class="fileUploadDiv">
                     <button (click)="previewUploadedFile()" class="btn blue-btn btn-sm m-right-10"> Preview</button>
-                    <a href="../../../assets/Bulk Upload Template.xlsx" download> <button
+                    <a href="../../../assets/bulk transfer.xlsx" download> <button
                             class="btn btn-warning btn-sm m-right-10"> Download Template</button></a>
                     <!-- <a href="../../../assets/ProblemId Template.xlsx" download>
                     </a> -->
@@ -98,7 +98,7 @@
                                 </ng-container>
                                 <ng-container matColumnDef="comments">
                                     <th class="table-column-400" mat-header-cell *matHeaderCellDef mat-sort-header>
-                                        ResolutionComments</th>
+                                        Comments</th>
                                     <td class="table-column-400" mat-cell *matCellDef="let row">
                                         <div class="tdMaxHeight">{{row.ResolutionComments}}</div>
                                     </td>
