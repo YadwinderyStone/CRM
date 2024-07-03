@@ -113,6 +113,13 @@ const routes: Routes = [
               .then(m => m.EmailOutboxModule)
         },
         {
+          path: 'sentMail',
+          canLoad: [AuthGuard],
+          loadChildren: () =>
+            import('./email-sentmail/email-sentmail.module')
+              .then(m => m.EmailSentmailModule)
+        },
+        {
           path: 'logs',
           canLoad: [AuthGuard],
           loadChildren: () =>

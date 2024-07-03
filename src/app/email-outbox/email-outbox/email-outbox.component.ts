@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/base.component';
 import { EmailOutboxService } from '../email-outbox.service';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-email-outbox',
@@ -17,6 +18,7 @@ export class EmailOutboxComponent extends BaseComponent implements OnInit {
   constructor(
     private emailOutBoxService: EmailOutboxService,
     public toasterService: ToastrService,
+    private sanitizer: DomSanitizer,
   ) {
     super();
   }
@@ -44,4 +46,12 @@ export class EmailOutboxComponent extends BaseComponent implements OnInit {
     this.pageNo = event?.pageIndex + 1
     this.getEmailOutboxList();
   }
+
+
+  senitizeContent(data){
+    let sanitizedContent:SafeHtml = this.sanitizer.bypassSecurityTrustHtml(data);
+   return  sanitizedContent
+  }
+
+
 }

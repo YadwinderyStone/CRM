@@ -12,7 +12,7 @@
                    <i class="fas fa-paper-plane"></i>
                    Transfer</button>
                 </div> 
-                <div class="" *ngIf="resValue?.statusId == 3">
+                <div class="" *ngIf="resValue?.statusId == 3 && this.resValue?.assignToId == this.loginUserDetail?.id">
                     <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
                     class="btn btn-success btn-md">
                     <i class="fas fa-envelope"></i>
@@ -20,14 +20,14 @@
                  </div>
                 
         </div>
-        <div #elseBlock>
+        <ng-template #elseBlock>
             <div class="" *ngIf="resValue?.statusId == 3">
                 <button type="button" *hasClaim="'EMAIL_SEND_EMAIL'" (click)="openSendEmailDialog()"
                 class="btn btn-success btn-md">
                 <i class="fas fa-envelope"></i>
                 Reply</button>
              </div>
-        </div>
+        </ng-template>
         <div class="" *ngIf="resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2">
             <div class="" *ngIf="this.resValue?.assignToId == this.loginUserDetail?.id || resValue?.statusId == 3">
                 <button type="button" *hasClaim="'INT_UPDATE_INTERACTION'" (click)="onSubmit()"

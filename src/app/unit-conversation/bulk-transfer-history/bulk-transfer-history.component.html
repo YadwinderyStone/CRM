@@ -22,17 +22,17 @@
         </ng-container>
         <ng-container matColumnDef="comment">
             <th class="table-column-250" mat-header-cell *matHeaderCellDef> With Comment </th>
-            <td class="table-column-250" mat-cell *matCellDef="let element"> {{element.withResolutionComment || element.withComment}}
+            <td class="table-column-250" mat-cell *matCellDef="let element"> {{element.withResolutionComment || element.withComment || 'false'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="WithCategoryAndSubCategory">
             <th class="table-column-300" mat-header-cell *matHeaderCellDef> With Category And SubCategory </th>
             <td class="table-column-300" mat-cell *matCellDef="let element">
-                {{element.withCategoryAndSubCategory}} </td>
+                {{element.withCategoryAndSubCategory || 'false'}} </td>
         </ng-container>
         <ng-container matColumnDef="withProblemId">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef> With ProblemId </th>
-            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.withProblemId}} </td>
+            <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.withProblemId|| 'false'}} </td>
         </ng-container>
         <ng-container matColumnDef="fileName">
             <th class="table-column-300" mat-header-cell *matHeaderCellDef>File Name </th>
@@ -48,7 +48,7 @@
         </ng-container>
         <ng-container matColumnDef="createdBy">
             <th class="table-column-300" mat-header-cell *matHeaderCellDef>Created By</th>
-            <td class="table-column-300" mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+            <td class="table-column-300" mat-cell *matCellDef="let element"> {{element.createdByName}} </td>
         </ng-container>
         <ng-container matColumnDef="createdDate">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Date</th>

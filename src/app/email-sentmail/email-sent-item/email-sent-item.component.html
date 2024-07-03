@@ -2,7 +2,7 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header">
-                <h1>Email-Outbox</h1>
+                <h1>Email-Sent</h1>
             </div>
         </div>
     </div>
@@ -11,7 +11,7 @@
     <mat-spinner></mat-spinner>
   </div>
 <div class="row">
-    <div class="col-md-12" *ngFor="let data of outboxList"  >
+    <div class="col-md-12" *ngFor="let data of sentItemsList"  >
         <div class="d-flex emaildiv">
             <div class="checkBox-section">
                 <mat-checkbox (change)="checkEnable($event)" color="primary" class="email-check">
@@ -22,7 +22,7 @@
                     {{data?.mailFromName}}
                 </span>
             </div>
-            <div class="mailMessageSection overflowEllipsis" routerLink="outbox-detail/{{data?.id}}" >
+            <div class="mailMessageSection overflowEllipsis" routerLink="sentMail-detail/{{data?.id}}" >
                 <div class="emailMessageDiv" [innerHTML]="senitizeContent(data?.mailMessage)">
                     <!-- {{data?.mailMessage}} -->
                 </div>
@@ -34,12 +34,12 @@
 
         </div>
     </div>
-    <div class="col-md-12 mt-3" *ngIf="outboxList?.length">
+    <div class="col-md-12 mt-3" *ngIf="sentItemsList?.length">
         <mat-paginator [length]="totalCount" [pageSize]="PageSize"
                         [pageSizeOptions]="[10,20,30]" (page)="onPageChange($event)">
                     </mat-paginator>
     </div>
-    <div class="noDataDiv w-100" *ngIf="!isLoading && !outboxList.length" >
+    <div class="noDataDiv w-100" *ngIf="!isLoading && !sentItemsList.length" >
         No data found
     </div>
 </div>
