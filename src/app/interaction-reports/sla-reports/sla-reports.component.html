@@ -108,7 +108,7 @@
             </ng-container>
             <ng-container matColumnDef="problemReported">
                 <th class="table-column-350" mat-header-cell *matHeaderCellDef mat-sort-header>Problem Reported</th>
-                <td class="table-column-350" mat-cell *matCellDef="let row"> {{row?.problemReported}}</td>
+                <td class="table-column-350" mat-cell *matCellDef="let row"><div class="problemDiv"> {{row?.problemReported || 'dataa' }}</div></td>
             </ng-container>
             <ng-container matColumnDef="docketNumber">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Docket Number</th>
