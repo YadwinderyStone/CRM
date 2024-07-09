@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // apiUrl: 'https://localhost:44346/',
-  // apiUrl: 'http://10.10.18.4:83/POS/',
+  // apiUrl: 'http://10.10.18.4:43/POS/',
   apiUrl: 'https://gstcrm.xstreamapps.in/',
   allowFileExtension: ['pdf', 'doc', 'docx', 'xls', 'xlsx'],
   allowExtesions: ['pdf', 'doc', 'docx'],

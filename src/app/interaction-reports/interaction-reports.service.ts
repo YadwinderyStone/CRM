@@ -228,6 +228,32 @@ export class InteractionReportsService {
       observe: 'response',
     });
   }
+  getSlaReportsList(params){
+    // FIXME:Need to change api url 
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
+    const url = `Report/GetInteractionReportForSLA14B?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+
+  getSlaReportsListDowanload(params){
+    // FIXME:Need to change api url 
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+    const url = `Report/GetInteractionReportForSLA14B?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+
+
+
+
+
   getGrpTatReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`

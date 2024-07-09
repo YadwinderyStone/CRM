@@ -19,6 +19,7 @@ import { AllTeamMonthDumpReportComponent } from './all-team-month-dump-report/al
 import { SurveyReportsComponent } from './survey-reports/survey-reports.component';
 import { GrpTatReportsComponent } from './grp-tat-reports/grp-tat-reports.component';
 import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.component';
+import { SLAReportsComponent } from './sla-reports/sla-reports.component';
 
 const routes: Routes = [
   {
@@ -107,6 +108,13 @@ const routes: Routes = [
     // FIXME: NEED TO CHANGE CLAIM
     path:'grp-tat-reports',
     component: GrpTatReportsComponent,
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    canActivate: [AuthGuard]
+  },
+  {
+    // FIXME: NEED TO CHANGE CLAIM
+    path:'sla-14b-reports',
+    component: SLAReportsComponent,
     data: { claimType: 'REP_INTERCATION_REPPORT' },
     canActivate: [AuthGuard]
   }

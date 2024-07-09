@@ -34,6 +34,7 @@ import { AllTeamMonthDumpReportComponent } from './all-team-month-dump-report/al
 import { SurveyReportsComponent } from './survey-reports/survey-reports.component';
 import { GrpTatReportsComponent } from './grp-tat-reports/grp-tat-reports.component';
 import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.component';
+import { SLAReportsComponent } from './sla-reports/sla-reports.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.compon
     AllTeamMonthDumpReportComponent,
     SurveyReportsComponent,
     GrpTatReportsComponent,
-    DumpReportFcrComponent
+    DumpReportFcrComponent,
+    SLAReportsComponent
   ],
   imports: [
     CommonModule,
