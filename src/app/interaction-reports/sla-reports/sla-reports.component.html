@@ -70,7 +70,11 @@
                 <td class="table-column-200" mat-cell *matCellDef="let row">{{row?.interactionId ||
                         row.transactionNumber}} </td>
             </ng-container>
-            <ng-container matColumnDef="createdTeam">
+            <ng-container matColumnDef="createdDate">
+                <th class="table-column-100" mat-header-cell *matHeaderCellDef >Created Date</th>
+                <td class="table-column-100" mat-cell *matCellDef="let row"> {{row?.createdDate}}</td>
+            </ng-container>
+            <ng-container matColumnDef="team">
                 <th class="table-column-100" mat-header-cell *matHeaderCellDef >Team</th>
                 <td class="table-column-100" mat-cell *matCellDef="let row"> {{row?.createdTeam}}</td>
             </ng-container>
