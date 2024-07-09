@@ -306,7 +306,6 @@ export class InventoryService {
   }
 
   transferToTeam(data) { 
-    // const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
     const url = `Interaction/UpdateInteractionTeam?id=${data?.id}`;
     return this.http.post<any[]>(url,data);
   }

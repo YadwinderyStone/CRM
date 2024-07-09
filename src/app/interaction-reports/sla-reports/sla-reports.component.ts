@@ -134,7 +134,7 @@ export class SLAReportsComponent  extends BaseComponent implements OnInit {
        let InteractionRecods: any = res?.body;
        let heading = [[
         'Interaction ID',
-        'Created Team',
+        'Team',
         'Subject',
         'GSTN',
         'Assigned To',
@@ -159,7 +159,7 @@ export class SLAReportsComponent  extends BaseComponent implements OnInit {
        InteractionRecods.forEach(data => {
          interactionsReport.push({
            'Interaction Id': data?.interactionId,
-           'Created Team': data?.createdTeam,
+           'Team': data?.createdTeam,
            'Subject':data?.subject,
            'GSTN':data?.gstn,
            'Assigned To':data?.assignToName,
