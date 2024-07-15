@@ -350,7 +350,7 @@
                         <input type="text" [readonly]="true" [value]="resValue?.mobileNumberForSMS || resValue?.mobileNo || ' '" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="form-group">
                         <mat-label>Subject</mat-label>
                         <input type="text" maxlength="600" [readonly]="true" class="form-control"
@@ -360,6 +360,13 @@
                             class="text-danger">
                             Please enter subject
                         </mat-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-label>Queue Value</mat-label>
+                        <input type="text" maxlength="600" [readonly]="true" class="form-control"
+                            [value]="resValue?.queueValue">
                     </div>
                 </div>
                 <div class="col-md-6 d-none">
