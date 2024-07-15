@@ -19,10 +19,13 @@ export class BulkTransferComponent implements OnInit {
     WithResolutionComment: boolean = false;
     WithCategoryAndSubCategory: boolean = false;
     WithProblemId: boolean = false;
+    noProblemID:boolean = true
+    noComment:boolean = true
+    noCategory:boolean = true
   
     bulkCloserHistoryList: any = [];
     // displayedColumns: string[] = ['interactionid', 'comments', 'Disposition', 'SubDisposition', 'ProblemID', 'ResolveByUser', 'Team'];
-    displayedColumns: string[] = ['interactionid', 'comments', 'Disposition', 'SubDisposition', 'user', 'Team'];
+    displayedColumns: string[] = ['interactionid', 'comments', 'problemId','Disposition', 'SubDisposition', 'user', 'Team'];
 
     constructor(
       private interactionCategoryService: InteractionCategoryService,
@@ -98,7 +101,12 @@ export class BulkTransferComponent implements OnInit {
           })
         } else {
           this.isLoading = false;
-          this.toastrService.error('please enter valid data in file')
+          let data = ''
+          let endMsg = 'missing in file'
+          this.noCategory?'':data+= 'Disposion or Sub-disposition '
+          this.noProblemID?'':data+= 'Problem Id '
+          this.noComment?'':data+= 'Comments '
+          this.toastrService.error(data+endMsg)
         }
       } else {
         this.isLoading = false;
@@ -109,13 +117,22 @@ export class BulkTransferComponent implements OnInit {
     checkStatus(): boolean {
       let value = true
       if (this.WithProblemId) {
-        value = this.uploadedList.every(item => item.ProblemID)
+        value =this.uploadedList.every(item => item.ProblemID)
+        this.noProblemID = value
+      }else{
+        this.noProblemID = true
       }
       if (this.WithResolutionComment) {
-        value = this.uploadedList.every(item => item.ResolutionComments)
+        value = this.uploadedList.every(item => item.Comments)
+        this.noComment  = value
+      }else{
+        this.noComment = true
       }
       if (this.WithCategoryAndSubCategory) {
         value = this.uploadedList.every(item => item.Disposition && item.SubDisposition)
+        this.noCategory = value
+      }else{
+        this.noCategory = true
       }
   
       return value

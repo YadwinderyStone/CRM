@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 export class BulkCloserHistoryComponent implements OnInit {
   bulkCloserHistoryList: any = [];
   isLoading: boolean = false
-  columnsToDisplay = ['name', 'subStatus', 'fileName', 'createdBy', 'createdDate', 'totalRecords', 'updateRecords', 'comment', 'WithCategoryAndSubCategory', 'withProblemId'];
+  columnsToDisplay = ['name','fileName', 'createdBy', 'createdDate', 'totalRecords', 'updateRecords', 'comment', 'WithCategoryAndSubCategory', 'withProblemId'];
   constructor(
     private interactionCategoryService: InteractionCategoryService,
     private toastrService: ToastrService,

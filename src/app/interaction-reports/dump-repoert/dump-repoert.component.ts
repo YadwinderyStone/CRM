@@ -203,7 +203,6 @@ export class DumpRepoertComponent extends BaseComponent implements OnInit {
   }
 
   dowanloadExcal(){
-    //  FIXME: need to Change url 
     let url = `Excel/GetExcelFIleInteractionMonthRowReport`
     this.isLoading = true;
     this.setParams();

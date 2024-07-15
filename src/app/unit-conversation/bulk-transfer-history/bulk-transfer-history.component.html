@@ -52,7 +52,7 @@
         </ng-container>
         <ng-container matColumnDef="createdDate">
             <th class="table-column-200" mat-header-cell *matHeaderCellDef>Date</th>
-            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate | date:'yyyy-MM-dd'}} </td>
+            <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate | date:'yyyy-MM-dd hh:mm a':'UTC'}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay;sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>

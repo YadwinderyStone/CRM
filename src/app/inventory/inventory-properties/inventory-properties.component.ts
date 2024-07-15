@@ -91,7 +91,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       contactName: ['',],
       clarificationFilled: ['',],
       compositionDate: ['',],
-      subStatusId: [this.interactionData?.subStatusId,],
+      subStatusId: [this.interactionData?.subStatusId,[Validators.required]],
       subCatInput: [''],
       catInput: [''],
       categoryId: [],
@@ -154,7 +154,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.addInventoryForm.get('statusName').setValue(statusData[0].name);
 
     this.getSubStatusList(e.value);
-
+    this.addInventoryForm.get('subStatusId').setValue('');
   }
   setCatName(e: any) {
 
