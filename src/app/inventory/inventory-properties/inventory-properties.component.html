@@ -390,7 +390,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Problem Reported </mat-label>
-                        <textarea maxlength="2000" [readonly]="true" formControlName="problemReported"
+                        <textarea [readonly]="true" formControlName="problemReported"
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('problemReported').touched && addInventoryForm.get('problemReported').errors?.required"

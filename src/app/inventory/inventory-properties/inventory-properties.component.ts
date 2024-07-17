@@ -326,7 +326,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     // else {
     //   this.getInteractionDetailById(this.id);
     // }
-    debugger
     if (this.id) {
       this.isLoading = true
       this.inventoryService.updateInteraction(this.id, value).subscribe(res => {
