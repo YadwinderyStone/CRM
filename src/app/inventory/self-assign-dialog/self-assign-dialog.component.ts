@@ -37,10 +37,13 @@ export class SelfAssignDialogComponent extends BaseComponent implements OnInit {
       teamId: this.data?.userDetail?.teamId,
       teamName: this.data?.userDetail?.teamName
     }
-    this.inventoryService.selfAssign(data).subscribe(res => {
-      if (res) {
+    this.inventoryService.selfAssign(data).subscribe((res:any) => {
+      if (res?.isSelfAssign) {
         this.createHistory();
         this.toastrService.success('Interaction assigned successfully')
+      }else{
+        this.toastrService.error(res?.teamNameAssign);
+        this.dialogRef.close(false);
       }
     }, error => {
       this.toastrService.error(error);

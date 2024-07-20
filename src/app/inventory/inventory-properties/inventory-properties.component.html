@@ -353,7 +353,7 @@
                 <div class="col-md-8">
                     <div class="form-group">
                         <mat-label>Subject</mat-label>
-                        <input type="text" maxlength="600" [readonly]="true" class="form-control"
+                        <input type="text" maxlength="800" [readonly]="true" class="form-control"
                             formControlName="subject">
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('subject').touched && addInventoryForm.get('subject').errors?.required"
@@ -365,14 +365,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Queue Value</mat-label>
-                        <input type="text" maxlength="600" [readonly]="true" class="form-control"
+                        <input type="text" [readonly]="true" class="form-control"
                             [value]="resValue?.queueValue">
                     </div>
                 </div>
                 <div class="col-md-6 d-none">
                     <div class="form-group">
                         <mat-label>Agent Remarks</mat-label>
-                        <textarea type="text" maxlength="2000" formControlName="agentRemarks"
+                        <textarea type="text" maxlength="20000" formControlName="agentRemarks"
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('agentRemarks').touched && addInventoryForm.get('agentRemarks').errors?.required"
@@ -409,7 +409,7 @@
                         <mat-label>Agent Remarks</mat-label>
                         <!-- <input type="text" maxlength="600" class="form-control"
                             formControlName="agentRemarks"> -->
-                        <textarea type="text" maxlength="2000"
+                        <textarea type="text" maxlength="20000"
                             [readonly]="resValue?.ticketType==1 || resValue?.ticketType=='FCR'"
                             formControlName="agentRemarks" class="form-control"></textarea>
                         <mat-error [dir]="langDir"
@@ -422,7 +422,7 @@
                 <div class="col-md-10">
                     <div class="form-group">
                         <mat-label>Comments </mat-label>
-                        <textarea [readonly]="true" type="text" maxlength="2000" class="form-control" id="docketNumber" [value]="stripHtml(addInventoryForm.get('currentStatus')?.value)"></textarea>
+                        <textarea [readonly]="true" type="text" maxlength="20000" class="form-control" id="docketNumber" [value]="stripHtml(addInventoryForm.get('currentStatus')?.value)"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('currentStatus').touched && addInventoryForm.get('currentStatus').errors?.required"
                             class="text-danger">
@@ -444,7 +444,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Resolution Comments To Show Tax Viewer </mat-label>
-                        <textarea maxlength="2000" [readonly]="true" formControlName="resolutionComments"
+                        <textarea maxlength="20000" [readonly]="true" formControlName="resolutionComments"
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
@@ -456,7 +456,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <mat-label>Resolution Comments GRP </mat-label>
-                        <textarea maxlength="2000" [readonly]="true" formControlName="resolutionCommentGRP"
+                        <textarea maxlength="20000" [readonly]="true" formControlName="resolutionCommentGRP"
                             class="form-control"></textarea>
                         <mat-error [dir]="langDir"
                             *ngIf="addInventoryForm.get('resolutionComments').touched && addInventoryForm.get('resolutionComments').errors?.required"
