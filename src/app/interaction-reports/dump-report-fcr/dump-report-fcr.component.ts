@@ -221,6 +221,7 @@ export class DumpReportFcrComponent extends BaseComponent implements OnInit {
       this.isLoading = false
   
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

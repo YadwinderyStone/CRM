@@ -236,6 +236,7 @@ export class ReopenInteractionsReportsListComponent extends BaseComponent implem
       this.isLoading = false
   
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

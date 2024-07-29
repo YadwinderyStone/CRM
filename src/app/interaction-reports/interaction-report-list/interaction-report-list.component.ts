@@ -356,6 +356,7 @@ export class InteractionReportListComponent extends BaseComponent implements OnI
       this.isLoading = false
   
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

@@ -487,13 +487,6 @@
               <p>Escalation Matrix</p>
             </a>
           </li>
-          <!-- <li class="nav-item" *hasClaim="['INT_BULK_INTERACTION_CLOSER','INT_BULK_INTERACTION_CLOSER_HISTORY']">
-            <a [routerLink]="['/interaction/interaction-bulk-closer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="fa fa-upload nav-icon"></i>
-              <p>Interaction Bulk Closer</p>
-            </a>
-          </li> -->
           <li class="nav-item" *hasClaim="['MST_ADD_LOOKUP','MST_UPDATE_LOOKUP','MST_VIEW_LOOKUP']">
             <a [routerLink]="['/lookup']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
@@ -502,43 +495,6 @@
             </a>
           </li>
         </ul>
-        <!-- <li id="ReminderHeading" aria-expanded="true" aria-controls="collapseOne"
-          *hasClaim="['REM_VIEW_REMINDERS','REM_ADD_REMINDER']" data-toggle="collapse" data-target="#Reminder"
-          class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'reminders'}">
-            <i class="far fa-bell nav-icon"></i>
-            <span>{{'REMINDER' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow ml-auto"></span>
-          </a>
-        </li> -->
-        <!-- <ul class="sub-menu collapse" id="Reminder" aria-labelledby="ReminderHeading"
-          [ngClass]="{'show': currentUrl == 'reminders'}" data-parent="#accordionExample">
-          <li *hasClaim="'REM_VIEW_REMINDERS'" class="nav-item">
-            <a [routerLink]="['/reminders']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="far fa-list-alt nav-icon"></i>
-              <p>
-                {{'LIST' | translate}}
-              </p>
-            </a>
-          </li>
-          <li *hasClaim="'REM_ADD_REMINDER'" class="nav-item">
-            <a [routerLink]="['/reminders/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="fas fa-plus-square nav-icon"></i>
-              <p>
-                {{'ADD_NEW' | translate}}
-              </p>
-            </a>
-          </li>
-        </ul>
-        <li class="nav-item">
-          <a [routerLink]="['/notifications']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-            class="nav-link">
-            <i class="fas fa-stopwatch nav-icon"></i>
-            <p>{{'NOTIFICATIONS' | translate}}</p>
-          </a>
-        </li> -->
         <li id="SettingsHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
           *hasClaim="['SETT_UPDATE_COM_PROFILE','SETT_MANAGE_COUNTRY','SETT_MANAGE_CITY']" data-target="#Settings"
           class="collapsed">
@@ -550,22 +506,6 @@
         </li>
         <ul class="sub-menu collapse" id="Settings" aria-labelledby="SettingsHeading"
           [ngClass]="{'show': currentUrl == 'settings'}" data-parent="#accordionExample">
-          
-          <!-- <li *hasClaim="'SETT_UPDATE_COM_PROFILE'" class="nav-item">
-            <a [routerLink]="['/Interaction tpye']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="fas fa-building nav-icon"></i>
-              <p>{{'INTERACTION_TYPE' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'SETT_UPDATE_COM_PROFILE'" class="nav-item">
-            <a [routerLink]="['/Interaction status']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="fas fa-building nav-icon"></i>
-              <p>{{'INTERACTION_STATUS' | translate}}</p>
-            </a>
-          </li> -->
-
           <li *hasClaim="'SETT_UPDATE_COM_PROFILE'" class="nav-item">
             <a [routerLink]="['/company-profile']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
@@ -621,12 +561,6 @@
             </a>
           </li>
         </ul>
-        
-
-    
-
-
-
       </ul>
     </div>
   </div>

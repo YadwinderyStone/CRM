@@ -212,9 +212,11 @@ export class SurveyReportsComponent extends BaseComponent implements OnInit {
       URL.revokeObjectURL(url);
       this.isLoading = false
     }else{
+      this.isLoading = false
      this.toasterService.warning('No data found for this date')
     }
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

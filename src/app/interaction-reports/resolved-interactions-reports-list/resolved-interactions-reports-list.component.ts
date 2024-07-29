@@ -255,6 +255,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
       this.isLoading = false
   
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

@@ -251,8 +251,9 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       this.isLoading = false
-  
+      
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

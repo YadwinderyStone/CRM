@@ -235,8 +235,9 @@ export class PendingInteractionsReportsListComponent extends BaseComponent imple
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       this.isLoading = false
-  
+      
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

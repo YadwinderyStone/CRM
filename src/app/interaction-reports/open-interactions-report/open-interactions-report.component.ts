@@ -236,6 +236,7 @@ export class OpenInteractionsReportComponent extends BaseComponent implements On
       this.isLoading = false
   
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }

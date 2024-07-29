@@ -175,7 +175,6 @@ export class GrpTatReportsComponent extends BaseComponent implements OnInit {
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.getGrpTatInteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
-      debugger
       // let emailDocumentList =  res
       // let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
       // const url = window.URL.createObjectURL(receivedData);

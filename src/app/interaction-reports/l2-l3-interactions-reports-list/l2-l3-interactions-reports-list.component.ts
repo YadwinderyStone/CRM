@@ -232,6 +232,7 @@ export class L2L3InteractionsReportsListComponent extends BaseComponent implemen
       this.isLoading = false
   
     },error=>{
+      this.isLoading = false
       this.toasterService.error(error)
     })
   }
