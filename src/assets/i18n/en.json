@@ -233,6 +233,7 @@
   "INACTIVE": "Inactive",
   "USER_DELETED_SUCCESSFULLY": "User Deleted Successfully",
   "YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT": "you have to enter at least 6 digit",
+  "YOU_HAVE_TO_ENTER_AT_LEAST_8_DIGIT": "you have to enter at least 8 digit",
   "CONFIRM_PASSWORD": "Confirm Password",
   "CONFIRM_PASSWORD_IS_REQUIRED": "Confirm Password is required",
   "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",

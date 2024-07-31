@@ -35,6 +35,8 @@ import { SurveyReportsComponent } from './survey-reports/survey-reports.componen
 import { GrpTatReportsComponent } from './grp-tat-reports/grp-tat-reports.component';
 import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.component';
 import { SLAReportsComponent } from './sla-reports/sla-reports.component';
+import { AgentProductivityComponent } from './agent-productivity/agent-productivity.component';
+import { EmailResolutionReportsComponent } from './email-resolution-reports/email-resolution-reports.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { SLAReportsComponent } from './sla-reports/sla-reports.component';
     SurveyReportsComponent,
     GrpTatReportsComponent,
     DumpReportFcrComponent,
-    SLAReportsComponent
+    SLAReportsComponent,
+    AgentProductivityComponent,
+    EmailResolutionReportsComponent
   ],
   imports: [
     CommonModule,

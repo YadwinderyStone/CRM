@@ -374,7 +374,54 @@ export class InteractionDataSource implements DataSource<Inventory> {
       });
   }
 
+  loadEmailResData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getEmailResReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
 
+        
+        let paginationParam = new ResponseHeader();
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
+  loadAgentReportData(inventoryResource: InventoryResourceParameter) {
+    this.loadingSubject$.next(true);
+    this.sub$ = this.inventoryService.getAgentReportsList(inventoryResource)
+      .pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject$.next(false)))
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
+
+        
+        let paginationParam = new ResponseHeader();
+        // if (resp && resp.headers.get('X-Pagination')) {
+        //   paginationParam = JSON.parse(
+        //     resp.headers.get('X-Pagination')
+        //   ) as ResponseHeader;
+        // }
+        paginationParam.totalCount = resp?.body[0]?.totalRecords
+        paginationParam.pageNumber = inventoryResource?.pageNumber
+        paginationParam.pageSize = inventoryResource?.pageSize
+        this._responseHeaderSubject$.next(paginationParam);
+        const entities = [...resp.body];
+        this._count = entities.length;
+        this._entities$.next(entities);
+      });
+  }
 
 
 }

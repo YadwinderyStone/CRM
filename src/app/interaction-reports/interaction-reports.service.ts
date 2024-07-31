@@ -188,6 +188,26 @@ export class InteractionReportsService {
       observe: 'response',
     });
   }
+  getEmailResReportsList(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
+    const url = `Report/GetInteractionEmailProcessReport?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getAgentReportsList(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
+    const url = `Report/InteractionAgentProductvityReportData?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
   getResolvedInteractionsReportsList(params){
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`

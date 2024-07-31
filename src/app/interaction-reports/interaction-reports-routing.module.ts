@@ -20,6 +20,8 @@ import { SurveyReportsComponent } from './survey-reports/survey-reports.componen
 import { GrpTatReportsComponent } from './grp-tat-reports/grp-tat-reports.component';
 import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.component';
 import { SLAReportsComponent } from './sla-reports/sla-reports.component';
+import { AgentProductivityComponent } from './agent-productivity/agent-productivity.component';
+import { EmailResolutionReportsComponent } from './email-resolution-reports/email-resolution-reports.component';
 
 const routes: Routes = [
   {
@@ -115,6 +117,20 @@ const routes: Routes = [
     // FIXME: NEED TO CHANGE CLAIM
     path:'sla-14b-reports',
     component: SLAReportsComponent,
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    canActivate: [AuthGuard]
+  }
+  ,{
+    // FIXME: NEED TO CHANGE CLAIM
+    path:'email-resolution-reports',
+    component: EmailResolutionReportsComponent,
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    canActivate: [AuthGuard]
+  }
+  ,{
+    // FIXME: NEED TO CHANGE CLAIM
+    path:'agent-productivity-reports',
+    component: AgentProductivityComponent,
     data: { claimType: 'REP_INTERCATION_REPPORT' },
     canActivate: [AuthGuard]
   }

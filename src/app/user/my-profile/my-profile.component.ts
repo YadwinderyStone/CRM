@@ -117,7 +117,7 @@ export class MyProfileComponent extends BaseComponent implements OnInit {
 
   changePassword(): void {
     this.dialog.open(ChangePasswordComponent, {
-      width: '350px',
+      width: '500px',
       direction:this.langDir,
       data: Object.assign({}, this.user)
     });

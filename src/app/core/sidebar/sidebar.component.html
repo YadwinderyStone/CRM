@@ -432,6 +432,20 @@
               <p>SLA 14B Reports</p>
             </a>
           </li>
+          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/email-resolution-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Email Resulation</p>
+            </a>
+          </li>
+          <!-- <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/agent-productivity-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>Agent Productivity</p>
+            </a>
+          </li> -->
         </ul>
         <li id="ProductHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
           data-target="#ProductCategory" class="collapsed"
