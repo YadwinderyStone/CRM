@@ -102,7 +102,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
         this._entities$.next(entities);
       });
   }
-  
+
   load187Data(inventoryResource: InventoryResourceParameter) {
     this.loadingSubject$.next(true);
     this.sub$ = this.inventoryService.get187InteractionsReportsList(inventoryResource)
@@ -200,7 +200,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        
+
         let paginationParam = new ResponseHeader();
         // if (resp && resp.headers.get('X-Pagination')) {
         //   paginationParam = JSON.parse(
@@ -222,7 +222,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
-      .subscribe((resp: HttpResponse<Inventory[]>) => { 
+      .subscribe((resp: HttpResponse<Inventory[]>) => {
         let paginationParam = new ResponseHeader();
         // if (resp && resp.headers.get('X-Pagination')) {
         //   paginationParam = JSON.parse(
@@ -381,8 +381,6 @@ export class InteractionDataSource implements DataSource<Inventory> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
-
-        
         let paginationParam = new ResponseHeader();
         // if (resp && resp.headers.get('X-Pagination')) {
         //   paginationParam = JSON.parse(
@@ -406,7 +404,7 @@ export class InteractionDataSource implements DataSource<Inventory> {
         finalize(() => this.loadingSubject$.next(false)))
       .subscribe((resp: HttpResponse<Inventory[]>) => {
 
-        
+
         let paginationParam = new ResponseHeader();
         // if (resp && resp.headers.get('X-Pagination')) {
         //   paginationParam = JSON.parse(

@@ -90,9 +90,12 @@
                   <div class="text-danger" *ngIf="userForm.get('password').errors?.required">
                     {{'PASSWORD_IS_REQUIRED' | translate}}
                   </div>
-                  <div class="text-danger" *ngIf="userForm.get('password').errors?.minlength">
-                    {{'YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT' | translate}}
-                  </div>
+                  <div class="text-danger my-1" *ngIf="userForm.get('password').errors?.passwordLength && !userForm.get('password').errors?.required">Password must be between 8 and 12
+                    characters.</div>
+                  <div class="text-danger my-1" *ngIf="userForm.get('password').errors?.passwordComplexity">Password must include upper and
+                    lower case letters,numbers and special characters.</div>
+                  <div class="text-danger my-1" *ngIf="userForm.get('password').errors?.commonPassword">Password is too common or easily
+                    guessable.</div>
                 </div>
               </div>
             </div>

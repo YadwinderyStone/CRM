@@ -110,7 +110,7 @@ export class UserListComponent extends BaseComponent implements OnInit, AfterVie
 
   resetPassword(user: User): void {
     this.dialog.open(ResetPasswordComponent, {
-      width: '350px',
+      width: '550px',
       direction:this.langDir,
       data: Object.assign({}, user)
     });

@@ -221,7 +221,7 @@ export class EmailResolutionReportsComponent extends BaseComponent implements On
   }
 
   dowanloadExcal() {
-    let url = `Excel/GetExcelFileForOpenReport`
+    let url = `Excel/GetExcelFileForEmailProcessReport`
     this.isLoading = true;
     this.setParams();
     this.interactionReportsService.get187InteractionsReportsExcelDowanload(url, this.inventoryResource).subscribe((res: any) => {
