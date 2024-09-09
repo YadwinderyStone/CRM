@@ -141,6 +141,13 @@ const routes: Routes = [
             )
         },
         {
+          path: 'sms-Config',
+          loadChildren: () =>
+            import('./message-setting/message-setting.module').then(
+              m => m.MessageSettingModule
+            )
+        },
+        {
           path: 'testimonial',
           loadChildren: () =>
             import('./testimonial/testimonial.module').then(

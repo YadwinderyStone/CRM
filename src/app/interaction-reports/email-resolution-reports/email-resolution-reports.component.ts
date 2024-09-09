@@ -54,14 +54,14 @@ export class EmailResolutionReportsComponent extends BaseComponent implements On
     private interactionReportsService: InteractionReportsService,
     public translationService: TranslationService,
     public toasterService: ToastrService,
-    public datepipe: DatePipe
+    public datePipe: DatePipe
   ) {
     super(translationService);
     this.getLangDir();
     this.inventoryResource = new InventoryResourceParameter();
     this.inventoryResource.pageSize = 10;
-    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    let toDate = this.datePipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datePipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.fromDate = toDate
     this.inventoryResource.toDate = fromDate
 
@@ -117,8 +117,8 @@ export class EmailResolutionReportsComponent extends BaseComponent implements On
     this.setParams();
     this.fromDate = new Date();
     this.toDate = new Date();
-    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    let toDate = this.datePipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datePipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.fromDate = toDate
     this.inventoryResource.toDate = fromDate
     this.dataSource.loadEmailResData(this.inventoryResource);
@@ -130,8 +130,8 @@ export class EmailResolutionReportsComponent extends BaseComponent implements On
 
   setParams() {
 
-    let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
-    let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
+    let toDate = this.datePipe.transform(this.toDate, 'yyyy-MM-dd');
+    let fromDate = this.datePipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.paginator.pageIndex = 0;
     this.inventoryResource.skip = 0
     this.inventoryResource.toDate = toDate
@@ -139,7 +139,7 @@ export class EmailResolutionReportsComponent extends BaseComponent implements On
   }
 
 
-  dowanloadList() {
+  downloadList() {
     // this.isLoading = true;
     // this.setParams();
     // this.interactionReportsService.getOpenInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
@@ -220,7 +220,7 @@ export class EmailResolutionReportsComponent extends BaseComponent implements On
 
   }
 
-  dowanloadExcal() {
+  downloadExcel() {
     let url = `Excel/GetExcelFileForEmailProcessReport`
     this.isLoading = true;
     this.setParams();

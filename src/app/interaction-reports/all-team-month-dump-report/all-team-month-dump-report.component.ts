@@ -203,7 +203,7 @@ export class AllTeamMonthDumpReportComponent extends BaseComponent implements On
     })
   }
 
-  dowanloadExcal(){
+  downloadExcel(){
     let url = `Excel/GetExcelFIleInteractionForAllTeamsReport`
     this.isLoading = true;
     this.setParams();

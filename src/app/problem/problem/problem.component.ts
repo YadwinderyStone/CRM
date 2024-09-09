@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Problem } from '../problem.model';
 import { ProblemService } from '../problem.service';
 import { AddEditProblemDialogComponent } from '../add-edit-problem-dialog/add-edit-problem-dialog.component';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
@@ -26,11 +26,12 @@ export class ProblemComponent extends BaseComponent implements OnInit {
 
   problemList: Problem[] = [];
   columnsToDisplay: string[] = ['id', 'name', 'status', 'action',];
+  isLoading: Boolean = false
   constructor(private dialog: MatDialog,
     private commonDialogService: CommonDialogService,
     private problemService: ProblemService,
     private toastrService: ToastrService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
   ) {
     super(translationService);
     this.getLangDir();
@@ -43,10 +44,13 @@ export class ProblemComponent extends BaseComponent implements OnInit {
   }
 
   getProblemList(): void {
+    this.isLoading = true
     this.problemService.getProblemList().subscribe(res => {
       this.problemList = res;
-    },error=>{
-      
+      this.isLoading = false
+    }, error => {
+      this.isLoading = false
+
     })
   }
 
@@ -80,12 +84,38 @@ export class ProblemComponent extends BaseComponent implements OnInit {
 
     this.sub$.sink = dialogRef.afterClosed()
       .subscribe((result: Problem) => {
-        if (result) {  
-            this.getProblemList()
+        if (result) {
+          this.getProblemList()
         }
       });
   }
 
+  downloadExcel() {
+    if (this.problemList.length == 0) {
+      return
+    }
+    this.isLoading = true;
+    let InteractionRecods: any = this.problemList;
+    let heading = [[
+        'Problem Id', 
+      'Name', 
+      'Status'
+    ]];
 
+    let interactionsReport = [];
+    InteractionRecods.forEach(data => {
+      interactionsReport.push({
+        'Problem Id': data?.problemId,
+        'Name': data?.problemName,
+        'Status': data?.isEnabled?'Active':'In Active',
+      })
+    });
+    let workBook = XLSX.utils.book_new();
+    XLSX.utils.sheet_add_aoa(workBook, heading);
+    let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'ProblemIdList');
+    XLSX.writeFile(workBook, 'ProblemIdList' + ".xlsx");
+    this.isLoading = false;
+  }
 
 }

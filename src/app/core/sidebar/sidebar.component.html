@@ -278,6 +278,13 @@
         </li>
         <ul class="sub-menu collapse" id="SMS" aria-labelledby="SMSHeading"
           [ngClass]="{'show': currentUrl == 'sms'}" data-parent="#accordionExample">
+          <li *hasClaim="'EMAIL_SEND_EMAIL'" class="nav-item">
+            <a [routerLink]="['/sms-Config']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+              class="nav-link">
+              <i class="fas fa-paper-plane nav-icon"></i>
+              <p>SMS Configuration</p>
+            </a>
+          </li>
           <li *hasClaim="'MST_VIEW_SMSTEMPLATE'" class="nav-item">
             <a [routerLink]="['/message-template']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
@@ -292,6 +299,7 @@
               <p>Send SMS</p>
             </a>
           </li>
+          
         </ul>
         <li id="ReportsHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
           data-target="#Reports" class="collapsed" *hasClaim="['REP_INTERCATION_REPPORT','REP_INTERCATION_DUMP_REPORT','REP_INTERCATION_187_REPORT']">
@@ -348,7 +356,7 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_OPEN_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/all-teams-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
@@ -436,16 +444,16 @@
             <a [routerLink]="['/interaction-report/email-resolution-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
-              <p>Email Resulation</p>
+              <p>Email Resolution</p>
             </a>
           </li>
-          <!-- <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/agent-productivity-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>Agent Productivity</p>
             </a>
-          </li> -->
+          </li>
         </ul>
         <li id="ProductHeading" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse"
           data-target="#ProductCategory" class="collapsed"

@@ -341,13 +341,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Email ID</mat-label>
-                        <input type="text" [readonly]="true" [value]="resValue?.emailId" class="form-control">
+                        <input type="text" formControlName="emailId" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <mat-label>Mobile No.</mat-label>
-                        <input type="text" [readonly]="true" [value]="resValue?.mobileNumberForSMS || resValue?.mobileNo || ' '" class="form-control">
+                        <input type="text" formControlName="mobileNo" [value]="resValue?.mobileNumberForSMS || resValue?.mobileNo || ' '" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-8">

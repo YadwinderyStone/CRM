@@ -9,6 +9,7 @@
   .table-column-#{$size} {
     // flex: 0 1 #{$size}#{"px"};
     min-width: #{$size}#{"px"};
+    max-width: #{$size}#{"px"};
   }
 }
 

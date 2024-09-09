@@ -24,7 +24,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
   currentDate = new Date();
   isLoading: boolean = false
   dataSource: InteractionDataSource;
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat','closedDate', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno',
     'agentRemarks', 'currentStatus', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated','resolutionComments','lastResolvedAt', 'noOfMessages',
     'priorityName', 'reopenFlag', 'ticketAssignedTime', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'totalServeyValue', 'csatCategory'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];

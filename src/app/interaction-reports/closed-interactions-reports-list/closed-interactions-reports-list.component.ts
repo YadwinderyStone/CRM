@@ -25,7 +25,7 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
   currentDate = new Date();
   dataSource: InteractionDataSource;
   isLoading:boolean = false
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto','problemId','gstn', 'problemreported', 'docketno',
+  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status','subject','substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat','closedDate', 'assignto','problemId','gstn', 'problemreported', 'docketno',
   'agentRemarks', 'currentStatus','mobile','emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated','resolutionComments','lastResolvedAt', 'noOfMessages',
   'priorityName', 'reopenFlag','ticketAssignedTime', 'uniqueNumber','q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'totalServeyValue', 'csatCategory'];
   // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
@@ -234,7 +234,7 @@ export class ClosedInteractionsReportsListComponent extends BaseComponent implem
 
   }
 
-  dowanloadExcal(){
+  downloadExcel(){
     let url = `Excel/GetExcelFileForClosedReport`
     this.isLoading = true;
     this.setParams();

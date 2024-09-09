@@ -103,6 +103,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       resolutionComments: [''],
       resolutionCommentGRP: [''],
       teamId: [],
+      mobileNo: [],
+      emailId:['',[Validators.required,Validators.email]],
       noOfMessages: [],
       reopenCount: [],
       assignToId: [],
@@ -313,7 +315,9 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       returnForm: data?.returnForm,
       returnType: data?.returnType,
       subject: this.resValue?.subject,
-      problemID: data?.problemID
+      problemID: data?.problemID,
+      emailId:data?.emailId,
+      mobileNo:data?.mobileNo
     }
     // data.contactId = this.interactionData?.contactId
     // data.contactName = this.interactionData?.contactName
@@ -363,6 +367,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     let data: boolean = false;
     if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId ||
       this.resValue?.gstn != this.addInventoryForm.value?.gstn||
+      this.resValue?.mobileNo != this.addInventoryForm.value?.mobileNo||
+      this.resValue?.emailId != this.addInventoryForm.value?.emailId||
       this.resValue?.statusId != this.addInventoryForm.value?.statusId || this.resValue
         ?.agentRemarks != this.addInventoryForm.value?.agentRemarks ||
       this.resValue?.problemID != this.addInventoryForm.value?.problemID ||  this.resValue?.subStatusId != this.addInventoryForm.value?.subStatusId 
@@ -381,8 +387,10 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     if (this.resValue?.statusId != updatedData?.statusId) message += `Status Name : ${updatedData?.statusName}`;
     if (this.resValue?.subStatusId != updatedData?.subStatusId) message += `Sub Status name : ${updatedData?.subStatusName}`;
     if (this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
-    if (this.resValue?.problemID != updatedData?.problemID) message += `problem Id : ${updatedData?.problemID}`;
+    if (this.resValue?.problemID != updatedData?.problemID) message += `Problem Id : ${updatedData?.problemID}`;
     if (this.resValue?.gstn != updatedData?.gstn) message += `GSTN : ${updatedData?.gstn}`;
+    if (this.resValue?.mobileNo != updatedData?.mobileNo) message += `MobileNo : ${updatedData?.mobileNo}`;
+    if (this.resValue?.emailId != updatedData?.emailId) message += `EmailId : ${updatedData?.emailId}`;
     let data = {
       id: this.id,
       action: InteractionsActionEnums?.UpdateHistory,

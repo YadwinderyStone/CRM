@@ -71,8 +71,13 @@
                         row.transactionNumber}} </td>
             </ng-container>
             <ng-container matColumnDef="createdDate">
-                <th class="table-column-100" mat-header-cell *matHeaderCellDef >Created Date</th>
-                <td class="table-column-100" mat-cell *matCellDef="let row"> {{row?.createdDate}}</td>
+                <th class="table-column-250" mat-header-cell *matHeaderCellDef >Created Date</th>
+                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.createdDate}}</td>
+            </ng-container>
+            <ng-container matColumnDef="closedDate">
+                <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Closed Date</th>
+                <td class="table-column-250" mat-cell *matCellDef="let row"> {{row?.closedDate}}
+                </td>
             </ng-container>
             <ng-container matColumnDef="team">
                 <th class="table-column-100" mat-header-cell *matHeaderCellDef >Team</th>

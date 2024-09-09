@@ -5,6 +5,11 @@
                 <h1>Bulk Team Transfer History</h1>
             </div>
         </div>
+        <div class="col-md-auto col-sm-auto col">
+            <button type="button" (click)="downloadExcel()" class="btn btn-warning btn-md ml-2"><i
+                class="fas fa-download"></i> {{'DOWNLOAD_REPORT' | translate}}
+            </button>
+        </div>
     </div>
 </div>
 <div class="loading-shade" *ngIf="isLoading">

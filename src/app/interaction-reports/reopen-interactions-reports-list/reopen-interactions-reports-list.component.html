@@ -99,6 +99,11 @@
                 </th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.team || row?.teamName}} </td>
             </ng-container>
+            <ng-container matColumnDef="closedDate">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Closed Date</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row?.reopenDate| date:'yyyy-MM-dd hh:mm a'}}
+                </td>
+            </ng-container>
             <ng-container matColumnDef="status">
                 <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status

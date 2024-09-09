@@ -25,7 +25,7 @@ export class SLAReportsComponent  extends BaseComponent implements OnInit {
    currentDate = new Date();
    dataSource: InteractionDataSource;
    isLoading: boolean = false
-   displayedColumns: string[] = ['interactionId','createdDate','team','subject','gstn','assignedTo','interactionState','interactionSubState','interactionThreadLastUpdated','disposition','subDisposition','problemReported','docketNumber','interactionCreatedThroughMedia','escalationStartDateTime','ticketAssignedTime','lastResolvedAt','uniqueNumber','reopenFlag','problemId','assignToL2TeamNew']
+   displayedColumns: string[] = ['interactionId','createdDate','closedDate','team','subject','gstn','assignedTo','interactionState','interactionSubState','interactionThreadLastUpdated','disposition','subDisposition','problemReported','docketNumber','interactionCreatedThroughMedia','escalationStartDateTime','ticketAssignedTime','lastResolvedAt','uniqueNumber','reopenFlag','problemId','assignToL2TeamNew']
    columnsToDisplay: string[] = ["footer"];
    inventoryResource: InventoryResourceParameter;
    loading$: Observable<boolean>;

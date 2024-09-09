@@ -124,11 +124,11 @@ export class UserListComponent extends BaseComponent implements OnInit, AfterVie
     this.router.navigate(['/users/permission', userId])
   }
 
-  dowanloadList(){
+  downloadList(){
     this.isLoading = true
   
     this.userService.getUsers(this.userResource).subscribe((res:any)=>{
-      let usersRecods:any = res?.body;
+      let usersRecords:any = res?.body;
       let heading = [[
         this.translationService.getValue('First Name'),
         this.translationService.getValue('Last Name'),
@@ -138,7 +138,7 @@ export class UserListComponent extends BaseComponent implements OnInit, AfterVie
       ]];
   
       let usersReport = [];
-      usersRecods.forEach(data => {
+      usersRecords.forEach(data => {
         usersReport.push({
           'First Name':data?.firstName,
           'LastName':data?.lastName,

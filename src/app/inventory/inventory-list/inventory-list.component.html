@@ -124,6 +124,14 @@
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.assignToName}} </td>
             </ng-container>
+            <ng-container matColumnDef="emailId">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.emailId}} </td>
+            </ng-container>
+            <ng-container matColumnDef="phone">
+                <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No.</th>
+                <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.mobileNo}} </td>
+            </ng-container>
             <ng-container matColumnDef="telsimaID">
                 <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Talisma Intercation ID</th>
                 <td class="table-column-200" mat-cell *matCellDef="let row"> {{"--"}} </td>
