@@ -28,8 +28,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   @Output() userId = new EventEmitter<string>();
   @Output() interactionDetail = new EventEmitter<string>();
   isLoading: boolean = false
-  loginUserDetail:any;
-
+  loginUserDetail: any;
+  loading: boolean = false;
   addInventoryForm: UntypedFormGroup;
   teamList: any = [];
   teamMemberList: any = [];
@@ -91,20 +91,21 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       contactName: ['',],
       clarificationFilled: ['',],
       compositionDate: ['',],
-      subStatusId: [this.interactionData?.subStatusId,[Validators.required]],
+      subStatusId: [this.interactionData?.subStatusId, [Validators.required]],
       subCatInput: [''],
       catInput: [''],
       categoryId: [],
       subcategoryId: [],
       subject: [''],
-      problemReported: ['',[Validators.required]],
+      problemReported: ['', [Validators.required]],
       problemID: [''],
       problemSearch: [''],
       resolutionComments: [''],
       resolutionCommentGRP: [''],
       teamId: [],
       mobileNo: [],
-      emailId:['',[Validators.required,Validators.email]],
+      // emailId:['',[Validators.required,Validators.email]],
+      emailId: [''],
       noOfMessages: [],
       reopenCount: [],
       assignToId: [],
@@ -279,7 +280,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       this.toastrService.error('Please enter the required fields');
       return
     }
-
     let data = this.addInventoryForm.getRawValue();
     let ticketType = this.ticketTypeList.filter(e => e.id == this.addInventoryForm.value.ticketType);
     let statusName = this.statusList.filter(e => e.id == this.addInventoryForm.value.statusId);
@@ -302,7 +302,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       subStatusName: subStatusName[0]?.name,
       subStatusId: data?.subStatusId,
       subcategoryId: data?.subcategoryId,
-      gstn:data?.gstn,
+      gstn: data?.gstn,
       subcategoryName: subcategoryName[0]?.name,
       uniqueNumber: data?.uniqueNumber,
       cpin: data?.cpin,
@@ -316,8 +316,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       returnType: data?.returnType,
       subject: this.resValue?.subject,
       problemID: data?.problemID,
-      emailId:data?.emailId,
-      mobileNo:data?.mobileNo
+      emailId: data?.emailId,
+      mobileNo: data?.mobileNo
     }
     // data.contactId = this.interactionData?.contactId
     // data.contactName = this.interactionData?.contactName
@@ -351,12 +351,15 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
 
 
     } else {
-
+      this.loading = true
       this.inventoryService.addInteraction(data).subscribe(res => {
         if (res) {
           this.toastrService.success('Interaction added successfully')
+          this.loading = false
         }
+        this.loading = false
       }, error => {
+        this.loading = false
         this.toastrService.error(error);
       })
     }
@@ -366,12 +369,12 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   checkChanges(): boolean {
     let data: boolean = false;
     if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId ||
-      this.resValue?.gstn != this.addInventoryForm.value?.gstn||
-      this.resValue?.mobileNo != this.addInventoryForm.value?.mobileNo||
-      this.resValue?.emailId != this.addInventoryForm.value?.emailId||
+      this.resValue?.gstn != this.addInventoryForm.value?.gstn ||
+      this.resValue?.mobileNo != this.addInventoryForm.value?.mobileNo ||
+      this.resValue?.emailId != this.addInventoryForm.value?.emailId ||
       this.resValue?.statusId != this.addInventoryForm.value?.statusId || this.resValue
         ?.agentRemarks != this.addInventoryForm.value?.agentRemarks ||
-      this.resValue?.problemID != this.addInventoryForm.value?.problemID ||  this.resValue?.subStatusId != this.addInventoryForm.value?.subStatusId 
+      this.resValue?.problemID != this.addInventoryForm.value?.problemID || this.resValue?.subStatusId != this.addInventoryForm.value?.subStatusId
     ) {
       data = true;
     }
@@ -430,8 +433,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.inventoryService.getInteractionById(id).subscribe((res: any) => {
       this.interactionData = res;
       this.resValue = { ...res };
-      if(this.resValue?.statusId ==  1 || this.resValue?.statusId == 2 ){
-        if (this.resValue?.assignToId !== this.loginUserDetail?.id && this.resValue?.intercationTypeID==2) {
+      if (this.resValue?.statusId == 1 || this.resValue?.statusId == 2) {
+        if (this.resValue?.assignToId !== this.loginUserDetail?.id && this.resValue?.intercationTypeID == 2) {
           let dialogData = {
             interactionData: this.resValue,
             userDetail: this.loginUserDetail

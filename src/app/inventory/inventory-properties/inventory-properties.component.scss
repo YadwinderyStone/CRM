@@ -69,3 +69,14 @@ input#message {
   color: black;
   font-size: 20px;
 }
+
+
+.loading-shade {
+  position: absolute;
+  top: 40vh;
+  left: 50%;
+  z-index: 1;
+    display:block;
+    // align-items: center;
+    // justify-content: center;
+}

@@ -16,31 +16,31 @@ export class SmsSettingConfigService {
     private commonHttpErrorService: CommonHttpErrorService) { }
 
   getSMSConFigSettings(): Observable<SMSConFigSetting[] | CommonError> {
-    const url = 'SMSConFigSetting';
+    const url = 'SmsSetting/GetSmsSettingList?PageNumber=1&PageSize=20';
     return this.httpClient.get<SMSConFigSetting[]>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
-  getSMSConFigSetting(id: string): Observable<SMSConFigSetting | CommonError> {
-    const url = `SMSConFigSetting/${id}`;
+  getSMSConFigSettingById(id: string): Observable<SMSConFigSetting | CommonError> {
+    const url = `SmsSetting/GetSmsSettingDataById?id=${id}`;
     return this.httpClient.get<SMSConFigSetting>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   addSMSConFigSetting(setting: SMSConFigSetting): Observable<SMSConFigSetting | CommonError> {
-    const url = `SMSConFigSetting`;
+    const url = `SmsSetting/SaveAndUpdateSmsAPISetting`;
     return this.httpClient.post<SMSConFigSetting>(url, setting)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   updateSMSConFigSetting(setting: SMSConFigSetting): Observable<SMSConFigSetting | CommonError> {
-    const url = `SMSConFigSetting/${setting.id}`;
+    const url = `SmsSetting/SaveAndUpdateSmsAPISetting`;
     return this.httpClient.put<SMSConFigSetting>(url, setting)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   deleteSMSConFigSetting(id: string): Observable<SMSConFigSetting | CommonError> {
-    const url = `SMSConFigSetting/${id}`;
+    const url = `SmsSetting/DeleteSmsSettingApiById?id=/${id}`;
     return this.httpClient.delete<SMSConFigSetting>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }

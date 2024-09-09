@@ -17,31 +17,31 @@ export class MessageTemplateService {
 
 // FIXME : change api end points to mesage template
 
-    updateMessageTemplate(emailTemplate: MessageTemplate): Observable<MessageTemplate | CommonError> {
-      const url = `emailTemplate/${emailTemplate.id}`;
+    updateMessageTemplate(emailTemplate: any): Observable<MessageTemplate | CommonError> {
+      const url = `Message/UpdateSMSTemplate`;
       return this.httpClient.put<MessageTemplate>(url, emailTemplate)
         .pipe(catchError(this.commonHttpErrorService.handleError));
     }
   
-    addMessageTemplate(emailTemplate: MessageTemplate): Observable<MessageTemplate | CommonError> {
-      const url = `emailTemplate`;
-      return this.httpClient.post<MessageTemplate>(url, emailTemplate)
+    addMessageTemplate(emailTemplate: any): Observable<MessageTemplate | CommonError> {
+      const url = `Message/CreateSMSTemplate`;
+      return this.httpClient.post(url, emailTemplate)
         .pipe(catchError(this.commonHttpErrorService.handleError));
     }
     deleteMessageTemplate(emailTemplate: MessageTemplate): Observable<MessageTemplate | CommonError> {
-      const url = `emailTemplate/${emailTemplate.id}`;
+      const url = `Message/DeleteSmsTemplateDataById?id=${emailTemplate.id}`;
       return this.httpClient.delete<MessageTemplate>(url)
         .pipe(catchError(this.commonHttpErrorService.handleError));
     }
   
-    getMessageTemplate(id: string): Observable<MessageTemplate | CommonError> {
-      const url = `emailTemplate/${id}`;
+    getMessageTemplateById(id: string): Observable<MessageTemplate | CommonError> {
+      const url = `Message/GetSmsTemplateDataById?id=${id}`;
       return this.httpClient.get<MessageTemplate>(url)
         .pipe(catchError(this.commonHttpErrorService.handleError));
     }
   
     getMessageTemplates(): Observable<MessageTemplate[] | CommonError> {
-      const url = `emailTemplate`;
+      const url = `Message/GetSmsTemplateList?PageNumber=1&PageSize=20`;
       return this.httpClient.get<MessageTemplate[]>(url)
         .pipe(catchError(this.commonHttpErrorService.handleError));
     }

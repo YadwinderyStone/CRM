@@ -13,88 +13,99 @@ import { MessageTemplateService } from '../message-template.service';
   styleUrls: ['./add-message-template.component.scss']
 })
 export class AddMessageTemplateComponent extends BaseComponent implements OnInit {
-  
-    messageTemplateForm: UntypedFormGroup;
-    messageTemplate: EmailTemplate;
-    editorConfig = EditorConfig;
-  
-    constructor(
-      private fb: UntypedFormBuilder,
-      private route: ActivatedRoute,
-      private messageTemplateService: MessageTemplateService,
-      private router: Router,
-      private toastrService: ToastrService,
-      public translationService: TranslationService
-    ) {
-      super(translationService);
-      this.getLangDir();
-    }
-  
-    ngOnInit(): void {
+
+  messageTemplateForm: UntypedFormGroup;
+  messageTemplate: any = '';
+  editorConfig = EditorConfig;
+
+  constructor(
+    private fb: UntypedFormBuilder,
+    private route: ActivatedRoute,
+    private messageTemplateService: MessageTemplateService,
+    private router: Router,
+    private toastrService: ToastrService,
+    public translationService: TranslationService
+  ) {
+    super(translationService);
+    this.getLangDir();
+    this.route.params.subscribe(res => {
+      if (res?.id) {
+        this.createMessageTemplateForm();
+        this.getEmailDataBy(res?.id)
+      }
+    })
+  }
+
+  ngOnInit(): void {
+    if (!this.messageTemplate) {
       this.createMessageTemplateForm();
-      
     }
-  
-    getEmailResolverData() {
-      this.sub$.sink = this.route.data.subscribe(
-        (data: { emailTemplate: EmailTemplate }) => {
-          if (data.emailTemplate) {
-            this.messageTemplate = data.emailTemplate;
-            this.patchEmailTemplateData();
-          }
-        });
-    }
-  
-    addUpdateEmailTemplate() {
-      if (this.messageTemplateForm.valid) {
-        if (this.messageTemplate) {
-          this.sub$.sink = this.messageTemplateService
-            .updateMessageTemplate(this.createBuildObject())
-            .subscribe(c => {
-              this.toastrService.success('SMS template saved successfully');
-              this.router.navigate(['/message-template']);
-            });
-        } else {
-          this.sub$.sink = this.messageTemplateService
-            .addMessageTemplate(this.createBuildObject())
-            .subscribe(c => {
+  }
+
+  getEmailDataBy(id) {
+    this.messageTemplateService.getMessageTemplateById(id).subscribe(res => {
+      this.messageTemplate = res || '';
+      this.patchEmailTemplateData();
+    })
+
+  }
+
+  addUpdateEmailTemplate() {
+    if (this.messageTemplateForm.valid) {
+      if (this.messageTemplate) {
+        this.sub$.sink = this.messageTemplateService
+          .updateMessageTemplate(this.createBuildObject())
+          .subscribe(c => {
+            this.toastrService.success('SMS template ujpdated successfully');
+            this.router.navigate(['/message-template']);
+          });
+      } else {
+        this.sub$.sink = this.messageTemplateService
+          .addMessageTemplate(this.createBuildObject())
+          .subscribe((c: any) => {
+            if (c?.success) {
               this.toastrService.success(this.translationService.getValue('SMS template saved successfully'))
               this.router.navigate(['/message-template']);
-            })
-        }
-      } else {
-        for (let inner in this.messageTemplateForm.controls) {
-          this.messageTemplateForm.get(inner).markAsDirty();
-          this.messageTemplateForm.get(inner).updateValueAndValidity();
-        }
+            } else {
+              this.toastrService.error(c?.message)
+            }
+          })
+      }
+    } else {
+      for (let inner in this.messageTemplateForm.controls) {
+        this.messageTemplateForm.get(inner).markAsDirty();
+        this.messageTemplateForm.get(inner).updateValueAndValidity();
       }
     }
-  
-    createBuildObject(): EmailTemplate {
-      const emailTemplate: EmailTemplate = {
-        id: this.messageTemplate ? this.messageTemplate.id : null,
-        name: this.messageTemplateForm.get('name').value,
-        subject: this.messageTemplateForm.get('subject').value,
-        body: this.messageTemplateForm.get('body').value
-      }
-      return emailTemplate;
-    }
-  
-    createMessageTemplateForm() {
-      this.messageTemplateForm = this.fb.group({
-        name: ['', [Validators.required]],
-        subject: ['', [Validators.required]],
-        body: ['', [Validators.required,]]
-      })
-    }
-  
-    patchEmailTemplateData() {
-      this.messageTemplateForm.patchValue({
-        name: this.messageTemplate.name,
-        subject: this.messageTemplate.subject,
-        body: this.messageTemplate.body
-      })
-    }
-  
   }
-  
+
+  createBuildObject() {
+    const emailTemplate: any = {
+      id: this.messageTemplate ? this.messageTemplate.id : null,
+      templateDltId:this.messageTemplateForm.get('templateDltId').value,
+      name: this.messageTemplateForm.get('name').value,
+      subject: this.messageTemplateForm.get('subject').value,
+      body: this.messageTemplateForm.get('body').value
+    }
+    return emailTemplate;
+  }
+
+  createMessageTemplateForm() {
+    this.messageTemplateForm = this.fb.group({
+      name: ['', [Validators.required]],
+      templateDltId: ['', [Validators.required]],
+      subject: ['', [Validators.required]],
+      body: ['', [Validators.required,]]
+    })
+  }
+
+  patchEmailTemplateData() {
+    this.messageTemplateForm.patchValue({
+      name: this.messageTemplate.name,
+      templateDltId:this.messageTemplate.templateDltId,
+      subject: this.messageTemplate.subject,
+      body: this.messageTemplate.body
+    })
+  }
+
+}

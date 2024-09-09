@@ -7,6 +7,8 @@ import { ManageSmsSettingComponent } from './manage-sms-setting/manage-sms-setti
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from '@shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { SharedModule } from '@shared/shared.module';
     SharedModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ]
 })
 export class MessageSettingModule { }

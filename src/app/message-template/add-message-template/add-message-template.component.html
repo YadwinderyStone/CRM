@@ -39,6 +39,17 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-12">
+        <div class="form-group ">
+          <label class="text-danger">{{'Template Dlt Id' | translate }} *</label>
+          <input [readonly]="messageTemplate" formControlName="templateDltId" class="form-control" type="text">
+          <div *ngIf="messageTemplateForm.get('templateDltId').dirty && messageTemplateForm.get('templateDltId').errors">
+            <div class="text-danger" *ngIf="messageTemplateForm.get('templateDltId').errors?.required">
+              {{'Template Dlt Id is required' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-sm-12">

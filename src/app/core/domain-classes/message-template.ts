@@ -3,4 +3,5 @@ export interface MessageTemplate {
     name?: string;
     subject?: string;
     body?: string;
+    templateDltId?:string
   }

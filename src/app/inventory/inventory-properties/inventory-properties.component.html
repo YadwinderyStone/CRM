@@ -1,4 +1,7 @@
 <form [formGroup]="addInventoryForm">
+    <div class="loading-shade" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
     <div class="example-action-buttons justify-content-between">
         <div class="ml-2" *ngIf="(resValue?.ticketType =='Ticket Created' || resValue?.ticketType == 2) && this.resValue?.assignToId == this.loginUserDetail?.id;else elseBlock">
 

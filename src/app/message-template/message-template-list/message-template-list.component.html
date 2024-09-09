@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="table-responsive">
-    <table mat-table  [dir]="langDir" [dataSource]="messageTemplates" class="table table-bordered table-hover">
+    <table mat-table  [dir]="langDir" [dataSource]="messageTemplates" class="table d-table table-bordered table-hover">
       <!-- Action Column -->
       <ng-container matColumnDef="action">
         <th class="table-column-300" mat-header-cell *matHeaderCellDef>
@@ -36,10 +36,10 @@
       </ng-container>
       <!-- Key Column -->
       <ng-container matColumnDef="name">
-        <th class="table-column-300" mat-header-cell *matHeaderCellDef>
+        <th class="table-column-200" mat-header-cell *matHeaderCellDef>
           {{'NAME' | translate }}
         </th>
-        <td class="table-column-300" mat-cell *matCellDef="let messageTemplate"> {{messageTemplate.name}} </td>
+        <td class="table-column-200" mat-cell *matCellDef="let messageTemplate"> {{messageTemplate.name}} </td>
       </ng-container>
       <!-- Value Column -->
       <ng-container matColumnDef="subject">
@@ -47,6 +47,26 @@
           {{'SUBJECT' | translate }}
         </th>
         <td class="table-column-300" mat-cell *matCellDef="let messageTemplate"> {{messageTemplate.subject}} </td>
+      </ng-container>
+      <ng-container matColumnDef="date">
+        <th class="table-column-150" mat-header-cell *matHeaderCellDef>Created Date</th>
+        <td class="table-column-150" mat-cell *matCellDef="let messageTemplate"> {{messageTemplate.createdDate | date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdBy">
+        <th class="table-column-150" mat-header-cell *matHeaderCellDef>Created By</th>
+        <td class="table-column-150" mat-cell *matCellDef="let messageTemplate"> {{messageTemplate.createdByName}} </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="subject">
+        <th class="table-column-300" mat-header-cell *matHeaderCellDef>
+          {{'SUBJECT' | translate }}
+        </th>
+        <td class="table-column-300" mat-cell *matCellDef="let messageTemplate"> {{messageTemplate.subject}} </td>
+      </ng-container> -->
+      <ng-container matColumnDef="body">
+        <th class="table-column-300" mat-header-cell *matHeaderCellDef>
+          {{'SMS Message' | translate }}
+        </th>
+        <td class="table-column-300" mat-cell *matCellDef="let messageTemplate"> <div class="templateBody" [innerHTML]="senitizeContent(messageTemplate?.body)" ></div> </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
