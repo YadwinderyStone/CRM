@@ -19,4 +19,13 @@ export class EmailSendService {
     return this.httpClient.post<void>(url, email)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
+  sendMessage(data:any): Observable<void | CommonError> {
+    const url = 'Message/SendBulkSms';
+    return this.httpClient.post<void>(url, data)
+      .pipe(catchError(this.commonHttpErrorService.handleError));
+  }
+  getSmsDataById(id) {
+    const url = `Message/GetSmsTemplateDataById?id=${id}`
+    return this.httpClient.get(url)
+  }
 }

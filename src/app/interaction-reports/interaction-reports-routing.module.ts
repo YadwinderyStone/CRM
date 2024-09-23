@@ -22,6 +22,8 @@ import { DumpReportFcrComponent } from './dump-report-fcr/dump-report-fcr.compon
 import { SLAReportsComponent } from './sla-reports/sla-reports.component';
 import { AgentProductivityComponent } from './agent-productivity/agent-productivity.component';
 import { EmailResolutionReportsComponent } from './email-resolution-reports/email-resolution-reports.component';
+import { LoginReportsComponent } from './login-reports/login-reports.component';
+import { SmsReportsComponent } from './sms-reports/sms-reports.component';
 
 const routes: Routes = [
   {
@@ -103,37 +105,50 @@ const routes: Routes = [
     // FIXME: NEED TO CHANGE CLAIM
     path:'survey-reports',
     component: SurveyReportsComponent,
-    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    data: { claimType: 'REP_INTERCATION_SERVEY_REPORT' },
     canActivate: [AuthGuard]
   },
   {
     // FIXME: NEED TO CHANGE CLAIM
     path:'grp-tat-reports',
     component: GrpTatReportsComponent,
-    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    data: { claimType: 'REP_INTERCATION_TAT_REPORT' },
     canActivate: [AuthGuard]
   },
   {
     // FIXME: NEED TO CHANGE CLAIM
     path:'sla-14b-reports',
     component: SLAReportsComponent,
-    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    data: { claimType: 'REP_INTERCATION_SLA14B_REPORT' },
     canActivate: [AuthGuard]
   }
   ,{
     // FIXME: NEED TO CHANGE CLAIM
     path:'email-resolution-reports',
     component: EmailResolutionReportsComponent,
-    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    data: { claimType: 'REP_INTERCATION_EMAILRESOLUTION_REPORT' },
     canActivate: [AuthGuard]
   }
   ,{
     // FIXME: NEED TO CHANGE CLAIM
     path:'agent-productivity-reports',
     component: AgentProductivityComponent,
-    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    data: { claimType: 'REP_INTERCATION_PRODUCTVITY_REPORT' },
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path:'login-reports',
+    component: LoginReportsComponent,
+    data: { claimType: 'REP_INTERCATION_LOGIN_REPORT' },
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'sms-reports',
+    component: SmsReportsComponent,
+    data: { claimType: 'REP_INTERCATION_REPPORT' },
+    // data: { claimType: 'REP_INTERCATION_SMS_REPORT' },
+    canActivate: [AuthGuard]
+  },
 
 ];
 

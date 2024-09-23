@@ -40,6 +40,12 @@
                     <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.direction ||''">
                 </div>
             </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Campaign Name:</label>
+                    <input type="text" class="form-control" [readonly]="true" [value]="ctiInfo?.campaignName ||''">
+                </div>
+            </div>
 
             <!-- <hr class="hline"> -->
         </div>
@@ -95,9 +101,8 @@
                     <div class="form-group">
                         <mat-label>{{'EMAIL' | translate}} *</mat-label>
                         <div class="email-div">
-                            <input formControlName="emailId" class="form-control"
-                                type="text">
-                            <i class="fas fa-search" (click)="onEmailSearch($event)"  ></i>
+                            <input formControlName="emailId" class="form-control" type="text">
+                            <i class="fas fa-search" (click)="onEmailSearch($event)"></i>
                         </div>
 
                         <div *ngIf="customerForm.get('emailId').touched && customerForm.get('emailId').errors?.email"
@@ -115,8 +120,8 @@
                     <div class="form-group">
                         <mat-label class="text-danger">{{'MOBILE_NUMBER' | translate}} *</mat-label>
                         <div class="email-div">
-                            <input formControlName="mobileNo" class="form-control"
-                                type="text" maxlength="10" minlength="10">
+                            <input formControlName="mobileNo" class="form-control" type="text" maxlength="10"
+                                minlength="10">
                         </div>
                         <div *ngIf="
                     customerForm.get('mobileNo').touched &&
@@ -157,7 +162,7 @@
                         <button *hasClaim="['CNT_ADD_CONTACT','CNT_UPDATE_CONTACT']" type="button"
                             (click)="addInteractions()" class="py-2 btn btn-success btn-sm m-right-10">
                             <i class="fas fa-save"></i>
-                            Add Inteaction
+                            Add Interaction
                         </button>
                         <button type="button" class="py-2 btn btn-danger btn-sm" (click)="onCustomerList()">
                             <i class="fas fa-times-circle"></i>
@@ -172,7 +177,7 @@
             <div class="row align-items-center justify-content-between">
                 <div class="col-md-auto col-sm-auto">
                     <div class="content-header">
-                        <h1>Last 5 Interactions</h1>
+                        <h1>Recent Interactions</h1>
                     </div>
                 </div>
             </div>
@@ -186,21 +191,26 @@
                         <th class="table-column-150" mat-header-cell *matHeaderCellDef> Action
                         </th>
                         <td class="table-column-150" mat-cell *matCellDef="let element">
-                            <button *hasClaim="['INT_ADD_INTERACTION','INT_UPDATE_INTERACTION']"
+                            <!-- {{element?.statusName}} -->
+                            <button *ngIf="element?.statusName!='Closed'" (click)="openDialog(element)"
+                                class="btn btn-success btn-sm m-right-10" type="button">
+                                <i class="las la-pen"></i>
+                                OB Remarks
+                            </button>
+                            <!-- <button *hasClaim="['INT_ADD_INTERACTION','INT_UPDATE_INTERACTION']"
                                 class="btn btn-success btn-sm m-right-10" type="button">
                                 <i class="las la-pen"></i>
                                 {{'EDIT' | translate}}
-                            </button>
-                            <button *hasClaim="'INT_DELETE_INTERACTION'" class="btn btn-danger btn-sm" type="button">
+                            </button> -->
+                            <!-- <button *hasClaim="'INT_DELETE_INTERACTION'" class="btn btn-danger btn-sm" type="button">
                                 <i class="las la-trash"></i>
                                 {{'DELETE' | translate}}
-                            </button>
+                            </button> -->
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="interactionid">
-                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID
-                        </th>
-                        <td class="table-column-200" mat-cell *matCellDef="let row"> {{row.transactionNumber}} </td>
+                        <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction ID</th>
+                        <td class="table-column-200"  mat-cell *matCellDef="let row">{{row.transactionNumber}}</td>
                     </ng-container>
                     <ng-container matColumnDef="interactiontype">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef mat-sort-header>Interaction Type

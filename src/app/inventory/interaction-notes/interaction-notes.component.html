@@ -9,10 +9,10 @@
             <div class="" *ngIf="this.InteractionDetail?.assignToId == loginUserDetail?.id">
 
                 <button *ngIf="InteractionDetail?.ticketType =='Ticket Created' || InteractionDetail?.ticketType == 2 "
-                class="btn blue-btn btn-sm m-right-10" (click)="addNote()">
-                <i class="fas fa-plus"></i> Add Comment
-            </button>
-        </div>
+                    class="btn blue-btn btn-sm m-right-10" (click)="addNote()">
+                    <i class="fas fa-plus"></i> Add Comment
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -32,7 +32,7 @@
                         Comment is required
                     </div>
                     <div class="text-danger" *ngIf="notesForm.get('body').errors?.pattern">
-                       Special characters not allowed
+                        Special characters not allowed
                     </div>
                 </div>
             </div>
@@ -53,34 +53,35 @@
         </div> -->
         <div class="col-md-12 mt-2">
             <div class="form-group">
-              <label class="font-weight-bold"> {{'ATTACHMENTS' | translate}} </label>
-              <div class="dropzone" appDragDrop (onFileDropped)="onFileDropped($event)">
-                <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
-                <i class="text-danger fas fa-download fa-lg" aria-hidden="true"></i>
-                <h3>{{'DRAG_AND_DROP_FILE_HERE' | translate}}</h3>
-                <h3>{{'OR' | translate}}</h3>
-                <label for="fileDropRef">{{'BROWSE_FOR_FILE' | translate}}</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 mt-2">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center"
-                *ngFor="let file of files; let i = index">
-                <h4 class="name">
-                  {{ file?.name }} -- {{ formatBytes(file?.size) }}
-                </h4>
-                <span class="badge badge-pill">
-                  <button class="btn btn-danger" (click)="onDeleteFile(i)">
-                    <i class="text-light fas fa-trash"></i>
-                  </button>
-                </span>
-                <div class="loading-shade" *ngIf="file?.progress">
-                  <mat-spinner></mat-spinner>
+                <label class="font-weight-bold"> {{'ATTACHMENTS' | translate}} </label>
+                <div class="dropzone" appDragDrop (onFileDropped)="onFileDropped($event)">
+                    <input type="file" #fileDropRef id="fileDropRef" multiple
+                        (change)="fileBrowseHandler($event.target.files)" />
+                    <i class="text-danger fas fa-download fa-lg" aria-hidden="true"></i>
+                    <h3>{{'DRAG_AND_DROP_FILE_HERE' | translate}}</h3>
+                    <h3>{{'OR' | translate}}</h3>
+                    <label for="fileDropRef">{{'BROWSE_FOR_FILE' | translate}}</label>
                 </div>
-              </li>
+            </div>
+        </div>
+        <div class="col-md-12 mt-2">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    *ngFor="let file of files; let i = index">
+                    <h4 class="name">
+                        {{ file?.name }} -- {{ formatBytes(file?.size) }}
+                    </h4>
+                    <span class="badge badge-pill">
+                        <button class="btn btn-danger" (click)="onDeleteFile(i)">
+                            <i class="text-light fas fa-trash"></i>
+                        </button>
+                    </span>
+                    <div class="loading-shade" *ngIf="file?.progress">
+                        <mat-spinner></mat-spinner>
+                    </div>
+                </li>
             </ul>
-          </div>
+        </div>
     </div>
 </form>
 <div class="page-header-main headerBackground">
@@ -104,7 +105,8 @@
                     </ng-container>
                     <ng-container matColumnDef="date">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created Date </th>
-                        <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate| date:'dd-MM-yyyy hh:mm a' }} </td>
+                        <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate|
+                            date:'dd-MM-yyyy hh:mm a' }} </td>
                     </ng-container>
                     <ng-container matColumnDef="nextStatusTime">
                         <th class="table-column-200" mat-header-cell *matHeaderCellDef>Next Status Time </th>

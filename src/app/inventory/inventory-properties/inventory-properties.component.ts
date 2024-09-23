@@ -17,6 +17,7 @@ import { TransferTeamComponent } from './transfer-team/transfer-team.component';
 import { Router } from '@angular/router';
 import { InteractionsActionEnums } from '@core/domain-classes/interacctionsAction.enum';
 import { SelfAssignDialogComponent } from '../self-assign-dialog/self-assign-dialog.component';
+import { EmailUpdateDialogComponent } from '../email-update-dialog/email-update-dialog.component';
 @Component({
   selector: 'app-inventory-properties',
   templateUrl: './inventory-properties.component.html',
@@ -260,7 +261,7 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   }
 
 
-  onticketTypeChange(event: any) {
+  onTicketTypeChange(event: any) {
     let id = event?.value ? event.value : event;
     this.getCategoryList(id);
     this.addInventoryForm.get('categoryId').setValue('');
@@ -316,8 +317,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
       returnType: data?.returnType,
       subject: this.resValue?.subject,
       problemID: data?.problemID,
-      emailId: data?.emailId,
-      mobileNo: data?.mobileNo
+      // emailAdrs: data?.emailId,
+      // mobileNumber: data?.mobileNo
     }
     // data.contactId = this.interactionData?.contactId
     // data.contactName = this.interactionData?.contactName
@@ -370,8 +371,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     let data: boolean = false;
     if (this.resValue?.categoryId != this.addInventoryForm.value?.categoryId ||
       this.resValue?.gstn != this.addInventoryForm.value?.gstn ||
-      this.resValue?.mobileNo != this.addInventoryForm.value?.mobileNo ||
-      this.resValue?.emailId != this.addInventoryForm.value?.emailId ||
+      // this.resValue?.mobileNo != this.addInventoryForm.value?.mobileNo ||
+      // this.resValue?.emailId != this.addInventoryForm.value?.emailId ||
       this.resValue?.statusId != this.addInventoryForm.value?.statusId || this.resValue
         ?.agentRemarks != this.addInventoryForm.value?.agentRemarks ||
       this.resValue?.problemID != this.addInventoryForm.value?.problemID || this.resValue?.subStatusId != this.addInventoryForm.value?.subStatusId
@@ -392,8 +393,8 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     if (this.resValue?.agentRemarks != updatedData?.agentRemarks) message += `Agent Remarks : ${updatedData?.agentRemarks}`;
     if (this.resValue?.problemID != updatedData?.problemID) message += `Problem Id : ${updatedData?.problemID}`;
     if (this.resValue?.gstn != updatedData?.gstn) message += `GSTN : ${updatedData?.gstn}`;
-    if (this.resValue?.mobileNo != updatedData?.mobileNo) message += `MobileNo : ${updatedData?.mobileNo}`;
-    if (this.resValue?.emailId != updatedData?.emailId) message += `EmailId : ${updatedData?.emailId}`;
+    // if (this.resValue?.mobileNo != updatedData?.mobileNo) message += `MobileNo : ${updatedData?.mobileNo}`;
+    // if (this.resValue?.emailId != updatedData?.emailId) message += `EmailId : ${updatedData?.emailId}`;
     let data = {
       id: this.id,
       action: InteractionsActionEnums?.UpdateHistory,
@@ -401,7 +402,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     }
     this.inventoryService.createHistory(data).subscribe(res => {
       if (res) {
-
         this.getInteractionDetailById(this.id);
       }
     }, error => {
@@ -505,7 +505,20 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
     this.dialog.open(SendEmailDialogComponent, {
       disableClose: true,
       width: '100%',
-      height: '100vh',
+      height: '80vh',
+      data: resData || this.interactionData
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.getInteractionDetailById(this.id);
+      }
+    })
+
+  }
+  updateEmail(resData?: any) {
+    this.dialog.open(EmailUpdateDialogComponent, {
+      disableClose: true,
+      width: '450px',
+      height: '300px',
       data: resData || this.interactionData
     }).afterClosed().subscribe(res => {
       if (res) {
@@ -518,7 +531,6 @@ export class InventoryPropertiesComponent extends BaseComponent implements OnIni
   openTransfer() {
     if (this.interactionData?.statusName == 'Open' ||
       this.interactionData?.statusName == 'Pending') {
-
       this.dialog.open(TransferTeamComponent, {
         disableClose: true,
         width: '650px',

@@ -48,6 +48,7 @@ import { SelfAssignDialogComponent } from './self-assign-dialog/self-assign-dial
 import { AddInteractionResolverService } from './add-interactions/add-interactions-resolver.service';
 import { AdvanceSearchComponent } from './advance-search/advance-search.component';
 import { InteractionEmailOldComponent } from './interaction-email-old/interaction-email-old.component';
+import { EmailUpdateDialogComponent } from './email-update-dialog/email-update-dialog.component';
 @NgModule({
   declarations: [
     InventoryListComponent,
@@ -75,6 +76,7 @@ import { InteractionEmailOldComponent } from './interaction-email-old/interactio
     SelfAssignDialogComponent,
     AdvanceSearchComponent,
     InteractionEmailOldComponent,
+    EmailUpdateDialogComponent,
   ],
   imports: [
     CommonModule,

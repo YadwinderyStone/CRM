@@ -20,7 +20,7 @@ import { InteractionsActionEnums } from '@core/domain-classes/interacctionsActio
   templateUrl: './add-interactions.component.html',
   styleUrls: ['./add-interactions.component.scss']
 })
-export class AddInteractionsComponent extends BaseComponent implements OnInit,AfterViewInit {
+export class AddInteractionsComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   @Input() userData: any
   addInventoryForm: UntypedFormGroup;
@@ -36,7 +36,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
   currentDate: any
   sourceList: any[] = [];
   interactionData: any;
-  interactionSubject:any;
+  interactionSubject: any;
   constructor(
     public translationService: TranslationService,
     private inventoryService: InventoryService,
@@ -56,7 +56,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.createForm();
     this.getSourceList();
     // this.getErrorCodeList();
- 
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -72,13 +72,8 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       this.bindValue(this.userData);
     }
 
-
-
-
-
-
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
     this.addInventoryForm.get('subject')?.setValue(`${categoryName[0]?.name}-${subcategoryName[0]?.name}`);
@@ -111,6 +106,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       subject: [''],
       catInput: [''],
       subCatInput: [''],
+      comments: [''],
     });
   }
 
@@ -205,7 +201,7 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
     this.inventoryService.getSubCategoryList(id).subscribe(res => {
       this.subCategoryList = res;
       let categoryName = this.categoryList.filter(e => e.id == this.userData?.catId);
-    let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
+      let subcategoryName = this.subCategoryList.filter(e => e.id == this.userData?.subCatId);
       if (this.userData) {
         this.addInventoryForm.get('subcategoryId')?.setValue(JSON.parse(this.userData?.subCatId));
       }
@@ -261,37 +257,38 @@ export class AddInteractionsComponent extends BaseComponent implements OnInit,Af
       "teamName": data?.teamName || data?.team,
       "source": data?.source || '',
       "agentRemarks": data?.agentRemarks,
+      "comments": data?.comments
       // "subject": data?.subject,
     }
     this.inventoryService.addInteraction(formData).subscribe(res => {
       if (res) {
         this.toastrService.success('Interaction added successfully.');
-        this.createHistory(formData,res);
-        this.openDialog(res,this.userData);
+        this.createHistory(formData, res);
+        this.openDialog(res, this.userData);
       }
     }, error => {
       this.toastrService.error(error);
     })
   }
 
-createHistory(values:any,res){
-  let data = {
-    id: res?.id,
-    action: InteractionsActionEnums?.AddHistory,
-    message: `Interaction Added -- Ticket Type: (${res?.ticketType}) , Catergory Name: (${values?.categoryName}),  Subcategory Name: (${values?.subcategoryName}) , Status Name :( ${res?.statusName})
+  createHistory(values: any, res) {
+    let data = {
+      id: res?.id,
+      action: InteractionsActionEnums?.AddHistory,
+      message: `Interaction Added -- Ticket Type: (${res?.ticketType}) , Catergory Name: (${values?.categoryName}),  Subcategory Name: (${values?.subcategoryName}) , Status Name :( ${res?.statusName})
     , Sub Status name : (${values?.subStatusName}) , Agent Remarks : (${values?.agentRemarks}) , Problem Reported : (${values?.problemReported}) , Team Name : (${values?.teamName})
-   , Priority Name : (${values?.priorityName}) , GSTN : ( ${values?.gstn} ) `  
-  }
+   , Priority Name : (${values?.priorityName}) , GSTN : ( ${values?.gstn} ) `
+    }
 
-  this.inventoryService.createHistory(data).subscribe(res => {
-  }, error => {
-    this.toastrService.error(error);
-  })
-}
+    this.inventoryService.createHistory(data).subscribe(res => {
+    }, error => {
+      this.toastrService.error(error);
+    })
+  }
 
   openDialog(value, data?) {
     let detail = value;
-    detail.userData= data
+    detail.userData = data
     this.dialog.open(InteractionDetailViewDialogComponent, {
       disableClose: true,
       width: '500px',
@@ -346,7 +343,7 @@ createHistory(values:any,res){
     let subcategoryName = this.subCategoryList.filter(e => e.id == this.addInventoryForm.value.subcategoryId);
     let teamName = this.teamList.filter(e => e.id == this.addInventoryForm.value.teamId);
     let source = this.sourceList.filter(e => e.id == this.addInventoryForm.value.source);
-    
+
     this.addInventoryForm.get('ticketTypeId')?.setValue(ticketType[0]?.id);
     this.addInventoryForm.get('ticketType')?.setValue(ticketType[0]?.name);
     this.addInventoryForm.get('statusName')?.setValue(statusName[0]?.name);

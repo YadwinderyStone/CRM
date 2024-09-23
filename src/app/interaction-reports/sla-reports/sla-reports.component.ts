@@ -193,13 +193,11 @@ export class SLAReportsComponent  extends BaseComponent implements OnInit {
  
    }
  
-   dowanloadExcal(){
-    // FIXME: need to fix api end points
+   downloadExcel(){
      let url = `Excel/GetExcelFileForSLA14BReport`
      this.isLoading = true;
      this.setParams();
      this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
-       debugger
        let emailDocumentList =  res
        let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
        const url = window.URL.createObjectURL(receivedData);

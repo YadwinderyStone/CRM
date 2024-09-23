@@ -319,6 +319,10 @@ export class InventoryService {
     const url = `Interaction/CreateCRMInteractionHistory`;
     return this.http.post<any[]>(url,data);
   }
+  updateEmail(data) { 
+    const url = `Integration/UpdateEmailByInteractionId`;
+    return this.http.put<any[]>(url,data);
+  }
 
   
 // Api list for sidebar interactions 

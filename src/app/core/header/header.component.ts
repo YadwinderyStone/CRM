@@ -20,6 +20,7 @@ import { filter } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { LanguageFlag, Languages } from './languages';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -64,6 +65,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService,
     private commonService: CommonService,
     private commonDialogService: CommonDialogService,
+    private tasterService: ToastrService,
     public translate: TranslateService,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -96,7 +98,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
         }
       })
   }
-  
+
   hideOrShowBaseOnCurrentUrl() {
     if (this.router.url.indexOf('pos') > -1) {
       this.isFromPos = true;
@@ -256,15 +258,21 @@ export class HeaderComponent extends BaseComponent implements OnInit {
 
   onLogout(): void {
     this.commonDialogService
-    .deleteConformationDialog(`Are you sure you want to logout?`)
-    .subscribe(isTrue => {
-      if (isTrue) {
-            this.signalrService.logout(this.appUserAuth.id);
-            this.securityService.logout();
-            this.router.navigate(['/login']);
-          }
-        });
-    
+      .deleteConformationDialog(`Are you sure you want to logout?`)
+      .subscribe(isTrue => {
+        if (isTrue) {
+          // this.securityService.userLogout(this.appUserAuth.id).subscribe(res => {
+          //   if (res) {
+              this.signalrService.logout(this.appUserAuth.id);
+              this.securityService.logout();
+              this.router.navigate(['/login']);
+          //   }
+          // }, error => {
+          //   this.tasterService.error(error);
+          // })
+        }
+      });
+
   }
 
   onMyProfile(): void {

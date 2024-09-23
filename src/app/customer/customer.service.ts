@@ -154,11 +154,13 @@ userData:any
     });
   }
   getTopFiveInteractionsForContact(data): Observable<HttpResponse<any[]>> {
-    const url = `Interaction/GetInteractionsDataByContactId?contactId=${data}`;
-    //const customParams = new HttpParams()
-      //.set('IsAdmin', false)
-      //.set('PageSize', 5)
-      //.set('Skip',0)
+    // const url = `Interaction/GetInteractionsDataByContactId?contactId=${data}`;
+    const url = `Interaction/GetInteractionsDataByContactId?contactId=${data}&pageSize=5&pageNumber=1`;
+    const customParams = new HttpParams()
+      //.set('IsAdmin', false)contactId=${data}
+      .set('contactId', data)
+      .set('PageSize', 5)
+      .set('Skip',0)
     return this.http.get<any[]>(url, {
       //params: customParams,
       observe: 'response',

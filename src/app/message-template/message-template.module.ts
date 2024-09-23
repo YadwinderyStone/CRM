@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { SharedModule } from '@shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SharedModule } from '@shared/shared.module';
     MessageTemplateRoutingModule,
     AngularEditorModule,
     SharedModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatTableModule
   ]

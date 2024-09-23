@@ -1,8 +1,8 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Inventory } from '@core/domain-classes/inventory';
 import { InventoryResourceParameter } from '@core/domain-classes/inventory-resource-parameter';
 import { ResponseHeader } from '@core/domain-classes/response-header';
 import { TranslationService } from '@core/services/translation.service';
@@ -13,30 +13,26 @@ import { InteractionReportsService } from '../interaction-reports.service';
 import { InteractionDataSource } from '../interaction-report-list/interaction-reports-datasource';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
+
 @Component({
-  selector: 'app-resolved-interactions-reports-list',
-  templateUrl: './resolved-interactions-reports-list.component.html',
-  styleUrls: ['./resolved-interactions-reports-list.component.scss']
+  selector: 'app-login-reports',
+  templateUrl: './login-reports.component.html',
+  styleUrls: ['./login-reports.component.scss']
 })
-export class ResolvedInteractionsReportsListComponent extends BaseComponent implements OnInit {
+export class LoginReportsComponent extends BaseComponent implements OnInit {
+
   toDate: any = new Date();
   fromDate: any = new Date();
   currentDate = new Date();
-  isLoading: boolean = false
   dataSource: InteractionDataSource;
-  // 'closedDate',
-  displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'subject', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'problemId', 'gstn', 'problemreported1', 'docketno',
-    'agentRemarks', 'currentStatus', 'mobile', 'emailId', 'escalationStartDateTime', 'interactionCreatedThroughMedia', 'interactionThreadLastUpdated','resolutionComments','lastResolvedAt', 'noOfMessages',
-    'priorityName', 'reopenFlag', 'ticketAssignedTime', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'totalServeyValue', 'csatCategory'];
-  // displayedColumns: string[] = ['interactionid', 'interactiontype', 'status', 'substatus', 'category', 'subcatagory', 'contant', 'createdteam', 'createdat', 'assignto', 'gstn', 'problemreported1', 'docketno'];
+  isLoading: boolean = false
+  displayedColumns: string[] = ['agent','team','loginTime','remoteIP']
   columnsToDisplay: string[] = ["footer"];
   inventoryResource: InventoryResourceParameter;
   loading$: Observable<boolean>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   _productNameFilter: string;
-  expandedElement: Inventory = null;
-
   public filterObservable$: Subject<string> = new Subject<string>();
 
   public get ProductNameFilter(): string {
@@ -68,7 +64,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
 
   ngOnInit(): void {
     this.dataSource = new InteractionDataSource(this.interactionReportsService);
-    this.dataSource.loadResolvedData(this.inventoryResource);
+    this.dataSource.loadLoginData(this.inventoryResource);
     this.getResourceParameter();
     this.sub$.sink = this.filterObservable$
       .pipe(
@@ -77,12 +73,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
       .subscribe((c) => {
         this.inventoryResource.skip = 0;
         this.paginator.pageIndex = 0;
-
-        const strArray: Array<string> = c.split('##');
-        if (strArray[0] === 'productName') {
-          this.inventoryResource.productName = escape(strArray[1]);
-        }
-        this.dataSource.loadResolvedData(this.inventoryResource);
+        this.dataSource.loadLoginData(this.inventoryResource);
       });
   }
 
@@ -94,7 +85,7 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
           this.inventoryResource.skip = this.paginator.pageIndex * this.paginator.pageSize;
           this.inventoryResource.pageSize = this.paginator.pageSize;
           this.inventoryResource.orderBy = this.sort.active + ' ' + this.sort.direction;
-          this.dataSource.loadResolvedData(this.inventoryResource);
+          this.dataSource.loadLoginData(this.inventoryResource);
         })
       )
       .subscribe();
@@ -120,15 +111,14 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.inventoryResource.fromDate = toDate
     this.inventoryResource.toDate = fromDate
-    this.dataSource.loadResolvedData(this.inventoryResource);
+    this.dataSource.loadLoginData(this.inventoryResource);
   }
   searchList() {
     this.setParams();
-    this.dataSource.loadResolvedData(this.inventoryResource);
+    this.dataSource.loadLoginData(this.inventoryResource);
   }
 
   setParams() {
-
     let toDate = this.datepipe.transform(this.toDate, 'yyyy-MM-dd');
     let fromDate = this.datepipe.transform(this.fromDate, 'yyyy-MM-dd');
     this.paginator.pageIndex = 0;
@@ -138,130 +128,95 @@ export class ResolvedInteractionsReportsListComponent extends BaseComponent impl
   }
 
 
-  dowanloadList() {
+  downloadList() {
     this.isLoading = true
     this.setParams();
-    this.interactionReportsService.getResolvedInteractionsReportsList(this.inventoryResource).subscribe((res: any) => {
+    this.interactionReportsService.getSlaReportsListDowanload(this.inventoryResource).subscribe((res: any) => {
       let InteractionRecods: any = res?.body;
       let heading = [[
-        'Interaction Id',
-        'Interaction Type',
-        'Status',
-        'Sub Status',
-        'Category',
-        'Sub Category',
-        'Subject',
-        'Contact Name',
-        'Mobile No.',
-        'Email',
+        'Interaction ID',
         'Team',
-        'Problem Id',
+        'Subject',
         'GSTN',
-        'Problem Reported',
-        'Docket no',
-        'Assign To',
-        'Created At',
-        'Agent Remarks',
-        'Current Status',
-        'Escalation Start Date Time',
-        'Interaction Created Through Media',
+        'Assigned To',
+        'Interaction State',
+        'Interaction Sub State',
         'Interaction Thread Last Updated',
-        'Resolution Comments',
-        'Last Resolved At',
-        'No Of Messages',
-        'priority Name',
-        'Reopen Flag',
+        'Disposition',
+        'Sub Disposition',
+        'Problem Reported',
+        'Docket Number',
+        'Interaction Created Through Media',
+        'Escalation Start Date Time',
         'Ticket Assigned Time',
-        'Q1',
-        'Q2',
-        'Q3',
-        'Q4',
-        'Q5',
-        'Q6',
-        'Additional Feedback',
-        'Total Survey Value',
-        'CSAT Category'
+        'Last Resolved At',
+        'Unique Number',
+        'Reopen Flag',
+        'Problem Id',
+        'Assign To L2 Team New'
       ]];
-
 
       let interactionsReport = [];
       InteractionRecods.forEach(data => {
         interactionsReport.push({
           'Interaction Id': data?.interactionId,
-          'Interaction Type': data?.ticketType,
-          'Status': data?.interactionState,
-          'Sub Status': data?.interactionSubState,
-          'Category': data?.disposition,
-          'Sub Category': data?.subDisposition,
+          'Team': data?.createdTeam,
           'Subject': data?.subject,
-          'Contact Name': data?.contactName,
-          'Mobile No.': data?.mobileNo,
-          'Email ': data?.emailId,
-          'Team': data?.teamName || data?.team,
-          'Problem Id': data?.problemId || data?.problemID,
           'GSTN': data?.gstn,
+          'Assigned To': data?.assignToName,
+          'Interaction State': data?.interactionState,
+          'Interaction Sub State': data?.interactionSubState,
+          'Interaction Thread Last Updated': data?.interactionThreadLastUpdated,
+          'Disposition': data?.disposition,
+          'Sub Disposition': data?.subDisposition,
           'Problem Reported': data?.problemReported,
-          'Docket no': data?.docketNumber,
-          'Assign To': data?.assignedTo,
-          'Created At': this.datepipe.transform(data?.createdDate, 'yyyy-MM-dd hh:mm:ss a'),
-          'Agent Remarks': data?.agentRemarks,
-          'Current Status': data?.currentStatus,
-          'Escalation Start Date Time': this.datepipe.transform(data?.escalationStartDateTime, 'yyyy-MM-dd hh:mm:ss a'),
+          'Docket Number': data?.docketNumber,
           'Interaction Created Through Media': data?.interactionCreatedThroughMedia,
-          'Interaction Thread Last Updated': this.datepipe.transform(data?.interactionThreadLastUpdated, 'yyyy-MM-dd hh:mm:ss a'),
-          'Resolution Comments':data?.resolutionComments,
-          'Last Resolved At': this.datepipe.transform(data?.lastResolvedAt, 'yyyy-MM-dd hh:mm:ss a'),
-          'No Of Messages': data?.noOfMessages,
-          'priority Name': data?.priorityName,
+          'Escalation Start Date Time': data?.escalationStartDateTime,
+          'Ticket Assigned Time': data?.ticketAssignedTime,
+          'Last Resolved At': data?.lastResolvedAt,
+          'Unique Number': data?.uniqueNumber,
           'Reopen Flag': data?.reopenFlag,
-          'Ticket Assigned Time': this.datepipe.transform(data?.ticketAssignedTime, 'yyyy-MM-dd hh:mm:ss a'),
-          'Q1': data?.q1||data?.accessibility,
-          'Q2': data?.q2||data?.knowledge,
-          'Q3': data?.q3||data?.resolution,
-          'Q4': data?.q4||data?.experience,
-          'Q5': data?.q5||data?.timeliness,
-          'Q6': data?.q6||data?.overallFeedback,
-          'Additional Feedback': data?.q7||data?.additionalFeedback,
-          'Total Survey Value': data?.totalServeyValue,
-          'CSAT Category': data?.csatCategory
+          'Problem Id': data?.problemID,
+          'Assign To L2 Team New': data?.assignToL2TeamNew,
         })
       });
       let workBook = XLSX.utils.book_new();
       XLSX.utils.sheet_add_aoa(workBook, heading);
       let workSheet = XLSX.utils.sheet_add_json(workBook, interactionsReport, { origin: "A2", skipHeader: true });
-      XLSX.utils.book_append_sheet(workBook, workSheet, 'Interaction Report List');
-      XLSX.writeFile(workBook, 'Interaction Report List' + ".xlsx");
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Login Report');
+      XLSX.writeFile(workBook, 'Login Report' + ".xlsx");
       this.isLoading = false
+
     }, error => {
       this.isLoading = false
     })
 
   }
 
-  dowanloadExcal(){
-    let url = `Excel/GetExcelFileForResolvedReport`
+  downloadExcel() {
+    let url = `Excel/GetExcelFileForLoginAuditReport`
     this.isLoading = true;
     this.setParams();
-    this.interactionReportsService.get187InteractionsReportsExcelDowanload(url,this.inventoryResource).subscribe((res: any) => {
-      let emailDocumentList =  res
-      let receivedData = new Blob([emailDocumentList], { type:'.xlsx' })
+    this.interactionReportsService.get187InteractionsReportsExcelDowanload(url, this.inventoryResource).subscribe((res: any) => {
+      let emailDocumentList = res
+      let receivedData = new Blob([emailDocumentList], { type: '.xlsx' })
       const url = window.URL.createObjectURL(receivedData);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'ResolvedInteractionsReports.xlsx';
+      a.download = 'LoginReport.xlsx';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       this.isLoading = false
-  
-    },error=>{
-      this.isLoading = false
+
+    }, error => {
       this.toasterService.error(error)
+      this.isLoading = false
+
     })
   }
 
+
 }
-
-
-

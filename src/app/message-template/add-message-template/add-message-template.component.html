@@ -60,7 +60,9 @@
               {{'WORD_MUST_BE_START_AND_END_WITH' | translate }}
             </span>
           </label>
-          <angular-editor formControlName="body" [config]="editorConfig"></angular-editor>
+          <!-- <angular-editor formControlName="body" [config]="editorConfig"></angular-editor> -->
+          <textarea type="text" maxlength="20000" formControlName="body" rows="8"
+          class="form-control"></textarea>
           <div *ngIf="messageTemplateForm.get('body').dirty && messageTemplateForm.get('body').errors">
             <div class="text-danger" *ngIf="messageTemplateForm.get('body').errors?.required">
               {{'BODY_IS_REQUIRED' | translate }}

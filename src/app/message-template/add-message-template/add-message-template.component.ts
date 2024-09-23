@@ -17,7 +17,7 @@ export class AddMessageTemplateComponent extends BaseComponent implements OnInit
   messageTemplateForm: UntypedFormGroup;
   messageTemplate: any = '';
   editorConfig = EditorConfig;
-
+loading:boolean = false;
   constructor(
     private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
@@ -43,32 +43,44 @@ export class AddMessageTemplateComponent extends BaseComponent implements OnInit
   }
 
   getEmailDataBy(id) {
+    this.loading=true
     this.messageTemplateService.getMessageTemplateById(id).subscribe(res => {
       this.messageTemplate = res || '';
       this.patchEmailTemplateData();
+      this.loading=false
+    },error=>{
+      this.loading=false
     })
 
   }
 
   addUpdateEmailTemplate() {
     if (this.messageTemplateForm.valid) {
+      this.loading=true
       if (this.messageTemplate) {
         this.sub$.sink = this.messageTemplateService
           .updateMessageTemplate(this.createBuildObject())
           .subscribe(c => {
-            this.toastrService.success('SMS template ujpdated successfully');
+            this.toastrService.success('SMS template updated successfully');
+            this.loading=false
             this.router.navigate(['/message-template']);
+          },error=>{
+            this.loading=false
           });
       } else {
         this.sub$.sink = this.messageTemplateService
           .addMessageTemplate(this.createBuildObject())
           .subscribe((c: any) => {
             if (c?.success) {
+              this.loading=false
               this.toastrService.success(this.translationService.getValue('SMS template saved successfully'))
               this.router.navigate(['/message-template']);
             } else {
+              this.loading=false
               this.toastrService.error(c?.message)
             }
+          },error=>{
+            this.loading=false
           })
       }
     } else {
@@ -102,7 +114,7 @@ export class AddMessageTemplateComponent extends BaseComponent implements OnInit
   patchEmailTemplateData() {
     this.messageTemplateForm.patchValue({
       name: this.messageTemplate.name,
-      templateDltId:this.messageTemplate.templateDltId,
+      templateDltId:this.messageTemplate.templateDltId || this.messageTemplate.templateDLTId,
       subject: this.messageTemplate.subject,
       body: this.messageTemplate.body
     })

@@ -64,6 +64,7 @@ this.smsConfigForm.patchValue(res);
       const data: SMSConFigSetting = this.smsConfigForm.value
       let userDetail = JSON.parse(localStorage.getItem('authObj'))
       data.userId = userDetail?.id;
+      data.isDefault?1:0
       if (this.isEditMode) {
         data.isEdit = 1
         this.sub$.sink = this.smsSettingConfigService.updateSMSConFigSetting(data).subscribe((res: any) => {

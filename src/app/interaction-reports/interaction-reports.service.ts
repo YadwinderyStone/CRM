@@ -118,7 +118,7 @@ export class InteractionReportsService {
   get187InteractionsReportsExcelDowanload(data,params){
     let param:any = `ToDate=${params?.toDate}` 
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
-    //  param+=`&PageSize=${params?.pageSize.toString()}`
+     if(params?.smsStatus) param+=`&SmsStatus=${params?.smsStatus}`
     // param+=`&PageNumber=${params?.pageNumber.toString()}`
   let url = `${data}?${param}`;
     return this.http.get(url,{responseType:'arraybuffer'});
@@ -249,12 +249,32 @@ export class InteractionReportsService {
     });
   }
   getSlaReportsList(params){
-    // FIXME:Need to change api url 
     let param:any = `ToDate=${params?.toDate}`
     if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
      param+=`&PageSize=${params?.pageSize.toString()}`
     param+=`&PageNumber=${params?.pageNumber.toString()}`
     const url = `Report/GetInteractionReportForSLA14B?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getLoginReportsList(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
+    const url = `Report/GetLoginAuditReport?${param}`;
+    return this.http.get<any[]>(url, {
+      observe: 'response',
+    });
+  }
+  getSMSReportsList(params){
+    let param:any = `ToDate=${params?.toDate}`
+    if(params?.fromDate) param+=`&FromDate=${params?.fromDate}`
+     param+=`&PageSize=${params?.pageSize.toString()}`
+    param+=`&PageNumber=${params?.pageNumber.toString()}`
+    param+=`&SmsStatus=${params?.smsStatus}`
+    const url = `Report/GetSmsQueueReport?${param}`;
     return this.http.get<any[]>(url, {
       observe: 'response',
     });

@@ -419,39 +419,58 @@
               </p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_SERVEY_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/survey-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>Survey Reports</p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_TAT_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/grp-tat-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>GRP TAT Reports</p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_SLA14B_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/sla-14b-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>SLA 14B Reports</p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_EMAILRESOLUTION_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/email-resolution-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>Email Resolution</p>
             </a>
           </li>
-          <li *hasClaim="'REP_INTERCATION_REPPORT'" class="nav-item">
+          <li *hasClaim="'REP_INTERCATION_PRODUCTVITY_REPORT'" class="nav-item">
             <a [routerLink]="['/interaction-report/agent-productivity-reports']" routerLinkActive="active"
               [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="far fa-list-alt nav-icon"></i>
               <p>Agent Productivity</p>
+            </a>
+          </li>
+          <li *hasClaim="'REP_INTERCATION_LOGIN_REPORT'" class="nav-item">
+            <a [routerLink]="['/interaction-report/login-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                Login Reports
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <!-- *hasClaim="'REP_INTERCATION_SMS_REPORT'" -->
+            <a [routerLink]="['/interaction-report/sms-reports']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+              <i class="far fa-list-alt nav-icon"></i>
+              <p>
+                SMS Reports
+              </p>
             </a>
           </li>
         </ul>

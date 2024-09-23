@@ -76,14 +76,17 @@ export class InteractionDetailViewDialogComponent implements OnInit {
       this.isLoading = true
 // let dispodesc =this.statusList.filter(e=> e.dispoCode==this.disposeForm.value?.dispositionId)
 let data ={
-    "callId": this.data?.userData?.callId,
-    "agentId":this.data?.userData?.agentId,
-    "mobileNumber": this.data?.userData?.cli,
-    "dni": "",
-    "direction": this.data?.userData?.direction,
-    "terminal":this.data?.userData?.terminal,
-    "intercationId": this.data?.id,
-    "contactId": this.data?.userData?.custId,
+    callId: this.data?.userData?.callId|| '',
+    agentId:this.data?.userData?.agentId || '',
+    mobileNumber: this.data?.userData?.cli || '',
+    dni:'' ,
+    direction: this.data?.userData?.direction || '',
+    terminal:this.data?.userData?.terminal || '',
+    intercationId: this.data?.id || '',
+    contactId: this.data?.userData?.custId || '',
+    campaignName:this.data?.userData?.campaignName || '',
+    callback:this.data?.userData?.callback || '',
+    remarks:''
 }
       this.inventoryService.callDispose(data).subscribe(res => {
         if (res) {

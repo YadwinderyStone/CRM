@@ -15,6 +15,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class MessageTemplateListComponent extends BaseComponent implements OnInit {  
     messageTemplates: MessageTemplate[] = [];
+    loading:boolean = false
     displayedColumns: string[] = ['action', 'name', 'subject','date','createdBy'];
     constructor(
       private messageTemplateService: MessageTemplateService,
@@ -31,26 +32,33 @@ export class MessageTemplateListComponent extends BaseComponent implements OnIni
       this.getMessageTemplates();
     }
   
-    delteEmailTemplate(data: MessageTemplate) {
+    deleteEmailTemplate(data: MessageTemplate) {
       const areU = this.translationService.getValue('ARE_YOU_SURE_YOU_WANT_TO_DELETE')
       this.sub$.sink = this.commonDialogService
         .deleteConformationDialog(`${areU}:: ${data.name}`)
         .subscribe((flag: boolean) => {
           if (flag) {
+            this.loading = true
             this.sub$.sink = this.messageTemplateService.deleteMessageTemplate(data)
-              .subscribe(() => {
+            .subscribe(() => {
+                this.loading = false
                 this.toastrService.success('Message Template Deleted Successfully');
                 this.getMessageTemplates();
+              },error=>{
+                this.loading = false
               });
           }
         });
     }
   
     getMessageTemplates(): void {
+      this.loading = true
       this.sub$.sink = this.messageTemplateService.getMessageTemplates()
         .subscribe((data: any) => {
           this.messageTemplates = data?.smsTemplateList;
+          this.loading = false
         }, (err: CommonError) => {
+          this.loading = false
           err.messages.forEach(msg => {
             this.toastrService.error(msg)
           });

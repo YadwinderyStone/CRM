@@ -17,7 +17,8 @@ import { CustomerService } from '../customer.service';
 import { EditorConfig } from '@shared/editor.config';
 import { CustomerResourceParameter } from '@core/domain-classes/customer-resource-parameter';
 import { AddInteractionResolverService } from 'src/app/inventory/add-interactions/add-interactions-resolver.service';
-
+import { AddNoteDialogComponent } from 'src/app/inventory/add-note-dialog/add-note-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 export class AlreadyExistValidator {
   static exist(flag: boolean): ValidatorFn {
     return (c: AbstractControl): { [key: string]: boolean } | null => {
@@ -35,7 +36,7 @@ export class AlreadyExistValidator {
   styleUrls: ['./customer-detail.component.scss'],
 })
 export class CustomerDetailComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['interactionid', 'contant', 'interactiontype', 'createdteam', 'assignto', 'status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat',];
+  displayedColumns: string[] = ['action','interactionid', 'contant', 'interactiontype', 'createdteam', 'assignto', 'status', 'substatus', 'category', 'subcatagory', 'gstn', 'problemreported1', 'docketno', 'lastresolveat',];
   customerForm: UntypedFormGroup;
   imgSrc: any = null;
   ctiInfo:any = {}
@@ -62,6 +63,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     private customerService: CustomerService,
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
     private toastrService: ToastrService,
     public translationService: TranslationService,
   ) {
@@ -251,7 +253,8 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
         transNo: this.customer?.transactionNumber, email: formValues?.emailId,mobileNo:formValues?.mobileNo,
         custId: this.customer?.id, custName: this.customer?.name +' '+ this.customer?.lastName, subject: subject,
         direction:this.ctiInfo?.direction,
-        cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId
+        cli:this.ctiInfo?.cli,agentId:this.ctiInfo?.agentId,terminal:this.ctiInfo?.terminal,callId:this.ctiInfo?.callId,
+        campaignName:this.ctiInfo?.campaignName,callback:this.ctiInfo?.callback
       }
     this.customerService.userData=routeData;
       this.router.navigate(['/interactions/add-interactions']);
@@ -367,8 +370,24 @@ if (event?.value == 2){
 }
 
 
-
-
+openDialog(data){
+  let ctiInfo = {...this.ctiInfo,custId:this.customer?.id}
+ data.ctiInfo=ctiInfo
+//  data.ctiInfo.custId=this.customer?.id
+ 
+  data.show=false
+  this.dialog.open(AddNoteDialogComponent, {
+    disableClose: false,
+    width: '85vw',
+    maxHeight: '800px',
+    height: 'auto',
+    data: data
+  }).afterClosed().subscribe(res => {
+    if (res) {
+      // this.getInteractionDetailById(this.id)
+    }
+  })
+}
 
 
 

@@ -243,5 +243,22 @@
                 </mat-error>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <mat-label>Comment</mat-label>
+                <textarea maxlength="2000" type="text" class="form-control"
+                    formControlName="comments"></textarea>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('comments').touched && addInventoryForm.get('comments').errors?.required"
+                    class="text-danger">
+                    Please enter agent remarks.
+                </mat-error>
+                <mat-error [dir]="langDir"
+                    *ngIf="addInventoryForm.get('comments').touched && addInventoryForm.get('comments').errors?.pattern"
+                    class="text-danger">
+                    Special characters not allowed.
+                </mat-error>
+            </div>
+        </div>
     </div>
 </form>

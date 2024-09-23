@@ -24,6 +24,7 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
   subject: string = ''
   isLoading = false;
   files: any = [];
+  smsData: any;
   fileData: FileInfo[] = [];
   extension: string = '';
   fileType: string = '';
@@ -46,6 +47,7 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
 
     this.subject = value;
     this.user = JSON.parse(localStorage.getItem('authObj'));
+
   }
 
 
@@ -73,6 +75,14 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     this.selectedEmailTamplate.body = status
     this.emailForm.patchValue(this.selectedEmailTamplate);
     this.emailForm.get('subject').setValue(this.subject);
+    let tempId = '';
+    if (this.selectedEmailTamplate?.name == 'ACI Template') {
+      tempId = 'D7E7C167-BBDE-47AA-BBDA-15CA49E391FC';
+    } 
+    if(this.selectedEmailTamplate?.name == 'Resolved Template') {
+      tempId = '93E7D897-24A0-4EE1-9F13-48B6165DAF20';
+    }
+    this.getSMSTemplate(tempId);
   }
 
   newParameter(parameter): UntypedFormGroup {
@@ -129,6 +139,13 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     };
   }
 
+  getPlainTextContent(data) {
+    const content = data;
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    const plainText = tempDiv.innerText || tempDiv.textContent || '';
+    return plainText;
+  }
   sendEmail() {
     if (!this.emailForm.valid) {
       this.emailForm.markAllAsTouched();
@@ -144,8 +161,11 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
       fromAddress: this.emailForm.value.from,
       attechments: this.fileData,
       interactionId: this.data?.id,
-      interactionNumber: this.data?.transactionNumber
+      interactionNumber: this.data?.transactionNumber,
+      emailContent: this.getPlainTextContent(this.emailForm.value.body),
+      // mailMessageHtml: this.emailForm.value.body
     }
+    this.sendSms();
     this.emailSendService.sendEmail(emailObj)
       .subscribe(res => {
         this.toastrService.success(this.translationService.getValue('EMAIL_SENT_SUCCESSFULLY'));
@@ -153,6 +173,56 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
         this.clearForm();
         this.createTransferHistory(emailObj);
         // this.dialogRef.close(true);
+      }, error => {
+        this.toastrService.error(error);
+        this.isLoading = false;
+      });
+  }
+  getSMSTemplate(id) {
+    this.emailSendService.getSmsDataById(id).subscribe(res => {
+      this.smsData = res
+    })
+  }
+
+  sendSms() {
+    debugger
+    let tempId = '';
+    if (this.selectedEmailTamplate?.name == 'ACI Template') {
+      tempId = 'D7E7C167-BBDE-47AA-BBDA-15CA49E391FC';
+    } 
+    if(this.selectedEmailTamplate?.name == 'Resolved Template') {
+      tempId = '93E7D897-24A0-4EE1-9F13-48B6165DAF20';
+    }
+
+    let data = {
+      mobile: this.data?.mobileNo,
+      subject: this.smsData?.subject,
+      body: this.getPlainTextContent(this.smsData?.body),
+      interactionId: this.data?.id,
+      templateId: tempId,
+      // templateDLTId:this.smsData?.templateDLTId,
+      userId: this.user?.id,
+      smsLanguage: "E",
+      smsStatus: "P",
+      smsRecipientNumber: this.data?.mobileNo,
+      smSrefrenceData1: this.data?.categoryName,
+      smSrefrenceData2: this.data?.gstn,
+      smsRecipientName: this.data?.contactName,
+      smsSenderNumber: "GSTIND",
+      smsSenderName: "GSTIND",
+      smsText: this.getPlainTextContent(this.smsData?.body),
+      smsRetryCount: 1,
+      relatedToId: this.data?.id,
+      relatedToName: this.data?.transactionNumber
+    }
+    this.emailSendService.sendMessage(data)
+      .subscribe((res: any) => {
+        if (res?.success) {
+          this.createMessageHistory(this.getPlainTextContent(this.smsData?.body))
+          this.toastrService.success('SMS sent successfully');
+        } else {
+          this.toastrService.error(res?.message || 'error');
+        }
       }, error => {
         this.toastrService.error(error);
         this.isLoading = false;
@@ -197,16 +267,31 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
 
   }
 
-
-
-
-
   createTransferHistory(value: any) {
     this.isLoading = true
     let data = {
       id: this.data?.id,
       action: 11,
       message: `Email replay ${value?.body} by ${this.user?.firstName}`
+
+    }
+    this.inventoryService.createHistory(data).subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+        this.isLoading = false;
+      }
+    }, error => {
+      this.toastrService.error(error);
+      this.isLoading = false
+    })
+  }
+  createMessageHistory(value: any) {
+    this.isLoading = true
+    let data = {
+      id: this.data?.id,
+      action: 11,
+      message: `SMS reply send  ${value} by ${this.user?.firstName}`
+
     }
     this.inventoryService.createHistory(data).subscribe(res => {
       if (res) {
@@ -219,5 +304,5 @@ export class SendEmailDialogComponent extends BaseComponent implements OnInit {
     })
   }
 
-  
+
 }

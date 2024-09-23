@@ -21,4 +21,5 @@ export class InventoryResourceParameter extends ResourceParameter {
     gstn: string
     mobileNo: string | number
     emailId: string
+    smsStatus?: string
 }

@@ -18,7 +18,7 @@
                     <label class="font-weight-bold">
                      Comment
                     </label>
-                    <angular-editor formControlName="body"  maxLength="1200"
+                    <angular-editor formControlName="body" maxLength="1200"
                         [config]="editorConfig"></angular-editor>
                     <div *ngIf="notesForm.get('body').touched && notesForm.get('body').errors">
                         <div class="text-danger" *ngIf="notesForm.get('body').errors?.required">
@@ -41,7 +41,7 @@
                     <owl-date-time #nextStatusTime></owl-date-time>
                 </div>
             </div> -->
-            <div class="col-md-12 mt-2">
+            <div class="col-md-12 mt-2" *ngIf="data?.show">
                 <div class="form-group">
                   <label class="font-weight-bold"> {{'ATTACHMENTS' | translate}} </label>
                   <div class="dropzone" appDragDrop (onFileDropped)="onFileDropped($event)">
@@ -73,6 +73,66 @@
               </div>
         </div>
     </form>
+
+    <div class="px-3" *ngIf="!data?.show" >
+        <div class="page-header-main headerBackground">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-auto col-sm-auto">
+                    <div class="content-header">
+                        <h1>Recent Comments </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="NotesDiv">
+                <div class="" *ngIf="notesList.length">
+                    <div class="table-responsive">
+                        <table [dir]="langDir" mat-table [dataSource]="notesList" multiTemplateDataRows
+                            class="table table-bordered table-hover table-heightNotes">
+                            <ng-container matColumnDef="name">
+                                <th class="table-column-200" mat-header-cell *matHeaderCellDef> Created By</th>
+                                <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdByName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="date">
+                                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Created Date </th>
+                                <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.createdDate|
+                                    date:'dd-MM-yyyy hh:mm a' }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="nextStatusTime">
+                                <th class="table-column-200" mat-header-cell *matHeaderCellDef>Next Status Time </th>
+                                <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.nextStatusTime |
+                                    date:'dd-MM-yyyy hh:mm a'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="noteDesc">
+                                <th class="table-column-500" mat-header-cell *matHeaderCellDef> Description</th>
+                                <td class="table-column-500" mat-cell *matCellDef="let element">
+                                    <div class="Desc" [innerHTML]="element.noteDesc"></div>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="teamName">
+                                <th class="table-column-150" mat-header-cell *matHeaderCellDef> Team</th>
+                                <td class="table-column-150" mat-cell *matCellDef="let element"> {{element.teamName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="transactionNo">
+                                <th class="table-column-200" mat-header-cell *matHeaderCellDef> Intercation Number</th>
+                                <td class="table-column-200" mat-cell *matCellDef="let element"> {{element.intercationNumber}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="id">
+                                <th class="table-column-100" mat-header-cell *matHeaderCellDef> ID</th>
+                                <td class="table-column-100" mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnsToDisplay;sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                        </table>
+        
+                    </div>
+                </div>
+                <div class="noNotes" *ngIf="!notesList.length && !isLoading">
+                    <span>No comment found</span>
+                </div>
+            </div>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions>
     <div *hasClaim="'INT_ADD_INTERACTION'" class="col-md-auto col-sm-auto col-auto">

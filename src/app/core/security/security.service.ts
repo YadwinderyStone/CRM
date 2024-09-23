@@ -158,4 +158,11 @@ export class SecurityService {
     var userJson = localStorage.getItem('authObj');
     return JSON.parse(userJson);
   }
+
+userLogout(data){
+ const url =`UserLoginData/UpdateUserLoginLogoutTime`;
+ return this.http.put(url,data);
+}
+
+
 }

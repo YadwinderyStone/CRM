@@ -22,16 +22,21 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
   extension: string = '';
   fileType: string = '';
   currentDate = new Date();
+  notesList: any = [];
+  columnsToDisplay: string[] = ['transactionNo','noteDesc','name','teamName','date'];
   constructor(public dialogRef: MatDialogRef<AddNoteDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data,
     private fb: UntypedFormBuilder,
     private toastrService: ToastrService,
     private inventoryService: InventoryService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
   ) {
     super(translationService);
-    this.data;
+    this.data?.show==false||undefined?this.data.show=false:this.data.show=true;
+    if(!this.data?.show){
+    this.getNotesList();
+    }
     this.getLangDir();
     this.editorConfig.height = '100px';
     this.editorConfig.minHeight = '100px';
@@ -47,7 +52,16 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
     });
   }
 
-
+  getNotesList() {
+    this.isLoading = true;
+    this.inventoryService.getInteractionNotes(this.data.id).subscribe(res => {
+      this.notesList = res
+      this.isLoading = false
+    }, error => {
+      this.isLoading = false
+      this.toastrService.error(error)
+    })
+  }
   addNote() {
     if (this.notesForm.invalid) {
       this.notesForm.markAllAsTouched();
@@ -68,8 +82,11 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
 
     this.inventoryService.addCrmNote(crmNoteData).subscribe(res => {
       if (res) {
-        this.toastrService.success('Note added successfully');
-        this.createTransferHistory(crmNoteData)
+        this.toastrService.success('Comment added successfully');
+        if(!this.data?.show){
+          this.callDispose();
+        }
+        this.createTransferHistory(crmNoteData);
         // this.dialogRef.close(true);
         this.isLoading = false
       }
@@ -79,7 +96,48 @@ export class AddNoteDialogComponent extends BaseComponent implements OnInit {
       this.isLoading = false
     })
   }
+  
+  callDispose(){
+    let data ={
+      "callId": this.data?.ctiInfo?.callId||'',
+      "agentId":this.data?.ctiInfo?.agentId||'',
+      "mobileNumber": this.data?.ctiInfo?.cli||'',
+      "dni": "",
+      "direction": this.data?.ctiInfo?.direction||'',
+      "terminal":this.data?.ctiInfo?.terminal||'',
+      "intercationId": this.data?.id||'',
+      "contactId": this.data?.ctiInfo?.custId||'',
+      campaignName:this.data?.ctiInfo?.campaignName||'',
+      callback:this.data?.ctiInfo?.callback||'',
+      remarks: this.getPlainTextContent(this.notesForm.value.body)
+  }
+        this.inventoryService.callDispose(data).subscribe(res => {
+          if (res) {
+            // this.toasterService.success('successfully')
+            this.dialogRef.close(true);
+            this.isLoading = false
+            
+          }else{
+            this.dialogRef.close(true);
+          }
+        }, error => {
+          this.isLoading = false
+          this.dialogRef.close(true);
+          // this.dialogRef.close(true);
+          // this.toasterService.error('Error In Cti Close Call Api')
+        })
 
+
+
+  }
+
+  getPlainTextContent(data) {
+    const content = data;
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    const plainText = tempDiv.innerText || tempDiv.textContent || '';
+    return plainText;
+  }
   createTransferHistory(value:any){
     this.isLoading=true
     let data = {
